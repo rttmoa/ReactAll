@@ -3,6 +3,8 @@ import classnames from 'classnames'
 import Icon from '../Icon'
 import Transition from '../Transition'
 
+
+
 export type AlertType = 'success' | 'primary' | 'warning' | 'danger' | 'default'
 
 export interface AlertProps {
@@ -32,9 +34,7 @@ export const Alert: React.FC<AlertProps> = (props) => {
   const { title, closable, type, customClose, onClose, children } = props
 
   const customCloseP = customClose || <Icon icon="times" className="window-close" size='lg'/>
-  const classes = classnames('alert', {
-    [`alert-${type}`]: type
-  })
+  const classes = classnames('alert', {[`alert-${type}`]: type})
 
   const handleClick = () => {
     setVisible(false)

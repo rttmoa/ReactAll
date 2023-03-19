@@ -6,15 +6,13 @@ interface DraggerProps {
 }
 
 export const Dragger: FC<DraggerProps> = (props) => {
-  const { onFile, children } = props
+  const { onFile, children } = props;
   const [ dragOver, setDragOver ] = useState(false)
-  const classes = classNames('viking-uploader-dragger', {
-    'is-dragover': dragOver
-  })
+  const classes = classNames('viking-uploader-dragger', { 'is-dragover': dragOver })
   const handleDrop = (e: DragEvent<HTMLElement>) => {
-    e.preventDefault()
-    setDragOver(false)
-    onFile(e.dataTransfer.files)
+    e.preventDefault();
+    setDragOver(false);
+    onFile(e.dataTransfer.files);
   }
   const handleDrag = (e: DragEvent<HTMLElement>, over: boolean) => {
     e.preventDefault()

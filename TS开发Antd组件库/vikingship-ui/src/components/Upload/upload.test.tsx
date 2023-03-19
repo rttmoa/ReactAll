@@ -21,7 +21,7 @@ const testProps: UploadProps = {
   drag: true
 }
 
-let wrapper: RenderResult, fileInput: HTMLInputElement, uploadArea: HTMLElement
+let wrapper: RenderResult, fileInput: HTMLInputElement, uploadArea: HTMLElement;
 const testFile = new File(['xyz'], 'test.png', { type: 'image/png' })
 
 describe('test upload component', () => {

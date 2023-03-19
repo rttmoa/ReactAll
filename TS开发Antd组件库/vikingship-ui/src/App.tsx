@@ -13,15 +13,13 @@ import UploadDemo from './demos/upload-demo'
 function App() {
   const [title, setTitle] = useState('')
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/posts/1').then(response => {
-    //   console.log(response);
-      setTitle(response.data.title)
-    })
+    axios.get('https://jsonplaceholder.typicode.com/posts/1').then(response => { setTitle(response.data.title) })
   })
   return (
-    <div className="App">
-      {title}
+    <div className="App" style={{padding: '20px 80px'}}>
+      <b>{title}</b>
       <br />
+      <AlertDemo />
       {/* <UploadDemo /> */}
       {/* <InputDemo /> */}
       {/* <TransitionDemo /> */}
@@ -29,7 +27,7 @@ function App() {
       {/* <TabsDemo /> */}
       {/* <MenuDemo /> */}
       {/* <ButtonDemo /> */}
-      {/* <AlertDemo /> */}
+      
     </div>
   )
 }

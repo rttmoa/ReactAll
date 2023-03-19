@@ -4,6 +4,7 @@ import { action } from '@storybook/addon-actions'
 import { Upload, /* UploadFile */ } from './upload'
 // import Button from '../Button/button'
 import Icon from '../Icon/icon'
+
 // 上传前检测文件大小  直接返回布尔值
 // const checkFileSize = (file: File) => {
 //   if (Math.round(file.size / 1024) > 50) {

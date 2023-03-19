@@ -9,10 +9,8 @@ interface UploadListProps {
 }
 
 export const UploadList: FC<UploadListProps> = (props) => {
-  const {
-    fileList,
-    onRemove,
-  } = props
+
+  const { fileList, onRemove } = props;
 
   return (
     <ul className="viking-upload-list">

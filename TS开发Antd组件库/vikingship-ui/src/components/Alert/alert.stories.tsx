@@ -28,4 +28,4 @@ export const alertWithChildren = () => (
 storiesOf('Alert Component', module)
   .add('Alert', defaultAlert)
   .add('不同样式的 Alert', alertWithType)
-  .add('添加描述的 Alert', alertWithChildren)
+  .add('添加描述的2 Alert', alertWithChildren)
