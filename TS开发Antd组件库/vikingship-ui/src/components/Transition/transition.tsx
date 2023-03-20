@@ -35,4 +35,4 @@ Transition.defaultProps = {
   appear: true // 初次加载时也有动画
 }
 
-export default Transition
+export default Transition;

@@ -43,16 +43,13 @@ export interface UploadProps {
   onRemove?: (file: UploadFile) => void;
   /** 添加自定义 header */
   headers?: { [key: string]: any };
-  // 添加name 属性 - 代表发到后台的文件参数名称
-  /** 文件名 */
+  /** 添加name 属性 - 代表发到后台的文件参数名称 */
   name?: string;
-  // 添加data属性 - 上传所需的额外参数
   /** 添加data属性 - 上传所需的额外参数 */
   data?: { [key: string]: any };
   /** 是否携带请求参数 */
   withCredentials?: boolean;
   // 添加input本身的file约束属性 multiple accept等
-  // accept 限定约束文件的类型
   /** 可接受上传文件的类型 */
   accept?: string;
   /** 允许上传多个文件 */
@@ -62,24 +59,9 @@ export interface UploadProps {
 }
 
 export const Upload: FC<UploadProps> = (props) => {
-  const {
-    action,
-    defaultFileList,
-    beforeUpload,
-    onProgress,
-    onSuccess,
-    onError,
-    onChange,
-    onRemove,
-    headers,
-    name,
-    data,
-    withCredentials,
-    accept,
-    multiple,
-    children,
-    drag
-  } = props;
+
+  const { action, defaultFileList, beforeUpload,  onProgress,  onSuccess,  onError,  onChange,  onRemove,
+          headers,  name,  data,  withCredentials,  accept,  multiple,  children,  drag  } = props;
 
   const fileInput = useRef<HTMLInputElement>(null);
 
@@ -113,7 +95,7 @@ export const Upload: FC<UploadProps> = (props) => {
       fileInput.current.value = "";
     }
   }
-
+  /***--- 文件上传列表 - 移除列表数据 ---**/
   const handleRemove = (file: UploadFile) => {
     setFileList((prevList) => {
       return prevList.filter(item => item.uid !== file.uid)
@@ -140,7 +122,7 @@ export const Upload: FC<UploadProps> = (props) => {
       }
     })
   }
-
+  /***--- 发送数据 ---**/
   const post = (file: File) => {
     let _file: UploadFile = {
       uid: Date.now() + '_upload_file',
@@ -221,8 +203,7 @@ export const Upload: FC<UploadProps> = (props) => {
         fileList={fileList}
         onRemove={handleRemove}
       />
-    </div>
-
+    </div> 
   )
 }
 

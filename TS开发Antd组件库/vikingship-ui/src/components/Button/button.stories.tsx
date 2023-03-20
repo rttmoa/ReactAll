@@ -20,6 +20,7 @@ const buttonWithType = () => (
     <Button btnType="default">Default Button</Button>
     <Button btnType="danger">Danger button</Button>
     <Button btnType="link" href="https://google.com">Link button</Button>
+    <Button btnType="danger" disabled={true} size="sm" className='test'>测试按钮</Button>
   </>
 )
 

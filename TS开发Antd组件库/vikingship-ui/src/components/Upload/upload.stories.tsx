@@ -39,6 +39,7 @@ const SimpleUpload = () => {
       // data={{ 'key': 'value' }}
       // headers={{'X-Powered-By': 'vikingship'}}
       // accept=".jpg"
+      accept=".png"
       multiple
       drag
     >

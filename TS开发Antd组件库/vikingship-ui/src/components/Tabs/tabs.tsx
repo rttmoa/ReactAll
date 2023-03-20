@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { TabsItemProps } from './tabsItem'
 
 
-type TabStyle = "underline" | "outline"
+type TabStyle = "underline" | "outline";
 
 export interface TabProps {
   /** 当前激活 tab 面板的 index，默认为0 */
@@ -16,22 +16,19 @@ export interface TabProps {
   className?: string;
 }
 /**
- * 选项卡切换组件。 提供平级的区域将大块内容进行收纳和展现，保持界面整洁。
- * ### 引用方法
- *
- * ~~~js
- * import { Tabs } from 'vikingship-ui'
- * ~~~
+ * ### 选项卡切换组件。 提供平级的区域将大块内容进行收纳和展现，保持界面整洁。
+ * #### 1 
  */
 export const Tabs: React.FC<TabProps> = (props) => {
-  const { className, styleType, children, onSelect } = props
+
+  const { className, styleType, children, onSelect } = props;
 
   const classes = classNames('tabs-nav', className, {
     'tabs-underline': styleType === 'underline',
     'tabs-outline': styleType === 'outline'
   })
 
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [activeIndex, setActiveIndex] = useState(0);
 
   function handleClick(index: number, disabled: boolean): void {
     if (disabled) {

@@ -27,10 +27,9 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLElement>, 'size
  * #### disabled? | size? | icon? | prepend? | append? | onChange()?
  */
 export const Input: FC<InputProps> = (props) => {
-  // 取出所有的属性
-  const { disabled, size, icon, prepend, append, style, ...restProps } = props;
-  // 根据不同的属性计算className | 用户行内样式的style
 
+  const { disabled, size, icon, prepend, append, style, ...restProps } = props;
+  // 根据不同的属性计算className | 用户行内样式的style 
   const classes = classNames('viking-input-wrapper', {
     [`input-size-${size}`]: size,
     'is-disabled': disabled,

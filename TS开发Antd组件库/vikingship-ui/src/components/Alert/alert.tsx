@@ -5,7 +5,7 @@ import Transition from '../Transition'
 
 
 
-export type AlertType = 'success' | 'primary' | 'warning' | 'danger' | 'default'
+export type AlertType = 'success' | 'primary' | 'warning' | 'danger' | 'default';
 
 export interface AlertProps {
   /** 标题 */
@@ -18,7 +18,7 @@ export interface AlertProps {
   onClose?: (() => void);
   /** 描述 */
   children?: React.ReactNode;
-  /** 	类型 四种可选 针对四种不同的场景 */
+  /** 类型 四种可选 针对四种不同的场景 */
   type: AlertType;
 }
 
@@ -30,6 +30,7 @@ export const Alert: React.FC<AlertProps> = (props) => {
   const { title, closable, type, customClose, onClose, children } = props
 
   const customCloseP = customClose || <Icon icon="times" className="window-close" size='lg'/>
+
   const classes = classnames('alert', {[`alert-${type}`]: type})
 
   const handleClick = () => {

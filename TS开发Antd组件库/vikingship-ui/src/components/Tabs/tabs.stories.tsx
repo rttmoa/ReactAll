@@ -5,6 +5,7 @@ import Tabs from './tabs'
 import TabsItem from './tabsItem'
 import Icon from '../Icon'
 
+
 export const defaultTabs = () => (
   <Tabs
     onSelect={function noRefCheck(){}}

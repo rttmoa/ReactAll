@@ -29,16 +29,15 @@ interface BaseButtonProps {
 
 type NativeButtonProps = BaseButtonProps & ButtonHTMLAttributes<HTMLElement>
 type AnchorButtonProps = BaseButtonProps & AnchorHTMLAttributes<HTMLElement>
+
 export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>
+
 /**
- * 页面中最常用的的按钮元素，适合于完成特定的交互，支持 HTML button 和 a 链接 的所有属性
- * ### 引用方法
- *
- * ~~~js
- * import { Button } from 'vikingship-ui'
- * ~~~
+ * ### 页面中最常用的的按钮元素，适合于完成特定的交互，支持 HTML button 和 a 链接 的所有属性
+ * #### className? | disabled? | size? | btnType? | children? | href?
  */
 export const Button: FC<ButtonProps> = (props) => {
+  
   const { btnType, disabled, size, children, className, href, ...restProps } = props
   // btn, btn-lg, btn-primary
   const classes = classNames('btn', className, {
@@ -49,21 +48,13 @@ export const Button: FC<ButtonProps> = (props) => {
 
   if (btnType === 'link' && href) {
     return (
-      <a
-        className={classes}
-        href={href}
-        {...restProps}
-      >
+      <a className={classes} href={href} {...restProps}>
         {children}
       </a>
     )
   } else {
     return (
-      <button
-        className={classes}
-        disabled={disabled}
-        {...restProps}
-      >
+      <button className={classes} disabled={disabled} {...restProps}>
         {children}
       </button>
     )
