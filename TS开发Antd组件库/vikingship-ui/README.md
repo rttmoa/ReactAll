@@ -13,3 +13,7 @@
 http://localhost:6006/?path=/docs/alert-component--alert
 
 页面启动后 动态测试项目  input.stories.tsx
+
+**使用组件**
+
+`import { Alert, Input,AutoComplete,Button,Icon,Input,Menu,Progress,Tabs,Transition  } from 'vikingship-ui'`

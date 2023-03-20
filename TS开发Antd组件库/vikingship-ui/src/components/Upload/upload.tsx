@@ -3,7 +3,10 @@ import axios from 'axios'
 import UploadList from './uploadList'
 import Dragger from './dragger'
 
-export type UploadFileStatus = 'ready' | 'uploading' | 'success' | 'error'
+
+
+export type UploadFileStatus = 'ready' | 'uploading' | 'success' | 'error';
+
 export interface UploadFile {
   uid: string;
   size: number;
@@ -16,12 +19,7 @@ export interface UploadFile {
 }
 
 /**
- * 通过点击或者拖拽上传文件
- * ### 引用方法
- *
- * ~~~js
- * import { Upload} from 'vikingship-ui'
- * ~~~
+ * ### 通过点击或者拖拽上传文件 
  */
 export interface UploadProps {
   /** 发送请求地址 */
@@ -81,10 +79,12 @@ export const Upload: FC<UploadProps> = (props) => {
     multiple,
     children,
     drag
-  } = props
+  } = props;
 
-  const fileInput = useRef<HTMLInputElement>(null)
-  const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList || [])
+  const fileInput = useRef<HTMLInputElement>(null);
+
+  const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList || []);
+
   const updateFileList = (updateFile: UploadFile, updateObj: Partial<UploadFile>) => {
     setFileList(prevList => {
       return prevList.map(file => {
@@ -96,21 +96,21 @@ export const Upload: FC<UploadProps> = (props) => {
       })
     })
   }
-
+  /***--- Div盒子onClick ---**/
   const handleClick = () => {
     if (fileInput.current) {
-      fileInput.current.click()
+      fileInput.current.click();
     }
   }
+  /***--- 输入框onChange ---**/
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) { return }
 
-  const handleFileChange = (e:ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files
-    if (!files) {
-      return
-    }
-    uploadFiles(files)
+    uploadFiles(files);
+
     if (fileInput.current) {
-      fileInput.current.value = ''
+      fileInput.current.value = "";
     }
   }
 
@@ -122,9 +122,9 @@ export const Upload: FC<UploadProps> = (props) => {
       onRemove(file)
     }
   }
-
+  /***--- 拖拽上传文件 ---**/
   const uploadFiles = (files: FileList) => {
-    let postFiles = Array.from(files)
+    let postFiles = Array.from(files);
     postFiles.forEach(file => {
       if (!beforeUpload) {
         post(file)
@@ -169,7 +169,7 @@ export const Upload: FC<UploadProps> = (props) => {
       withCredentials,
       // 上传进度计算
       onUploadProgress: (e) => {
-        let percentage = Math.round((e.loaded * 100) / e.total) || 0
+        let percentage = Math.round((e.loaded * 100) / e.total) || 0;
         if (percentage < 100) {
           updateFileList(_file, { percent: percentage, status: 'uploading' })
           if (onProgress) {
@@ -198,18 +198,13 @@ export const Upload: FC<UploadProps> = (props) => {
 
 
   return (
-    <div className="viking-upload-component">
+    <div className="viking-upload-component" style={{backgroundColor: '#fafafa'}}>
       <div
         className="viking-upload-input"
         style={{display: 'inline-block'}}
         onClick={handleClick}
       >
-          {drag ?
-            <Dragger onFile={(files) => {uploadFiles(files)}}>
-              {children}
-            </Dragger> :
-            children
-          }
+          {drag ? <Dragger onFile={(files) => {uploadFiles(files)}}>{children}</Dragger> : children}
         <input
           className="viking-file-input"
           style={{display: 'none'}}
@@ -221,6 +216,7 @@ export const Upload: FC<UploadProps> = (props) => {
         />
       </div>
 
+      {/* 文件上传列表 */}
       <UploadList
         fileList={fileList}
         onRemove={handleRemove}

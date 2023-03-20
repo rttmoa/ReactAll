@@ -14,14 +14,13 @@ export interface ProgressProps {
   theme?: ThemeProps;
 }
 
+/**
+ * ### 用于页面中展示百分比 进度条
+ * #### percent | strokeHeight? | showText? | styles? | theme?
+ */
 const Progress: FC<ProgressProps> = (props) => {
-  const {
-    percent,
-    strokeHeight,
-    showText,
-    styles,
-    theme,
-  } = props
+
+  const { percent, strokeHeight, showText, styles, theme } = props;
 
   return (
     <div className="viking-progress-bar" style={styles}>
