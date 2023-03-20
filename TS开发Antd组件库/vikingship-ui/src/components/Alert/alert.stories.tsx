@@ -3,8 +3,10 @@ import { storiesOf } from '@storybook/react'
 // import { action } from '@storybook/addon-actions'
 import Alert from './alert'
 
+
+
 export const defaultAlert = () => (
-  <Alert closable title="this is alert!" type="primary" />
+  <Alert closable={true} title="这 是 alert!" type="primary" />
 )
 
 export const alertWithType = () => (
@@ -16,16 +18,19 @@ export const alertWithType = () => (
 )
 
 export const alertWithChildren = () => (
-  <Alert
-    type="primary"
-    closable
-    title="提示标题欧亲"
-    children="this is a long description"
-    onClose={function noRefCheck(){}}
-  />
+  <>
+    <Alert
+      type="primary"
+      closable
+      title="提示标题欧亲"
+      children="this is a long description"
+      onClose={function noRefCheck(){}}
+    />
+    <Alert type="success">zhangsan</Alert>
+  </>
 )
 
 storiesOf('Alert Component', module)
   .add('Alert', defaultAlert)
   .add('不同样式的 Alert', alertWithType)
-  .add('添加描述的2 Alert', alertWithChildren)
+  .add('添加描述的及回调 Alert', alertWithChildren)

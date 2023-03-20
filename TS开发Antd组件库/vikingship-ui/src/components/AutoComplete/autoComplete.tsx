@@ -9,7 +9,7 @@ import useClickOutside from '../../hooks/useClickOutside'
 interface DataSourceObject {
   value: string;
 }
-export type DataSourceType<T = {}> = T & DataSourceObject
+export type DataSourceType<T = {}> = T & DataSourceObject;
 export interface AutoCompleteProps extends Omit<InputProps, 'onSelect'> {
   /** 返回推荐结果 */
   fetchSuggestions: (str: string) => DataSourceType[] | Promise<DataSourceType[]>;
@@ -28,13 +28,8 @@ export interface AutoCompleteProps extends Omit<InputProps, 'onSelect'> {
  * ~~~
  */
 export const AutoComplete: FC<AutoCompleteProps> = (props) => {
-  const {
-    fetchSuggestions,
-    onSelect,
-    value,
-    renderOption,
-    ...restProps
-  } = props
+
+  const { fetchSuggestions, onSelect, value, renderOption, ...restProps  } = props;
 
   const [inputValue, setInputValue] = useState(value as string)
   const [suggestions, setSuggestions] = useState<DataSourceType[]>([])

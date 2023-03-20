@@ -3,9 +3,12 @@ import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { Input } from './input'
 
+// const { disabled, size, icon, prepend, append, style, ...restProps } = props;
+
 // 受控组件
 const ControlledInput = () => {
   const [value, setValue] = useState('')
+  console.log('value', value)
   return <Input value={value} defaultValue={value} onChange={(e) => { setValue(e.target.value) }} />
 }
 
@@ -18,7 +21,7 @@ const defaultInput = () => (
     />
     <ControlledInput />
   </>
-)
+)   
 const inputWithDisabled = () => (
   <Input
     style={{width: '300px'}}

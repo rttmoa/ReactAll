@@ -6,9 +6,10 @@
 
 每次更新npm包时：更新version版本 + npm publish
 
+**测试封装的 ts 组价**
 
-测试 ts 组价 使用 yarn storybook 进入
+使用 yarn storybook 进入
 
 http://localhost:6006/?path=/docs/alert-component--alert
 
-页面后动态测试项目
+页面启动后 动态测试项目  input.stories.tsx
