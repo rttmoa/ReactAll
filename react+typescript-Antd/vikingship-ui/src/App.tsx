@@ -8,7 +8,7 @@ import IconDemo from './demos/icon-demo'
 import TransitionDemo from './demos/transition-demo'
 import InputDemo from './demos/input-demo'
 import UploadDemo from './demos/upload-demo'
-
+import UploadCom from './demos/uploadCom'
 
 function App() {
   const [title, setTitle] = useState('')
@@ -19,15 +19,15 @@ function App() {
     <div className="App" style={{padding: '20px 80px'}}>
       <b>{title}</b>
       <br />
-      <AlertDemo />
-      {/* <UploadDemo /> */}
+      {/* <ButtonDemo /> */}
+      {/* <AlertDemo /> */} 
       {/* <InputDemo /> */}
       {/* <TransitionDemo /> */}
-      {/* <IconDemo /> */}
+      <IconDemo />
       {/* <TabsDemo /> */}
       {/* <MenuDemo /> */}
-      {/* <ButtonDemo /> */}
-      
+      {/* <UploadDemo /> */}
+      {/* <UploadCom /> */}
     </div>
   )
 }

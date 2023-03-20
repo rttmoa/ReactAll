@@ -26,8 +26,8 @@ function InputDemo() {
     <div style={{ width: '85%', margin: '2rem auto' }}>
       <Input
         placeholder="input"
-        // size="lg"
-        disabled={true}
+        size="sm"
+        // disabled={true}
         icon="calculator"
         prepend="https://"
         style={{width: '500px'}}
