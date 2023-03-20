@@ -20,4 +20,4 @@ function TabsDemo() {
   )
 }
 
-export default TabsDemo
+export default TabsDemo;

@@ -7,9 +7,7 @@ import Icon from '../Icon'
 
 
 export const defaultTabs = () => (
-  <Tabs
-    onSelect={function noRefCheck(){}}
-  >
+  <Tabs onSelect={function noRefCheck(){}}>
     <TabsItem label="选项卡一">
       this is content one
     </TabsItem>
@@ -23,20 +21,14 @@ export const defaultTabs = () => (
 )
 
 export const tabsWithOutline = () => (
-  <Tabs
-    onSelect={function noRefCheck(){}}
-    styleType="outline"
-  >
+  <Tabs onSelect={function noRefCheck(){}} styleType="outline">
     <TabsItem label="card1">
       this is card one
     </TabsItem>
     <TabsItem label="card2">
       this is content two
     </TabsItem>
-    <TabsItem
-      disabled
-      label="disabled"
-    >
+    <TabsItem disabled label="disabled">
       this is content three
     </TabsItem>
   </Tabs>

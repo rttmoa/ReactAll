@@ -8,11 +8,15 @@
 
 **测试封装的 ts 组价**
 
-使用 yarn storybook 进入
+一、使用 yarn storybook 进入
 
 http://localhost:6006/?path=/docs/alert-component--alert
 
 页面启动后 动态测试项目  input.stories.tsx
+
+二、使用 npm start 启动项目
+
+在index.js中测试组件
 
 **使用组件**
 

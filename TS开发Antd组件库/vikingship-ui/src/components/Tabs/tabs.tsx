@@ -6,7 +6,7 @@ import { TabsItemProps } from './tabsItem'
 type TabStyle = "underline" | "outline";
 
 export interface TabProps {
-  /** 当前激活 tab 面板的 index，默认为0 */
+  /** 当前激活 tab 面板的 index，默认为 0 */
   defaultIndex?: number;
   /** Tabs的样式，两种可选，默认为 underline */
   styleType?: TabStyle;
@@ -17,7 +17,7 @@ export interface TabProps {
 }
 /**
  * ### 选项卡切换组件。 提供平级的区域将大块内容进行收纳和展现，保持界面整洁。
- * #### 1 
+ * #### defaultIndex? | styleType? | onSelect()? | className?
  */
 export const Tabs: React.FC<TabProps> = (props) => {
 
@@ -26,50 +26,45 @@ export const Tabs: React.FC<TabProps> = (props) => {
   const classes = classNames('tabs-nav', className, {
     'tabs-underline': styleType === 'underline',
     'tabs-outline': styleType === 'outline'
-  })
+  });
 
   const [activeIndex, setActiveIndex] = useState(0);
 
   function handleClick(index: number, disabled: boolean): void {
-    if (disabled) {
-      return
-    }
-    setActiveIndex(index)
+    if (disabled) { return; }
+
+    setActiveIndex(index);
+
     if (typeof onSelect === 'function') {
-      onSelect(index)
+      onSelect(index);
     }
   }
-
+  /***--- 导航区域 ---**/
   const childrenComponent = () => {
     return React.Children.map(children, (child, index) => {
-      const childElement = child as React.FunctionComponentElement<TabsItemProps>
-      const isLabelDisabled = childElement.props.disabled ? childElement.props.disabled : false
+      const childElement = child as React.FunctionComponentElement<TabsItemProps>;
+      const isLabelDisabled = childElement.props.disabled ? childElement.props.disabled : false;
       const tabsLabelClasses = classNames('tabs-label', {
         'tabs-label-active': activeIndex === index,
         'tabs-label-disabled': childElement.props.disabled
-      })
+      });
       const handleChildClick = () => {
-        handleClick(index, isLabelDisabled)
+        handleClick(index, isLabelDisabled);
       }
       return (
-        <li
-          key={index}
-          className={tabsLabelClasses}
-          onClick={handleChildClick}
-        >
+        <li key={index} className={tabsLabelClasses} onClick={handleChildClick}>
           {childElement.props.label}
         </li>
       )
     })
   }
+  /***--- 内容区域 ---**/
   const renderChildren = () => {
     return React.Children.map(children, (child, index) => {
       const childElement = child as React.FunctionComponentElement<TabsItemProps>
-      const { displayName } = childElement.type
+      const { displayName } = childElement.type;
       if (displayName === 'TabsItem') {
-        return React.cloneElement(childElement, {
-          isActive: activeIndex === index
-        })
+        return React.cloneElement(childElement, { isActive: activeIndex === index })
       } else {
         console.error("Warning: Tabs has a child which is not a TabsItem component")
       }
@@ -78,11 +73,13 @@ export const Tabs: React.FC<TabProps> = (props) => {
 
   return (
     <div>
+      {/* 导航区域 */}
       <nav className={classes}>
         <ul className="tabs-ul">
           {childrenComponent()}
         </ul>
       </nav>
+      {/* 内容区域 */}
       {renderChildren()}
     </div>
   )

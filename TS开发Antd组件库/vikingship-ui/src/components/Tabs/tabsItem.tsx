@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 
+
 export interface TabsItemProps {
   /** Tab选项上面的文字 */
   label: any;
@@ -14,14 +15,11 @@ export interface TabsItemProps {
 
 export const TabsItem: React.FC<TabsItemProps> = (props) => {
   const classes = classNames('tabs-content', props.className, {
-    'tabs-content-active': props.isActive
+    'tabs-content-active': props.isActive,
   })
 
   return (
-    <div
-      key={props.label}
-      className={classes}
-    >
+    <div key={props.label} className={classes}>
       {props.children}
     </div>
   )
@@ -32,5 +30,5 @@ TabsItem.defaultProps = {
   isActive: false
 }
 
-TabsItem.displayName = 'TabsItem'
+TabsItem.displayName = 'TabsItem';
 export default TabsItem

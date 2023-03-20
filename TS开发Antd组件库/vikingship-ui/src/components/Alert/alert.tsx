@@ -27,7 +27,8 @@ export interface AlertProps {
  * #### title? | closable? | customClose? | onClose()? | children? | type
  */
 export const Alert: React.FC<AlertProps> = (props) => {
-  const { title, closable, type, customClose, onClose, children } = props
+  
+  const { title, closable, type, customClose, onClose, children } = props;
 
   const customCloseP = customClose || <Icon icon="times" className="window-close" size='lg'/>
 

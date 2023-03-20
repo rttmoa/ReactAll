@@ -2,6 +2,10 @@ import React, { FC, useContext } from 'react'
 import classNames from 'classnames'
 import { MenuContext } from './menu'
 
+
+
+
+
 export interface MenuItemProps {
   index?: string;
   /** 选项是否被禁用 */
@@ -14,8 +18,10 @@ export interface MenuItemProps {
 
 
 export const MenuItem: FC<MenuItemProps> = (props) => {
-  const { className, index, style, children, disabled } = props
-  const context = useContext(MenuContext)
+
+  const { className, index, style, children, disabled } = props;
+  
+  const context = useContext(MenuContext);
 
   const classes = classNames('menu-item', className, {
     'is-disabled': disabled,
@@ -24,20 +30,16 @@ export const MenuItem: FC<MenuItemProps> = (props) => {
 
   const handleClick = () => {
     if (context.onSelect && !disabled && (typeof index === 'string')) {
-      context.onSelect(index)
+      context.onSelect(index);
     }
   }
 
   return (
-    <li
-      className={classes}
-      style={style}
-      onClick={handleClick}
-    >
+    <li className={classes} style={style} onClick={handleClick}>
       {children}
     </li>
   )
 }
 
-MenuItem.displayName = 'MenuItem'
+MenuItem.displayName = 'MenuItem';
 export default MenuItem

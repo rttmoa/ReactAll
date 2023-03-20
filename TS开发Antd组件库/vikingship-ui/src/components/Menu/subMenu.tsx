@@ -5,8 +5,9 @@ import { MenuItemProps } from './menuItem'
 import Icon from '../Icon'
 import Transition from '../Transition'
 
+
+
 export interface SubMenuProps {
-  /**  */
   index?: string;
   /** 	下拉菜单选项的文字 */
   title: string;
@@ -15,11 +16,12 @@ export interface SubMenuProps {
 }
 
 export const SubMenu: FC<SubMenuProps> = (props) => {
+
   const context = useContext(MenuContext)
   const { index, title, children, className } = props
   const openedSubMenus = context.defaultOpenSubMenus as Array<string>
   const isOpened = (index && context.mode === 'vertical') ? openedSubMenus.includes(index) : false
-  const [ menuOpen, setOpen ] = useState(isOpened)
+  const [ menuOpen, setOpen ] = useState(isOpened);
 
   const classes = classNames('menu-item submenu-item', className, {
     'is-active': context.index === index,
@@ -28,15 +30,15 @@ export const SubMenu: FC<SubMenuProps> = (props) => {
   })
 
   const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault()
-    setOpen(!menuOpen)
+    e.preventDefault();
+    setOpen(!menuOpen);
   }
-  let timer: any
+  let timer: any;
   const handleMouse = (e: React.MouseEvent, toggle: boolean) => {
-    clearTimeout(timer)
-    e.preventDefault()
+    clearTimeout(timer);
+    e.preventDefault();
     timer = setTimeout(() => {
-      setOpen(toggle)
+      setOpen(toggle);
     }, 300)
   }
 
@@ -48,9 +50,7 @@ export const SubMenu: FC<SubMenuProps> = (props) => {
 
 
   const renderChildren = () => {
-    const subMenuClasses = classNames('viking-submenu', {
-      'menu-opened': menuOpen
-    })
+    const subMenuClasses = classNames('viking-submenu', { 'menu-opened': menuOpen })
     const childrenComponent = React.Children.map(children, (child, i) => {
       const childElement = child as FunctionComponentElement<MenuItemProps>
       if (childElement.type.displayName === 'MenuItem') {
@@ -62,16 +62,9 @@ export const SubMenu: FC<SubMenuProps> = (props) => {
       }
     })
     return (
-      <Transition
-        in={menuOpen}
-        timeout={300}
-        animation="zoom-in-top"
-      >
-        <ul className={subMenuClasses}>
-          {childrenComponent}
-        </ul>
-      </Transition>
-
+      <Transition in={menuOpen} timeout={300} animation="zoom-in-top">
+        <ul className={subMenuClasses}>{childrenComponent}</ul>
+      </Transition> 
     )
   }
 
@@ -86,5 +79,5 @@ export const SubMenu: FC<SubMenuProps> = (props) => {
   )
 }
 
-SubMenu.displayName = 'SubMenu'
+SubMenu.displayName = 'SubMenu';
 export default SubMenu
