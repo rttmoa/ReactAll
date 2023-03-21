@@ -8,6 +8,9 @@ import WidgetRemote from '../widget_remote';
 import { WidgetInstancesPendings, WidgetAnnouncementsWeek, WidgetTasksToday, WidgetEventsToday } from '../widget_reducts';
 import { Tabs, TabsPanel } from '../tabs';
 
+
+
+
 let Container = styled.div`
     display: flex;
     flex: 1;

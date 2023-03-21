@@ -127,6 +127,7 @@ const config = {
 }
 
 function App() {
+  console.log(123)
   return (
     <div className="App">
       <IconSettings iconPath="/assets/icons" >

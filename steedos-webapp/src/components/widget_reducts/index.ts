@@ -1,11 +1,14 @@
 import WidgetObject from '../widget_object';
 import WidgetConnect from './widget_connect';
 // import { getBetweenTimeBuiltinValueItem } from "@steedos/filters";
-import { getWidgetReductsConfig } from '../../utils';
+// import { getWidgetReductsConfig } from '../../utils';
 import { ComponentClass } from 'react';
 
-let config: any = getWidgetReductsConfig();
+import {getWidgetReductsConfig} from "../../utils/tool"
 
+
+let config: any = getWidgetReductsConfig();
+// return
 const dealColumnsLabelAssistiveText = (assistiveText: any, columns: Array<any>) => {
   let assistiveTextColumns = assistiveText.columns;
   if (!assistiveTextColumns) {
@@ -30,7 +33,7 @@ export const WidgetInstancesPendings: ComponentClass = WidgetConnect((props: any
     }];
     adapted.noHeader = true;
   }
-  let adaptedConfig = Object.assign({}, config.instances_pendings, adapted);
+  let adaptedConfig = Object.assign({}, config && config.instances_pendings, adapted);
   let assistiveText = props.assistiveText;
   if (assistiveText) {
     if (assistiveText.label) {
@@ -48,6 +51,8 @@ export const WidgetInstancesPendings: ComponentClass = WidgetConnect((props: any
 })(WidgetObject);
 
 WidgetInstancesPendings.displayName = "WidgetInstancesPendings";
+
+
 
 export const WidgetAnnouncementsWeek: ComponentClass = WidgetConnect((props: any) => {
   let adapted: any = {};
