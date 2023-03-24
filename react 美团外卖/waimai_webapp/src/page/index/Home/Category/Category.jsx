@@ -1,12 +1,6 @@
 import './Category.scss';
-
-
 import React from 'react';
-
-
-
 import { connect } from 'react-redux';
-
 import { getHeaderData } from '../../actions/categoryAction';
 
 
@@ -14,7 +8,6 @@ import { getHeaderData } from '../../actions/categoryAction';
  * @constructor <Category />
  * @description 外卖类别
  */
-
 class Category extends React.Component {
     constructor(props) {
         super(props);
@@ -29,6 +22,7 @@ class Category extends React.Component {
     }
     renderItems(){
         let items = this.props.items;
+        
         // 复制数组防止引用
         let _items = JSON.parse(JSON.stringify(items));
         
@@ -43,13 +37,12 @@ class Category extends React.Component {
     }
 
     render(){
-        return (
-            <div className="category-content clearfix">{this.renderItems()}</div>
-        );
+        return <div className="category-content clearfix">{this.renderItems()}</div>
     }
 }
 export default connect(
     state =>({
         items: state.categoryReducer.items
-    })
+    }),
+    null
 )(Category);

@@ -1,13 +1,8 @@
 import './ContentList.scss';
-
-
 import React from 'react';
 import { connect } from 'react-redux';
-
 import ListItem from 'component/ListItem/ListItem.jsx';
-
 import ScrollView from 'component/ScrollView/ScrollView.jsx';
-
 import { getListData } from '../../actions/contentListAction';
 
 
@@ -15,7 +10,6 @@ import { getListData } from '../../actions/contentListAction';
  * @constructor <ContentList />
  * @description 附近商家列表
  */
-
 class ContentList extends React.Component {
     constructor(props) {
         super(props);

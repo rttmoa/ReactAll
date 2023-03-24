@@ -2,6 +2,10 @@ import {  RESTANURANT_DATA  } from './actionTypes';
 import axios from 'axios';
 import qs from 'component/queryString';
 
+
+
+
+
 export const getRestanurantData = () =>async(dispatch)=>{
     let id = qs('id');
     window.Rohr_Opt.Flag = 100011;

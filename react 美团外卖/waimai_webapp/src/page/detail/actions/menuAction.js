@@ -1,6 +1,10 @@
 import { GET_LIST_DATA, LEFT_CLICK,ADD_SELECTI_ITEM,MINUS_SELECTI_ITEM,SHOW_CHOOSE_CONTENT,CLEAR_CAR  } from './actionTypes';
 import axios from 'axios';
 import qs from 'component/queryString';
+
+
+
+
 export const itemClick = (obj) =>{
     return {
         type: LEFT_CLICK,
