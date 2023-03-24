@@ -17,7 +17,7 @@ history.replace('home');
 // 创建history的Middleware
 const historyMiddl = routerMiddleware(history);
 
-const store = createStore(mainReducer, applyMiddleware(thunk,historyMiddl));
+const store = createStore(mainReducer, applyMiddleware(thunk, historyMiddl));
 
 
 if (module.hot) {
@@ -26,6 +26,9 @@ if (module.hot) {
         store.replaceReducer(nextRootReducer)
     });
 }
+
+
+
 module.exports = {
     store,
     history
