@@ -1,14 +1,11 @@
 import React from 'react';
 
 
-class Loading extends React.Component {
+ 
 
-    render(){
 
-        return (
-            <div></div>
-        );
-    }
+export default function Loading () {
+    return (
+        <div>Loading...</div>
+    );
 }
-
-export default Loading;

@@ -10,6 +10,9 @@ const distPath = path.resolve(__dirname, '../waimaiServer/public');
 const pageDir = path.resolve(srcRoot, 'page');
 const mainFile = 'index.js';
 
+
+
+
 function getHtmlArray(entryMap){
     let htmlArray = [];
     Object.keys(entryMap).forEach((key)=>{

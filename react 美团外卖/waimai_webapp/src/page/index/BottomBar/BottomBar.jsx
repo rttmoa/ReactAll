@@ -1,43 +1,30 @@
 import './BottomBar.scss';
-
 import React from 'react';
-
 import { connect } from 'react-redux';
-
 import { NavLink, withRouter } from 'react-router-dom';
-
 // import { changeTab } from '../actions/tabAction';
 
 
 /**
  * @constructor <BottomBar>
  * @description 首页底部tab栏
- */
-
+ */ 
 class BottomBar extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-    changeTab(item){
 
+    changeTab(item){ // {name: '首页', key: 'home'} | {name: '订单', key: 'order'} | {name: '我的', key: 'my'}
         this.props.history.replace(item.key);
-        // this.props.dispatch(changeTab({
-        //     activeKey: item.key
-        // }));
+        // this.props.dispatch(changeTab({ activeKey: item.key }));
     }
     renderItems(){
         let tabs = this.props.tabs;
-
         return tabs.map((item, index)=>{
             let cls = item.key + ' btn-item';
-            let name = item.name;
-
+            let name = item.name; 
             return (
-                <NavLink key={index} className={cls} replace={true} to={"/" + item.key} activeClassName="active" onClick={()=>this.changeTab(item)}>
+                <NavLink key={index} className={cls} replace={true} to={"/" + item.key} activeClassName="active" onClick={() => this.changeTab(item)}>
                     <div className="tab-icon"></div>
                     <div className="btn-name">{name}</div>
                 </NavLink>
-
             )
         });
     }

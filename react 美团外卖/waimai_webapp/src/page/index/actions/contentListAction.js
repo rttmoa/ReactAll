@@ -2,15 +2,14 @@ import { LIST_DATA } from './actionTypes';
 import { CHANGEREADYSTATE } from 'component/ScrollView/scrollViewActionsTypes.js';
 import axios from 'axios';
 
+
+
 export const getListData = (page)=> (dispatch) =>{
     dispatch({
         type: CHANGEREADYSTATE,
         obj: false
     });
-    axios({
-        method: 'get',
-        url: './json/homelist.json'
-    }).then((resp)=>{
+    axios({ method: 'get', url: './json/homelist.json' }).then((resp)=>{
         window.setTimeout(()=>{
             dispatch({
                 type: LIST_DATA,
@@ -23,7 +22,7 @@ export const getListData = (page)=> (dispatch) =>{
                 obj: true
             });
 
-        },1500);
+        }, 1500);
 
 
     });

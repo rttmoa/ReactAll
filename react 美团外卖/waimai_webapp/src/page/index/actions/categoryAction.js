@@ -1,6 +1,9 @@
 import { HEAD_DATA } from './actionTypes';
 import axios from 'axios';
 
+
+
+
 export const getHeaderData = ()=> async (dispatch) =>{
     let resp = await axios({
         method: 'get',
