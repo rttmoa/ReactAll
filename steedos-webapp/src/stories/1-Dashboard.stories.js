@@ -22,7 +22,9 @@ let CenterDiv = styled.div`
 export const sections = () => (
   <div className="App">
     <Provider store={store}>
+      123
       <Bootstrap>
+        22444
         <Dashboard
           centerTopSection={(
             <CenterDiv>
