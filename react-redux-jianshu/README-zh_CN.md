@@ -1,4 +1,4 @@
-仿简书
+# 仿简书
 
 技术栈：react + redux + styled-components + immutable.fromJS + react-loadable + react-transition-group
 

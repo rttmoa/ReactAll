@@ -5,6 +5,11 @@
  * @param   {string}        value   The value of the object that needs to be queried.
  * @return  {object|undefined}   Return frist object when query success.
  */
+
+// import Mock from 'mockjs'
+// import qs from 'qs'
+
+
 export function queryArray(array, key, value) {
   if (!Array.isArray(array)) {
     return
@@ -55,5 +60,4 @@ export const Constant = {
   },
 }
 
-export Mock from 'mockjs'
-export qs from 'qs'
+

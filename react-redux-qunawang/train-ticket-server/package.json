@@ -10,7 +10,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "npx nodemon index.js",
     "pm2start": "pm2 start index.js -n mocker",
     "stop": "pm2 delete mocker"
   },
