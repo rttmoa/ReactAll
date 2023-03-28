@@ -1,4 +1,6 @@
-import { getLists } from '@/services/search' 
+import { getLists } from '@/services/search'
+
+
 export default {
   namespace: 'search',
   state: {
