@@ -225,11 +225,7 @@ function App(props) {
     );
 }
 
-export default connect(
-    function mapStateToProps(state) {
-        return state;
-    },
-    function mapDispatchToProps(dispatch) {
-        return { dispatch };
-    }
-)(App);
+
+function mapStateToProps(state) { return state }
+function mapDispatchToProps(dispatch) { return { dispatch } }
+export default connect(mapStateToProps, mapDispatchToProps)(App);

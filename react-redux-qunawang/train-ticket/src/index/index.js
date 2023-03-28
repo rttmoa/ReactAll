@@ -20,8 +20,8 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-if ('production' === process.env.NODE_ENV) {
-    serviceWorker.register();
-} else {
-    serviceWorker.unregister();
-}
+// if ('production' === process.env.NODE_ENV) {
+//     serviceWorker.register();
+// } else {
+//     serviceWorker.unregister();
+// }

@@ -14,38 +14,21 @@ import DateSelector from '../common/DateSelector.jsx';
 
 import { h0 } from '../common/fp';
 
-import {
-    exchangeFromTo,
-    showCitySelector,
-    hideCitySelector,
-    fetchCityData,
-    setSelectedCity,
-    showDateSelector,
-    hideDateSelector,
-    setDepartDate,
-    toggleHighSpeed,
-} from './actions';
+import {    exchangeFromTo,    showCitySelector,    hideCitySelector,    fetchCityData,    setSelectedCity,    showDateSelector,    hideDateSelector,
+    setDepartDate,    toggleHighSpeed, } from './actions';
+
+
 
 function App(props) {
-    const {
-        from,
-        to,
-        isCitySelectorVisible,
-        isDateSelectorVisible,
-        cityData,
-        isLoadingCityData,
-        highSpeed,
-        dispatch,
-        departDate,
-    } = props;
+    // redux数据
+    const { from, to, isCitySelectorVisible, isDateSelectorVisible, cityData, isLoadingCityData,  highSpeed, dispatch, departDate, } = props;
 
     const onBack = useCallback(() => {
         window.history.back();
     }, []);
 
     const cbs = useMemo(() => {
-        return bindActionCreators(
-            {
+        return bindActionCreators({
                 exchangeFromTo,
                 showCitySelector,
             },
@@ -53,9 +36,9 @@ function App(props) {
         );
     }, []);
 
+    /***--- 城市选择回调 -  ---**/
     const citySelectorCbs = useMemo(() => {
-        return bindActionCreators(
-            {
+        return bindActionCreators({
                 onBack: hideCitySelector,
                 fetchCityData,
                 onSelect: setSelectedCity,
@@ -109,32 +92,22 @@ function App(props) {
             <div className="header-wrapper">
                 <Header title="火车票" onBack={onBack} />
             </div>
+            {/* 点击搜索按钮时，跳转到query页面 */}
             <form action="./query.html" className="form">
                 <Journey from={from} to={to} {...cbs} />
                 <DepartDate time={departDate} {...departDateCbs} />
                 <HighSpeed highSpeed={highSpeed} {...highSpeedCbs} />
                 <Submit />
             </form>
-            <CitySelector
-                show={isCitySelectorVisible}
-                cityData={cityData}
-                isLoading={isLoadingCityData}
-                {...citySelectorCbs}
-            />
-            <DateSelector
-                show={isDateSelectorVisible}
-                {...dateSelectorCbs}
-                onSelect={onSelectDate}
-            />
+            <CitySelector show={isCitySelectorVisible} cityData={cityData} isLoading={isLoadingCityData} {...citySelectorCbs}/>
+            <DateSelector show={isDateSelectorVisible} {...dateSelectorCbs} onSelect={onSelectDate}/>
         </div>
     );
 }
-
-export default connect(
-    function mapStateToProps(state) {
-        return state;
-    },
-    function mapDispatchToProps(dispatch) {
-        return { dispatch };
-    }
-)(App);
+function mapStateToProps(state) {
+    return state;
+}
+function mapDispatchToProps(dispatch) {
+    return { dispatch };
+}
+export default connect(mapStateToProps,mapDispatchToProps)(App);

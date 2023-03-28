@@ -7,6 +7,10 @@ import Header from './Header.jsx';
 
 import './DateSelector.css';
 
+
+
+
+
 function Day(props) {
     const { day, onSelect } = props;
 
@@ -34,11 +38,12 @@ function Day(props) {
         </td>
     );
 }
-
 Day.propTypes = {
     day: PropTypes.number,
     onSelect: PropTypes.func.isRequired,
 };
+
+
 
 function Week(props) {
     const { days, onSelect } = props;
@@ -51,11 +56,12 @@ function Week(props) {
         </tr>
     );
 }
-
 Week.propTypes = {
     days: PropTypes.array.isRequired,
     onSelect: PropTypes.func.isRequired,
 };
+
+
 
 function Month(props) {
     const { startingTimeInMonth, onSelect } = props;
@@ -116,11 +122,12 @@ function Month(props) {
         </table>
     );
 }
-
 Month.propTypes = {
     startingTimeInMonth: PropTypes.number.isRequired,
     onSelect: PropTypes.func.isRequired,
 };
+
+
 
 export default function DateSelector(props) {
     const { show, onSelect, onBack } = props;
@@ -146,11 +153,7 @@ export default function DateSelector(props) {
             <div className="date-selector-tables">
                 {monthSequence.map(month => {
                     return (
-                        <Month
-                            key={month}
-                            onSelect={onSelect}
-                            startingTimeInMonth={month}
-                        />
+                        <Month key={month} onSelect={onSelect} startingTimeInMonth={month}/>
                     );
                 })}
             </div>

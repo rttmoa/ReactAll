@@ -17,8 +17,7 @@ export default {
             case ACTION_SET_FROM:
                 return payload;
             default:
-        }
-
+        } 
         return state;
     },
     to(state = '上海', action) {
@@ -27,8 +26,7 @@ export default {
             case ACTION_SET_TO:
                 return payload;
             default:
-        }
-
+        } 
         return state;
     },
     isCitySelectorVisible(state = false, action) {

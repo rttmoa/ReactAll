@@ -48,7 +48,7 @@ export function toggleHighSpeed() {
         });
     };
 }
-
+/***--- 城市选择 ---**/
 export function showCitySelector(currentSelectingLeftCity) {
     return dispatch => {
         dispatch({
@@ -83,7 +83,7 @@ export function setSelectedCity(city) {
         dispatch(hideCitySelector());
     };
 }
-
+/***--- 日期选择 ---**/
 export function showDateSelector() {
     return {
         type: ACTION_SET_IS_DATE_SELECTOR_VISIBLE,
@@ -98,6 +98,7 @@ export function hideDateSelector() {
     };
 }
 
+/***--- 置换图标 ---**/
 export function exchangeFromTo() {
     return (dispatch, getState) => {
         const { from, to } = getState();

@@ -2,15 +2,13 @@ import React from 'react';
 import switchImg from './imgs/switch.svg';
 import './Journey.css';
 
+/***--- 旅程 - 从哪里到哪里 ---**/
 export default function Journey(props) {
     const { from, to, exchangeFromTo, showCitySelector } = props;
 
     return (
         <div className="journey">
-            <div
-                className="journey-station"
-                onClick={() => showCitySelector(true)}
-            >
+            <div className="journey-station" onClick={() => showCitySelector(true)}>
                 <input
                     type="text"
                     readOnly
@@ -22,10 +20,7 @@ export default function Journey(props) {
             <div className="journey-switch" onClick={() => exchangeFromTo()}>
                 <img src={switchImg} width="70" height="40" alt="switch" />
             </div>
-            <div
-                className="journey-station"
-                onClick={() => showCitySelector(false)}
-            >
+            <div className="journey-station" onClick={() => showCitySelector(false)}>
                 <input
                     type="text"
                     readOnly
