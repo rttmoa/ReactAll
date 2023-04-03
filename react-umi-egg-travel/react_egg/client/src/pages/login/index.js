@@ -55,6 +55,7 @@ function Login(props) {
       </List>
       <Button type='warning' onClick={handleSubmit}>登录</Button>
       <div className='register' onClick={handleClick}>没有账户，去注册</div>
+      <h3>账户：admin， 密码：admin</h3>
     </div>
   )
 }

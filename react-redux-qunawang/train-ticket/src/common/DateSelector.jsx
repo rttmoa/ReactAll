@@ -5,38 +5,34 @@ import PropTypes from 'prop-types';
 import { h0 } from '../common/fp';
 import Header from './Header.jsx';
 
-import './DateSelector.css';
+import './css/DateSelector.css';
 
 
 
 
 
 function Day(props) {
-    const { day, onSelect } = props;
 
+    const { day, onSelect } = props;
+    
     if (!day) {
-        return <td className="null"></td>;
+        return <td className="null">.</td>; // 表示灰色的小格子
     }
 
     const classes = [];
 
+    // console.log(h0()) // 91  1680278400000
     const now = h0();
 
-    if (day < now) {
-        classes.push('disabled');
-    }
+    if (day < now) { classes.push('disabled') }
 
-    if ([6, 0].includes(new Date(day).getDay())) {
+    if ([6, 0].includes(new Date(day).getDay())) { // 0,1,2,3,4,5,6
         classes.push('weekend');
     }
 
-    const dateString = now === day ? '今天' : new Date(day).getDate();
-
-    return (
-        <td className={classnames(classes)} onClick={() => onSelect(day)}>
-            {dateString}
-        </td>
-    );
+    const dateString = now === day ? '今天' : new Date(day).getDate(); // getData: 1-30天
+    
+    return <td className={classnames(classes)} onClick={() => onSelect(day)}>{dateString}</td>
 }
 Day.propTypes = {
     day: PropTypes.number,
@@ -47,7 +43,7 @@ Day.propTypes = {
 
 function Week(props) {
     const { days, onSelect } = props;
-
+    // console.log(days) // 每周的数据： [null, null, null, null, null, 1680278400000, 1680364800000]
     return (
         <tr className="date-table-days">
             {days.map((day, idx) => {
@@ -76,15 +72,13 @@ function Month(props) {
         currentDay.setDate(currentDay.getDate() + 1);
     }
 
-    days = new Array(startDay.getDay() ? startDay.getDay() - 1 : 6)
+    days = new Array(startDay.getDay() ? (startDay.getDay() - 1) : 6)
         .fill(null)
         .concat(days);
 
     const lastDay = new Date(days[days.length - 1]);
 
-    days = days.concat(
-        new Array(lastDay.getDay() ? 7 - lastDay.getDay() : 0).fill(null)
-    );
+    days = days.concat(new Array(lastDay.getDay() ? 7 - lastDay.getDay() : 0).fill(null));
 
     const weeks = [];
 
@@ -92,16 +86,15 @@ function Month(props) {
         const week = days.slice(row * 7, (row + 1) * 7);
         weeks.push(week);
     }
+    // console.log(weeks) // 每月的数据： [Array(7), Array(7), Array(7), Array(7), Array(7)]
+
 
     return (
         <table className="date-table">
             <thead>
                 <tr>
                     <td colSpan="7">
-                        <h5>
-                            {startDay.getFullYear()}年{startDay.getMonth() + 1}
-                            月
-                        </h5>
+                        <h5>{startDay.getFullYear()}年{startDay.getMonth() + 1}月</h5>
                     </td>
                 </tr>
             </thead>
@@ -130,7 +123,7 @@ Month.propTypes = {
 
 
 export default function DateSelector(props) {
-    const { show, onSelect, onBack } = props;
+    const { show, onSelect, onBack } = props; // 是否显示组件 + 选择的日期存redux + 关闭组件
 
     const now = new Date();
     now.setHours(0);
@@ -146,6 +139,8 @@ export default function DateSelector(props) {
 
     now.setMonth(now.getMonth() + 1);
     monthSequence.push(now.getTime());
+    // debugger
+    // console.log("月份", monthSequence)  // [1680278400000, 1682870400000, 1685548800000]
 
     return (
         <div className={classnames('date-selector', { hidden: !show })}>
@@ -160,7 +155,6 @@ export default function DateSelector(props) {
         </div>
     );
 }
-
 DateSelector.propTypes = {
     show: PropTypes.bool.isRequired,
     onSelect: PropTypes.func.isRequired,

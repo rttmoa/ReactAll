@@ -1,0 +1,1 @@
+cmd /k "cd /d E:\Project\ReactAll\react+typescript-Antd\react-with-ts\ && npm start" 

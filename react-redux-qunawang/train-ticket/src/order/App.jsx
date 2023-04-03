@@ -5,60 +5,38 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Header from '../common/Header.jsx';
 import Detail from '../common/Detail.jsx';
-import Account from './Account.jsx';
-import Choose from './Choose.jsx';
-import Passengers from './Passengers.jsx';
-import Ticket from './Ticket.jsx';
-import Menu from './Menu.jsx';
+import Account from './components/Account.jsx';
+import Choose from './components/Choose.jsx';
+import Passengers from './components/Passengers.jsx';
+import Ticket from './components/Ticket.jsx';
+import Menu from './components/Menu.jsx';
+import './css/App.css';
+import { setDepartStation, setArriveStation, setTrainNumber, setSeatType, setDepartDate, setSearchParsed, fetchInitial, 
+    createAdult, createChild, removePassenger, updatePassenger, hideMenu, showGenderMenu, showFollowAdultMenu, showTicketTypeMenu,
+} from './store/actions';
 
-import './App.css';
 
-import {
-    setDepartStation,
-    setArriveStation,
-    setTrainNumber,
-    setSeatType,
-    setDepartDate,
-    setSearchParsed,
-    fetchInitial,
-    createAdult,
-    createChild,
-    removePassenger,
-    updatePassenger,
-    hideMenu,
-    showGenderMenu,
-    showFollowAdultMenu,
-    showTicketTypeMenu,
-} from './actions';
+
+
+
 
 function App(props) {
+    
     const {
-        trainNumber,
-        departStation,
-        arriveStation,
-        seatType,
-        departDate,
-        arriveDate,
-        departTimeStr,
-        arriveTimeStr,
-        durationStr,
-        price,
-        passengers,
-        menu,
-        isMenuVisible,
-        searchParsed,
-        dispatch,
+        trainNumber,departStation,arriveStation,seatType,departDate,arriveDate,departTimeStr,
+        arriveTimeStr,durationStr,price,passengers,menu,isMenuVisible,searchParsed,dispatch,
     } = props;
 
     const onBack = useCallback(() => {
         window.history.back();
     }, []);
 
+    /***--- 处理地址栏数据 —— 存redux ---**/
     useEffect(() => {
-        const queries = URI.parseQuery(window.location.search);
-
-        const { trainNumber, dStation, aStation, type, date } = queries;
-
+        const queries = URI.parseQuery(window.location.search); // "?trainNumber=D707&dStation=%E5%8C%97%E4%BA%AC%E5%8D%97&aStation=%E5%8D%97%E4%BA%AC&type=%E4%B8%80%E7%AD%89%E5%BA%A7&date=2019-02-10"
+        const { trainNumber, dStation, aStation, type, date } = queries; // {aStation:"南京", dStation:"北京南", date:"2019-02-10", trainNumber:"D707", type:"一等座"}
+        // debugger
+        
         dispatch(setDepartStation(dStation));
         dispatch(setArriveStation(aStation));
         dispatch(setTrainNumber(trainNumber));
@@ -68,55 +46,40 @@ function App(props) {
     }, []);
 
     useEffect(() => {
-        if (!searchParsed) {
-            return;
-        }
+        if (!searchParsed) return;
 
         const url = new URI('/rest/order')
             .setSearch('dStation', departStation)
             .setSearch('aStation', arriveStation)
             .setSearch('type', seatType)
             .setSearch('date', dayjs(departDate).format('YYYY-MM-DD'))
-            .toString();
+        .toString();
+        // console.log(url) //————   /rest/order?dStation=%E5%8C%97%E4%BA%AC%E5%8D%97&aStation=%E5%8D%97%E4%BA%AC&type=%E4%B8%80%E7%AD%89%E5%BA%A7&date=2019-02-10
+
         dispatch(fetchInitial(url));
     }, [searchParsed, departStation, arriveStation, seatType, departDate]);
 
     const passengersCbs = useMemo(() => {
-        return bindActionCreators(
-            {
-                createAdult,
-                createChild,
-                removePassenger,
-                updatePassenger,
-                showGenderMenu,
-                showFollowAdultMenu,
-                showTicketTypeMenu,
-            },
-            dispatch
-        );
+        return bindActionCreators({
+            createAdult,
+            createChild,
+            removePassenger,
+            updatePassenger,
+            showGenderMenu,
+            showFollowAdultMenu,
+            showTicketTypeMenu,
+        }, dispatch);
     }, []);
 
     const menuCbs = useMemo(() => {
-        return bindActionCreators(
-            {
-                hideMenu,
-            },
-            dispatch
-        );
+        return bindActionCreators({hideMenu}, dispatch);
     }, []);
 
     const chooseCbs = useMemo(() => {
-        return bindActionCreators(
-            {
-                updatePassenger,
-            },
-            dispatch
-        );
+        return bindActionCreators({updatePassenger}, dispatch);
     }, []);
 
-    if (!searchParsed) {
-        return null;
-    }
+    if (!searchParsed) return null;
 
     return (
         <div className="app">
@@ -134,28 +97,17 @@ function App(props) {
                     arriveStation={arriveStation}
                     durationStr={durationStr}
                 >
-                    <span
-                        style={{ display: 'block' }}
-                        className="train-icon"
-                    ></span>
+                    <span style={{ display: 'block' }} className="train-icon"></span>
                 </Detail>
             </div>
             <Ticket price={price} type={seatType} />
             <Passengers passengers={passengers} {...passengersCbs} />
-            {passengers.length > 0 && (
-                <Choose passengers={passengers} {...chooseCbs} />
-            )}
+            {passengers.length > 0 && <Choose passengers={passengers} {...chooseCbs} />}
             <Account length={passengers.length} price={price} />
             <Menu show={isMenuVisible} {...menu} {...menuCbs} />
         </div>
     );
-}
-
-export default connect(
-    function mapStateToProps(state) {
-        return state;
-    },
-    function mapDispatchToProps(dispatch) {
-        return { dispatch };
-    }
-)(App);
+} 
+function mapStateToProps(state) {return state}
+function mapDispatchToProps(dispatch) {return { dispatch }}
+export default connect(mapStateToProps,mapDispatchToProps)(App);

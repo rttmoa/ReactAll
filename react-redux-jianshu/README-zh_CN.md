@@ -2,7 +2,8 @@
 
 技术栈：react + redux + styled-components + immutable.fromJS + react-loadable + react-transition-group
 
-功能：
+**项目较小，查看实现功能**
+
 
 一、使用加载器懒加载页面
 

@@ -1,39 +1,41 @@
 import React, { useCallback, useMemo } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import './App.css';
+import './css/App.css';
 
 import Header from '../common/Header.jsx';
-import DepartDate from './DepartDate.jsx';
-import HighSpeed from './HighSpeed.jsx';
-import Journey from './Journey.jsx';
-import Submit from './Submit.jsx';
+import DepartDate from './components/DepartDate.jsx';
+import HighSpeed from './components/HighSpeed.jsx';
+import Journey from './components/Journey.jsx';
+import Submit from './components/Submit.jsx';
 
 import CitySelector from '../common/CitySelector.jsx';
 import DateSelector from '../common/DateSelector.jsx';
 
 import { h0 } from '../common/fp';
 
-import {    exchangeFromTo,    showCitySelector,    hideCitySelector,    fetchCityData,    setSelectedCity,    showDateSelector,    hideDateSelector,
-    setDepartDate,    toggleHighSpeed, } from './actions';
+import { exchangeFromTo, showCitySelector, hideCitySelector, fetchCityData, setSelectedCity,    
+    showDateSelector, hideDateSelector, setDepartDate, toggleHighSpeed, 
+} from './store/actions';
 
 
 
+
+    
 function App(props) {
+    
     // redux数据
     const { from, to, isCitySelectorVisible, isDateSelectorVisible, cityData, isLoadingCityData,  highSpeed, dispatch, departDate, } = props;
+    // console.log(from)
 
-    const onBack = useCallback(() => {
-        window.history.back();
-    }, []);
+    const onBack = useCallback(() => window.history.back(), []);
 
+    /***--- 城市 置换 ---**/
     const cbs = useMemo(() => {
         return bindActionCreators({
                 exchangeFromTo,
                 showCitySelector,
-            },
-            dispatch
-        );
+            }, dispatch);
     }, []);
 
     /***--- 城市选择回调 -  ---**/
@@ -42,49 +44,26 @@ function App(props) {
                 onBack: hideCitySelector,
                 fetchCityData,
                 onSelect: setSelectedCity,
-            },
-            dispatch
-        );
+            },dispatch);
     }, []);
-
-    const departDateCbs = useMemo(() => {
-        return bindActionCreators(
-            {
-                onClick: showDateSelector,
-            },
-            dispatch
-        );
+    /***--- 点击 进入 日期组件 ---**/
+    const departDateCbs = useMemo(() => { 
+        return bindActionCreators({onClick: showDateSelector}, dispatch);
     }, []);
-
-    const dateSelectorCbs = useMemo(() => {
-        return bindActionCreators(
-            {
-                onBack: hideDateSelector,
-            },
-            dispatch
-        );
+    /***--- 日期组件关闭 ---**/
+    const dateSelectorCbs = useMemo(() => { 
+        return bindActionCreators({onBack: hideDateSelector}, dispatch);
     }, []);
-
+    /***--- 切换高铁/动车 ---**/
     const highSpeedCbs = useMemo(() => {
-        return bindActionCreators(
-            {
-                toggle: toggleHighSpeed,
-            },
-            dispatch
-        );
+        return bindActionCreators({toggle: toggleHighSpeed}, dispatch);
     }, []);
 
     const onSelectDate = useCallback(day => {
-        if (!day) {
-            return;
-        }
-
-        if (day < h0()) {
-            return;
-        }
-
-        dispatch(setDepartDate(day));
-        dispatch(hideDateSelector());
+        if (!day) return;
+        if (day < h0()) return;
+        dispatch(setDepartDate(day)); // 将选择的日期 存储到redux
+        dispatch(hideDateSelector()); // 隐藏日期组件
     }, []);
 
     return (
@@ -110,4 +89,4 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return { dispatch };
 }
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

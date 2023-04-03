@@ -8,54 +8,34 @@ import useNav from '../common/useNav';
 import Header from '../common/Header.jsx';
 import Nav from '../common/Nav.jsx';
 import Detail from '../common/Detail.jsx';
-import Candidate from './Candidate.jsx';
-import { TrainContext } from './context';
-//import Schedule from './Schedule.jsx';
-import './App.css';
+import Candidate from './components/Candidate.jsx';
+import { TrainContext } from './utils/context';
+import './css/App.css';
+import {setDepartStation,setArriveStation,setTrainNumber,setDepartDate,setSearchParsed,
+    prevDate,nextDate,
+    setDepartTimeStr,setArriveTimeStr,setArriveDate,setDurationStr,setTickets,toggleIsScheduleVisible  
+} from './store/actions';
+ 
+const Schedule = lazy(() => import('./components/Schedule.jsx'));
 
-import {
-    setDepartStation,
-    setArriveStation,
-    setTrainNumber,
-    setDepartDate,
-    setSearchParsed,
-    prevDate,
-    nextDate,
-    setDepartTimeStr,
-    setArriveTimeStr,
-    setArriveDate,
-    setDurationStr,
-    setTickets,
-    toggleIsScheduleVisible,
-} from './actions';
 
-const Schedule = lazy(() => import('./Schedule.jsx'));
+
+
 
 function App(props) {
-    const {
-        departDate,
-        arriveDate,
-        departTimeStr,
-        arriveTimeStr,
-        departStation,
-        arriveStation,
-        trainNumber,
-        durationStr,
-        tickets,
-        isScheduleVisible,
-        searchParsed,
 
-        dispatch,
+    const { departDate, arriveDate, departTimeStr, arriveTimeStr, departStation, arriveStation, 
+        trainNumber, durationStr, tickets, isScheduleVisible, searchParsed, dispatch 
     } = props;
 
-    const onBack = useCallback(() => {
-        window.history.back();
-    }, []);
+
+    const onBack = useCallback(() => window.history.back(), []);
 
     useEffect(() => {
-        const queries = URI.parseQuery(window.location.search);
-        const { aStation, dStation, date, trainNumber } = queries;
-
+        const queries = URI.parseQuery(window.location.search); // "?aStation=%E5%8D%97%E4%BA%AC&dStation=%E5%8C%97%E4%BA%AC%E5%8D%97&trainNumber=D707&date=2019-02-10"
+        const { aStation, dStation, date, trainNumber } = queries; // queries: {aStation:"南京", dStation:"北京南", date:"2019-02-10", trainNumber:"D707"}
+        // debugger
+        
         dispatch(setDepartStation(dStation));
         dispatch(setArriveStation(aStation));
         dispatch(setTrainNumber(trainNumber));
@@ -69,60 +49,46 @@ function App(props) {
     }, [trainNumber]);
 
     useEffect(() => {
-        if (!searchParsed) {
-            return;
-        }
+        if (!searchParsed)  return;
 
-        const url = new URI('/rest/ticket')
-            .setSearch('date', dayjs(departDate).format('YYYY-MM-DD'))
-            .setSearch('trainNumber', trainNumber)
-            .toString();
+        const url = new URI('/rest/ticket').setSearch('date', dayjs(departDate).format('YYYY-MM-DD')).setSearch('trainNumber', trainNumber).toString();
+        // console.log(url) //————  /rest/ticket?date=2019-02-10&trainNumber=D707
 
-        fetch(url)
-            .then(response => response.json())
-            .then(result => {
-                const { detail, candidates } = result;
+        fetch(url).then(response => response.json()).then(result => {
+            const { detail, candidates } = result;
+            const { departTimeStr, arriveTimeStr, arriveDate, durationStr } = detail;
 
-                const {
-                    departTimeStr,
-                    arriveTimeStr,
-                    arriveDate,
-                    durationStr,
-                } = detail;
+            dispatch(setDepartTimeStr(departTimeStr));
+            dispatch(setArriveTimeStr(arriveTimeStr));
+            dispatch(setArriveDate(arriveDate));
+            dispatch(setDurationStr(durationStr));
+            dispatch(setTickets(candidates));
 
-                dispatch(setDepartTimeStr(departTimeStr));
-                dispatch(setArriveTimeStr(arriveTimeStr));
-                dispatch(setArriveDate(arriveDate));
-                dispatch(setDurationStr(durationStr));
-                dispatch(setTickets(candidates));
-            });
+            // console.log("车票详情信息", result)
+            // debugger
+        });
     }, [searchParsed, departDate, trainNumber]);
 
-    const { isPrevDisabled, isNextDisabled, prev, next } = useNav(
-        departDate,
-        dispatch,
-        prevDate,
-        nextDate
-    );
+    const { isPrevDisabled, isNextDisabled, prev, next } = useNav(departDate, dispatch, prevDate, nextDate);
 
     const detailCbs = useMemo(() => {
-        return bindActionCreators(
-            {
-                toggleIsScheduleVisible,
-            },
-            dispatch
-        );
+        return bindActionCreators({toggleIsScheduleVisible}, dispatch);
     }, []);
 
     if (!searchParsed) {
         return null;
     }
 
+
+
+
     return (
         <div className="app">
+            {/* 动车车次号 */}
             <div className="header-wrapper">
                 <Header title={trainNumber} onBack={onBack} />
             </div>
+            {/* 前一天 —— 时间 —— 后一天 */}
             <div className="nav-wrapper">
                 <Nav
                     date={departDate}
@@ -132,6 +98,7 @@ function App(props) {
                     next={next}
                 />
             </div>
+            {/* 车次信息 */}
             <div className="detail-wrapper">
                 <Detail
                     departDate={departDate}
@@ -144,31 +111,22 @@ function App(props) {
                     durationStr={durationStr}
                 >
                     <span className="left"></span>
-                    <span
-                        className="schedule"
-                        onClick={() => detailCbs.toggleIsScheduleVisible()}
-                    >
+                    <span className="schedule" onClick={() => detailCbs.toggleIsScheduleVisible()}>
                         时刻表
                     </span>
                     <span className="right"></span>
                 </Detail>
             </div>
-            <TrainContext.Provider
-                value={{
-                    trainNumber,
-                    departStation,
-                    arriveStation,
-                    departDate,
-                }}
-            >
+
+            {/* 一等座、二等座、商务座 */}
+            <TrainContext.Provider value={{ trainNumber, departStation, arriveStation, departDate }}>
                 <Candidate tickets={tickets} />
             </TrainContext.Provider>
+
+            {/* 展开/收起 预定票信息 */}
             {isScheduleVisible && (
-                <div
-                    className="mask"
-                    onClick={() => dispatch(toggleIsScheduleVisible())}
-                >
-                    <Suspense fallback={<div>loading</div>}>
+                <div className="mask" onClick={() => dispatch(toggleIsScheduleVisible())}>
+                    <Suspense fallback={<div>loading...</div>}>
                         <Schedule
                             date={departDate}
                             trainNumber={trainNumber}
@@ -181,12 +139,6 @@ function App(props) {
         </div>
     );
 }
-
-export default connect(
-    function mapStateToProps(state) {
-        return state;
-    },
-    function mapDispatchToProps(dispatch) {
-        return { dispatch };
-    }
-)(App);
+function mapStateToProps(state) {return state}
+function mapDispatchToProps(dispatch) {return { dispatch }}
+export default connect(mapStateToProps,mapDispatchToProps)(App);

@@ -4,7 +4,7 @@
 
 ##### 在waimaiServer中npm start 启动项目，访问 http://localhost:3000/ 即可 访问到前端打包后的代码~
 
-
-
-
 **`只启动 waimai_webapp 即可  &&  运行 npm run dev`**
+
+
+**于Server端只访问静态文件**

@@ -64,7 +64,7 @@
   },
   "proxy": "http://39.96.69.24",
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "set PORT=3032 && node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "format": "prettier src/**/*.{js,jsx,css,md} --write && eslint src/**/*.{jsx,js} --fix"
@@ -78,7 +78,9 @@
       "react/jsx-indent": [
         "error",
         4
-      ]
+      ],
+      "no-console": "off",
+      "no-debugger":"off"
     }
   },
   "husky": {

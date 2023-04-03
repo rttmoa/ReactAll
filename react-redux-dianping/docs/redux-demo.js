@@ -1,5 +1,9 @@
 import { createStore } from 'redux'
 
+
+
+
+
 export default function () {
     // 下面这一段代码，就是 https://github.com/reactjs/redux 中的入门demo
 

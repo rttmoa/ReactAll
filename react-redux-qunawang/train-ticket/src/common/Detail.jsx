@@ -2,25 +2,19 @@ import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
-import './Detail.css';
+import './css/Detail.css';
 
-function format(d) {
-    const date = dayjs(d);
 
+
+function format(dat) {
+    const date = dayjs(dat);
     return date.format('MM-DD') + ' ' + date.locale('zh-cn').format('ddd');
 }
 
+
 const Detail = memo(function Detail(props) {
-    const {
-        departDate,
-        arriveDate,
-        departTimeStr,
-        arriveTimeStr,
-        trainNumber,
-        departStation,
-        arriveStation,
-        durationStr,
-    } = props;
+
+    const {  departDate, arriveDate, departTimeStr, arriveTimeStr, trainNumber, departStation, arriveStation, durationStr } = props;
 
     const departDateStr = useMemo(() => format(departDate), [departDate]);
     const arriveDateStr = useMemo(() => format(arriveDate), [arriveDate]);
@@ -45,9 +39,8 @@ const Detail = memo(function Detail(props) {
                 </div>
             </div>
         </div>
-    );
+    )
 });
-
 Detail.propTypes = {
     departDate: PropTypes.number.isRequired,
     arriveDate: PropTypes.number.isRequired,

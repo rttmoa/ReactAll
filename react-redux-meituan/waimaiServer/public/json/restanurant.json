@@ -22,17 +22,15 @@
         "avg_delivery_time": 40,
         "avg_delivery_time_ranking": 55,
         "comment_num": 5404,
-        "discounts2": [
-            {
-                "id": -1,
-                "type": 10,
-                "info": "该商家支持在线支付",
-                "icon_url": "http://p1.meituan.net/xianfu/32200c3060be7903f62c9076308619ee734.png",
-                "use_icon_from_server": 1,
-                "display_code": 1,
-                "sequence": 51
-            }
-        ],
+        "discounts2": [{
+            "id": -1,
+            "type": 10,
+            "info": "该商家支持在线支付",
+            "icon_url": "http://p1.meituan.net/xianfu/32200c3060be7903f62c9076308619ee734.png",
+            "use_icon_from_server": 1,
+            "display_code": 1,
+            "sequence": 51
+        }],
         "app_delivery_tip": "",
         "warn_tips": "",
         "support_pay": 1,
@@ -40,8 +38,7 @@
         "remind_count": 0,
         "remind_tip": "",
         "is_favorite": 0,
-        "show_info": [
-            {
+        "show_info": [{
                 "name": "商家评分",
                 "value": "4.6",
                 "unit": "分",

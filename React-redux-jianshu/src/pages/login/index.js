@@ -32,9 +32,7 @@ const mapState = (state) => {
 		loginStatus: state.getIn(['login', 'login'])
 	}
 }
-
-const mapDispatch = (dispatch) => {
-	// console.log(dispatch)
+const mapDispatch = (dispatch) => { 
 	return {
 		login(accountElem, passwordElem){
 			dispatch(actionCreators.login(accountElem.value, passwordElem.value))
