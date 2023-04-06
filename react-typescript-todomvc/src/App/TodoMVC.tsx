@@ -10,15 +10,16 @@ import { Layout } from './style'
 import TodoList from './TodoList'
 import UnderBar from './UnderBar'
 
+
+/***--- TodoMVC ---**/
 const TodoMVC: React.FC = () => {
+
   const appState = useRecoilValue<AppState>(recoilState)
 
-  // if appState has changes, save it LocalStorage.
+  // if appState has changes, save it LocalStorage：如果 appState 有变化，保存到 LocalStorage
   useEffect((): void => {
-    window.localStorage.setItem(
-      LocalStorageKey.APP_STATE,
-      JSON.stringify(appState) // convert JavaScript Object to string
-    )
+    // convert JavaScript Object to string：将 JavaScript 对象转换为字符串
+    window.localStorage.setItem(LocalStorageKey.APP_STATE,JSON.stringify(appState))
   }, [appState])
 
   return (

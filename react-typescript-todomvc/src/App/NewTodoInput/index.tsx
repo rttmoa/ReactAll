@@ -1,32 +1,36 @@
 import React, { createRef } from 'react'
 import { useRecoilState } from 'recoil'
 
-import type { AppState, Todo } from '../../dataStructure'
-import { recoilState } from '../../dataStructure'
+import type { AppState, Todo } from '../../dataStructure'  // 导入类型type
+import { recoilState } from '../../dataStructure' // 导入值
 import { UUID } from '../../functions'
 
 import { Layout } from './style'
 
+
+
 const NewTodoTextInput: React.FC = () => {
   const [appState, setAppState] = useRecoilState<AppState>(recoilState)
-  const textInput: React.RefObject<HTMLInputElement> =
-    createRef<HTMLInputElement>()
+  const textInput: React.RefObject<HTMLInputElement> = createRef<HTMLInputElement>()
 
   function addTodo(e: React.KeyboardEvent<HTMLInputElement>): void {
-    if (textInput.current === null) return
+
+    if (textInput.current === null) return;
+
     if (e.key === 'Enter' && textInput.current.value.trim().length > 0) {
-      // make new TODO object
+
+      // 制作新的 TODO 对象  
       const todo: Todo = {
         bodyText: textInput.current.value,
         completed: false,
         id: UUID(),
       }
 
-      // add new TODO to entire TodoList
+      // 将新的 TODO 添加到整个 TodoList
       setAppState({ todoList: [todo, ...appState.todoList] })
 
-      // reset text input UI value
-      textInput.current.value = ''
+      // 重置文本输入 UI 值
+      textInput.current.value = "";
     }
   }
 
@@ -43,7 +47,7 @@ const NewTodoTextInput: React.FC = () => {
           data-testid="new-todo-input-text"
           data-cy="new-todo-input-text"
           // eslint-disable-next-line jsx-a11y/no-autofocus
-          autoFocus
+          autoFocus  // 页面刷新自动聚焦
         />
       </header>
     </Layout>

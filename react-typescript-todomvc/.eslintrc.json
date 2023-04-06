@@ -6,5 +6,12 @@
   },
   "rules": {
     "react-hooks/rules-of-hooks": "error"
-  }
+  },
+  "prettier/prettier": [
+    "error",
+    {
+      "singleQuote": true,
+      "parser": "flow"
+    }
+  ]
 }

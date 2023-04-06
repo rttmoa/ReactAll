@@ -7,10 +7,13 @@ import { recoilState } from '../../dataStructure'
 import FilterLink from './FilterLink'
 import { Layout } from './style'
 
+
+
 const UnderBar: React.FC = () => {
+
   const [appState, setAppState] = useRecoilState<AppState>(recoilState)
-  const completed: number = appState.todoList.filter(t => t.completed === true).length /* eslint-disable-line prettier/prettier */
-  const backlog: number = appState.todoList.filter(t => t.completed === false).length /* eslint-disable-line prettier/prettier */
+  const completed: number = appState.todoList.filter(t => t.completed === true).length;
+  const backlog: number = appState.todoList.filter(t => t.completed === false).length;
 
   function clearCompleted(): void {
     setAppState({
@@ -22,17 +25,14 @@ const UnderBar: React.FC = () => {
     <Layout>
       <footer className="footer">
         <span className="todo-count">
-          <strong data-cy="remaining-uncompleted-todo-count">{backlog}</strong>{' '}
-          item left
+          <strong data-cy="remaining-uncompleted-todo-count">{backlog}</strong>{' '}item left
         </span>
+
+        {/* 过滤链接 */}
         <FilterLink />
 
         {completed > 0 && (
-          <button
-            onClick={clearCompleted}
-            className="clear-completed"
-            data-cy="clear-completed-button"
-          >
+          <button onClick={clearCompleted} className="clear-completed" data-cy="clear-completed-button">
             Clear completed
           </button>
         )}

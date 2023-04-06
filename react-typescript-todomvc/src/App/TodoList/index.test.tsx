@@ -7,8 +7,7 @@ import { TestRenderer } from '../../testUtil'
 import TodoList from './index'
 
 const initialRecoilState: AppState = {
-  todoList: [
-    {
+  todoList: [{
       bodyText: 'monster',
       completed: false,
       id: 'TsHx9eEN5Y4A',
@@ -22,8 +21,7 @@ const initialRecoilState: AppState = {
       bodyText: 'caffe latte',
       completed: false,
       id: 'QwejYipEf5nk',
-    },
-  ],
+    }],
 }
 
 test('should be render 3 todo items in initialAppState', () => {

@@ -4,6 +4,8 @@
 
 import styled from 'styled-components'
 
+
+
 export const Layout = styled.div`
   .main {
     position: relative;
@@ -50,8 +52,8 @@ export const Layout = styled.div`
   }
 
   /*
-  Hack to remove background from Mobile Safari.
-  Can't use it globally since it destroys checkboxes in Firefox
+    Hack to remove background from Mobile Safari.
+    Can't use it globally since it destroys checkboxes in Firefox
   */
   @media screen and (-webkit-min-device-pixel-ratio: 0) {
     .toggle-all,

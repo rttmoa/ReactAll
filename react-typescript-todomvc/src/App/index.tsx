@@ -6,6 +6,9 @@ import { NotFound } from '../NotFound'
 
 import TodoMVC from './TodoMVC'
 
+
+
+// 根indexjs：错误边界，TodoMVC、NotFound
 const App: React.FC = () => (
   <ErrorBoundary>
     <BrowserRouter>

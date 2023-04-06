@@ -1,7 +1,9 @@
+/* eslint-disable prettier/prettier */
 import React, { memo } from 'react'
 
-const Copyright: React.FC = memo(
-  () => (
+
+
+const Copyright: React.FC = memo(() => (
     <footer className="info">
       <p>
         Created by{' '}
@@ -11,8 +13,7 @@ const Copyright: React.FC = memo(
         Part of <a href="http://todomvc.com">TodoMVC</a>
       </p>
     </footer>
-  ),
-  () => true
+  ), () => true
 )
 
 export default Copyright

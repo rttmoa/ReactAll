@@ -3,13 +3,14 @@ import { atom } from 'recoil'
 
 export type Routes = '/' | '/active' | '/completed'
 
+/**--- 接口指定类型：id,bodyText,completed ---**/
 export interface Todo {
   id: string
   bodyText: string
   completed: boolean
 }
 
-export type TodoListType = Todo[]
+export type TodoListType = Todo[] // 数组类型的对象
 
 export interface AppState {
   todoList: TodoListType
@@ -17,7 +18,7 @@ export interface AppState {
 
 export enum LocalStorageKey {
   APP_STATE = 'APP_STATE',
-}
+} 
 
 function LoadAppStateFromLocalStorage(): AppState {
   const stringifiedJSON: string | null = window.localStorage.getItem(
