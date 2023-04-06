@@ -110,5 +110,4 @@ export const Layout = styled.div`
 
   .editing:last-child {
     margin-bottom: -1px;
-  }
-`
+  }`
