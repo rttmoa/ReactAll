@@ -12,7 +12,6 @@ import '../css/Schedule.css';
 
 /***--- 列车时刻表 —— 每一站的数据 ---**/
 const ScheduleRow = memo(function ScheduleRow(props) {
-
     const {
         index,
         station,
@@ -20,50 +19,26 @@ const ScheduleRow = memo(function ScheduleRow(props) {
         departTime,
         stay,
 
-        isStartStation,
-        isEndStation,
-        isDepartStation,
-        isArriveStation,
-        beforeDepartStation,
-        afterArriveStation,
+        isStartStation,     // 始发站
+        isEndStation,       // 终点站
+        isDepartStation,    // 出发站
+        isArriveStation,    // 到达站
+        beforeDepartStation,// 出发之前站
+        afterArriveStation, // 到达后的站
     } = props;
     return (
         <li>
-            <div
-                className={classnames('icon', {
-                    'icon-red': isDepartStation || isArriveStation,
-                })}
-            >
-                {isDepartStation
-                    ? '出'
-                    : isArriveStation
-                    ? '到'
-                    : leftPad(index, 2, 0)}
+            <div className={classnames('icon', {'icon-red': isDepartStation || isArriveStation})}>
+                {isDepartStation ? '出' : isArriveStation ? '到' : leftPad(index, 2, 0)}
             </div>
-            <div
-                className={classnames('row', {
-                    grey: beforeDepartStation || afterArriveStation,
-                })}
-            >
-                <span
-                    className={classnames('station', {
-                        red: isArriveStation || isDepartStation,
-                    })}
-                >
+            <div className={classnames('row', {grey: beforeDepartStation || afterArriveStation})}>
+                <span className={classnames('station', {red: isArriveStation || isDepartStation})}>
                     {station}
                 </span>
-                <span
-                    className={classnames('arrtime', {
-                        red: isArriveStation,
-                    })}
-                >
+                <span className={classnames('arrtime', {red: isArriveStation})}>
                     {isStartStation ? '始发站' : arriveTime}
                 </span>
-                <span
-                    className={classnames('deptime', {
-                        red: isDepartStation,
-                    })}
-                >
+                <span className={classnames('deptime', {red: isDepartStation})}>
                     {isEndStation ? '终到站' : departTime}
                 </span>
                 <span className="stoptime">
@@ -96,54 +71,56 @@ const Schedule = memo(function Schedule(props) {
 
         fetch(url).then(response => response.json()).then(data => {
             // console.log("请求到的时刻表数据", data)
-            let departRow;
-            let arriveRow;
 
+            let departRow; // 出发行
+            let arriveRow; // 到达行
+
+            // 贴图查看 始发站和终点站
             for (let i = 0; i < data.length; ++i) {
                 if (!departRow) {
                     if (data[i].station === departStation) {
                         departRow = Object.assign(data[i], {
-                            beforeDepartStation: false,
-                            isDepartStation: true,
-                            afterArriveStation: false,
-                            isArriveStation: false,
+                            beforeDepartStation: false, // 始发站
+                            isDepartStation: true,      // 出发站
+                            afterArriveStation: false,  // 终点站
+                            isArriveStation: false,     // 到达站
                         });
                     } else {
                         Object.assign(data[i], {
-                            beforeDepartStation: true,
-                            isDepartStation: false,
-                            afterArriveStation: false,
-                            isArriveStation: false,
+                            beforeDepartStation: true,  // 始发站
+                            isDepartStation: false,     // 出发站
+                            afterArriveStation: false,  // 终点站
+                            isArriveStation: false,     // 到达站
                         });
                     }
                 } else if (!arriveRow) {
                     if (data[i].station === arriveStation) {
                         arriveRow = Object.assign(data[i], {
-                            beforeDepartStation: false,
-                            isDepartStation: false,
-                            afterArriveStation: false,
-                            isArriveStation: true,
+                            beforeDepartStation: false, // 始发站
+                            isDepartStation: false,     // 出发站
+                            afterArriveStation: false,  // 终点站
+                            isArriveStation: true,      // 到达站
                         });
                     } else {
                         Object.assign(data[i], {
-                            beforeDepartStation: false,
-                            isDepartStation: false,
-                            afterArriveStation: false,
-                            isArriveStation: false,
+                            beforeDepartStation: false, // 始发站
+                            isDepartStation: false,     // 出发站
+                            afterArriveStation: false,  // 终点站
+                            isArriveStation: false,     // 到达站
                         });
                     }
                 } else {
                     Object.assign(data[i], {
-                        beforeDepartStation: false,
-                        isDepartStation: false,
-                        afterArriveStation: true,
-                        isArriveStation: false,
+                        beforeDepartStation: false, // 始发站
+                        isDepartStation: false,     // 出发站
+                        afterArriveStation: true,   // 终点站
+                        isArriveStation: false,     // 到达站
                     });
                 }
 
                 Object.assign(data[i], {
-                    isStartStation: i === 0,
-                    isEndStation: i === data.length - 1,
+                    isStartStation: i === 0,             // 是否是始发站
+                    isEndStation: i === data.length - 1, // 是否是终点站
                 });
             }
             // console.log("时刻表数据", data)  // 处理后的data
@@ -152,7 +129,7 @@ const Schedule = memo(function Schedule(props) {
     }, [date, trainNumber, departStation, arriveStation]);
 
 
-
+    /***--- 对话框 ---**/
     return (
         <div className="schedule">
             <div className="dialog">
@@ -165,9 +142,7 @@ const Schedule = memo(function Schedule(props) {
                 </div>
                 <ul>
                     {scheduleList.map((schedule, index) => {
-                        return (
-                            <ScheduleRow key={schedule.station} index={index + 1} {...schedule}/>
-                        );
+                        return <ScheduleRow key={schedule.station} index={index + 1} {...schedule}/>
                     })}
                 </ul>
             </div>
@@ -180,5 +155,4 @@ Schedule.propTypes = {
     departStation: PropTypes.string.isRequired,
     arriveStation: PropTypes.string.isRequired,
 };
-
 export default Schedule;

@@ -45,10 +45,9 @@ Channel.propTypes = {
 }
 
 
-/***--- 渲染座位信息 ---**/
+/***--- 商务座，一等座，二等座 ---**/
 const Seat = memo(function Seat(props) {
     const { type, priceMsg, ticketsLeft, channels, expanded, onToggle, idx } = props;
-
     return (
         <li>
             <div className="bar" onClick={() => onToggle(idx)}>
@@ -59,9 +58,7 @@ const Seat = memo(function Seat(props) {
             </div>
             <div className="channels" style={{ height: expanded ? channels.length * 55 + 'px' : 0 }} >
                 {channels.map(channel => {
-                    return (
-                        <Channel key={channel.name} {...channel} type={type} />
-                    )
+                    return <Channel key={channel.name} {...channel} type={type} />
                 })}
             </div>
         </li>
