@@ -12,6 +12,7 @@ export default function useNav(departDate, dispatch, prevDate, nextDate) {
     const isPrevDisabled = h0(departDate) <= h0();
     const isNextDisabled = h0(departDate) - h0() > 20 * 86400 * 1000;
 
+    /***--- 点击 上一页 + prevDate发送到redux ---**/
     const prev = useCallback(() => {
         if (isPrevDisabled) {
             return;
@@ -19,6 +20,7 @@ export default function useNav(departDate, dispatch, prevDate, nextDate) {
         dispatch(prevDate());
     }, [isPrevDisabled]);
 
+    /***--- 点击 下一页 + nextDate发送到redux ---**/
     const next = useCallback(() => {
         if (isNextDisabled) {
             return;

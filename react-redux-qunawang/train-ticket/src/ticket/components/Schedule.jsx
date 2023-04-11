@@ -85,6 +85,7 @@ const Schedule = memo(function Schedule(props) {
     const [scheduleList, setScheduleList] = useState([]);
 
     useEffect(() => {
+        // 解析URL地址
         const url = new URI('/rest/schedule')
             .setSearch('trainNumber', trainNumber)
             .setSearch('departStation', departStation)
@@ -94,7 +95,7 @@ const Schedule = memo(function Schedule(props) {
         // console.log(url) //————   /rest/schedule?trainNumber=D707&departStation=%E5%8C%97%E4%BA%AC%E5%8D%97&arriveStation=%E5%8D%97%E4%BA%AC&date=2019-02-10
 
         fetch(url).then(response => response.json()).then(data => {
-            // console.log(data)
+            // console.log("请求到的时刻表数据", data)
             let departRow;
             let arriveRow;
 
@@ -145,7 +146,7 @@ const Schedule = memo(function Schedule(props) {
                     isEndStation: i === data.length - 1,
                 });
             }
-            // console.log(data)  // 处理后的data
+            // console.log("时刻表数据", data)  // 处理后的data
             setScheduleList(data);
         });
     }, [date, trainNumber, departStation, arriveStation]);

@@ -11,7 +11,8 @@ import '../css/Candidate.css';
 const Channel = memo(function Channel(props) {
     const { name, desc, type } = props;
 
-    const { trainNumber, departStation, arriveStation, departDate } = useContext(TrainContext);
+    const { trainNumber, departStation, arriveStation, departDate } = useContext(TrainContext); // useContext 多级组件共享数据
+    // console.log("useContext", trainNumber);
 
     const src = useMemo(() => {
         return new URI('order.html')

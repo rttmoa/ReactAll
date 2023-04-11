@@ -12,7 +12,7 @@ import App from './App.jsx';
 
 
 
-/***--- 订单填写 ———— 添加乘客信息+提交订单 ---**/
+/***--- 购票页面 ---**/
 // http://localhost:3032/ticket.html?aStation=%E5%8D%97%E4%BA%AC&dStation=%E5%8C%97%E4%BA%AC&trainNumber=Z281&date=2019-02-10
 ReactDOM.render(
     <Provider store={store}>

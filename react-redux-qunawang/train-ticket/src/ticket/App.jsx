@@ -13,10 +13,14 @@ import { TrainContext } from './utils/context';
 import './css/App.css';
 import {setDepartStation,setArriveStation,setTrainNumber,setDepartDate,setSearchParsed,
     prevDate,nextDate,
-    setDepartTimeStr,setArriveTimeStr,setArriveDate,setDurationStr,setTickets,toggleIsScheduleVisible  
+    setDepartTimeStr,setArriveTimeStr,setArriveDate,setDurationStr,setTickets,
+    toggleIsScheduleVisible, // 切换时刻表
 } from './store/actions';
  
+/***--- 时刻表弹出框 ---**/
 const Schedule = lazy(() => import('./components/Schedule.jsx'));
+
+
 
 
 
@@ -24,8 +28,11 @@ const Schedule = lazy(() => import('./components/Schedule.jsx'));
 
 function App(props) {
 
-    const { departDate, arriveDate, departTimeStr, arriveTimeStr, departStation, arriveStation, 
-        trainNumber, durationStr, tickets, isScheduleVisible, searchParsed, dispatch 
+    const { 
+        departDate, arriveDate, departTimeStr, arriveTimeStr, departStation, arriveStation, 
+        trainNumber, durationStr, tickets, 
+        isScheduleVisible, // 时刻表是否显示
+        searchParsed, dispatch 
     } = props;
 
 
@@ -71,6 +78,7 @@ function App(props) {
 
     const { isPrevDisabled, isNextDisabled, prev, next } = useNav(departDate, dispatch, prevDate, nextDate);
 
+    /***--- 列车时刻表 - 详情信息 ---**/
     const detailCbs = useMemo(() => {
         return bindActionCreators({toggleIsScheduleVisible}, dispatch);
     }, []);
@@ -94,8 +102,8 @@ function App(props) {
                     date={departDate}
                     isPrevDisabled={isPrevDisabled}
                     isNextDisabled={isNextDisabled}
-                    prev={prev}
-                    next={next}
+                    prev={prev}  // 上一页
+                    next={next}  // 下一页
                 />
             </div>
             {/* 车次信息 */}
@@ -110,20 +118,20 @@ function App(props) {
                     arriveStation={arriveStation}
                     durationStr={durationStr}
                 >
+                    {/* 这部分是children */}
                     <span className="left"></span>
-                    <span className="schedule" onClick={() => detailCbs.toggleIsScheduleVisible()}>
-                        时刻表
-                    </span>
+                    <span className="schedule" onClick={() => detailCbs.toggleIsScheduleVisible()}>时刻表</span>
                     <span className="right"></span>
                 </Detail>
             </div>
 
             {/* 一等座、二等座、商务座 */}
+            {/* TrainContext 上下文（Context）提供了一种在组件树中跨层级传递数据的方法，使得你可以在树中的任意组件共享数据，而无需显式地将数据逐层传递 */}
             <TrainContext.Provider value={{ trainNumber, departStation, arriveStation, departDate }}>
                 <Candidate tickets={tickets} />
             </TrainContext.Provider>
 
-            {/* 展开/收起 预定票信息 */}
+            {/* 展开/收起 时刻表弹出框 */}
             {isScheduleVisible && (
                 <div className="mask" onClick={() => dispatch(toggleIsScheduleVisible())}>
                     <Suspense fallback={<div>loading...</div>}>

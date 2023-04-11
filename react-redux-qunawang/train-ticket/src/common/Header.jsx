@@ -8,8 +8,7 @@ import './css/Header.css';
 
 
 
-export default function Header(props) {
-    const { onBack, title } = props;
+export default function Header({ onBack, title }) {
 
     return (
         <div className="header">

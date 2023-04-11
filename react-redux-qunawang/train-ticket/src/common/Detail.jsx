@@ -10,15 +10,13 @@ function format(dat) {
     const date = dayjs(dat);
     return date.format('MM-DD') + ' ' + date.locale('zh-cn').format('ddd');
 }
-
-
 const Detail = memo(function Detail(props) {
 
     const {  departDate, arriveDate, departTimeStr, arriveTimeStr, trainNumber, departStation, arriveStation, durationStr } = props;
-
     const departDateStr = useMemo(() => format(departDate), [departDate]);
     const arriveDateStr = useMemo(() => format(arriveDate), [arriveDate]);
 
+    
     return (
         <div className="detail">
             <div className="content">
@@ -29,7 +27,7 @@ const Detail = memo(function Detail(props) {
                 </div>
                 <div className="middle">
                     <p className="train-name">{trainNumber}</p>
-                    <p className="train-mid">{props.children}</p>
+                    <p className="train-mid">{props.children}</p>   {/* 传递children属性 */}
                     <p className="train-time">耗时{durationStr}</p>
                 </div>
                 <div className="right">
