@@ -41,42 +41,49 @@ export function setSeatType(seatType) {
         payload: seatType,
     };
 }
+/***--- 设置 出发日期 ---**/
 export function setDepartDate(departDate) {
     return {
         type: ACTION_SET_DEPART_DATE,
         payload: departDate,
     };
 }
+/***--- 设置 到达日期 ---**/
 export function setArriveDate(arriveDate) {
     return {
         type: ACTION_SET_ARRIVE_DATE,
         payload: arriveDate,
     };
 }
+/***--- 设置 出发时间 ---**/
 export function setDepartTimeStr(departTimeStr) {
     return {
         type: ACTION_SET_DEPART_TIME_STR,
         payload: departTimeStr,
     };
 }
+/***--- 设置 到达时间 ---**/
 export function setArriveTimeStr(arriveTimeStr) {
     return {
         type: ACTION_SET_ARRIVE_TIME_STR,
         payload: arriveTimeStr,
     };
 }
+/***--- 设置 停留时间 ---**/
 export function setDurationStr(durationStr) {
     return {
         type: ACTION_SET_DURATION_STR,
         payload: durationStr,
     };
 }
+/***--- 设置 价格 ---**/
 export function setPrice(price) {
     return {
         type: ACTION_SET_PRICE,
         payload: price,
     };
 }
+/***--- 设置 乘客 ---**/
 export function setPassengers(passengers) {
     return {
         type: ACTION_SET_PASSENGERS,
@@ -95,6 +102,7 @@ export function setIsMenuVisible(isMenuVisible) {
         payload: isMenuVisible,
     };
 }
+/***--- 设置 搜索暂停 ---**/
 export function setSearchParsed(searchParsed) {
     return {
         type: ACTION_SET_SEARCH_PARSED,
@@ -102,17 +110,17 @@ export function setSearchParsed(searchParsed) {
     };
 }
 
+/***--- 进入页面时，根据 出发站，到达站，座位类型，时间 处理URL地址 ---**/
 export function fetchInitial(url) {
     return (dispatch, getState) => {
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
+        fetch(url).then(res => {/* console.log("fetch", res); */ return res.json()}).then(data => {
+                // console.log(data); // {departTimeStr: '07:15', arriveTimeStr: '11:47', arriveDate: 1549900800000, durationStr: '4小时32分', price: 483.5}
                 const {
-                    departTimeStr,
-                    arriveTimeStr,
-                    arriveDate,
-                    durationStr,
-                    price,
+                    departTimeStr, // 出发时间
+                    arriveTimeStr, // 到达时间
+                    arriveDate, // 到达日期
+                    durationStr, // 停留时间
+                    price, // 价格
                 } = data;
 
                 dispatch(setDepartTimeStr(departTimeStr));
@@ -120,33 +128,32 @@ export function fetchInitial(url) {
                 dispatch(setArriveDate(arriveDate));
                 dispatch(setDurationStr(durationStr));
                 dispatch(setPrice(price));
-            });
+        });
     };
 }
 
+/***--- 添加成人 ---**/
 let passengerIdSeed = 0;
-
 export function createAdult() {
     return (dispatch, getState) => {
         const { passengers } = getState();
+        // console.log(passengers) // 
 
         for (let passenger of passengers) {
-            const keys = Object.keys(passenger);
-            for (let key of keys) {
-                if (!passenger[key]) {
+            const keys = Object.keys(passenger); // 获取属性名数组
+            for (let key of keys) { // 获取属性名
+                if (!passenger[key]) { // 获取属性值：Obj['name']
+                    console.info("提示：上一个乘客信息不完整")
                     return;
                 }
             }
         }
 
-        dispatch(
-            setPassengers([
-                ...passengers,
-                {
+        dispatch(setPassengers([...passengers, {
                     id: ++passengerIdSeed,
-                    name: '',
+                    name: "",
                     ticketType: 'adult',
-                    licenceNo: '',
+                    licenceNo: "",
                     seat: 'Z',
                 },
             ])
@@ -161,9 +168,10 @@ export function createChild() {
         let adultFound = null;
 
         for (let passenger of passengers) {
-            const keys = Object.keys(passenger);
-            for (let key of keys) {
-                if (!passenger[key]) {
+            const keys = Object.keys(passenger); // 获取属性名数组
+            for (let key of keys) { // 获取属性名
+                if (!passenger[key]) { // 获取属性值：Obj['name']
+                    console.info("提示：上一个乘客信息不完整")
                     return;
                 }
             }
@@ -171,6 +179,9 @@ export function createChild() {
                 adultFound = passenger.id;
             }
         }
+        // console.log("初始adultFound", !!adultFound) // false
+        // debugger
+
         if (!adultFound) {
             alert('请至少正确添加一个同行成人');
             return;
@@ -188,7 +199,7 @@ export function createChild() {
         );
     };
 }
-
+/***--- 移除乘客 ---**/
 export function removePassenger(id) {
     return (dispatch, getState) => {
         const { passengers } = getState();
@@ -200,7 +211,7 @@ export function removePassenger(id) {
         dispatch(setPassengers(newPassengers));
     };
 }
-
+/***--- 修改乘客信息 ---**/
 export function updatePassenger(id, data, keysToBeRemoved = []) {
     return (dispatch, getState) => {
         const { passengers } = getState();
@@ -208,7 +219,7 @@ export function updatePassenger(id, data, keysToBeRemoved = []) {
         for (let i = 0; i < passengers.length; ++i) {
             if (passengers[i].id === id) {
                 const newPassengers = [...passengers];
-                newPassengers[i] = Object.assign({}, passengers[i], data);
+                newPassengers[i] = Object.assign({}, passengers[i], data)
 
                 for (let key of keysToBeRemoved) {
                     delete newPassengers[i][key];
@@ -228,16 +239,14 @@ export function showMenu(menu) {
         dispatch(setIsMenuVisible(true));
     };
 }
-
+/***--- 弹出框 选择 男/女   ---**/
 export function showGenderMenu(id) {
     return (dispatch, getState) => {
         const { passengers } = getState();
 
         const passenger = passengers.find(passenger => passenger.id === id);
 
-        if (!passenger) {
-            return;
-        }
+        if (!passenger) return;
 
         dispatch(
             showMenu({

@@ -8,7 +8,7 @@ import '../css/Passengers.css';
 
 
 
-
+// 乘客 增删改查
 const Passenger = memo(function Passenger(props) {
 
     const {id,name,followAdultName,ticketType,licenceNo,gender,birthday,onRemove,onUpdate,showGenderMenu,showFollowAdultMenu,showTicketTypeMenu} = props;
@@ -17,6 +17,7 @@ const Passenger = memo(function Passenger(props) {
 
     return (
         <li className="passenger">
+            {/* 删除 乘客 */}
             <i className="delete" onClick={() => onRemove(id)}>—</i>
             <ol className="items">
                 <li className="item">
@@ -75,7 +76,7 @@ const Passenger = memo(function Passenger(props) {
                         <input
                             type="text"
                             className="input followAdult"
-                            placeholder="请选择"
+                            placeholder="请选择成人"
                             value={followAdultName}
                             onClick={() => showFollowAdultMenu(id)}
                             readOnly
@@ -106,12 +107,15 @@ Passenger.propTypes = {
 const Passengers = memo(function Passengers(props) {
 
     const {passengers,createAdult,createChild,removePassenger,updatePassenger,showGenderMenu,showFollowAdultMenu,showTicketTypeMenu} = props;
+    // console.log(passengers); // 默认[]
+    // debugger
 
     const nameMap = useMemo(() => {
         const ret = {};
         for (const passenger of passengers) {
             ret[passenger.id] = passenger.name;
         }
+        // console.log("ret", ret) // {1: 'zhangsan', 2: 'sili'}
         return ret;
     }, [passengers]);
 
@@ -148,5 +152,4 @@ Passengers.propTypes = {
     showFollowAdultMenu: PropTypes.func.isRequired,
     showTicketTypeMenu: PropTypes.func.isRequired,
 };
-
 export default Passengers;

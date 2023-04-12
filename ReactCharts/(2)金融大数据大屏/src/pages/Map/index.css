@@ -1,0 +1,9 @@
+.numBox {
+  position: absolute;
+  top: 30px;
+  left: 35px;
+}
+.numBox .title {
+  color: #fff;
+  font-size: 18px;
+}/*# sourceMappingURL=index.css.map */

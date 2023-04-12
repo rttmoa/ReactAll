@@ -25,8 +25,7 @@ export default {
             case ACTION_SET_TRAIN_NUMBER:
                 return payload;
             default:
-        }
-
+        } 
         return state;
     },
     departStation(state = null, action) {
@@ -35,8 +34,7 @@ export default {
             case ACTION_SET_DEPART_STATION:
                 return payload;
             default:
-        }
-
+        } 
         return state;
     },
     arriveStation(state = null, action) {
@@ -45,8 +43,7 @@ export default {
             case ACTION_SET_ARRIVE_STATION:
                 return payload;
             default:
-        }
-
+        } 
         return state;
     },
     seatType(state = null, action) {
@@ -55,8 +52,7 @@ export default {
             case ACTION_SET_SEAT_TYPE:
                 return payload;
             default:
-        }
-
+        } 
         return state;
     },
     departDate(state = null, action) {
@@ -65,8 +61,7 @@ export default {
             case ACTION_SET_DEPART_DATE:
                 return payload;
             default:
-        }
-
+        } 
         return state;
     },
     arriveDate(state = null, action) {
@@ -75,8 +70,7 @@ export default {
             case ACTION_SET_ARRIVE_DATE:
                 return payload;
             default:
-        }
-
+        } 
         return state;
     },
     departTimeStr(state = null, action) {
@@ -85,8 +79,7 @@ export default {
             case ACTION_SET_DEPART_TIME_STR:
                 return payload;
             default:
-        }
-
+        } 
         return state;
     },
     arriveTimeStr(state = null, action) {
@@ -95,8 +88,7 @@ export default {
             case ACTION_SET_ARRIVE_TIME_STR:
                 return payload;
             default:
-        }
-
+        } 
         return state;
     },
     durationStr(state = null, action) {
@@ -105,8 +97,7 @@ export default {
             case ACTION_SET_DURATION_STR:
                 return payload;
             default:
-        }
-
+        } 
         return state;
     },
     price(state = null, action) {
@@ -115,11 +106,10 @@ export default {
             case ACTION_SET_PRICE:
                 return payload;
             default:
-        }
-
+        } 
         return state;
     },
-    passengers(state = [], action) {
+    passengers(state = [], action) { // 乘客信息，默认是 []
         const { type, payload } = action;
         switch (type) {
             case ACTION_SET_PASSENGERS:
@@ -139,7 +129,7 @@ export default {
 
         return state;
     },
-    isMenuVisible(state = false, action) {
+    isMenuVisible(state = false, action) { // 菜单是否显示 默认是 false
         const { type, payload } = action;
         switch (type) {
             case ACTION_SET_IS_MENU_VISIBLE:
@@ -149,7 +139,7 @@ export default {
 
         return state;
     },
-    searchParsed(state = false, action) {
+    searchParsed(state = false, action) { // 搜索暂停 默认是 false
         const { type, payload } = action;
         switch (type) {
             case ACTION_SET_SEARCH_PARSED:

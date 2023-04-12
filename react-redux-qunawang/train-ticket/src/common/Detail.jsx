@@ -27,7 +27,7 @@ const Detail = memo(function Detail(props) {
                 </div>
                 <div className="middle">
                     <p className="train-name">{trainNumber}</p>
-                    <p className="train-mid">{props.children}</p>   {/* 传递children属性 */}
+                    <p className="train-mid">{props.children}</p>   {/* 传递children属性 - children是传递来的结构 */}
                     <p className="train-time">耗时{durationStr}</p>
                 </div>
                 <div className="right">

@@ -1,0 +1,7 @@
+.header {
+  position: relative;
+}
+.header .banner-img {
+  width: 100%;
+  height: px2rem(178px);
+}/*# sourceMappingURL=Header.css.map */
