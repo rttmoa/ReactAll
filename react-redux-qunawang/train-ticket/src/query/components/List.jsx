@@ -25,21 +25,25 @@ const ListItem = memo(function ListItem(props) {
     return (
         <li className="list-item">
             <a href={url}>
+                {/* 出发时间 - 到达时间 */}
                 <span className="item-time">
                     <em>{dTime}</em>
                     <br />
                     <em className="em-light">{aTime} <i className="time-after">{dayAfter}</i></em>
                 </span>
+                {/* 始发站 - 终点站 */}
                 <span className="item-stations">
                     <em><i className="train-station train-start">始</i>{dStation}</em>
                     <br />
                     <em className="em-light"><i className="train-station train-end">终</i>{aStation}</em>
                 </span>
+                {/* 火车编号 - 路程时长 */}
                 <span className="item-train">
                     <em>{trainNumber}</em>
                     <br />
                     <em className="em-light">{time}</em>
                 </span>
+                {/* 价格 - 可抢票 */}
                 <span className="item-ticket">
                     <em>{priceMsg}</em>
                     <br />
@@ -67,13 +71,11 @@ const List = memo(function List(props) {
     const { list } = props;
     // console.log(list) // 14 条车票信息
 
-    return (
-        <ul className="list">
-            {list.map(item => (
-                <ListItem {...item} key={item.trainNumber} />
-            ))}
-        </ul>
-    );
+    return (<ul className="list">
+        {list.map(item => (
+            <ListItem {...item} key={item.trainNumber} />
+        ))}
+    </ul>);
 })
 List.propTypes = {
     list: PropTypes.array.isRequired,

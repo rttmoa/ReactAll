@@ -236,11 +236,11 @@ BottomModal.propTypes = {
 export default function Bottom(props) {
 
     const {
-        toggleOrderType, // 出发 早→晚' : '耗时 短→长
-        toggleHighSpeed, // 只看高铁动车
-        toggleOnlyTickets, // 只看有票
-        toggleIsFiltersVisible, // 综合筛选
-        orderType,
+        toggleOrderType,        // 切换 出发 早→晚' : '耗时 短→长
+        toggleHighSpeed,        // 切换 只看高铁动车
+        toggleOnlyTickets,      // 切换 只看有票
+        toggleIsFiltersVisible, // 切换 综合筛选
+        orderType, 
         highSpeed, 
         onlyTickets,
         isFiltersVisible,
@@ -253,6 +253,8 @@ export default function Bottom(props) {
         setCheckedTicketTypes,setCheckedTrainTypes,setCheckedDepartStations,setCheckedArriveStations,
         setDepartTimeStart,setDepartTimeEnd,setArriveTimeStart,setArriveTimeEnd, // 设置出发时间，到达时间
     } = props;
+    // console.log(isFiltersVisible)
+
 
     const noChecked = useMemo(() => {
         return (

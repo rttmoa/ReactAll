@@ -16,25 +16,28 @@ export const ACTION_SET_SEARCH_PARSED = 'SET_SEARCH_PARSED';
 
 
 
-
+/***--- 设置 火车编号 ---**/
 export function setTrainNumber(trainNumber) {
     return {
         type: ACTION_SET_TRAIN_NUMBER,
         payload: trainNumber,
     };
 }
+/***--- 设置 出发车站 ---**/
 export function setDepartStation(departStation) {
     return {
         type: ACTION_SET_DEPART_STATION,
         payload: departStation,
     };
 }
+/***--- 设置 到达车站 ---**/
 export function setArriveStation(arriveStation) {
     return {
         type: ACTION_SET_ARRIVE_STATION,
         payload: arriveStation,
     };
 }
+/***--- 设置 座位类型 ---**/
 export function setSeatType(seatType) {
     return {
         type: ACTION_SET_SEAT_TYPE,
