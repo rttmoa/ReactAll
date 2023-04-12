@@ -80,9 +80,8 @@ Seat.propTypes = {
 const Candidate = memo(function Candidate(props) {
     const { tickets } = props;
 
-    const [expandedIndex, setExpandedIndex] = useState(-1);
+    const [expandedIndex, setExpandedIndex] = useState(-1); // 设置 展开的是 商务座/一等座/二等座
 
-    /***--- 设置切换购票的座位 ---**/
     const onToggle = useCallback(idx => {
         setExpandedIndex(idx === expandedIndex ? -1 : idx);
     }, [expandedIndex]);
@@ -91,9 +90,7 @@ const Candidate = memo(function Candidate(props) {
         <div className="candidate">
             <ul>
                 {tickets.map((ticket, idx) => {
-                    return (
-                        <Seat idx={idx} onToggle={onToggle} expanded={expandedIndex === idx} {...ticket} key={ticket.type}/>
-                    );
+                    return <Seat idx={idx} onToggle={onToggle} expanded={expandedIndex === idx} {...ticket} key={ticket.type}/>
                 })}
             </ul>
         </div>

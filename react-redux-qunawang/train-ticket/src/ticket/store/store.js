@@ -21,7 +21,7 @@ export default createStore(combineReducers(reducers), {
         durationStr: null, // 持续时间
         tickets: [], // 车票
         isScheduleVisible: false, // 时间表是否显示
-        searchParsed: false, // 搜索信息
+        searchParsed: false, // 搜索暂停
     },
     applyMiddleware(thunk)
 );

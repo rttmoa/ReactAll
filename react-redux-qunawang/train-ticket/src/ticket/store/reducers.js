@@ -80,7 +80,7 @@ export default {
         }
         return state;
     },
-    durationStr(state = null, action) {
+    durationStr(state = null, action) { // 停留时间，默认 null
         const { type, payload } = action;
         switch (type) {
             case ACTION_SET_DURATION_STR:
@@ -89,7 +89,7 @@ export default {
         }
         return state;
     },
-    tickets(state = [], action) {
+    tickets(state = [], action) { // 座位信息，默认是 []
         const { type, payload } = action;
         switch (type) {
             case ACTION_SET_TICKETS:
@@ -98,7 +98,7 @@ export default {
         }
         return state;
     },
-    isScheduleVisible(state = false, action) {
+    isScheduleVisible(state = false, action) { // 时刻表，默认是false
         const { type, payload } = action;
         switch (type) {
             case ACTION_SET_IS_SCHEDULE_VISIBLE:
@@ -108,7 +108,7 @@ export default {
 
         return state;
     },
-    searchParsed(state = false, action) {
+    searchParsed(state = false, action) { // 搜索暂停，默认是false
         const { type, payload } = action;
         switch (type) {
             case ACTION_SET_SEARCH_PARSED:

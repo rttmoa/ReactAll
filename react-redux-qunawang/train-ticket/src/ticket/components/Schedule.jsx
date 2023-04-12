@@ -14,10 +14,10 @@ import '../css/Schedule.css';
 const ScheduleRow = memo(function ScheduleRow(props) {
     const {
         index,
-        station,
-        arriveTime,
-        departTime,
-        stay,
+        station,    // 车站
+        arriveTime, // 到达时间
+        departTime, // 离开时间
+        stay,       // 停留
 
         isStartStation,     // 始发站
         isEndStation,       // 终点站
@@ -32,15 +32,19 @@ const ScheduleRow = memo(function ScheduleRow(props) {
                 {isDepartStation ? '出' : isArriveStation ? '到' : leftPad(index, 2, 0)}
             </div>
             <div className={classnames('row', {grey: beforeDepartStation || afterArriveStation})}>
+                {/* 车站 */}
                 <span className={classnames('station', {red: isArriveStation || isDepartStation})}>
                     {station}
                 </span>
+                {/* 到达 */}
                 <span className={classnames('arrtime', {red: isArriveStation})}>
                     {isStartStation ? '始发站' : arriveTime}
                 </span>
+                {/* 发车 */}
                 <span className={classnames('deptime', {red: isDepartStation})}>
                     {isEndStation ? '终到站' : departTime}
                 </span>
+                {/* 停留时间 */}
                 <span className="stoptime">
                     {isStartStation || isEndStation ? '-' : stay + '分'}
                 </span>
@@ -57,7 +61,7 @@ const Schedule = memo(function Schedule(props) {
     
     const { date, trainNumber, departStation, arriveStation } = props;
 
-    const [scheduleList, setScheduleList] = useState([]);
+    const [scheduleList, setScheduleList] = useState([]);  // 时刻表数据
 
     useEffect(() => {
         // 解析URL地址
@@ -126,7 +130,7 @@ const Schedule = memo(function Schedule(props) {
             // console.log("时刻表数据", data)  // 处理后的data
             setScheduleList(data);
         });
-    }, [date, trainNumber, departStation, arriveStation]);
+    }, [date, trainNumber, departStation, arriveStation])
 
 
     /***--- 对话框 ---**/

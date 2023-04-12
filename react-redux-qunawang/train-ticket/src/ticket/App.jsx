@@ -11,7 +11,8 @@ import Detail from '../common/Detail.jsx';
 import Candidate from './components/Candidate.jsx';
 import { TrainContext } from './utils/context';
 import './css/App.css';
-import {setDepartStation,setArriveStation,setTrainNumber,setDepartDate,setSearchParsed,
+import {
+    setDepartStation,setArriveStation,setTrainNumber,setDepartDate,setSearchParsed,
     prevDate,nextDate,
     setDepartTimeStr,setArriveTimeStr,setArriveDate,setDurationStr,setTickets,
     toggleIsScheduleVisible, // 切换时刻表
@@ -29,12 +30,14 @@ const Schedule = lazy(() => import('./components/Schedule.jsx'));
 function App(props) {
 
     const { 
-        departDate, arriveDate, departTimeStr, arriveTimeStr, departStation, arriveStation, 
-        trainNumber, durationStr, tickets, 
+        departDate, arriveDate, departTimeStr, arriveTimeStr, 
+        departStation, arriveStation, // 离开站，到达站
+        trainNumber, durationStr, tickets,
         isScheduleVisible, // 时刻表是否显示
-        searchParsed, dispatch 
+        searchParsed, // 设置一个搜索暂停，默认为false，防止第一次渲染时出错
+        dispatch 
     } = props;
-
+    // console.log("searchParsed", searchParsed);
 
     const onBack = useCallback(() => window.history.back(), []);
 
@@ -58,7 +61,8 @@ function App(props) {
     useEffect(() => {
         if (!searchParsed)  return;
 
-        const url = new URI('/rest/ticket').setSearch('date', dayjs(departDate).format('YYYY-MM-DD')).setSearch('trainNumber', trainNumber).toString();
+        const url = new URI('/rest/ticket')
+            .setSearch('date', dayjs(departDate).format('YYYY-MM-DD')).setSearch('trainNumber', trainNumber).toString();
         // console.log(url) //————  /rest/ticket?date=2019-02-10&trainNumber=D707
 
         fetch(url).then(response => response.json()).then(result => {
@@ -69,7 +73,7 @@ function App(props) {
             dispatch(setArriveTimeStr(arriveTimeStr));
             dispatch(setArriveDate(arriveDate));
             dispatch(setDurationStr(durationStr));
-            dispatch(setTickets(candidates));
+            dispatch(setTickets(candidates));  // candidates: 座位信息，商务座，一等座，中包含 快速预定和普通预定
 
             // console.log("车票详情信息", result)
             // debugger
@@ -109,14 +113,14 @@ function App(props) {
             {/* 车次信息 */}
             <div className="detail-wrapper">
                 <Detail
-                    departDate={departDate}
-                    arriveDate={arriveDate}
-                    departTimeStr={departTimeStr}
-                    arriveTimeStr={arriveTimeStr}
-                    trainNumber={trainNumber}
+                    departDate={departDate} // 离开日期
+                    arriveDate={arriveDate} // 到达日期
+                    departTimeStr={departTimeStr} // 离开时间
+                    arriveTimeStr={arriveTimeStr} // 到达时间
+                    trainNumber={trainNumber}   // 火车编号
                     departStation={departStation}
                     arriveStation={arriveStation}
-                    durationStr={durationStr}
+                    durationStr={durationStr}   // 持续时间
                 >
                     {/* 这部分是children */}
                     <span className="left"></span>
@@ -131,7 +135,7 @@ function App(props) {
                 <Candidate tickets={tickets} />
             </TrainContext.Provider>
 
-            {/* 展开/收起 时刻表弹出框 */}
+            {/* 点击时 时刻表弹出框 关闭/显示 */}
             {isScheduleVisible && (
                 <div className="mask" onClick={() => dispatch(toggleIsScheduleVisible())}>
                     <Suspense fallback={<div>loading...</div>}>
