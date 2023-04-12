@@ -8,7 +8,6 @@ import '../css/Account.css';
 /***--- 底部 —— 金额+提交按钮+弹出金额详情 ---**/
 const Account = memo(function Account(props) {
     const { price = 0, length } = props;
-
     const [expanded, setExpanded] = useState(false);
 
     return (
@@ -17,7 +16,7 @@ const Account = memo(function Account(props) {
                 <div className="money">{length * price}</div>
                 <div className="amount">支付金额</div>
             </div>
-            <div className="button">提交按钮</div>
+            <div className="button" onClick={() => {alert("暂未开发...")}}>提交按钮</div>
             <div className={classnames('layer', { hidden: !expanded })} onClick={() => setExpanded(false)}></div>
             <div className={classnames('detail', { hidden: !expanded })}>
                 <div className="title">金额详情</div>
@@ -30,8 +29,8 @@ const Account = memo(function Account(props) {
                 </ul>
             </div>
         </div>
-    );
-});
+    )
+})
 Account.propTypes = {
     price: PropTypes.number,
     length: PropTypes.number.isRequired,

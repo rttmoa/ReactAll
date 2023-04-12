@@ -19,7 +19,7 @@ export const Ticket = memo(({price, type}) => (
 Ticket.propTypes = {
     price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     type: PropTypes.string.isRequired,
-};
+}
 
 
 

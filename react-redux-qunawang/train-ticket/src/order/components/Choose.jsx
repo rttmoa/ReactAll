@@ -9,8 +9,9 @@ import '../css/Choose.css';
 /***--- 在线选座 ---**/
 const Choose = memo(function Choose(props) {
     const { passengers, updatePassenger } = props;
-    // console.log(passengers) //  {id: 1, name: '', ticketType: 'adult', licenceNo: '', seat: 'C'}
-
+    // console.log(passengers) //  {id: 1, name: '', ticketType: 'adult', licenceNo: '', seat: 'C'}  
+    // SEAT: 默认是 Z
+    
     function createSeat(seatType) {
         return (
             <div>
