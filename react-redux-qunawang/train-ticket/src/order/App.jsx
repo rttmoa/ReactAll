@@ -24,7 +24,7 @@ import {
 
 
 
-// Ticket 做优化
+// /components/Ticket.js 做优化
 
 function App(props) {
     
@@ -78,11 +78,11 @@ function App(props) {
     }, []);
 
     const menuCbs = useMemo(() => {
-        return bindActionCreators({hideMenu}, dispatch);
+        return bindActionCreators({ hideMenu }, dispatch);
     }, []);
 
     const chooseCbs = useMemo(() => {
-        return bindActionCreators({updatePassenger}, dispatch);
+        return bindActionCreators({ updatePassenger }, dispatch); // 更新选择的座位 A,B,C,D,E,F
     }, []);
 
     if (!searchParsed) return null;

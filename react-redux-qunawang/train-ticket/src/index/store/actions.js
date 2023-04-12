@@ -115,39 +115,35 @@ export function setDepartDate(departDate) {
     };
 }
 
+/***--- 城市 - 选择城市 获取数据 ---**/
 export function fetchCityData() {
     return (dispatch, getState) => {
-        const { isLoadingCityData } = getState();
+        const { isLoadingCityData } = getState(); // false
 
-        if (isLoadingCityData) {
-            return;
-        }
+        
+        if (isLoadingCityData) return;
 
-        const cache = JSON.parse(
-            localStorage.getItem('city_data_cache') || '{}'
-        );
+        const cache = JSON.parse(localStorage.getItem('city_data_cache') || '{}');
+        // console.log("get city_data_cache", cache)
 
         if (Date.now() < cache.expires) {
             dispatch(setCityData(cache.data));
-
             return;
         }
 
         dispatch(setIsLoadingCityData(true));
 
-        fetch('/rest/cities?_' + Date.now())
-            .then(res => res.json())
-            .then(cityData => {
-                dispatch(setCityData(cityData));
+        fetch('/rest/cities?_' + Date.now()).then(res => res.json()).then(cityData => {
+                // console.log("cityData", cityData)
 
-                localStorage.setItem(
-                    'city_data_cache',
+                dispatch(setCityData(cityData))
+
+                localStorage.setItem('city_data_cache',
                     JSON.stringify({
                         expires: Date.now() + 60 * 1000,
                         data: cityData,
                     })
                 );
-
                 dispatch(setIsLoadingCityData(false));
             })
             .catch(() => {
