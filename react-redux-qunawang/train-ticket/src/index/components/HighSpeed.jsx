@@ -8,9 +8,7 @@ import '../css/HighSpeed.css';
 
 
 
-export default function HighSpeed(props) {
-    const { highSpeed, toggle } = props;
-
+export default function HighSpeed({ highSpeed, toggle }) {
     return (
         <div className="high-speed">
             <div className="high-speed-label">只看高铁/动车</div>

@@ -29,7 +29,7 @@ const CitySection = memo(function CitySection(props) {
             <li className="city-li" key="title" data-cate={title}>{title}</li>
             {cities.map(city => {
                 return (
-                    <CityItem key={city.name} name={city.name} onSelect={onSelect}/>
+                    <CityItem key={city.name} name={city.name} onSelect={onSelect} />
                 );
             })}
         </ul>
@@ -118,7 +118,7 @@ const Suggest = memo(function Suggest(props) {
         if (!result.length) {
             return [{display: searchKey}]
         }
-        return result
+        return result;
     }, [result, searchKey])
 
 
@@ -151,11 +151,12 @@ const CitySelector = memo(function CitySelector(props) {
 
     useEffect(() => {
         if (!show || cityData || isLoading) return;
-        fetchCityData()
+        fetchCityData();  
+        // console.log("fetchCityData 到 redux 中处理, 选择城市")
     }, [show, cityData, isLoading])
 
     const toAlpha = useCallback(alpha => {
-        document.querySelector(`[data-cate='${alpha}']`).scrollIntoView()
+        document.querySelector(`[data-cate='${alpha}']`).scrollIntoView();
     }, [])
 
     const outputCitySections = () => {

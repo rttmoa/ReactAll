@@ -66,6 +66,8 @@ function App(props) {
         dispatch(hideDateSelector()); // 隐藏日期组件
     }, []);
 
+
+
     return (
         <div>
             <div className="header-wrapper">
@@ -73,9 +75,13 @@ function App(props) {
             </div>
             {/* 点击搜索按钮时，跳转到query页面 */}
             <form action="./query.html" className="form">
+                {/* 从x到x */}
                 <Journey from={from} to={to} {...cbs} />
+                {/* 出发日期 */}
                 <DepartDate time={departDate} {...departDateCbs} />
+                {/* 只看高铁 */}
                 <HighSpeed highSpeed={highSpeed} {...highSpeedCbs} />
+                {/* 提交 */}
                 <Submit />
             </form>
             <CitySelector show={isCitySelectorVisible} cityData={cityData} isLoading={isLoadingCityData} {...citySelectorCbs}/>
@@ -83,10 +89,6 @@ function App(props) {
         </div>
     );
 }
-function mapStateToProps(state) {
-    return state;
-}
-function mapDispatchToProps(dispatch) {
-    return { dispatch };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// function mapStateToProps(state) {return state;}
+// function mapDispatchToProps(dispatch) { return { dispatch } }
+export default connect(state => state, dispatch => {return { dispatch }} )(App);

@@ -3,9 +3,6 @@ import '../css/Submit.css';
 
 
 
-
-
-
 export default memo(function Submit() {
     return (
         <div className="submit">
