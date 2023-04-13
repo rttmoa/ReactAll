@@ -6,19 +6,19 @@ import { CommonEnum } from '@/enums';
 import { Http } from '@/utils';
 import { isEmpty } from 'project-libs';
 import { ErrorBoundary } from '@/components';
-
 import './index.less';
 
 
 
 
 
-
+// project-libs - npm
+// useObserverHook()
 export default function (props) {
-  const [page, setPage] = useState(CommonEnum.PAGE);
+  const [page, setPage] = useState(CommonEnum.PAGE); // 设置页码和每页的数量
   const [orders, setOrders] = useState([]);
   const [showLoading, setShowLoading] = useState(true);
-  const [type, setType] = useState(0);
+  const [type, setType] = useState(0);  // 设置类型：是未支付还是已支付
   // const [orders] = useHttpHook({
   //   url: '/order/lists',
   //   body: {
@@ -26,6 +26,7 @@ export default function (props) {
   //   }
   // });
 
+  // 执行Http
   const invokeHttp = async (pageNum) => {
     const result = await Http({
       url: '/orders/lists',
@@ -37,9 +38,10 @@ export default function (props) {
     });
     return result;
   };
-
+  // 搜索订单
   const fetchOrder = async (pageNum) => {
     const result = await invokeHttp(pageNum);
+    // console.log(result)
     if (!isEmpty(result) && result.length <= page.pageSize) {
       setOrders(result);
       setShowLoading(true);
@@ -48,14 +50,14 @@ export default function (props) {
     }
   };
 
+  /***--- 切换 未支付/已支付 ---**/
   const handleChange = (e) => {
-    // console.log(e)
+    // console.log(e)  //  {title: '已支付', sub: 1}  ||  {title: '未支付', sub: 0}
     setType(e.sub);
-    setPage(CommonEnum.PAGE);
+    setPage(CommonEnum.PAGE); // 枚举
     setOrders([]);
     setShowLoading(true);
   };
-
   const tabs = [
     { title: '未支付', sub: 0 },
     { title: '已支付', sub: 1 }
@@ -68,7 +70,7 @@ export default function (props) {
    * 4，拼装数据，然后page
    */
   useObserverHook('#' + CommonEnum.LOADING_ID, async (entries) => {
-    console.log(entries)
+    // console.log(entries[0])
     if (entries[0].isIntersecting) {
       const result = await invokeHttp(page.pageNum + 1);
       if (!isEmpty(orders) && !isEmpty(result) && result.length === page.pageSize) {
@@ -84,17 +86,20 @@ export default function (props) {
     }
   }, null);
 
-  useEffect(() => {
-    fetchOrder(1);
-  }, [type])
+  useEffect(() => { fetchOrder(1) }, [type]) // 切换Tab时，类型改变，根据类型发请求
+
+
 
   return (
     <ErrorBoundary>
       <div className='order-page'>
+        {/* Tab1：未支付 -- Tab2：已支付 */}
         <Tabs tabs={tabs} onChange={handleChange}>
+          {/* 未支付 */}
           <div className='tab'>
             <Lists orders={orders} type={0} showLoading={showLoading} />
           </div>
+          {/* 已支付 */}
           <div className='tab'>
             <Lists orders={orders} type={1} showLoading={showLoading} />
           </div>

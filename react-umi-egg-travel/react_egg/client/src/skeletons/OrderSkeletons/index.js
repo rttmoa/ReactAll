@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-
 import './index.less';
 
+
+
+
+/***--- 未支付加载三个空数据 ---**/
 export default function (props) {
   const [state, setState] = useState(Array(3).fill(1));
 
-  useEffect(() => { }, [])
+  useEffect(() => {}, [])
 
   return (
     <div className='order-skeletons'>
@@ -17,8 +20,7 @@ export default function (props) {
             <div className={'skeletons price'}></div>
             <div className={'skeletons time'}></div>
           </div>
-          <div className={'skeletons pay'}>
-          </div>
+          <div className={'skeletons pay'}></div>
         </div>
       ))}
     </div>

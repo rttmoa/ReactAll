@@ -33,39 +33,21 @@ function Login(props) {
     history.push('/login');
   };
 
-  // useEffect(() => {
-
-  // }, [])
 
 
 
   return (
     <div className='register-page'>
-      <List renderHeader={() => '用户注册'} >
-        <InputItem
-          {...getFieldProps('username', {
-            rules: [{ required: true }]
-          })}
-          placeholder='用户名'
-        >
+      <List renderHeader={() => '用户注册'}>
+        <InputItem {...getFieldProps('username', {rules: [{ required: true }]})} placeholder='用户名'>
           用户名：
-          </InputItem>
-        <InputItem
-          {...getFieldProps('password', {
-            rules: [{ required: true }]
-          })}
-          placeholder='密码'
-        >
+        </InputItem>
+        <InputItem {...getFieldProps('password', {rules: [{ required: true }]})} placeholder='密码'>
           密码：
-          </InputItem>
-        <InputItem
-          {...getFieldProps('password2', {
-            rules: [{ required: true }]
-          })}
-          placeholder='确认密码'
-        >
+        </InputItem>
+        <InputItem {...getFieldProps('password2', {rules: [{ required: true }]})} placeholder='确认密码'>
           确认密码：
-          </InputItem>
+        </InputItem>
       </List>
       <Button type='warning' onClick={handleSubmit}>注册</Button>
       <div className='login' onClick={handleClick}>已有账户，去登录</div>

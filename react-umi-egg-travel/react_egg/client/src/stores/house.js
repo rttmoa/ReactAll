@@ -59,7 +59,7 @@ export default {
       }
     },
     resetData(state, payload) {
-      console.log(payload)
+      // console.log(payload)
       return {
         ...state,
         // detail: {},

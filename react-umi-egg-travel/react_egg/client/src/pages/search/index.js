@@ -4,7 +4,6 @@ import { useHttpHook, useObserverHook, useImgHook } from '@/hooks';
 import { useLocation } from 'umi';
 import { ShowLoading } from '@/components';
 import { CommonEnum } from '@/enums';
-
 import './index.less';
 
 

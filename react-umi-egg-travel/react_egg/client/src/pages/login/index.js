@@ -8,7 +8,8 @@ import './index.less';
 
 
 
-
+// rc-form
+// think-react-store
 function Login(props) {
   const { user: { loginAsync } } = useStoreHook();
 
@@ -34,20 +35,10 @@ function Login(props) {
   return (
     <div className='login-page'>
       <List renderHeader={() => '用户登录'}>
-        <InputItem
-          {...getFieldProps('username', {
-            rules: [{ required: true }]
-          })}
-          placeholder='用户名'
-        >
+        <InputItem {...getFieldProps('username', {rules: [{ required: true }]})} placeholder='用户名'>
           用户名：
-          </InputItem>
-        <InputItem
-          {...getFieldProps('password', {
-            rules: [{ required: true }]
-          })}
-          placeholder='密码'
-        >
+        </InputItem>
+        <InputItem {...getFieldProps('password', {rules: [{ required: true }]})} placeholder='密码'>
           密码：
           </InputItem>
       </List>

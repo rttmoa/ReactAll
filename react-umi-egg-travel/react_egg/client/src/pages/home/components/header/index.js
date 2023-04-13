@@ -10,7 +10,7 @@ import { cookie } from 'project-libs';
 
 function Header(props) {
   const [username, setState] = useState(localStorage.getItem('username'))
-  // console.log('header render')
+  // console.log('header render  memo防止多次渲染')
 
   useEffect(() => {
     // console.log(cookie.get('user'))

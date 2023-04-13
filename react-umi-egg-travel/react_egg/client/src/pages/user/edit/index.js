@@ -4,15 +4,15 @@ import { createForm } from 'rc-form';
 import { useStoreHook } from 'think-react-store';
 
 
-
-
+// think-react-store库
+// rc-form库
 // 上传图片 antd-ImagePicker
-
 function Edit(props) {
-
   const { getFieldProps, validateFields } = props.form;
-  const { user: { editUserAsync, getUserAsync, avatar, phone, sign } } = useStoreHook();
-  const [files, setFiles] = useState([{url: avatar}]);
+  const {
+    user: { editUserAsync, getUserAsync, avatar, phone, sign },
+  } = useStoreHook();
+  const [files, setFiles] = useState([{ url: avatar }]);
 
   const handleChange = (files) => {
     // console.log(files)
@@ -24,21 +24,21 @@ function Edit(props) {
   };
 
   const handleSubmit = () => {
-    if(!files.length){
+    if (!files.length) {
       Toast.fail('请上传图片');
       return;
     }
-    validateFields((error, value)=>{
+    validateFields((error, value) => {
       // console.log(error)
       // console.log(files)
-      if(error){
+      if (error) {
         Toast.fail('请将信息补充完整');
         return;
-      }else {
+      } else {
         editUserAsync({
           avatar: files[0].url,
           phone: value.tel,
-          sign: value.sign
+          sign: value.sign,
         });
       }
     });
@@ -46,38 +46,36 @@ function Edit(props) {
 
   useEffect(() => {
     getUserAsync({});
-  }, [])
+  }, []);
 
   return (
-    <div className='user-edit'>
+    <div className="user-edit">
       <List>
-          <ImagePicker
-            files={files}
-            selectable={files.length < 1}
-            onChange={handleChange}
-          />
-          <InputItem
-            {...getFieldProps('tel', {
-              rules: [{ required: true }],
-              initialValue: phone
-            })}
-            placeholder='电话'
-          >
-            电话：
-          </InputItem>
-          <InputItem
-            {...getFieldProps('sign', {
-              rules: [{ required: true }],
-              initialValue: sign
-            })}
-            placeholder='签名'
-          >
-            签名：
-          </InputItem>
+        <ImagePicker files={files} selectable={files.length < 1} onChange={handleChange} />
+        <InputItem
+          {...getFieldProps('tel', {
+            rules: [{ required: true }],
+            initialValue: phone,
+          })}
+          placeholder="电话"
+        >
+          电话：
+        </InputItem>
+        <InputItem
+          {...getFieldProps('sign', {
+            rules: [{ required: true }],
+            initialValue: sign,
+          })}
+          placeholder="签名"
+        >
+          签名：
+        </InputItem>
       </List>
-      <Button type='warning' style={{ marginTop: '20px' }} onClick={handleSubmit}>修改</Button>
+      <Button type="warning" style={{ marginTop: '20px' }} onClick={handleSubmit}>
+        修改
+      </Button>
     </div>
-  )
+  );
 }
 
 export default createForm()(Edit);

@@ -6,17 +6,11 @@ import { Toast } from 'antd-mobile';
 
 
 
-export default function Http({
-  url,
-  method = 'post',
-  headers = {},
-  body = {},
-  setLoading,
-  setResult,
-}){
+export default function Http({  url,  method = 'post',  headers = {},  body = {},  setLoading,  setResult }){
   setLoading && setLoading(true);
 
   const token = localStorage.getItem('token');
+
   let defaultHeader = {
     'Content-type': 'application/json'
   };
@@ -40,9 +34,7 @@ export default function Http({
   }
 
   return new Promise((resolve, reject)=>{
-    fetch('/api' + url, params)
-      .then(res => res.json())
-      .then(res => {
+    fetch('/api' + url, params).then(res => res.json()).then(res => {
         if(res.status === 200){
           resolve(res.data);
           setResult && setResult(res.data);
@@ -52,7 +44,7 @@ export default function Http({
             location.hash = '#/login?from=' + location.pathname;
             localStorage.clear();
           }
-          Toast.fail(res.errMsg);
+          Toast.fail(res.errMsg, .5);
           reject(res.errMsg);
         }
       })

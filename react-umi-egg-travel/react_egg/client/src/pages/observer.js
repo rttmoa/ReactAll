@@ -17,7 +17,7 @@ export default function(props){
   // useEffect(() => {
   //   console.log('进入页面')
   //   observer = new IntersectionObserver(entries => {
-  //     console.log(entries)
+  //     // console.log(entries)
   //   });
   //   observer.observe(document.querySelector('#loading'));
 
