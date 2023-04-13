@@ -7,30 +7,34 @@ import './index.less';
 
 
 
+
 // 路由跳转带参数 history
 // 错误边界组件 ErrorBoundary
 export default function (props) {
   const {
     user: { username, avatar, phone, sign, getUserAsync, logoutAsync },
   } = useStoreHook();
-  // const [state, setState] = useState()
 
+  
+
+  /***--- 初始 - 获取用户信息 ---**/
   useEffect(() => {
     getUserAsync({
-      id: 10,
+      id: 10
     });
   }, []);
 
-  // history 跳转地址
+  // 编辑用户 + history 跳转地址
   const handleClick = () => { // http://localhost:8000/#/user/edit?id=10
     history.push({
       pathname: '/user/edit',
       query: {
-        id: 10,
+        id: 10
       },
     });
   };
 
+  /***--- 退出 ---**/
   const handleLogout = () => {
     logoutAsync();
   };

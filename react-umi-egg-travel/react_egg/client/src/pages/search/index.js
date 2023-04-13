@@ -4,19 +4,24 @@ import { useHttpHook, useObserverHook, useImgHook } from '@/hooks';
 import { useLocation } from 'umi';
 import { ShowLoading } from '@/components';
 import { CommonEnum } from '@/enums';
+import Img from './2.png'
 import './index.less';
 
 
 
 
+// 时间从 2013-至今就有数据了
+
+// http://localhost:8000/#/search?code=10002&endTime=%202013-04-14&startTime=2023-04-13%20
 export default function (props) {
   const { query } = useLocation();
-  const [houseName, setHouseName] = useState('');
+  const [houseName, setHouseName] = useState("");
   const [page, setPage] = useState(CommonEnum.PAGE);
-  const [houseLists, setHouseLists] = useState([]);
-  const [showLoading, setShowLoading] = useState(true);
-  const [houseSubmitName, setHouseSubmitName] = useState('');
-  // console.log(query)
+  const [houseLists, setHouseLists] = useState([]); // 酒店信息
+  const [showLoading, setShowLoading] = useState(true);  // 显示加载还是更多数据
+  const [houseSubmitName, setHouseSubmitName] = useState("");
+  // console.log("query", query)
+
 
   const [houses, loading] = useHttpHook({
     url: '/house/search',
@@ -24,10 +29,11 @@ export default function (props) {
       ...page,
       houseName,
       code: query?.code,
-      startTime: query?.startTime + ' 00:00:00',
+      // startTime: query?.startTime + ' 00:00:00',
+      startTime: "2023-04-13" + " 00:00:00",
       endTime: query?.endTime + ' 23:59:59'
     },
-    watch: [page.pageNum, houseSubmitName]
+    watch: [page.pageNum, houseSubmitName] // 监听 page 和 houseSubmitName
   });
 
   /**
@@ -48,10 +54,8 @@ export default function (props) {
 
   useImgHook('.item-img', (enties)=>{}, null);
 
-  const handleChange = (value) => {
-    // console.log(value)
-    setHouseName(value);
-  };
+  /***--- 输入框 值改变 ---**/
+  const handleChange = (value) => { setHouseName(value); };
 
   const _handleSubmit = (value) => {
     setHouseName(value);
@@ -60,10 +64,12 @@ export default function (props) {
     setHouseLists([]);
   };
 
+  /***--- 输入框 取消 ---**/
   const handleCancle = () => {
     _handleSubmit('');
   };
 
+  /***--- 输入框 提交 ---**/
   const handleSubmit = (value) => {
     // console.log(value)
     _handleSubmit(value);
@@ -86,6 +92,7 @@ export default function (props) {
 
   return (
     <div className='search-page'>
+
       {/**顶部搜索栏 */}
       <SearchBar
         placeholder='搜索民宿'
@@ -94,11 +101,13 @@ export default function (props) {
         onCancel={handleCancle}
         onSubmit={handleSubmit}
       />
+
       {/**搜索结果 */}
       {!houseLists.length ? <ActivityIndicator toast /> : <div className='result'>
           {houseLists.map(item => (
             <div className='item' key={item.id}>
-              <img alt='img' className='item-img' src={require('../../assets/blank.png')} data-src={item?.imgs[0]?.url} />
+              {/* <img alt='img' className='item-img' src={require('../../assets/blank.png')} data-src={item?.imgs[0]?.url} /> */}
+              <img alt='img' className='item-img' src={require('../../assets/blank.png')} data-src={Img} />
               <div className='item-right'>
                 <div className='title'>{item.name}</div>
                 <div className='price'>{item.price}</div>
@@ -108,6 +117,7 @@ export default function (props) {
           <ShowLoading showLoading={showLoading}/>
         </div>
       }
+
     </div>
   )
 }

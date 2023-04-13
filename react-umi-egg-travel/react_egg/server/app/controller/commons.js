@@ -1,3 +1,4 @@
+/* eslint-disable strict */
 const Controller = require('egg').Controller;
 const BaseController = require('./base');
 
@@ -6,7 +7,7 @@ class CommonsController extends BaseController {
     const { ctx, app } = this;
     try {
       const result = await app.httpclient.request('https://apis.imooc.com/?icode=B2060B086C0D78F9', {
-        dataType: 'json'
+        dataType: 'json',
       });
       // console.log(result)
       if (result.status === 200) {

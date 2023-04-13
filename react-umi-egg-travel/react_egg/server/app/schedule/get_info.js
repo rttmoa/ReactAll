@@ -1,3 +1,4 @@
+/* eslint-disable strict */
 const Subscription = require('egg').Subscription;
 
 class getInfo extends Subscription {

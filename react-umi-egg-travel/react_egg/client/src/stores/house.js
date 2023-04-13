@@ -102,6 +102,7 @@ export default {
       });
     },
     async addCommentsAsync(dispatch, rootState, payload) {
+      // console.log("payload", payload) // {comment: '123', houseId: '3'}
       const result = await Http({
         url: '/comment/add',
         body: payload

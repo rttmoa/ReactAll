@@ -20,7 +20,7 @@ function Header(props) {
     <div className='header'>
       <div className='header_title'>民宿</div>
       <div className='header_login'>
-        {username ? username : <><Link to='/login'>登录</Link> | <Link to='/register'>注册</Link></>}
+        <b>{username ? username : <><Link to='/login'>登录</Link> | <Link to='/register'>注册</Link></>}</b>
       </div>
     </div>
   )

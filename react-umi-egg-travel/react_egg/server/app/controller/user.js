@@ -10,7 +10,7 @@ class UserController extends BaseController {
     const { ctx, app } = this;
     const token = app.jwt.sign({
       id,
-      username
+      username,
     }, app.config.jwt.secret);
     // ctx.session[username] = 1;
     await app.redis.set(username, token, 'EX', app.config.redisExpire);
@@ -18,7 +18,7 @@ class UserController extends BaseController {
   }
   parseResult(ctx, result) {
     return {
-      ...ctx.helper.unPick(result.dataValues, ['password']),
+      ...ctx.helper.unPick(result.dataValues,['password']),
       createTime: ctx.helper.timestamp(result.createTime),
     }
   }
@@ -41,11 +41,11 @@ class UserController extends BaseController {
     if (result) {
       const token = await this.jwtSign({
         id: result.id,
-        username: result.username
+        username: result.username,
       });
       this.success({
         ...this.parseResult(ctx, result),
-        token
+        token,
       });
     } else {
       this.error('注册使用失败');
@@ -60,12 +60,12 @@ class UserController extends BaseController {
     if (user) {
       const token = await this.jwtSign({
         id: user.id,
-        username: user.username
+        username: user.username,
       });
 
       this.success({
         ...this.parseResult(ctx, user),
-        token
+        token,
       });
     } else {
       this.error('该用户不存在');
@@ -77,7 +77,7 @@ class UserController extends BaseController {
 
     if (user) {
       this.success({
-        ...this.parseResult(ctx, user)
+        ...this.parseResult(ctx, user),
       });
     } else {
       this.error('该用户不存在');
@@ -93,12 +93,12 @@ class UserController extends BaseController {
     }
   }
 
-  async edit(){
+  async edit() {
     const { ctx } = this;
     const result = ctx.service.user.edit({
       ...ctx.params(),
       updateTime: ctx.helper.time(),
-      sign: ctx.helper.escape(ctx.params('sign'))
+      sign: ctx.helper.escape(ctx.params('sign')),
     });
 
     this.success(result);

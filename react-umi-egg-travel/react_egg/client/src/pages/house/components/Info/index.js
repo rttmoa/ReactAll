@@ -7,7 +7,6 @@ import { timer } from '@/utils';
 
 
 export default function(props){
-  const [state, setState] = useState()
 
   const handleOrder = (id) => {
     props?.btnClick(id)
@@ -30,9 +29,7 @@ export default function(props){
     }
   }
 
-  useEffect(() => {
-
-  }, [])
+  useEffect(() => {}, [])
 
   return (
     <div className='info'>

@@ -1,3 +1,4 @@
+/* eslint-disable strict */
 const dayjs = require('dayjs');
 const fs = require('fs');
 

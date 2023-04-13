@@ -9,21 +9,16 @@ import { useLocation } from 'umi';
 
 export default function (props) {
   const [show, setShow] = useState(false);
-  const [commentsValue, setCommentsValue] = useState("");
+  const [commentsValue, setCommentsValue] = useState(""); // 设置 评论数据
   const { house: { addCommentsAsync } } = useStoreHook();
   const { query } = useLocation();
 
-  const handleClick = () => {
-    setShow(true)
-  };
 
-  const handleChange = (value) => {
-    setCommentsValue(value);
-  };
+  const handleClick = () => { setShow(true) };
 
-  const handleClose = () => {
-    setShow(false)
-  };
+  const handleChange = (value) => { setCommentsValue(value); };
+
+  const handleClose = () => { setShow(false) };
 
   const handleSubmit = () => {
     if(commentsValue){
@@ -34,7 +29,7 @@ export default function (props) {
         comment: commentsValue,
         houseId: query?.id
       });
-    }else {
+    } else {
       Toast.fail('请添加信息', .5);
     }
   };
@@ -42,9 +37,7 @@ export default function (props) {
 
   return (
     <>
-      <div className='footer' onClick={handleClick}>
-        评论~
-      </div>
+      <div className='footer' onClick={handleClick}>评论~</div>
       <Modal
         show={show}
         styleBody={{

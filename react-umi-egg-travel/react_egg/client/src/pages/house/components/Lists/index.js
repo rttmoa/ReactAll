@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { ShowLoading } from '@/components';
 import { timer } from '@/utils';
 
+
+
+
+
+
+
+
 export default function (props) {
-  const [state, setState] = useState()
-
-  useEffect(() => {
-
-  }, [])
 
   return (
     <div className='comment'>

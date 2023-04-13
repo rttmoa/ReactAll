@@ -1,3 +1,4 @@
+/* eslint-disable strict */
 const Service = require('egg').Service;
 const BaseService = require('./base');
 

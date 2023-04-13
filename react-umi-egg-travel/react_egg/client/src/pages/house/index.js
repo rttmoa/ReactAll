@@ -13,6 +13,7 @@ import './index.less';
 
 
 
+
 /***--- 预定界面 ---**/
 export default function (props) {
   const {
@@ -31,6 +32,7 @@ export default function (props) {
       delOrderAsync,
     },
   } = useStoreHook();
+
   const { query } = useLocation();
   // console.log(query) // {id: 4}
 
@@ -52,9 +54,7 @@ export default function (props) {
    * 3，监听reload变化，重新请求接口
    * 4，拼装数据
    */
-  useObserverHook(
-    '#' + CommonEnum.LOADING_ID,
-    (entries) => {
+  useObserverHook('#' + CommonEnum.LOADING_ID,(entries) => {
       // console.log(entries)
       if (comments && comments.length && showLoading && entries[0].isIntersecting) {
         reloadComments();
@@ -89,16 +89,23 @@ export default function (props) {
     };
   }, []);
 
+
+  // console.log("comments", comments)
   return (
     <div className="house-page">
+
       {/**banner */}
       <Banner banner={detail?.banner} />
+
       {/**房屋信息 */}
       <Info detail={detail?.info} order={order} btnClick={handleBtnClick} />
+
       {/**评论列表 */}
       <Lists lists={comments} showLoading={showLoading} />
-      {/**footer */}
+
+      {/**footer 评论 */}
       <Footer />
+
     </div>
   );
 }

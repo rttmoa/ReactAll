@@ -1,5 +1,6 @@
+/* eslint-disable strict */
 module.exports = {
-  get token(){
+  get token() {
     // console.log('header', this.header);
     return this.get('token');
   }

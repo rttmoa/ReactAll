@@ -6,7 +6,7 @@ body {
   margin: 0;
 }
 
-/* Skeletons效果 */
+/* Skeletons效果    未支付加载动画效果... */
 .skeletons {
   position: relative;
   display: block;

@@ -1,3 +1,4 @@
+/* eslint-disable strict */
 module.exports = app => {
   const { STRING, INTEGER, DATE } = app.Sequelize;
 
@@ -13,7 +14,7 @@ module.exports = app => {
     price: INTEGER,
     publishTime: {
       type: DATE,
-      get(){
+      get() {
         return new Date(this.getDataValue('publishTime')).getTime()
       }
     },
@@ -21,13 +22,13 @@ module.exports = app => {
     showCount: INTEGER,
     startTime: {
       type: DATE,
-      get(){
+      get() {
         return new Date(this.getDataValue('startTime')).getTime()
       }
     },
     endTime: {
       type: DATE,
-      get(){
+      get() {
         return new Date(this.getDataValue('endTime')).getTime()
       }
     }

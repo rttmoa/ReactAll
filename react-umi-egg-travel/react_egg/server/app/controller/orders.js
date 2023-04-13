@@ -1,3 +1,4 @@
+/* eslint-disable strict */
 const Controller = require('egg').Controller;
 const BaseController = require('./base');
 
@@ -6,7 +7,7 @@ class OrdersController extends BaseController {
     const { ctx, app } = this;
     const result = await ctx.service.orders.hasOrder({
       userId: ctx.userId,
-      houseId: ctx.params('id')
+      houseId: ctx.params('id'),
     });
 
     this.success(result);
@@ -18,7 +19,7 @@ class OrdersController extends BaseController {
       userId: ctx.userId,
       houseId: ctx.params('id'),
       isPayed: 0,
-      createTime: ctx.helper.time()
+      createTime: ctx.helper.time(),
     });
 
     this.success(result);
@@ -33,18 +34,18 @@ class OrdersController extends BaseController {
 
   async lists() {
     const { ctx, app } = this;
-    console.log('order lists', ctx.userId)
+    console.log('order lists', ctx.userId);
     const result = await ctx.service.orders.lists({
       ...ctx.params(),
-      userId: ctx.userId
+      userId: ctx.userId,
     });
-    console.log('order lists', result)
+    console.log('order lists', result);
     this.success(result);
   }
 
   async invokePay(params) {
     return {
-      orderNumber: params.id + new Date().getTime()
+      orderNumber: params.id + new Date().getTime(),
     }
   }
 
@@ -58,7 +59,7 @@ class OrdersController extends BaseController {
         const beforePay = await this.invokePay({ id });
         const result = await ctx.service.orders.pay({
           id,
-          orderNumber: beforePay.orderNumber
+          orderNumber: beforePay.orderNumber,
         });
         this.success(result);
       } catch (error) {

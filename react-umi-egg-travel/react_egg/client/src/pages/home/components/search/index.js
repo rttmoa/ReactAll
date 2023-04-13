@@ -9,11 +9,12 @@ import { history } from 'umi';
 
 function Search(props) {
   // console.log('search render')
-  const [citys, setCitys] = useState([[{ label: '杭州', value: '10001' }, { label: '苏州', value: '10002' }]]);
-  const [selectedCity, setSelectedCity] = useState(['10001']);
-  const [times, setTimes] = useState('可选时间');
+  const [citys, setCitys] = useState([[{ label: '杭州', value: '10001' }, { label: '苏州', value: '10002' },{ label: '广州', value: '10003' }]]);
+  const [selectedCity, setSelectedCity] = useState(['10002']);
+  const [times, setTimes] = useState('可选时间'); // 选择的 时间 - 时间
   const [dateShow, setDateShow] = useState(false);
 
+  /***--- 选择城市 ---**/
   const handleCityChange = (value) => {
     setSelectedCity(value);
   };
@@ -22,10 +23,11 @@ function Search(props) {
     setDateShow(!dateShow);
   };
 
+  /***--- 日历组件 选择 起始时间到结束时间 ---**/
   const handleDateConfirm = (startTime, endTime) => {
-    // console.log(startTime, endTime);
+    // console.log(startTime, endTime); // Wed Apr 12 2023 00:00:00 GMT+0800 (中国标准时间) Thu Apr 20 2023 00:00:00 GMT+0800 (中国标准时间)
     setDateShow(!dateShow);
-    setTimes(dayjs(startTime).format('YYYY-MM-DD') + '~' + dayjs(endTime).format('YYYY-MM-DD'));
+    setTimes(dayjs(startTime).format('YYYY-MM-DD') + ' ~ ' + dayjs(endTime).format('YYYY-MM-DD'));
   };
 
   const handleClick = () => {
@@ -39,16 +41,15 @@ function Search(props) {
         }
       });
     }else {
-      Toast.fail('请选择时间');
+      Toast.fail('请选择时间', .5);
     }
   };
 
-  useEffect(() => {
-
-  }, [])
+  useEffect(() => {}, [])
 
   return (
     <div className='search'>
+
       {/**可选城市 */}
       <div className='search-addr'>
         {!props.citysLoading && <Picker
@@ -62,13 +63,17 @@ function Search(props) {
           <List.Item>可选城市</List.Item>
         </Picker>}
       </div>
+
       {/**可选时间 */}
       <div className='search-time' onClick={handleDate}>
         <p className='search-time_left'>出租时间</p>
         <p className='search-time_right'>{times}</p>
       </div>
+
       {/**点击按钮 */}
       <Button type='warning' size='large' onClick={handleClick}>搜索民宿</Button>
+
+      {/* 日历组件 */}
       <Calendar
         visible={dateShow}
         onCancel={handleDate}

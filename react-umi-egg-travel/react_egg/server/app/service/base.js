@@ -1,3 +1,4 @@
+/* eslint-disable strict */
 const Service = require('egg').Service;
 
 class BseService extends Service {

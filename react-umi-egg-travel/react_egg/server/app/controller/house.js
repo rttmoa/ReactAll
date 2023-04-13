@@ -1,3 +1,4 @@
+/* eslint-disable strict */
 const Controller = require('egg').Controller;
 const BaseController = require('./base');
 
@@ -8,13 +9,13 @@ class HouseController extends BaseController {
     this.success(result);
   }
 
-  async search(){
+  async search() {
     const { ctx, app } = this;
     const result = await ctx.service.house.search(ctx.params());
     this.success(result);
   }
 
-  async detail(){
+  async detail() {
     const { ctx, app } = this;
     const result = await ctx.service.house.detail(ctx.params('id'));
 

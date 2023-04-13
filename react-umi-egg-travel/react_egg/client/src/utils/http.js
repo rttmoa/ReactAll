@@ -35,6 +35,7 @@ export default function Http({  url,  method = 'post',  headers = {},  body = {}
 
   return new Promise((resolve, reject)=>{
     fetch('/api' + url, params).then(res => res.json()).then(res => {
+        // console.log("Http Request", res)
         if(res.status === 200){
           resolve(res.data);
           setResult && setResult(res.data);
