@@ -3,8 +3,9 @@ import { TabBar } from 'antd-mobile';
 import PropTypes from 'prop-types';
 import { BsHouseDoorFill, BsHouseDoor, BsBagFill, BsBag, BsPersonFill, BsPerson } from 'react-icons/bs';
 import { history } from 'umi';
-
 import './index.less';
+
+
 
 export default class MenuBar extends Component {
 
@@ -55,12 +56,10 @@ export default class MenuBar extends Component {
     )
   }
 }
-
 MenuBar.defaultProps = {
   show: false,
   pathname: ''
 };
-
 MenuBar.propTypes = {
   show: PropTypes.bool,
   pathname: PropTypes.string

@@ -56,7 +56,7 @@ export default {
         url: '/user/login',
         body: payload
       });
-      if(result){
+      if(result) {
         // console.log(urlGet('from'))
         // cookie.set('user', result);
         localStorage.setItem('token', result.token);

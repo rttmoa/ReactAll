@@ -17,12 +17,10 @@ export default defineConfig({
   history: {
     type: 'hash'
   },
-  routes: [
-    {
+  routes: [{
       path: '/',
       component: '@/layouts/index',
-      routes: [
-        {
+      routes: [{
           path: '/',
           component: './home/index',
           title: '首页'

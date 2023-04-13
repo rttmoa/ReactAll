@@ -10,8 +10,7 @@ class HouseService extends BaseService {
       attributes: {
         exclude: ['startTime', 'endTime', 'publishTime']
       },
-      include: [
-        {
+      include: [{
           model: app.model.Imgs,
           limit: 1,
           attributes: ['url']
