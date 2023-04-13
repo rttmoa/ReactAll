@@ -36,7 +36,7 @@ export default class MenuBar extends Component {
   }
 
   render() {
-    const { show, pathname } = this.props;
+    const { show, pathname } = this.props;  // /Layouts/indexjs  show：是否显示MenuBar组件， pathnmae：当前url地址信息
 
     return (
       <div className='menu-bar'>

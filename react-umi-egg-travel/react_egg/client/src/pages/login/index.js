@@ -29,9 +29,7 @@ function Login(props) {
     history.push('/register');
   };
 
-  useEffect(() => {
-
-  }, [])
+  useEffect(() => { }, [])
 
   return (
     <div className='login-page'>

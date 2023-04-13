@@ -585,3 +585,7 @@
 2023-04-13 11:34:05 [httpLog] {"method":"POST","url":"/api/user/detail","data":{"id":10},"startTime":"2023-04-13 11:34:05","endTime":"2023-04-13 11:34:05","timeLength":9}
 2023-04-13 11:34:06 [httpLog] {"method":"POST","url":"/api/commons/citys","data":{},"startTime":"2023-04-13 11:34:06","endTime":"2023-04-13 11:34:06","timeLength":28}
 2023-04-13 11:34:06 [httpLog] {"method":"POST","url":"/api/house/hot","data":{},"startTime":"2023-04-13 11:34:06","endTime":"2023-04-13 11:34:06","timeLength":8}
+2023-04-13 11:36:46 [httpLog] {"method":"POST","url":"/api/commons/citys","data":{},"startTime":"2023-04-13 11:36:46","endTime":"2023-04-13 11:36:46","timeLength":178}
+2023-04-13 11:36:46 [httpLog] {"method":"POST","url":"/api/house/hot","data":{},"startTime":"2023-04-13 11:36:46","endTime":"2023-04-13 11:36:46","timeLength":10}
+2023-04-13 11:37:21 [httpLog] {"method":"POST","url":"/api/commons/citys","data":{},"startTime":"2023-04-13 11:37:21","endTime":"2023-04-13 11:37:21","timeLength":59}
+2023-04-13 11:37:22 [httpLog] {"method":"POST","url":"/api/house/hot","data":{},"startTime":"2023-04-13 11:37:22","endTime":"2023-04-13 11:37:22","timeLength":11}

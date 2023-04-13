@@ -5,9 +5,7 @@ import './index.less';
 export default function (props) {
   const [state, setState] = useState(Array(3).fill(1));
 
-  useEffect(() => {
-
-  }, [])
+  useEffect(() => { }, [])
 
   return (
     <div className='order-skeletons'>
