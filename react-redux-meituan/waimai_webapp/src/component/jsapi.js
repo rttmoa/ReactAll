@@ -1,9 +1,11 @@
 
 
+
+
+
+
+
 window.callbackId = 0
-
-
-
 export default function(obj , callback) {
 
     let cmd = obj.cmd;

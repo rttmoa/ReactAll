@@ -1,7 +1,9 @@
 import request from 'utils/request'
 import { apiPrefix } from 'utils/config'
-
 import api from './api'
+
+
+
 
 const gen = params => {
   let url = apiPrefix + params

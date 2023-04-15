@@ -3,6 +3,10 @@ import { FrownOutlined } from '@ant-design/icons'
 import { Page } from 'components'
 import styles from './404.less'
 
+
+
+
+
 const Error = () => (
   <Page inner>
     <div className={styles.error}>

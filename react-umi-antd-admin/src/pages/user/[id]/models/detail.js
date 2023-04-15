@@ -1,5 +1,6 @@
-const { pathToRegexp } = require("path-to-regexp")
+/* eslint-disable import/no-anonymous-default-export */
 import api from 'api'
+const { pathToRegexp } = require("path-to-regexp")
 
 const { queryUser } = api
 

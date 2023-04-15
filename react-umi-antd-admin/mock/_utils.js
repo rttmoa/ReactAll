@@ -6,8 +6,11 @@
  * @return  {object|undefined}   Return frist object when query success.
  */
 
-// import Mock from 'mockjs'
-// import qs from 'qs'
+import mock from 'mockjs'
+import qss from 'qs'
+
+export const Mock = mock
+export const qs = qss
 
 
 export function queryArray(array, key, value) {

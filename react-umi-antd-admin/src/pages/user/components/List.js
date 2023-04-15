@@ -10,6 +10,7 @@ import styles from './List.less'
 const { confirm } = Modal
 
 class List extends PureComponent {
+
   handleMenuClick = (record, e) => {
     const { onDeleteItem, onEditItem } = this.props
 
@@ -117,11 +118,9 @@ class List extends PureComponent {
     )
   }
 }
-
 List.propTypes = {
   onDeleteItem: PropTypes.func,
   onEditItem: PropTypes.func,
   location: PropTypes.object,
 }
-
 export default List

@@ -7,8 +7,7 @@ import { stringify } from 'qs'
 import { t } from "@lingui/macro"
 import { Page } from 'components'
 import List from './components/List'
-
-const { TabPane } = Tabs
+const { TabPane } = Tabs;
 
 const EnumPostStatus = {
   UNPUBLISH: 1,
@@ -17,9 +16,10 @@ const EnumPostStatus = {
 
 @connect(({ post, loading }) => ({ post, loading }))
 class Post extends PureComponent {
-  handleTabClick = key => {
-    const { pathname } = this.props.location
 
+  handleTabClick = key => {
+    const { pathname } = this.props.location;
+    // console.log("handleTabClick", key, pathname) // handleTabClick 2 /post
     history.push({
       pathname,
       search: stringify({
@@ -51,29 +51,19 @@ class Post extends PureComponent {
   }
 
   render() {
-    const { location } = this.props
-    const { query } = location
+    const { location } = this.props;
+    const { query } = location;
 
     return (
       <Page inner>
         <Tabs
-          activeKey={
-            query.status === String(EnumPostStatus.UNPUBLISH)
-              ? String(EnumPostStatus.UNPUBLISH)
-              : String(EnumPostStatus.PUBLISHED)
-          }
+          activeKey={ query.status === String(EnumPostStatus.UNPUBLISH) ? String(EnumPostStatus.UNPUBLISH) : String(EnumPostStatus.PUBLISHED)}
           onTabClick={this.handleTabClick}
         >
-          <TabPane
-            tab={t`Publised`}
-            key={String(EnumPostStatus.PUBLISHED)}
-          >
+          <TabPane tab={t`Publised`} key={String(EnumPostStatus.PUBLISHED)}>
             <List {...this.listProps} />
           </TabPane>
-          <TabPane
-            tab={t`Unpublished`}
-            key={String(EnumPostStatus.UNPUBLISH)}
-          >
+          <TabPane tab={t`Unpublished`} key={String(EnumPostStatus.UNPUBLISH)}>
             <List {...this.listProps} />
           </TabPane>
         </Tabs>
@@ -81,12 +71,10 @@ class Post extends PureComponent {
     )
   }
 }
-
 Post.propTypes = {
   post: PropTypes.object,
   loading: PropTypes.object,
   location: PropTypes.object,
   dispatch: PropTypes.func,
 }
-
 export default Post

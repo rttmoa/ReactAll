@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /*
 * Licensed to the Apache Software Foundation (ASF) under one
 * or more contributor license agreements.  See the NOTICE file
@@ -18,17 +19,26 @@
 */
 
 (function (root, factory) {
+    // console.log(123)
     if (typeof define === 'function' && define.amd) {
+        // console.log("-------test1------")
         // AMD. Register as an anonymous module.
         define(['exports', 'echarts'], factory);
     } else if (typeof exports === 'object' && typeof exports.nodeName !== 'string') {
+      // console.log("-------test2------")
         // CommonJS
         factory(exports, require('echarts'));
     } else {
+      // console.log("-------test3------")
+      // console.log(root)
         // Browser globals
-        factory({}, root.echarts);
+        factory({}, root && root.echarts); // echarts: underfined
     }
+    // debugger
 }(this, function (exports, echarts) {
+  // console.log("回调 echarts", echarts)
+  // debugger
+
     var log = function (msg) {
         if (typeof console !== 'undefined') {
             console && console.error && console.error(msg);

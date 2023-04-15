@@ -3,8 +3,8 @@ import { Radio } from 'antd'
 import { Page } from 'components'
 import HighChartsComponent from './HighChartsComponent'
 import styles from './index.less'
-
 const RadioGroup = Radio.Group
+
 
 const chartList = [
   {
@@ -24,15 +24,11 @@ const chartList = [
 class Chart extends React.Component {
   constructor() {
     super()
-    this.state = {
-      type: '',
-    }
+    this.state = {type: ''}
     this.handleRadioGroupChange = this.handleRadioGroupChange.bind(this)
   }
   handleRadioGroupChange(e) {
-    this.setState({
-      type: e.target.value,
-    })
+    this.setState({ type: e.target.value })
   }
   render() {
     return (

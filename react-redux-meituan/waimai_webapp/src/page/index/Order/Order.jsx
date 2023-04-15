@@ -63,8 +63,4 @@ class Order extends React.Component {
         );
     }
 }
-export default connect(
-    state => ({
-        list: state.orderReducer.list
-    })
-)(Order);
+export default connect(state => ({list: state.orderReducer.list}))(Order);

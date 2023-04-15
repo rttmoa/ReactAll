@@ -3,8 +3,7 @@ import { Radio } from 'antd'
 import { Page } from 'components'
 import EchartsComponent from './EchartsComponent'
 import styles from './index.less'
-
-const RadioGroup = Radio.Group
+const RadioGroup = Radio.Group;
 
 const chartList = [
   {
@@ -93,6 +92,7 @@ class Chart extends React.Component {
   render() {
     return (
       <Page inner id="EChartsMain">
+        12322222222222222222222222222222222
         <RadioGroup
           options={chartList}
           defaultValue="dynamic"

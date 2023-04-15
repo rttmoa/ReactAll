@@ -17,7 +17,8 @@ const addHomeList = (list, nextPage) => ({
 
 export const getHomeInfo = () => {
 	return (dispatch) => {
-		axios.get('/api/home.json').then((res) => {console.log(res)
+		axios.get('/api/home.json').then((res) => {
+			console.log(res)
 			const result = res.data.data; 
 			dispatch(changHomeData(result));
 		});

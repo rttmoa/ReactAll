@@ -16,7 +16,7 @@ export const Header = styled.div`
 `;
 
 export const Content = styled.div`
-	color: ##2f2f2f;
+	color: #2f2f2f;
 	img {
 		width: 100%;
 	}

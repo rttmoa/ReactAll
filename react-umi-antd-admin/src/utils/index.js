@@ -1,11 +1,11 @@
 import { cloneDeep } from 'lodash'
-const { pathToRegexp } = require("path-to-regexp")
 import store from 'store'
 import { i18n } from './config'
 
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/zh-cn'
+const { pathToRegexp } = require("path-to-regexp")
 
 dayjs.extend(relativeTime)
 

@@ -5,6 +5,9 @@ import { Row, Col, Card } from 'antd'
 import draftToHtml from 'draftjs-to-html'
 import draftToMarkdown from 'draftjs-to-markdown'
 
+
+
+
 export default class EditorPage extends Component {
   constructor(props) {
     super(props)
@@ -13,10 +16,9 @@ export default class EditorPage extends Component {
     }
   }
 
+  /***--- 编辑内容 ---**/
   onEditorStateChange = editorContent => {
-    this.setState({
-      editorContent,
-    })
+    this.setState({editorContent})
   }
 
   render() {
@@ -59,11 +61,7 @@ export default class EditorPage extends Component {
                 style={textareaStyle}
                 disabled
                 value={
-                  editorContent
-                    ? draftToHtml(
-                        convertToRaw(editorContent.getCurrentContent())
-                      )
-                    : ''
+                  editorContent ? draftToHtml(convertToRaw(editorContent.getCurrentContent())) : ''
                 }
               />
             </Card>
@@ -74,11 +72,7 @@ export default class EditorPage extends Component {
                 style={textareaStyle}
                 disabled
                 value={
-                  editorContent
-                    ? draftToMarkdown(
-                        convertToRaw(editorContent.getCurrentContent())
-                      )
-                    : ''
+                  editorContent ? draftToMarkdown(convertToRaw(editorContent.getCurrentContent())) : ''
                 }
               />
             </Card>
@@ -89,11 +83,7 @@ export default class EditorPage extends Component {
                 style={textareaStyle}
                 disabled
                 value={
-                  editorContent
-                    ? JSON.stringify(
-                        convertToRaw(editorContent.getCurrentContent())
-                      )
-                    : ''
+                  editorContent ? JSON.stringify(convertToRaw(editorContent.getCurrentContent())) : ''
                 }
               />
             </Card>

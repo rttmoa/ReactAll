@@ -4,20 +4,13 @@ import { connect } from 'umi'
 import { Row, Col, Card } from 'antd'
 import { Color } from 'utils'
 import { Page, ScrollBar } from 'components'
-import {
-  NumberCard,
-  Quote,
-  Sales,
-  Weather,
-  RecentSales,
-  Comments,
-  Completed,
-  Browser,
-  Cpu,
-  User,
-} from './components'
+import {  NumberCard,  Quote,  Sales,  Weather,  RecentSales,  Comments,  Completed,  Browser,  Cpu,  User } from './components'
 import styles from './index.less'
 import store from 'store'
+
+
+
+
 
 const bodyStyle = {
   bodyStyle: {
@@ -26,27 +19,13 @@ const bodyStyle = {
   },
 }
 
-@connect(({ app, dashboard, loading }) => ({
-  dashboard,
-  loading,
-}))
+@connect(({ app, dashboard, loading }) => ({ dashboard,loading }))
 class Dashboard extends PureComponent {
   render() {
     const userDetail = store.get('user')
     const { avatar, username } = userDetail
     const { dashboard, loading } = this.props
-    const {
-      weather,
-      sales,
-      quote,
-      numbers,
-      recentSales,
-      comments,
-      completed,
-      browser,
-      cpu,
-      user,
-    } = dashboard
+    const {weather,sales,quote,numbers,recentSales,comments,completed,browser,cpu,user} = dashboard;
 
     const numberCards = numbers.map((item, key) => (
       <Col key={key} lg={6} md={12}>
@@ -62,12 +41,7 @@ class Dashboard extends PureComponent {
         <Row gutter={24}>
           {numberCards}
           <Col lg={18} md={24}>
-            <Card
-              bordered={false}
-              bodyStyle={{
-                padding: '24px 36px 24px 0',
-              }}
-            >
+            <Card bordered={false} bodyStyle={{padding: '24px 36px 24px 0'}}>
               <Sales data={sales} />
             </Card>
           </Col>
@@ -80,13 +54,10 @@ class Dashboard extends PureComponent {
                   bodyStyle={{
                     padding: 0,
                     height: 204,
-                    background: Color.blue,
+                    background: Color.blue
                   }}
                 >
-                  <Weather
-                    {...weather}
-                    loading={loading.effects['dashboard/queryWeather']}
-                  />
+                  <Weather {...weather} loading={loading.effects['dashboard/queryWeather']}/>
                 </Card>
               </Col>
               <Col lg={24} md={12}>
@@ -119,12 +90,7 @@ class Dashboard extends PureComponent {
             </Card>
           </Col>
           <Col lg={24} md={24}>
-            <Card
-              bordered={false}
-              bodyStyle={{
-                padding: '24px 36px 24px 0',
-              }}
-            >
+            <Card bordered={false} bodyStyle={{padding: '24px 36px 24px 0'}}>
               <Completed data={completed} />
             </Card>
           </Col>

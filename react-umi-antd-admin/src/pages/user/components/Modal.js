@@ -22,8 +22,7 @@ class UserModal extends PureComponent {
   handleOk = () => {
     const { item = {}, onOk } = this.props
 
-    this.formRef.current.validateFields()
-      .then(values => {
+    this.formRef.current.validateFields().then(values => {
         const data = {
           ...values,
           key: item.key,

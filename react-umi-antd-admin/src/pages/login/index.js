@@ -7,36 +7,31 @@ import { GithubOutlined } from '@ant-design/icons'
 import { t, Trans } from "@lingui/macro"
 import { setLocale } from 'utils'
 import config from 'utils/config'
-
 import styles from './index.less'
-
 const FormItem = Form.Item
+
+
+
 
 @connect(({ loading, dispatch }) => ({ loading, dispatch }))
 class Login extends PureComponent {
-
   render() {
     const { dispatch, loading } = this.props
-    
+
     const handleOk = values => {
       dispatch({ type: 'login/login', payload: values })
     }
-    let footerLinks = [
-      {
+    let footerLinks = [{
         key: 'github',
         title: <GithubOutlined />,
         href: 'https://github.com/zuiidea/antd-admin',
         blankTarget: true,
-      },
-    ]
+    }]
 
     if (config.i18n) {
-      footerLinks = footerLinks.concat(
-        config.i18n.languages.map(item => ({
+      footerLinks = footerLinks.concat(config.i18n.languages.map(item => ({
           key: item.key,
-          title: (
-            <span onClick={setLocale.bind(null, item.key)}>{item.title}</span>
-          ),
+          title: <span onClick={setLocale.bind(null, item.key)}>{item.title}</span>
         }))
       )
     }
@@ -48,19 +43,15 @@ class Login extends PureComponent {
             <img alt="logo" src={config.logoPath} />
             <span>{config.siteName}</span>
           </div>
-          <Form
-            onFinish={handleOk}
-            >
-            <FormItem name="username" 
+          <Form onFinish={handleOk}>
+            <FormItem name="username"
               rules={[{ required: true }]} hasFeedback>
-                <Input
-                  placeholder={t`Username`}
-                />
+                <Input placeholder={t`Username`}/>
             </FormItem>
             <Trans id="Password" render={({translation}) => (
               <FormItem name="password" rules={[{ required: true }]} hasFeedback>
               <Input type='password' placeholder={translation} required />
-              </FormItem>)} 
+              </FormItem>)}
             />
             <Row>
               <Button
@@ -71,14 +62,8 @@ class Login extends PureComponent {
                 <Trans>Sign in</Trans>
               </Button>
               <p>
-                <span className="margin-right">
-                  <Trans>Username</Trans>
-                  ：guest
-                </span>
-                <span>
-                  <Trans>Password</Trans>
-                  ：guest
-                </span>
+                <span className="margin-right"><Trans>Username</Trans>:guest/admin</span>
+                <span><Trans>Password</Trans>:guest/admin</span>
               </p>
             </Row>
           </Form>

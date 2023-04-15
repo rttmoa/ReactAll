@@ -22,13 +22,13 @@ import BubbleGradientComponent from './BubbleGradientComponent'
 import TransparentBar3DComPonent from './TransparentBar3DComPonent'
 
 const EchartsComponent = ({ type }) => {
-  if (type === 'simple') return <SimpleChartComponent />
+  // if (type === 'simple') return <SimpleChartComponent />
   if (type === 'loading') return <ChartShowLoadingComponent />
   if (type === 'api') return <ChartAPIComponent />
   if (type === 'events') return <ChartWithEventComponent />
   if (type === 'theme') return <ThemeChartComponent />
   if (type === 'dynamic') return <DynamicChartComponent />
-  if (type === 'map') return <MapChartComponent />
+  // if (type === 'map') return <MapChartComponent />
   if (type === 'airport') return <AirportCoordComponent />
   if (type === 'graph') return <GraphComponent />
   if (type === 'calendar') return <CalendarComponent />

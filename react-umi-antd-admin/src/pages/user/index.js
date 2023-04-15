@@ -10,6 +10,11 @@ import List from './components/List'
 import Filter from './components/Filter'
 import Modal from './components/Modal'
 
+
+
+
+
+
 @connect(({ user, loading }) => ({ user, loading }))
 class User extends PureComponent {
   handleRefresh = newQuery => {
@@ -39,10 +44,8 @@ class User extends PureComponent {
       },
     }).then(() => {
       this.handleRefresh({
-        page:
-          list.length === selectedRowKeys.length && pagination.current > 1
-            ? pagination.current - 1
-            : pagination.current,
+        page: list.length === selectedRowKeys.length && pagination.current > 1
+            ? pagination.current - 1 : pagination.current,
       })
     })
   }
@@ -180,12 +183,10 @@ class User extends PureComponent {
     )
   }
 }
-
 User.propTypes = {
   user: PropTypes.object,
   location: PropTypes.object,
   dispatch: PropTypes.func,
   loading: PropTypes.object,
 }
-
 export default User

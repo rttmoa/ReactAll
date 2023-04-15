@@ -4,9 +4,11 @@ import { Breadcrumb } from 'antd'
 import { Link, withRouter } from 'umi'
 import { t } from "@lingui/macro"
 import iconMap from 'utils/iconMap'
-const { pathToRegexp } = require('path-to-regexp')
 import { queryAncestors } from 'utils'
 import styles from './Bread.less'
+const { pathToRegexp } = require('path-to-regexp')
+
+
 
 @withRouter
 class Bread extends PureComponent {
@@ -54,9 +56,11 @@ class Bread extends PureComponent {
         ]
 
     return (
-      <Breadcrumb className={styles.bread}>
-        {this.generateBreadcrumbs(paths)}
-      </Breadcrumb>
+      // vScripts.js:6523 Warning: [antd: Breadcrumb] `Breadcrumb.Item and Breadcrumb.Separator` is deprecated. Please use `items` instead.
+      // <Breadcrumb className={styles.bread}>
+      //   {this.generateBreadcrumbs(paths)}
+      // </Breadcrumb>
+      <Breadcrumb className={styles.bread} items={this.generateBreadcrumbs(paths)} />
     )
   }
 }

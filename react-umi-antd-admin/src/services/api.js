@@ -1,3 +1,8 @@
+/* eslint-disable import/no-anonymous-default-export */
+
+
+
+/***--- 供 Request 模块使用 ---**/
 export default {
   queryRouteList: '/routes',
 

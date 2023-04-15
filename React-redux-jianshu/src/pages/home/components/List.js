@@ -34,7 +34,6 @@ class List extends PureComponent {
 		)
 	}
 }
-
 const mapState = (state) => ({
 	list: state.getIn(['home', 'articleList']),
 	page: state.getIn(['home', 'articlePage'])
@@ -45,5 +44,4 @@ const mapDispatch = (dispatch) => ({
 		dispatch(actionCreators.getMoreList(page))
 	}
 })
-
 export default connect(mapState, mapDispatch)(List);

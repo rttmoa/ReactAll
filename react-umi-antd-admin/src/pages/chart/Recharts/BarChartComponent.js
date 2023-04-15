@@ -1,15 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Row, Col, Card, Button } from 'antd'
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from 'recharts'
+import {  BarChart,  Bar,  XAxis,  YAxis,  CartesianGrid,  Tooltip,  Legend } from 'recharts'
 import Container from './Container'
 
 const data = [

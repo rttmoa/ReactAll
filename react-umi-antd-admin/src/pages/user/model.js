@@ -1,7 +1,9 @@
 import modelExtend from 'dva-model-extend'
-const { pathToRegexp } = require("path-to-regexp")
 import api from 'api'
 import { pageModel } from 'utils/model'
+const { pathToRegexp } = require("path-to-regexp")
+
+
 
 const {
   queryUserList,

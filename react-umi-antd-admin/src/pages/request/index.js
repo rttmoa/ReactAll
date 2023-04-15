@@ -7,7 +7,6 @@ import { CloseOutlined } from '@ant-design/icons'
 import { Trans } from "@lingui/macro"
 import api from '@/services/api'
 import { Page } from 'components'
-
 import styles from './index.less'
 
 const { Option } = Select
@@ -22,13 +21,20 @@ const methodTagColor = {
 }
 
 const requests = Object.values(api).map(item => {
-  let url = apiPrefix + item
-  let method = 'GET'
-  const paramsArray = item.split(' ')
+
+  let url = apiPrefix + item;
+  let method = 'GET';
+  const paramsArray = item.split(' ');
+
   if (paramsArray.length === 2) {
-    method = paramsArray[0]
-    url = apiPrefix + paramsArray[1]
+    method = paramsArray[0];
+    url = apiPrefix + paramsArray[1];
   }
+  // console.log(item) //  /user  ||  POST /user
+  // console.log(paramsArray)  //  ['/user/:id']  ||  ['DELETE', '/user/:id']
+  // console.log(method) // GET
+  // apiPrefix：/api/v1
+  // console.log(url) // /api/v1/user/:id
   return {
     method,
     url,
@@ -105,13 +111,11 @@ class RequestPage extends React.Component {
   }
 
   handleSelectChange = method => {
-    this.setState({
-      method,
-    })
+    this.setState({ method })
   }
 
   handleAddField = () => {
-    const { keys } = this.state
+    const { keys } = this.state;
     const nextKeys = keys.concat(uuid)
     uuid++
     this.setState({
@@ -125,7 +129,7 @@ class RequestPage extends React.Component {
       keys: keys.filter(item => item !== key),
     })
   }
-
+  /***--- 参数add Params按钮是否显示 ---**/
   handleVisible = () => {
     this.setState({
       visible: !this.state.visible,
@@ -133,28 +137,24 @@ class RequestPage extends React.Component {
   }
 
   render() {
-    const { result, url, method, keys, visible } = this.state
+    const { result, url, method, keys, visible } = this.state;
 
     return (
       <Page inner>
         <Row>
           <Col lg={8} md={24}>
+            {/* List 渲染GET、POST、DELETE请求参数和请求地址 */}
             <List
               className={styles.requestList}
               dataSource={requests}
               renderItem={item => (
-                <List.Item
-                  className={classnames(styles.listItem, {
-                    [styles.lstItemActive]:
-                      item.method === method && item.url === url,
+                <List.Item className={classnames(styles.listItem, {
+                    [styles.lstItemActive]: item.method === method && item.url === url,
                   })}
                   onClick={this.handleClickListItem.bind(this, item)}
                 >
                   <span style={{ width: 72 }}>
-                    <Tag
-                      style={{ marginRight: 8 }}
-                      color={methodTagColor[item.method]}
-                    >
+                    <Tag style={{ marginRight: 8 }} color={methodTagColor[item.method]}>
                       {item.method}
                     </Tag>
                   </span>
@@ -164,6 +164,7 @@ class RequestPage extends React.Component {
             />
           </Col>
           <Col lg={16} md={24}>
+            {/* 右侧 - GET + URL + Params + Send */}
             <Row type="flex" justify="space-between">
               <InputGroup compact size="large" style={{ flex: 1 }}>
                 <Select
@@ -183,16 +184,10 @@ class RequestPage extends React.Component {
                   onChange={this.handleInputChange}
                   style={{ width: 'calc(100% - 200px)' }}
                 />
-                <Button
-                  ghost={visible}
-                  type={visible ? 'primary' : ''}
-                  onClick={this.handleVisible}
-                  size="large"
-                >
+                <Button ghost={visible} type={visible ? 'primary' : ''} onClick={this.handleVisible} size="large">
                   <Trans>Params</Trans>
                 </Button>
               </InputGroup>
-
               <Button
                 size="large"
                 type="primary"
@@ -202,12 +197,10 @@ class RequestPage extends React.Component {
                 <Trans>Send</Trans>
               </Button>
             </Row>
+
+            {/* 添加参数 + 请求结果 */}
             <Form ref={this.formRef} name="control-ref" >
-              <div
-                className={classnames(styles.paramsBlock, {
-                  [styles.hideParams]: !visible,
-                })}
-              >
+              <div className={classnames(styles.paramsBlock, {[styles.hideParams]: !visible})}>
                 {keys.map((key, index) => (
                   <Row
                     gutter={8}
