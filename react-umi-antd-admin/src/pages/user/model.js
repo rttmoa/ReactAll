@@ -24,7 +24,7 @@ export default modelExtend(pageModel, {
   },
 
   subscriptions: {
-    setup({ dispatch, history }) {
+    setup({ dispatch, history }) { // 每次刷新页面时，可以监听history的值 去query发请求
       history.listen(location => {
         if (pathToRegexp('/user').exec(location.pathname)) {
           const payload = location.query || { page: 1, pageSize: 10 }

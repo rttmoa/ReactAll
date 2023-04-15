@@ -4,9 +4,7 @@ import { Form, Input, InputNumber, Radio, Modal, Cascader } from 'antd'
 import { Trans } from "@lingui/macro"
 import city from 'utils/city'
 import { t } from "@lingui/macro"
-
 const FormItem = Form.Item
-
 const formItemLayout = {
   labelCol: {
     span: 6,
@@ -16,6 +14,10 @@ const formItemLayout = {
   },
 }
 
+
+
+
+// console.log("city", city) // ch8ildren 嵌套关系
 class UserModal extends PureComponent {
   formRef = React.createRef()
 
@@ -41,16 +43,13 @@ class UserModal extends PureComponent {
     return (
       (<Modal {...modalProps} onOk={this.handleOk}>
         <Form ref={this.formRef} name="control-ref" initialValues={{ ...item, address: item.address && item.address.split(' ') }} layout="horizontal">
-          <FormItem name='name' rules={[{ required: true }]}
-            label={t`Name`} hasFeedback {...formItemLayout}>
+          <FormItem name='name' rules={[{ required: true }]} label={t`Name`} hasFeedback {...formItemLayout}>
             <Input />
           </FormItem>
-          <FormItem name='nickName' rules={[{ required: true }]}
-            label={t`NickName`} hasFeedback {...formItemLayout}>
+          <FormItem name='nickName' rules={[{ required: true }]} label={t`NickName`} hasFeedback {...formItemLayout}>
             <Input />
           </FormItem>
-          <FormItem name='isMale' rules={[{ required: true }]}
-            label={t`Gender`} hasFeedback {...formItemLayout}>
+          <FormItem name='isMale' rules={[{ required: true }]} label={t`Gender`} hasFeedback {...formItemLayout}>
             <Radio.Group>
               <Radio value>
                 <Trans>Male</Trans>
@@ -63,16 +62,17 @@ class UserModal extends PureComponent {
           <FormItem name='age' label={t`Age`} hasFeedback {...formItemLayout}>
             <InputNumber min={18} max={100} />
           </FormItem>
-          <FormItem name='phone' rules={[{ required: true, pattern: /^1[34578]\d{9}$/, message: t`The input is not valid phone!`, }]}
+          <FormItem name='phone'
+            rules={[{ required: true, pattern: /^1[34578]\d{9}$/, message: t`The input is not valid phone!`, }]}
             label={t`Phone`} hasFeedback {...formItemLayout}>
             <Input />
           </FormItem>
-          <FormItem name='email' rules={[{ required: true, pattern: /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/, message: t`The input is not valid E-mail!`, }]}
+          <FormItem name='email'
+            rules={[{ required: true, pattern: /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/, message: t`The input is not valid E-mail!`, }]}
             label={t`Email`} hasFeedback {...formItemLayout}>
             <Input />
           </FormItem>
-          <FormItem name='address' rules={[{ required: true, }]}
-            label={t`Address`} hasFeedback {...formItemLayout}>
+          <FormItem name='address' rules={[{ required: true, }]} label={t`Address`} hasFeedback {...formItemLayout}>
             <Cascader
               style={{ width: '100%' }}
               options={city}

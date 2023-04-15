@@ -18,20 +18,15 @@ import Modal from './components/Modal'
 @connect(({ user, loading }) => ({ user, loading }))
 class User extends PureComponent {
 
-
+  /***--- 处理表单内的值 ---**/
   handleRefresh = newQuery => {
     const { location } = this.props
     const { query, pathname } = location
 
     history.push({
       pathname,
-      search: stringify(
-        {
-          ...query,
-          ...newQuery,
-        },
-        { arrayFormat: 'repeat' }
-      ),
+      search: stringify({...query,...newQuery}, {arrayFormat: 'repeat'}),
+      // search: ({...query,...newQuery}, {arrayFormat: 'repeat'}),
     })
   }
 
@@ -39,22 +34,16 @@ class User extends PureComponent {
     const { dispatch, user } = this.props;
     const { list, pagination, selectedRowKeys } = user;
 
-    dispatch({
-      type: 'user/multiDelete',
-      payload: {
-        ids: selectedRowKeys,
-      },
-    }).then(() => {
+    dispatch({ type: 'user/multiDelete', payload: {ids: selectedRowKeys} }).then(() => {
       this.handleRefresh({
-        page: list.length === selectedRowKeys.length && pagination.current > 1
-            ? pagination.current - 1 : pagination.current,
+        page: list.length === selectedRowKeys.length && pagination.current > 1 ? pagination.current - 1 : pagination.current,
       })
     })
   }
   /***--- 弹出框 属性 ---**/
   get modalProps() {
-    const { dispatch, user, loading } = this.props
-    const { currentItem, modalOpen, modalType } = user
+    const { dispatch, user, loading } = this.props;
+    const { currentItem, modalOpen, modalType } = user;
 
     return {
       item: modalType === 'create' ? {} : currentItem,
@@ -62,22 +51,15 @@ class User extends PureComponent {
       destroyOnClose: true,
       maskClosable: false,
       confirmLoading: loading.effects[`user/${modalType}`],
-      title: `${
-        modalType === 'create' ? t`Create User` : t`Update User`
-      }`,
+      title: `${modalType === 'create' ? t`Create User` : t`Update User`}`,
       centered: true,
       onOk: data => {
-        dispatch({
-          type: `user/${modalType}`,
-          payload: data,
-        }).then(() => {
+        dispatch({ type: `user/${modalType}`, payload: data }).then(() => {
           this.handleRefresh()
         })
       },
       onCancel() {
-        dispatch({
-          type: 'user/hideModal',
-        })
+        dispatch({type: 'user/hideModal'})
       },
     }
   }
@@ -103,9 +85,7 @@ class User extends PureComponent {
         }).then(() => {
           this.handleRefresh({
             page:
-              list.length === 1 && pagination.current > 1
-                ? pagination.current - 1
-                : pagination.current,
+              list.length === 1 && pagination.current > 1 ? pagination.current - 1 : pagination.current,
           })
         })
       },
@@ -142,6 +122,7 @@ class User extends PureComponent {
         ...query,
       },
       onFilterChange: value => {
+        // console.log("onFilterChange", value) // {address: ['北京', '北京市', '西城区'], createTime: ['2023-04-13', '2023-04-15'], name: "zhangsan"}
         this.handleRefresh({
           ...value,
         })
@@ -173,7 +154,7 @@ class User extends PureComponent {
               <Popconfirm
                 title="Are you sure delete these items?"
                 placement="left"
-                onConfirm={this.handleDeleteItems}
+                onConfirm={this.m}
               >
                 <Button type="primary" style={{ marginLeft: 8 }}>
                   Remove

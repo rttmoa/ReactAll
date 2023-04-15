@@ -40,8 +40,7 @@ export default function request(options) {
     })
   })
 
-  return axios(options)
-    .then(response => {
+  return axios(options).then(response => {
       const { statusText, status, data } = response
 
       let result = {}
@@ -60,8 +59,7 @@ export default function request(options) {
         statusCode: status,
         ...result,
       })
-    })
-    .catch(error => {
+    }).catch(error => {
       const { response, message } = error
 
       if (String(message) === CANCEL_REQUEST_MESSAGE) {

@@ -6,10 +6,8 @@ import { Trans } from '@lingui/macro'
 import { t } from '@lingui/macro'
 import { Button, Row, Col, DatePicker, Form, Input, Cascader } from 'antd'
 import city from 'utils/city'
-
 const { Search } = Input // 输入框+按钮 组件
 const { RangePicker } = DatePicker; // 日历 组件
-
 const ColProps = {
   xs: 24,
   sm: 12,
@@ -17,15 +15,18 @@ const ColProps = {
     marginBottom: 16,
   },
 }
-
 const TwoColProps = {
   ...ColProps,
   xl: 96,
 }
 
+
+
+
 class Filter extends Component {
   formRef = React.createRef()
 
+  // 处理 - 名字，地址，创建时间
   handleFields = (fields) => {
     const { createTime } = fields
     if (createTime && createTime.length) {
@@ -38,8 +39,11 @@ class Filter extends Component {
   }
   /***--- 提交 Submit ---**/
   handleSubmit = () => {
-    const { onFilterChange } = this.props
+    // console.log("submit", this.props)
+    const { onFilterChange } = this.props;
     const values = this.formRef.current.getFieldsValue()
+    // console.log("getFieldsValue", values) // {address: ['北京', '北京市', '西城区'], createTime: ['国际化时间', '国际化时间'], name: "zhangsan"}
+    // debugger
     const fields = this.handleFields(values)
     onFilterChange(fields)
   }
@@ -48,6 +52,7 @@ class Filter extends Component {
     const fields = this.formRef.current.getFieldsValue()
     for (let item in fields) {
       if ({}.hasOwnProperty.call(fields, item)) {
+        // console.log("fileds+item", fields, item) // 如果存在就处理
         if (fields[item] instanceof Array) {
           fields[item] = []
         } else {
@@ -55,11 +60,11 @@ class Filter extends Component {
         }
       }
     }
-    this.formRef.current.setFieldsValue(fields)
-    this.handleSubmit()
+    this.formRef.current.setFieldsValue(fields) // 设置 字段值为处理后的值
+    this.handleSubmit() // 重新提交
   }
   handleChange = (key, values) => {
-    const { onFilterChange } = this.props
+    const { onFilterChange } = this.props;
     let fields = this.formRef.current.getFieldsValue()
     fields[key] = values
     fields = this.handleFields(fields)

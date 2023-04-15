@@ -51,6 +51,7 @@ class List extends PureComponent {
         title: <Trans>NickName</Trans>,
         dataIndex: 'nickName',
         key: 'nickName',
+        render: text => <b>{text}</b>
       },
       {
         title: <Trans>Age</Trans>,
