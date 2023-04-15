@@ -5,14 +5,13 @@
     // AMD. Register as an anonymous module.
     define(['exports', 'echarts'], factory) // eslint-disable-line
   } else if (
-    typeof exports === 'object' &&
-    typeof exports.nodeName !== 'string'
+    typeof exports === 'object' && typeof exports.nodeName !== 'string'
   ) {
     // CommonJS
     factory(exports, require('echarts'))
   } else {
     // Browser globals
-    factory({}, root.echarts)
+    factory({}, root && root.echarts)
   }
 })(this, (exports, echarts) => {
   let log = function(msg) {

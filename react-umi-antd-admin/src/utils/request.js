@@ -7,6 +7,8 @@ const { parse, compile } = require("path-to-regexp")
 const { CancelToken } = axios
 window.cancelRequest = new Map()
 
+
+
 export default function request(options) {
   let { data, url } = options
   const cloneData = cloneDeep(data)

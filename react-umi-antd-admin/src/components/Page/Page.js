@@ -26,7 +26,6 @@ export default class Page extends Component {
     )
   }
 }
-
 Page.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
