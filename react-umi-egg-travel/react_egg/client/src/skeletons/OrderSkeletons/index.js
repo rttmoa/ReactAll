@@ -4,7 +4,7 @@ import './index.less';
 
 
 
-/***--- 未支付加载三个空数据 ---**/
+/***--- 未支付加载三个空数据 - 骨架 ---**/
 export default function (props) {
   const [state, setState] = useState(Array(3).fill(1));
 
