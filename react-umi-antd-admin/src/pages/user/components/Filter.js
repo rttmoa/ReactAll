@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import dayjs from 'dayjs'
 import { FilterItem } from 'components'
-import { Trans } from "@lingui/macro"
-import { t } from "@lingui/macro"
+import { Trans } from '@lingui/macro'
+import { t } from '@lingui/macro'
 import { Button, Row, Col, DatePicker, Form, Input, Cascader } from 'antd'
 import city from 'utils/city'
 
-const { Search } = Input
-const { RangePicker } = DatePicker
+const { Search } = Input // 输入框+按钮 组件
+const { RangePicker } = DatePicker; // 日历 组件
 
 const ColProps = {
   xs: 24,
@@ -26,7 +26,7 @@ const TwoColProps = {
 class Filter extends Component {
   formRef = React.createRef()
 
-  handleFields = fields => {
+  handleFields = (fields) => {
     const { createTime } = fields
     if (createTime && createTime.length) {
       fields.createTime = [
@@ -36,14 +36,14 @@ class Filter extends Component {
     }
     return fields
   }
-
+  /***--- 提交 Submit ---**/
   handleSubmit = () => {
     const { onFilterChange } = this.props
     const values = this.formRef.current.getFieldsValue()
     const fields = this.handleFields(values)
     onFilterChange(fields)
   }
-
+  /***--- 重新选择 Reset ---**/
   handleReset = () => {
     const fields = this.formRef.current.getFieldsValue()
     for (let item in fields) {
@@ -66,20 +66,25 @@ class Filter extends Component {
     onFilterChange(fields)
   }
 
-  render() {
-    const { onAdd, filter } = this.props
-    const { name, address } = filter
 
-    let initialCreateTime = []
+
+
+  render() {
+    const { onAdd, filter } = this.props;
+    const { name, address } = filter;
+
+    let initialCreateTime = [];
     if (filter.createTime && filter.createTime[0]) {
-      initialCreateTime[0] = dayjs(filter.createTime[0])
+      initialCreateTime[0] = dayjs(filter.createTime[0]);
     }
     if (filter.createTime && filter.createTime[1]) {
-      initialCreateTime[1] = dayjs(filter.createTime[1])
+      initialCreateTime[1] = dayjs(filter.createTime[1]);
     }
 
     return (
-      <Form ref={this.formRef} name="control-ref" initialValues={{ name, address, createTime: initialCreateTime }}>
+      <Form ref={this.formRef} name="control-ref"
+        initialValues={{ name, address, createTime: initialCreateTime }}
+      >
         <Row gutter={24}>
           <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }}>
             <Form.Item name="name">
@@ -89,12 +94,7 @@ class Filter extends Component {
               />
             </Form.Item>
           </Col>
-          <Col
-            {...ColProps}
-            xl={{ span: 4 }}
-            md={{ span: 8 }}
-            id="addressCascader"
-          >
+          <Col {...ColProps} xl={{ span: 4 }} md={{ span: 8 }} id="addressCascader">
             <Form.Item name="address">
               <Cascader
                 style={{ width: '100%' }}
@@ -103,41 +103,24 @@ class Filter extends Component {
               />
             </Form.Item>
           </Col>
-          <Col
-            {...ColProps}
-            xl={{ span: 6 }}
-            md={{ span: 8 }}
-            sm={{ span: 12 }}
-            id="createTimeRangePicker"
-          >
+          <Col {...ColProps} xl={{ span: 6 }} md={{ span: 8 }} sm={{ span: 12 }} id="createTimeRangePicker">
             <FilterItem label={t`CreateTime`}>
               <Form.Item name="createTime">
-                <RangePicker
-                  style={{ width: '100%' }}
-                />
+                <RangePicker style={{ width: '100%' }} />
               </Form.Item>
             </FilterItem>
           </Col>
-          <Col
-            {...TwoColProps}
-            xl={{ span: 10 }}
-            md={{ span: 24 }}
-            sm={{ span: 24 }}
-          >
+          <Col {...TwoColProps} xl={{ span: 10 }} md={{ span: 24 }} sm={{ span: 24 }}>
             <Row type="flex" align="middle" justify="space-between">
               <div>
-                <Button
-                  type="primary" htmlType="submit"
-                  className="margin-right"
-                  onClick={this.handleSubmit}
-                >
+                <Button type="primary" htmlType="submit" className="margin-right" onClick={this.handleSubmit}>
                   <Trans>Search</Trans>
                 </Button>
                 <Button onClick={this.handleReset}>
                   <Trans>Reset</Trans>
                 </Button>
               </div>
-              <Button type="ghost" onClick={onAdd}>
+              <Button type="primary" onClick={onAdd}>
                 <Trans>Create</Trans>
               </Button>
             </Row>

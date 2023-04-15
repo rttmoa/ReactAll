@@ -4,11 +4,15 @@ import { connect } from 'umi'
 import { Page } from 'components'
 import styles from './index.less'
 
+
+
+
+
 @connect(({ userDetail }) => ({ userDetail }))
 class UserDetail extends PureComponent {
   render() {
-    const { userDetail } = this.props
-    const { data } = userDetail
+    const { userDetail } = this.props;
+    const { data } = userDetail;
     const content = []
     for (let key in data) {
       if ({}.hasOwnProperty.call(data, key)) {

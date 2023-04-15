@@ -57,10 +57,10 @@ class Bread extends PureComponent {
 
     return (
       // vScripts.js:6523 Warning: [antd: Breadcrumb] `Breadcrumb.Item and Breadcrumb.Separator` is deprecated. Please use `items` instead.
-      // <Breadcrumb className={styles.bread}>
-      //   {this.generateBreadcrumbs(paths)}
-      // </Breadcrumb>
-      <Breadcrumb className={styles.bread} items={this.generateBreadcrumbs(paths)} />
+      <Breadcrumb className={styles.bread}>
+        {this.generateBreadcrumbs(paths)}
+      </Breadcrumb>
+      // <Breadcrumb className={styles.bread} items={this.generateBreadcrumbs(paths)} />
     )
   }
 }

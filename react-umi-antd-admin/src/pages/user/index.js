@@ -17,6 +17,8 @@ import Modal from './components/Modal'
 
 @connect(({ user, loading }) => ({ user, loading }))
 class User extends PureComponent {
+
+
   handleRefresh = newQuery => {
     const { location } = this.props
     const { query, pathname } = location
@@ -34,8 +36,8 @@ class User extends PureComponent {
   }
 
   handleDeleteItems = () => {
-    const { dispatch, user } = this.props
-    const { list, pagination, selectedRowKeys } = user
+    const { dispatch, user } = this.props;
+    const { list, pagination, selectedRowKeys } = user;
 
     dispatch({
       type: 'user/multiDelete',
@@ -49,7 +51,7 @@ class User extends PureComponent {
       })
     })
   }
-
+  /***--- 弹出框 属性 ---**/
   get modalProps() {
     const { dispatch, user, loading } = this.props
     const { currentItem, modalOpen, modalType } = user
@@ -79,7 +81,7 @@ class User extends PureComponent {
       },
     }
   }
-
+  /***--- 列表 属性 ---**/
   get listProps() {
     const { dispatch, user, loading } = this.props
     const { list, pagination, selectedRowKeys } = user
@@ -129,10 +131,11 @@ class User extends PureComponent {
       },
     }
   }
-
+  /***--- 过滤条件 属性 ---**/
   get filterProps() {
-    const { location, dispatch } = this.props
-    const { query } = location
+    const { location, dispatch } = this.props;
+    const { query } = location;
+    // debugger
 
     return {
       filter: {
@@ -154,9 +157,11 @@ class User extends PureComponent {
     }
   }
 
+
+
   render() {
-    const { user } = this.props
-    const { selectedRowKeys } = user
+    const { user } = this.props;
+    const { selectedRowKeys } = user;
 
     return (
       <Page inner>

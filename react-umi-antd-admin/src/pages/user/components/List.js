@@ -9,6 +9,9 @@ import styles from './List.less'
 
 const { confirm } = Modal
 
+
+
+
 class List extends PureComponent {
 
   handleMenuClick = (record, e) => {
