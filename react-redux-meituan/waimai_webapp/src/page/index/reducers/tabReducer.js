@@ -3,8 +3,7 @@ import { TABKEY } from '../config.js';
 
 
 const initState = {
-    tabs: [
-        {
+    tabs: [{
             name: '首页',
             key: TABKEY.home
         },

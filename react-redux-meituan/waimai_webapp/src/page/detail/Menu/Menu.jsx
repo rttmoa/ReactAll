@@ -87,10 +87,10 @@ class Menu extends React.Component {
         );
     }
 }
-
-export default connect(
-    state =>({
+function mapState(state) {
+    return {
         listData: state.menuReducer.listData,
         currentLeftIndex: state.menuReducer.currentLeftIndex
-    })
-)(Menu);
+    }
+}
+export default connect(mapState, null)(Menu);

@@ -4,32 +4,37 @@ import axios from 'axios';
 
 
 
-export const getListData = (obj)=> async (dispatch, getState) =>{
-    dispatch({
-        type: 'SETLOADSTATE',
-        obj: false
-    });
-    let url = './json/homelist.json';
-    if (obj.filterData || getState().contentListReducer.filterData) {
-        url = './json/listparams.json';
-    }
-    let resp = await axios({
-        method: 'get',
-        url: url
-    }); 
+/***--- 获取列表数据 ---**/
+export const getListData = (obj) => {
+    // console.log("getListData", obj) // {filterData: {…}, toFirstPage: true}
 
-    // eslint-disable-next-line no-undef
-    setTimeout(() => {
-        dispatch({
-            type: GET_LIST_DATA,
-            filterData: obj.filterData,
-            toFirstPage: obj.toFirstPage,
-            obj: resp.data
-        })
+    return async (dispatch, getState) =>{
         dispatch({
             type: 'SETLOADSTATE',
-            obj: true
+            obj: false
         });
-    }, 500)
-
+        let url = './json/homelist.json'; // 刚进入页面时
+        if (obj.filterData || getState().contentListReducer.filterData) {
+            url = './json/listparams.json'; // 点击了过滤条件后
+        }
+        let resp = await axios({
+            method: 'get',
+            url: url
+        }); 
+    
+        // eslint-disable-next-line no-undef
+        setTimeout(() => {
+            dispatch({
+                type: GET_LIST_DATA,
+                filterData: obj.filterData, //  {code: 101786, name: '包子粥店', quantity: 61, icon_url: '', click_url: '', …}
+                toFirstPage: obj.toFirstPage, // true/false
+                obj: resp.data
+            })
+            dispatch({
+                type: 'SETLOADSTATE',
+                obj: true
+            });
+        }, 500)
+    
+    }
 }

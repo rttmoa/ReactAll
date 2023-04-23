@@ -17,11 +17,10 @@ class Header extends React.Component {
         this.fetchData();
     }
     fetchData(){
-        this.props.dispatch(getFilterData());  // 获取全部分类过滤数据：全部分类、综合排序、满返代金券 所有数据
+        // FIXME: 当进入分类页面时，在redux中发请求，获取所有 过滤条件
+        this.props.dispatch(getFilterData());   
     }
-    /**
-     * 充值其他item的active状态
-     */
+    /** FIXME: */
     revertActive(key, dataList){
         if (key === TABKEY.cate) {
             for (let i = 0 ; i < dataList.length ; i++) {
@@ -42,42 +41,47 @@ class Header extends React.Component {
         }
     }
     /**
-     * 变化当前点击的item状态 同时发起filter的请求
+     * FIXME: 当点击分类条件中内部数据时，都会经过此函数到redux中
      */
     changeDoFilter(item, key, dataList){
+        // console.log("changeDoFilter", item, key, dataList)
         this.revertActive(key, dataList);
         item.active = true;
-        this.props.dispatch(changeFilter({
+
+        this.props.dispatch(changeFilter({  // FIXME: 切换过滤条件，将条件存储到redux
             item,
             key
         }));
-
-        this.props.dispatch(getListData({
+        // console.log("item", item) // 点击的条件的那一个对象
+        this.props.dispatch(getListData({  // FIXME: 获取 商家数据，根据条件获取商家数据
             filterData: item,
             toFirstPage: true
         }));
-    } 
-    /***--- 点击切换tab ---**/
-    changeTab(key) {
-        let closePanel = false; // 是否关闭面板：否
+    }
+    
+    changeTab(key) { /***--- 点击切换tab ---**/
+        // 是否关闭面板：否
+        let closePanel = false; 
         // 如果前后点击的是同一个tab 就关闭panel
         if (this.props.activeKey === key && !this.props.closePanel) {
             closePanel = true;
         }
-        this.props.dispatch(changeTab({
+        this.props.dispatch(changeTab({ // 切换tabs将key传递给redux
             activeKey: key,
             closePanel: closePanel
         }));
     }
-    /***--- 渲染顶部默认 Tabs --- {this.renderTabs()} ---**/
+    /**
+     * TODO: 渲染顶部Nav：全部分类cate||综合排序type||筛选filter 
+     */
     renderTabs() {
         // console.log(this.props)
         let tabs = this.props.tabs;
         let array = [];
-        for (let key in tabs) {
+        for (let key in tabs) { // 遍历tabs对象
             let item = tabs[key]; // item是tabs中每一个对象
             let cls = item.key + ' item';
-            if (item.key === this.props.activeKey && !this.props.closePanel) { // 点击key && 关闭面板
+            if (item.key === this.props.activeKey && !this.props.closePanel) { // 点击key && 关闭面板+false取反为true
                 cls += ' current';
             }
             array.push(
@@ -88,10 +92,8 @@ class Header extends React.Component {
         }
         return array;
     }
-    /**
-     * 筛选内部的每个类目
-     */
-    renderFilterInnerContent(items, filterList) {
+    
+    renderFilterInnerContent(items, filterList) { /** 筛选内部的每个类目*/
         return items.map((item, index) => {
             let cls = item.icon ? 'cate-box-inner has-icon' : 'cate-box-inner';
             if (item.active) {
@@ -106,10 +108,9 @@ class Header extends React.Component {
             )
         });
     }
-    /**
-     * 筛选 - 筛选(一级分类)
-     */
-    renderFilterContent(){
+    
+    renderFilterContent() { /** 筛选表头-多选 */
+        // console.log("筛选", this.props.filterData.activity_filter_list)
         let filterList = this.props.filterData.activity_filter_list || [];
         return filterList.map((item, index)=>{
             return (
@@ -122,10 +123,9 @@ class Header extends React.Component {
             );
         })
     }
-    /**
-     * 筛选 - 综合排序(一级分类)
-     */
-    renderTypeContent(){
+   
+    renderTypeContent(){  /** 综合排序表头-6种*/
+        // console.log("综合排序", this.props.filterData.sort_type_list)
         let typeList = this.props.filterData.sort_type_list || [];
         return typeList.map((item, index)=>{
             let cls = item.active ? "type-item active" : "type-item";
@@ -136,27 +136,24 @@ class Header extends React.Component {
             );
         })
     }
-    /**
-     * 全部分类里面的每个条目
-     */
-    renderCateInnerContent(items, cateList) {
-        // 查看JSON文件中数据
+   
+    renderCateInnerContent(items, cateList) {  /** 全部分类里面的每个条目 */
+        // 这段遍历 相当于children数据
         return items.sub_category_list.map((item, index)=>{
             let cls = item.active ? 'cate-box-inner active' : 'cate-box-inner';
             return (
-                <div onClick={()=>this.changeDoFilter(item, TABKEY.cate, cateList)} key={index} className="cate-box">
+                <div onClick={() => this.changeDoFilter(item, TABKEY.cate, cateList)} key={index} className="cate-box">
                     <div className={cls}>
+                        {/* 菜品名+数量 */}
                         {item.name}({item.quantity})
                     </div>
                 </div>
             )
         })
     }
-    /**
-     * 筛选 - 全部分类(一级分类)
-     */
-    renderCateContent(){
-        // console.log(this.props)
+    
+    renderCateContent(){ /** 全部分类表头-2844种*/ 
+        // console.log("全部分类", this.props.filterData.category_filter_list)
         // 查看JSON文件中数据
         let cateList = this.props.filterData.category_filter_list || [];
         // 遍历全部分类中(二级分类)
@@ -173,7 +170,7 @@ class Header extends React.Component {
         });
     }
     /**
-     * 渲染过滤面板 --- {this.renderContent()}
+     * TODO: 渲染面板中数据 
      */
     renderContent() {
         let tabs = this.props.tabs;
@@ -185,7 +182,6 @@ class Header extends React.Component {
             if (item.key === this.props.activeKey) { // 点击的key
                 cls += ' current';
             }
-
             if (item.key === TABKEY.cate) { // 如果是 cate && 全部分类
                 array.push(
                     <ul key={item.key} className={cls}>
@@ -206,6 +202,7 @@ class Header extends React.Component {
                 );
             }
         }
+        // console.log("array", array)
         return array;
     }
 
@@ -232,12 +229,9 @@ class Header extends React.Component {
     }
 }
 
-export default connect(
-    state =>({
+export default connect(state =>({
         tabs: state.headerReducer.tabs,
         activeKey: state.headerReducer.activeKey,
         filterData: state.headerReducer.filterData,
         closePanel: state.headerReducer.closePanel
-    }),
-    null
-)(Header);
+}), null)(Header);

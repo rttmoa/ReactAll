@@ -11,7 +11,7 @@ import StarScore from 'component/StarScore/StarScore';
  */
 class CommentItem extends React.Component {
 
-    renderImgs(item){ 
+    renderImgs(item) {
         let imgs = item.comment_pics || [];
         if (imgs.length) {
             return (
@@ -35,8 +35,7 @@ class CommentItem extends React.Component {
         });
     }
     formatTime(time){
-        let date = new Date(Number(time + '000'));
-
+        let date = new Date(Number(time + '000')); 
         return date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
     }
  

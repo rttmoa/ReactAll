@@ -65,8 +65,7 @@ class ListItem extends React.Component {
                     <div className="evaluation-btn" onClick={this.goEval}>评价</div>
                 </div>
             );
-        }
-
+        } 
         return null;
     }
     goEval(){

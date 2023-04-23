@@ -20,7 +20,7 @@ const My = Loadable({
     loading: Loading,
 });
 
-class Main extends React.Component { 
+class Main extends React.Component {
     // loadMy(location, cb){ import(/* webpackChunkName: "my" */'../My/My').then((component)=>{ cb(null, component.default) }) }
     
     render(){  

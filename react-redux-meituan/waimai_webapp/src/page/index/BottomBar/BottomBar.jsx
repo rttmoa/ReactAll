@@ -37,8 +37,7 @@ class BottomBar extends React.Component {
     }
 }
 
-export default withRouter(connect(
-    state => ({
+export default withRouter(connect(state => ({
         tabs: state.tabReducer.tabs,
         activeKey: state.tabReducer.activeKey,
     })

@@ -50,8 +50,4 @@ class Comment extends React.Component {
     }
 }
 
-export default connect(
-    state =>({
-        commentData: state.commentReducer.commentData
-    })
-)(Comment);
+export default connect(state =>({commentData: state.commentReducer.commentData}), null)(Comment);

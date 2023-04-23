@@ -13,7 +13,7 @@ class Restanurant extends React.Component {
         super(props);
         this.props.dispatch(getRestanurantData());
     }
-    renderPayType(types = []){
+    renderPayType(types = []) {
         let array = types || [];
         return array.map((item, index)=>{
             return (

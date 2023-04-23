@@ -34,20 +34,23 @@ const changeTab = (state, action) => {
     return { ...state, activeKey: action.obj.activeKey, closePanel:action.obj.closePanel };
 }
 const getFilterData = (state, action) => {
+    // console.log("action", action)
     return { ...state, filterData: action.obj.data };
 }
 const changeFilter = (state, action) => {
-    let _tabs = JSON.parse(JSON.stringify(state.tabs));
+    let _tabs = JSON.parse(JSON.stringify(state.tabs)); // 使用JSON，让数据与原数据不一致
     _tabs[action.obj.key] = {
         key: action.obj.key,
         text: action.obj.item.name,
         obj: action.obj.item
     };
+    // console.log("_tabs", _tabs)
     return {...state, tabs: _tabs};
 }
 
 const headerReducer = (state = initState, action) => {
     switch(action.type) {
+        /***--- 切换tabs ---**/
         case CHANGE_TAB: return changeTab(state, action);
         case GET_FILTER_DATA: return getFilterData(state, action);
         case CHANGE_FILTER: return changeFilter(state, action);

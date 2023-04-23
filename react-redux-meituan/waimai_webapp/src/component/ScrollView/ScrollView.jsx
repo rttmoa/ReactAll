@@ -34,11 +34,10 @@ class ScrollView extends React.Component {
         }
     }
     render(){
+        const { children } = this.props;
         return (
             <div className="scrollview">
-                {
-                    this.props.children
-                }
+                {children}
                 <Loading isend={this.props.isend} />
             </div>
         );
@@ -46,8 +45,4 @@ class ScrollView extends React.Component {
 }
 
 
-export default connect(
-    state =>({
-        readyToLoad: state.scrollViewReducer.readyToLoad,
-    })
-)(ScrollView);
+export default connect(state =>({readyToLoad: state.scrollViewReducer.readyToLoad}), null)(ScrollView);

@@ -16,7 +16,7 @@ import Restanurant from '../Restanurant/Restanurant';
 class Main extends React.Component {
     
     // changeTab(){}  // 切换Tab 存储到redux中
-    renderTabs(){
+    renderTabs() {
         let tabs = this.props.tabs;
         return tabs.map((item)=>{
             return (
@@ -30,14 +30,17 @@ class Main extends React.Component {
                 >
                     {item.name}
                 </NavLink>
-            );
-        });
+            )
+        })
     }
     render(){
+        // console.log(this.props)
         let poiName = this.props.poiInfo.poi_info ? this.props.poiInfo.poi_info.name : '';
         return (
             <div className="detail">
+
                 <NavHeader title={poiName} />
+
                 <div className="tab-bar">
                     {this.renderTabs()}
                 </div>
@@ -50,11 +53,11 @@ class Main extends React.Component {
         );
     }
 }
-
-export default withRouter(connect(
-    state =>({
+function mapState(state) {
+    return {
         tabs: state.tabReducer.tabs,
         showChooseContent: state.menuReducer.showChooseContent,
         poiInfo: state.menuReducer.poiInfo
-    })
-)(Main));
+    }
+}
+export default withRouter(connect(mapState, null)(Main));

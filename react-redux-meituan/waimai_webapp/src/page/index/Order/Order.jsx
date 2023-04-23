@@ -52,7 +52,7 @@ class Order extends React.Component {
             return <ListItem itemData={item} key={index}></ListItem>
         });
     }
-    render(){
+    render() {
         return (
             <div className="order">
                 <div className="header">订单</div>

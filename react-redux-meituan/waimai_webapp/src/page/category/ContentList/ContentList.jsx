@@ -3,8 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getListData } from '../store/actions/contentListAction';
 
-import ListItem from 'component/ListItem/ListItem.jsx';
-import ScrollView from 'component/ScrollView/ScrollView.jsx';
+import ListItem from '../../../component/ListItem/ListItem.jsx';
+import ScrollView from '../../../component/ScrollView/ScrollView.jsx';
 
 
 
@@ -21,15 +21,13 @@ class ContentList extends React.Component {
     }
 
     onLoadPage(){ 
-        // 最多滚动3页3次
+        // FIXME: 最多滚动3页3次， 这里一次加载了10多次
         if (this.props.page <= 3) {
             this.fetchData();
         }
     }
 
-    fetchData() {
-        this.props.dispatch(getListData({}))
-    }
+    fetchData() {this.props.dispatch(getListData({}))}
 
     renderItems(){
         let list = this.props.list;
@@ -41,6 +39,7 @@ class ContentList extends React.Component {
     render(){
         return (
             <div className="list-content">
+                {/* TODO:  ScrollView是外组件 包裹着renderItems的children内容 */}
                 <ScrollView loadCallback={this.onLoadPage.bind(this)} isend={this.props.isend}>
                     {this.renderItems()}
                 </ScrollView>
@@ -48,11 +47,11 @@ class ContentList extends React.Component {
         );
     }
 }
-export default connect(
-    state =>({
+function mapState(state) {
+    return {
         list: state.contentListReducer.list,
         page: state.contentListReducer.page,
         isend: state.contentListReducer.isend,
-    }),
-    null
-)(ContentList);
+    }
+}
+export default connect(mapState, null)(ContentList);
