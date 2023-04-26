@@ -18,25 +18,26 @@ class Menu extends React.Component {
     }
 
 
-    /***--- 渲染spus数组中内容 ---**/
+    /***--- TODO: 渲染spus数组中内容 ---**/
     renderRightList(array) {
         let _array = array || [];
         return _array.map((item, index)=>{
-            if (!item.chooseCount) {
+            if (!item.chooseCount) { // 如果没有chooseCount属性，就默认一个初始值为0
                 item.chooseCount = 0;
             }
             return <MenuItem key={index} data={item} _index={index}></MenuItem>
         });
     }
+
     /***--- 点击index切换右边数据 ---**/
     itemClick(index) {this.props.dispatch(itemClick({currentLeftIndex: index}));}
     
     /***--- 渲染右边的列表 ---**/
     renderRight() {
-        let index = this.props.currentLeftIndex;
-        let array = this.props.listData.food_spu_tags || [];
+        let index = this.props.currentLeftIndex; // 获取点击的索引
+        let array = this.props.listData.food_spu_tags || []; // 获取所有数据
         let currentItem = array[index];
-        // console.log(currentItem)
+        // console.log("currentItem", currentItem) // 点击的Index中的数据
 
         if (currentItem) {
             // 此title是右侧内容顶部的标题

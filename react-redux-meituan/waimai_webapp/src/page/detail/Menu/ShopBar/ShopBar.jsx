@@ -84,21 +84,23 @@ class ShopBar extends React.Component {
 
 
     render(){
-        let shipping_fee = this.props.listData.poi_info ? this.props.listData.poi_info.shipping_fee : 0;
+        // console.log("this.props.listData", this.props.listData)
+        let shipping_fee = this.props.listData.poi_info ? this.props.listData.poi_info.shipping_fee : 0; // 配送费
         let data = this.getTotalPrice();
         return (
             <div className="shop-bar">
-                {this.props.showChooseContent ? 
+                {/* 使用点击黄色购物车控制购物车中的内容显示与隐藏 */}
+                {this.props.showChooseContent ?
                     <div className="choose-content">
                         <div className="content-top">
                             <div onClick={()=>this.clearCar()} className="clear-car">清空购物车</div>
                         </div>
                         {this.renderChooseItem(data)}
-                    </div>  : null  
+                    </div>  : null
                 }
                 {/* 底部 */}
                 <div className="bottom-content">
-                    <div onClick={()=>this.openChooseContent()} className="shop-icon">
+                    <div onClick={() => this.openChooseContent()} className="shop-icon">
                         {data.dotNum > 0 ? <div className="dot-num">{data.dotNum}</div> : null}
                     </div>
                     <div className="price-content">
@@ -111,11 +113,11 @@ class ShopBar extends React.Component {
         );
     }
 }
-
-export default connect(
-    state =>({
+function mapState (state) {
+    return {
         listData: state.menuReducer.listData,
         showChooseContent: state.menuReducer.showChooseContent,
-    })
-)(ShopBar);
+    }
+}
+export default connect(mapState, null)(ShopBar);
 

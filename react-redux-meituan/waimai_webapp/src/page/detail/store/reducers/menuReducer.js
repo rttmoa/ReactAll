@@ -5,8 +5,8 @@ import { GET_LIST_DATA, LEFT_CLICK,ADD_SELECTI_ITEM,MINUS_SELECTI_ITEM,SHOW_CHOO
 const initState = {
     listData: {food_spu_tags:[]},
     currentLeftIndex: 0,
-    showChooseContent: false,
-    poiInfo: {}
+    showChooseContent: false, // 是否展示购物车中的内容
+    poiInfo: {}, // 商家信息
 };
 
 const itemClick = (state, action) =>{
@@ -20,25 +20,33 @@ const getListData = (state, action) =>{
 }
 
 /***--- 添加 + 商品 ---**/
-const addSelectItem = (state, action) =>{
+const addSelectItem = (state, action) => {
     return {...state, listData: dealWithSelectItem(state, action, ADD_SELECTI_ITEM)}; // 处理选择的Item
 }
 
 /***--- 减少 - 商品 ---**/
-const minusSelectItem = (state, action) =>{
+const minusSelectItem = (state, action) => {
     return {...state, listData: dealWithSelectItem(state, action, MINUS_SELECTI_ITEM)};
 
 }
-const chooseContent = (state, action) =>{
+/***--- 展开购物车 ---**/
+const chooseContent = (state, action) => {
+    // console.log("chooseContent", action) // {type: 'SHOW_CHOOSE_CONTENT', obj: {obj: {flag: false}, type: 'SHOW_CHOOSE_CONTENT'}}
     return {...state, showChooseContent: action.obj.flag };
 
 }
+/***--- 处理选择的商品， 加/减 ---**/
 const dealWithSelectItem = (state, action, type) =>{
-    let listData = state.listData;
+    // console.log("商家信息", state.poiInfo.poi_info)
+    console.log("添加/减少 商品的数据", state, action, type)
+
+    
+    let listData = state.listData; 
     // 找到外层，左边list列表
-    let list = listData.food_spu_tags || [];
+    let list = listData.food_spu_tags || []; // FIXME: 13个模块
 
     // 通过列表找到左边item使用的数据也就是点击的item数据
+    // console.log("action.outIndex", action.outIndex)
     let currentItem = list[action.outIndex || state.currentLeftIndex];
 
     // 对当前点击这个item的chooseCount加一或减一
@@ -53,7 +61,7 @@ const dealWithSelectItem = (state, action, type) =>{
     return _listData;
 }
 
-const clearCar = (state) =>{
+const clearCar = (state) => {
     let listData = state.listData;
     // 找到外层，左边list列表
     let list = listData.food_spu_tags || [];
@@ -69,7 +77,6 @@ const clearCar = (state) =>{
  
 
 const menuReducer = (state = initState, action) => {
-
     switch(action.type) {
         case GET_LIST_DATA: return getListData(state, action);
         // 点击左侧的索引index
