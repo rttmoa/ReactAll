@@ -19,10 +19,12 @@ const getListData = (state, action) =>{
     return {...state, poiInfo:action.obj.data, listData: action.obj.data || {food_spu_tags:[]}}
 }
 
+/***--- 添加 + 商品 ---**/
 const addSelectItem = (state, action) =>{
-
-    return {...state, listData: dealWithSelectItem(state, action, ADD_SELECTI_ITEM)};
+    return {...state, listData: dealWithSelectItem(state, action, ADD_SELECTI_ITEM)}; // 处理选择的Item
 }
+
+/***--- 减少 - 商品 ---**/
 const minusSelectItem = (state, action) =>{
     return {...state, listData: dealWithSelectItem(state, action, MINUS_SELECTI_ITEM)};
 
@@ -52,7 +54,6 @@ const dealWithSelectItem = (state, action, type) =>{
 }
 
 const clearCar = (state) =>{
-
     let listData = state.listData;
     // 找到外层，左边list列表
     let list = listData.food_spu_tags || [];
@@ -71,6 +72,7 @@ const menuReducer = (state = initState, action) => {
 
     switch(action.type) {
         case GET_LIST_DATA: return getListData(state, action);
+        // 点击左侧的索引index
         case LEFT_CLICK: return itemClick(state, action);
         // 购物车中增加相同的商品
         case ADD_SELECTI_ITEM: return addSelectItem(state, action);

@@ -23,7 +23,7 @@ class MenuItem extends React.Component {
      */
     minusSelectItem() {
         this.props.dispatch(minusSelectItem({
-            index: this.props._index
+            index: this.props._index, // 点击的是哪个index
         }));
     }
     render(){

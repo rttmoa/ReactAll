@@ -28,12 +28,9 @@ class Menu extends React.Component {
             return <MenuItem key={index} data={item} _index={index}></MenuItem>
         });
     }
-    /***--- 点击切换右边数据 ---**/
-    itemClick(index) {
-        this.props.dispatch(itemClick({
-            currentLeftIndex: index
-        }));
-    }
+    /***--- 点击index切换右边数据 ---**/
+    itemClick(index) {this.props.dispatch(itemClick({currentLeftIndex: index}));}
+    
     /***--- 渲染右边的列表 ---**/
     renderRight() {
         let index = this.props.currentLeftIndex;
@@ -55,23 +52,26 @@ class Menu extends React.Component {
         }
     }
     /***--- 渲染左边的列表 ---**/
+    // TODO: 左边的每个item中的spus属性中有每个children
     renderLeft() {
+        // console.log("this.props", this.props.listData)
         let list = this.props.listData.food_spu_tags || [];
 
-        return list.map((item, index)=>{
+        return list.map((item, index) => {
             let cls = this.props.currentLeftIndex === index ? 'left-item active' : 'left-item';
             return (
-                <div onClick={()=>this.itemClick(index)} key={index} className={cls}>
+                <div onClick={() => this.itemClick(index)} key={index} className={cls}>
                     <div className="item-text">{item.icon ? <img className="item-icon" src={item.icon} /> : null} {item.name}</div>
                 </div>
-            );
-        });
+            )
+        })
     }
 
 
 
 
     render(){ 
+        // TODO: 渲染左侧的item时，根据点击的哪个index，渲染具体的哪些内容
         return (
             <div className="menu-inner">
                 <div className="left-bar">

@@ -6,12 +6,14 @@ import qs from 'component/queryString';
 
 /**--- 点菜左侧内容菜单栏 ---**/
 export const itemClick = (obj) =>{
+    // console.log(obj) // {currentLeftIndex: 8}
     return {
         type: LEFT_CLICK,
         obj: obj
     }
 }
 
+/***--- 获取点菜的商品 ---**/
 export const getListData = () =>async(dispatch)=>{
     let id = qs('id');
     window.Rohr_Opt.Flag = 100011;
@@ -30,23 +32,25 @@ export const getListData = () =>async(dispatch)=>{
           xforwith: window.xforwith
         }
       }
-    });
-
-
+    })
     dispatch({
         type: GET_LIST_DATA,
         obj: resp.data
     });
 }
 
+/***--- 商品 + 数量 ---**/
 export const addSelectItem = (obj) =>{
-    // console.log(obj)
+    // console.log("addSelectItem", obj) // {index: 16}
     return {
         type: ADD_SELECTI_ITEM,
         obj: obj
     }
 }
+
+/***--- 商品 - 数量 ---**/
 export const minusSelectItem = (obj) =>{
+    // console.log("minusSelectItem", obj) // {index: 6}
     return {
         type: MINUS_SELECTI_ITEM,
         obj: obj
