@@ -12,12 +12,14 @@ const UseRef = () => {
   const testRef = useRef("test");
 
   function addRef() {
+    console.log("----------分割-----------");
     refvalue.current.value = name; //点击按钮时候给这个ref赋值
     // refvalue.current = name  //这样写时，即使ref没有绑定在dom上，值依然会存在创建的ref上，并且可以使用它
     console.log(refvalue.current.value);
-    console.log("子组件input的value值：", testRef.current.value);
+    console.log("子组件input的value值：", testRef.current?.value);
     testRef.current.focus();
   }
+
   return (
     <div>
       <h3>UseRef</h3>
@@ -36,16 +38,15 @@ const UseRef = () => {
     </div>
   );
 };
-
 const TestChild = (props, ref) => {
   const childref = useRef();
-  useImperativeHandle(ref, () =>
-    //第一个参数，要暴露给对应的父节点，第二个参数要暴露的东西
-    ({
-      value: childref.current.value,
-      focus: () => childref.current.focus()
-    })
-  );
+  const [value, setValue] = useState(1);
+  // console.log(value)
+  // 第一个参数，要暴露给对应的父节点，第二个参数要暴露的东西
+  useImperativeHandle(ref, () => ({
+    value: "childref.current.value",
+    focus: () => childref.current.focus()
+  }));
   return <input type="text" placeholder="useImperativeHandle" ref={childref} />;
 };
 const Child = memo(forwardRef(TestChild));

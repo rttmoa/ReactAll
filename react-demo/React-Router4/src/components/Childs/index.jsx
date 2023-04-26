@@ -11,13 +11,15 @@ import { withRouter} from 'react-router-dom'
 
 
 export default memo(withRouter(function Index(props) {
-    console.log(props.route.routes, 'props.route.routes')
+    console.log(props.route.routes, '孩子路由')
 
     useEffect(() => {
         if(props.location.pathname === '/child'){
             props.history.push('/child/first')
-        } 
+        }
     }, [props.history, props.location.pathname])
+
+
 
     return (
         <div>

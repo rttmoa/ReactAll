@@ -1,5 +1,6 @@
 import React, { useState, useContext, createContext } from "react";
 
+let num = 1;
 const ContextName = createContext();
 //这里为了方便写博客，爷爷孙子组件都写在一个文件里，正常需要在爷爷组件和孙子组件挨个引入创建的Context
 
@@ -11,7 +12,7 @@ const UseContext = () => {
       <h3>UseContext 爷爷</h3>
       <button
         onClick={() => {
-          setname("baby张" + new Date().getTime());
+          setname("baby张" + num++);
         }}
       >
         改变名字
@@ -42,7 +43,7 @@ const ChildChild = () => {
     <div style={{ border: "1px solid" }}>
       ChildChild 孙子
       <p>
-        {childname.name}:{childname.age}
+        姓名：{childname.name} --- 年龄：{childname.age}
       </p>
     </div>
   );

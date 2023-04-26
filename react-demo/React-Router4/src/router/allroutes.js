@@ -11,15 +11,17 @@ import Setting from '../components/Set'
 const routes = [ {
         path: '/',
         component: AllComponent,
-        routes: [ {
+        routes: [
+            {
                 path: '/home',
-                component: Home,
+                component: Home, // Home内容
                 routes: [],
             },
             {
                 path: '/child',
                 component: Child,
-                routes: [ {
+                routes: [
+                    {
                         path: '/child/first',
                         component: First,
                         routes: []

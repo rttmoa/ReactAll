@@ -7,9 +7,11 @@ const initReducer = {
 };
 //正常的reducer编写
 function reducer(state, action) {
+  // console.log("action", action)
   switch (action.type) {
     case ADD_COUNTER:
       return { ...state, count: state.count + 1 };
+    // return { ...state, count: action.count}
     default:
       return state;
   }
@@ -38,7 +40,7 @@ const Child = () => {
   const { state, dispatch, name, setname } = useContext(CountContext);
   function handleclick(count) {
     dispatch({ type: ADD_COUNTER, count: 17 });
-    setname(count % 2 === 0 ? "babybrother" : "baby张");
+    setname(count % 2 === 0 ? "babybrother" : "babyZhang");
   }
   return (
     <div>

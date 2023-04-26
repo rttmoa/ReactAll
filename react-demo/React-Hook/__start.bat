@@ -1,0 +1,1 @@
+cmd /k "cd /d E:\Project\ReactAll\react-demo\React-Hook\ && npm run dev" 

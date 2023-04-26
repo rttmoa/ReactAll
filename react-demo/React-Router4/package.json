@@ -4,7 +4,7 @@
   "private": true,
   "description": "react-router 路由统一配置",
   "author": "@baby张 <babybrotherzb@gmail.com>",
-  "csdn":"https://blog.csdn.net/weixin_43648947",
+  "csdn": "https://blog.csdn.net/weixin_43648947",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -13,11 +13,11 @@
     "react-dom": "^16.12.0",
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.3.0"
+    "react-scripts": "3.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "dev":"npm start"
+    "dev": "npm start"
   },
   "eslintConfig": {
     "extends": "react-app"

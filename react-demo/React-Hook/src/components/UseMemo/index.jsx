@@ -25,7 +25,7 @@ const UseMemo = () => {
         改年龄
       </button>
       <p>
-        UseMemo {name}：{age}
+        UseMemo {name}: {age}
       </p>
       <Child age={age} name={name}>
         {name}的children
@@ -36,6 +36,7 @@ const UseMemo = () => {
 
 const Child = ({ age, name, children }) => {
   //在不用useMemo做处理的时候，只要父组件状态改变了，子组件都会渲染一次，用了useMemo可以监听某个状态name，当name变化时候执行useMemo里第一个函数
+  console.log("--------------------分割----------------");
   console.log(age, name, children, "11111111");
   const namechange = useCallback(() => {
     return name + "change";

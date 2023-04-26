@@ -9,8 +9,9 @@ import Sider from './Sider'
 
 
 export default memo(withRouter(function AllComponent(props) {
-    console.log(props.route,'props.route',props.location)
-
+    console.log('props.route', props.route)
+    console.log("props.location", props.location)
+    
     useEffect(() => {
         if(props.location.pathname === '/'){
             props.history.push('/home')

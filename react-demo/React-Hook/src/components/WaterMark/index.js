@@ -26,15 +26,16 @@ export const WaterMark = ({
   watermarkDiv.setAttribute(
     "style",
     `
-      position:absolute;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      z-index:${zIndex};
-      pointer-events:none;
-      background-repeat:repeat;
-      background-image:url('${base64Url}')`
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        z-index:${zIndex};
+        pointer-events:none;
+        background-repeat:repeat;
+        background-image:url('${base64Url}')
+      `
   );
 
   container.style.position = "relative";
