@@ -1,0 +1,26 @@
+/* pages/search/index.wxss */
+.search{
+  display: flex;
+  margin: 10rpx;
+}
+.searchInput{
+  flex: 5;
+  border: 1px solid #f40;
+  height: 60rpx ;
+  border-radius: 30rpx;
+  padding-left: 20rpx;
+}
+.button{
+ flex: 1;
+ background: linear-gradient(#ffca28, #f40) ;
+ color: white;
+ border-radius: 30rpx;
+ margin-left: 20rpx;
+ height: 60rpx;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+.button:active{
+  background: linear-gradient( #f40,#ffca28) ;
+}

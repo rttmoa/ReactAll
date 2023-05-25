@@ -1,0 +1,4 @@
+<!--pages/search/index.wxml-->
+<view class="search">
+  <input class="searchInput" placeholder="请输入" /><view class="button" >搜索</view>
+</view>

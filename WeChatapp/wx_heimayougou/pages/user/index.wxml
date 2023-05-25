@@ -1,0 +1,70 @@
+<!--pages/user/index.wxml-->
+<!-- 头像、背景图 -->
+<view class="iconbg" wx:if="{{isShow}}">
+  <button class="loginBtn" open-type="getUserInfo" bindgetuserinfo="handleGetUserInfo">授权</button>
+</view>
+<view class="iconbg" wx:else>
+  <image class="bgimg" src="{{userInfo.avatarUrl}}"></image>
+  <view class="user_icon">
+    <image  src="{{userInfo.avatarUrl}}"></image>
+    <view class="username">{{userInfo.nickName}}</view>
+  </view>
+</view>
+
+<!-- 收藏、关注 -->
+<view class="favor_list">
+<view class="favor">
+  <view class="favor_item">
+    <view class="favor_item_num">0</view>
+    <view class="favor_item_class">收藏店铺</view>
+  </view>
+  <view class="favor_item">
+    <view class="favor_item_num">0</view>
+    <view class="favor_item_class">收藏商品</view>
+  </view>
+  <view class="favor_item">
+    <view class="favor_item_num">0</view>
+    <view class="favor_item_class">关注店铺</view>
+  </view>
+  <view class="favor_item">
+    <view class="favor_item_num">0</view>
+    <view class="favor_item_class">我的足迹</view>
+  </view>
+</view>
+</view>
+
+<!-- 我的订单 -->
+<view class="myorder">
+  <view class="myorder_title">我的订单</view>
+  <view class="myorder_item">
+    <view class="item">
+      <view class="iconfont icon-form_light"></view>
+      <view class="item_name">全部订单</view>
+    </view>
+    <view class="item">
+      <view class="iconfont icon-scan_light"></view>
+      <view class="item_name">待付款</view>
+    </view>
+    <view class="item">
+      <view class="iconfont icon-home_light"></view>
+      <view class="item_name">待收货</view>
+    </view>
+    <view class="item">
+      <view class="iconfont icon-round_close_light"></view>
+      <view class="item_name">退款/退货</view>
+    </view>
+  </view>
+</view>
+<!-- 管理 -->
+<view class="mytools">
+  <view class="tools_item">收货地址管理</view>
+  <view class="tools_item">联系客服</view>
+  <view class="tools_item">意见反馈</view>
+  <view class="tools_item">关于我们</view>
+</view>
+
+<!-- 商标版权 -->
+<view class="public">
+  <text>——————版权所有 jingjing©——————</text>
+</view>
+

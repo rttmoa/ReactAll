@@ -1,0 +1,39 @@
+/* pages/category/index.wxss */
+.cates_container{
+  display: flex;
+}
+.left_content{
+  flex:2;
+}
+.right_content{
+  flex:5;
+}
+.catesList{
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.goods_title{
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f40;
+}
+.goods_list{
+  /* 清除浮动 */
+  overflow: hidden;  
+}
+.goods_list navigator{
+  float: left;
+  width: 33.33%;
+  text-align: center;
+  font-size: 25rpx;
+}
+.goods_list navigator image{
+  width: 50%;
+}
+.active{
+  color: #f40;
+}

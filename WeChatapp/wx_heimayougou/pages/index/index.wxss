@@ -1,0 +1,24 @@
+/**index.wxss**/
+.index_swiper swiper{
+  width: 100%;
+  height: 370rpx;
+}
+.classify{
+  display: flex;
+}
+.classify navigator{
+  flex:1;
+}
+
+/* 楼层 */
+.floor_group{
+  margin-top: 20rpx;
+}
+.floor_list{
+  overflow: hidden;
+}
+.floor_list navigator{
+  float: left;
+  width: 33.33%;
+}
+

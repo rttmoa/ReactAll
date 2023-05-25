@@ -1,0 +1,219 @@
+微信小程序笔记==>
+
+
+
+微信开发者文档：https://developers.weixin.qq.com/miniprogram/dev/framework/
+小程序开发工具基本使用, 创建项目, 运行项目, 配置项目, 更改项目
+
+Day01: (页面数据详情：调试器/AppData)
+
+    一、能够知道如何创建小程序项目
+        微信开发者工具的使用、appID 的获取
+
+    二、能够清楚小程序项目的基本组成结构
+        app.js、app.json、app.wxss、pages 文件夹
+
+    三、能够知道小程序页面由几部分组成
+        wxml、wxss、json、js
+
+    四、能够知道小程序中常见的组件如何使用
+        view、text、image
+
+    五、能够知道小程序如何进行协同开发和发布
+        成员管理、发布小程序、查看运营数据
+    六、总结
+
+
+Day02: (页面数据详情：调试器/AppData)
+
+    WXML模板语法
+
+    WXSS模板样式
+
+    全局配置(app.json) 文件及常用的配置项：1、Pages   2、window    3、tarBar   4、style
+        1、配置Window：导航背景、导航标题、导航颜色、能够下拉刷新、触底距离
+        2、配置tabBar：首页、消息、联系我们
+    
+    页面配置：常用项
+        navigationBarBackgroundColor、navigationBarTextStyle、enablePullDownRefresh、onReachBottomDistance
+        mp_02 -> pages -> message -> message.json配置  message页面配置项 
+        不一定要全部配置下拉刷新、有的页面不需要下拉刷新功能
+    
+    网络数据请求 
+        网络数据请求出于安全性, 限制
+            1、只能请求https类型的接口
+            2、必须将接口的域名添加到信任列表中
+        配置request合法域名
+            需求描述：假设自己的微信小程序中，希望请求https://www.escook.cn/ 域名下的接口
+            配置步骤: 登陆微信小程序管理后台、开发、开发设置、服务器域名、修改request合法域名
+        配置request合法域名
+        跳过request合法域名校验
+        关于跨域和Ajax说明
+
+    实现本地生活案例(总结今日所学内容)
+    总结
+
+
+Day03: (页面数据详情：调试器/AppData)
+
+    能够知道如何实现页面之间的导航跳转
+    能够知道如何实现下拉刷新效果
+    能够知道如何实现上拉加载更多效果
+    能够知道小程序中常用的声明周期函数
+ 
+    页面导航跳转：(mp_03)
+        声明式导航
+            1、导航到tarBar页面
+            2、导航跳转到非tabBar页面
+            3、后退导航 <navigator open-type='navigateBack' delta='1'>返回上一页</navigator>
+        编程式导航
+            1、导航到tarBar页面
+            2、导航跳转到非tabBar页面
+            3、后退导航
+
+    页面事件：
+        下拉刷新案例(/pages/messagejs)
+
+        上拉触底案例(/pages/contactjs) 
+            上拉触底节流案例：对上拉触底进行节流处理
+                1、在data中定义isloading节流阀
+                    false表示当前没有任务数据请求
+                    true表示当前正在进行数据请求
+                2、在getColors()方法中修改isloading节流阀的值
+                    在刚调用getColors时将节流阀设置true
+                    在网络请求的complete回调函数中，将节流阀重置为false
+                3、在onReachBottom中判断节流阀的值、从而对数据请求进行节流控制
+                    如果节流阀的值为true、则组件当前请求
+                    如果节流阀的值为false、则发起数据请求
+        
+    添加编译模式(启动页面/启动参数)
+
+    (页面数据详情：调试器/AppData)
+
+    渲染九宫格数据(页面设计)
+
+    生命周期的分类：
+        1、应用生命周期(app.js)
+            特指小程序从启动、运行、销毁期间依次调用的那些函数
+
+        2、页面生命周期(Page每个页面)
+            特指小程序中，每个页面从加载、渲染、销毁期间依次调用的那些函数
+        
+    wxs语法：不支持ES6高级语法、数据类型和js基本相同(无undefined、null)、wxs遵循commonjs规范(module, require(), module.exports)
+        内嵌wxs脚本(/pages/message/message.wxml)
+        外联wxs脚本(/pages/message/message.wxml) 
+
+    本地生活案例
+        1、在AppData中查看数据变化   网络改为3g
+        2、调试器  --> 查看网络 --> xhr的数据变化(下拉触底)
+        3、在普通编译、自定义编译  ||  启动页面：pages/shoplist/shoplist   ||   启动参数：id=1&title=美食
+        4、上拉触底实现过程： 
+            4.1、将触底距离改为200rpx
+            4.2、在onReachBottom函数中让page+1
+            4.3、再重新调用getShopList函数
+        5、total: res.header['X-Total-Count'] - 0,    /// total(总数据条数)   ：字符串类型转换为数字类型
+        6、接口地址：https://www.escook.cn/categories/:cate_id/shops
+        7、请求地址：https://www.escook.cn/categories/${this.data.query.id}/shops
+        8、如果下面公式成立,则证明没有下一页数据了
+            页码值 * 每页显示多少条数据 >= 总数据条数   page * pageSizi >= total
+        9、下拉刷新需要重置一些数据
+            9.1、重置关键性数据
+            9.2、根据关键性数据重新发起请求 
+            9.3、先下拉让page为3、再上拉查看AppData中的数据是否改变
+        10、wxs处理手机号脚本
+        11、总结
+
+
+Day04:
+
+    一、自定义组件
+        1、component: .js/.json/.wxml/.wxss
+        2、在根app.json->usingComponents创建组件
+        3、全局引用 & 局部引用
+            3.1、全局在app.json中引用
+            3.2、局部在每个page中指定才可引用
+        4、全局引用 VS 局部引用????
+        
+        5、组件和页面的区别：component|page
+
+        6、自定义组件样式(新建/component/自动出文件)
+            6.1、组件样式隔离
+            6.4、数据、方法和属性：data和properties的区别
+                data更倾向于存储组件的私有数据
+                properties更倾向于存储外界传递到组件中的数据
+            6.5、使用setData修改properties的值
+                data和properties的值都是可读可写的
+            6.6、数据监听器observers: { 'n1, n2': function (newN1, newN2) {} }    // "字段A, 字段B": function(字段A的新值, 字段B的新值) {}
+                监听属性
+                监听对象(/component/test3js)
+            6.7、纯数据字段(pureDataPattern)
+                选中全部rgb，Ctrl一直按住，移动鼠标，Ctrl+D、改变rgb即可
+            6.8、组件的生命周期函数(/created/attached/ready/moved/detached/error)
+            6.9、组件所在页面的生命周期：
+                3.生成随机的RGB颜色值
+            6.10 插槽(<slot>)
+                 options: { multipleSlots: true,   // 使用多个插槽 },
+            6.11、父子组件之间的通信(homejs ~test5js)
+                通信的三种方式
+                    1.属性绑定
+                    2.事件绑定
+                        父传子
+                            父组件中传递count、传递给test5js
+                            test5通过properties接收count
+                            test5展示<view>子组件中, count值是: {{count}}</view>
+                        子传父
+                            在子组件js中，通过调用this.triggerEvent('自定义事件名称', { / 参数对象 / })  将数据发送到父组件
+                    3.获取组件实例(this.selectComponent("id/class选择器")) 
+            6.12、behaviors：每个behavior可以包含一组属性，数据，生命周期函数和方法
+        7、总结
+
+
+Day05:
+    xxx
+    1、使用npm包
+        1.1 通过npm安装
+        1.2 构建npm包
+        1.3 修改app.json文件
+        1.4 使用CSS自定义属性(MDN)： https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_custom_properties
+        1.5 Vant-Weapp主题自定制：https://github.com/youzan/vant-weapp/blob/dev/packages/common/style/var.less
+        1.6 API Promise化：安装npm install miniprogram-api-promise
+        1.7 使用Homejs
+    2、全局数据共享
+        Vuex、Reudx、mobx
+        2.1 Mobx的创建
+        2.2 创建Store实例对象 | 定义actions方法 | 了解Store中的成员绑定
+        2.3 将Store中的成员绑定到页面中(/page/messagejs)  生命周期 监听页面加载，监听页面卸载
+        2.4 在页面中使用Store中的成员
+        2.5 在组件中使用Store中的成员
+
+    3、分包
+        分包的好处：可以优化小程序首次启动的下载时间  ||  在多团队开始时可以更好的解耦协作
+        分包后：小程序项目由一个主包+多个分包组成
+        3.1 基本概念 & 使用分包
+        3.2 打包原则
+            3.2.1 小程序会按subpackages的配置进行分包，subpackages之外的目录将被打包到主包中
+            3.2.2 主包可以有自己的pages
+            3.2.3 tabBar页面必须在主包内
+            3.2.4 分包之间不能互相嵌套
+        3.3 独立分包
+            3.3.1 独立分包和普通分包的区别：是否依赖于主包才能运行
+            3.3.2 独立分包的配置方法： 是否有"independent": true
+            3.3.5 运用原则：独立分包和普通分包以及主包之间，是相互隔绝的，不能相互引用彼此的资源！
+        3.4 分包预下载
+            3.4.2 配置分包的预下载: app.json中preloadRule指定 subpackages是root/name(都是唯一) 和 "network": "wifi/all"
+                如果设置network为wifi、将项目中网络改为4g、就不会分包预下载了
+            3.4.3 分包预下载的限制：同一个分包中的页面享有共同的预下载大小限额为2M
+        3.5 使用分包,  引用原则：
+            1. 主包无法引用分包内的私有资源
+            2. 分包之间不能相互引用私有资源
+            3. 分包可以引用主包内的公共资源
+    4、自定义tarBar：
+        此案例中，用到的主要知识点如下：
+        1.自定义组件
+        2.Vant组件库
+        3.Mobx数据共享
+        4.组件样式隔离
+        5.组件数据监听器
+        6.组件的behaviors
+        7.Vant样式覆盖
+    5、总结

@@ -1,0 +1,74 @@
+/* pages/goods_detail/index.wxss */
+.detail_swiper swiper{
+  height: 400rpx;
+  text-align: center;
+}
+.detail_swiper image{
+  height: 400rpx !important;
+}
+.goods_price{
+  padding: 15rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #f40;
+}
+.goods_name_row{
+  display: flex;
+  padding: 15rpx 20rpx;
+  border-bottom: 1px solid darkgray;
+}
+.goods_name{
+  display: flex;
+  flex: 5;
+}
+.goods_collect{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.active{
+  color: #f40;
+}
+/* 图文详情 */
+.goods_info_title{
+  margin: 10rpx;
+  text-align: center;
+  color: gray;
+  font-size: 18rpx;
+}
+/* 底部按钮布局 */
+.btm_tool{
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+  height: 100rpx;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #999;
+}
+.tool_item{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 24rpx;
+  width: 100%;
+  height: 100%;
+}
+.addCart{
+  flex: 2;
+  background-color: rgb(250, 209, 73);
+  color: white;
+}
+.buynow{
+  flex: 2;
+  background-color: #f40;
+  color: white;
+}
+/* 分享按钮 */
+

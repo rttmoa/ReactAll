@@ -1,0 +1,178 @@
+
+
+
+
+
+
+线上开发文档：https://www.escook.cn/docs-uni-shop/
+
+要求：最终uni-app2包中是否包含以前学习过的内容(查看文件名)
+文件课程名：也就是前端开发过程
+
+启动：使用Hbuilder启动微信开发者工具: 启动微信开发者端口, 在HBuilder中修改 微信AppId, 升级最新版本
+Git：创建dev分支、dev分支提交代码、在main中合并dev分支的代码、main提交代码、删除dev分支
+
+uni-icon：https://uniapp.dcloud.net.cn/component/uniui/uni-icons.html#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95
+uni-tag：https://uniapp.dcloud.net.cn/component/uniui/uni-tag.html
+uni-setStoreageSync: https://uniapp.dcloud.net.cn/api/storage/storage.html#setstoragesync
+uni-search-bar：https://uniapp.dcloud.net.cn/component/uniui/uni-search-bar.html#
+
+
+
+Day01(1-2): 
+    xxx
+    1、安装HBuilder X
+    2、下载Scss插件：https://ext.dcloud.net.cn/?cat1=1&cat2=11
+    3、导入uni-app项目
+    4、git忽略文件：.gitignore
+    5、git追踪文件：.gitkeep
+    6、项目托管到马云上
+    7、 合并分支：https://www.escook.cn/docs-uni-shop/mds/2.tabbar.html#_2-5-%E5%88%86%E6%94%AF%E7%9A%84%E6%8F%90%E4%BA%A4%E4%B8%8E%E5%90%88%E5%B9%B6
+    8、uni-app中使用request-miniprogram发起网络请求：https://www.npmjs.com/package/request-miniprogram
+    9、开始写Home页面
+    10、app.json中配置分包结构
+    11、封装uni.$showMsg
+    
+    首页功能实现：(home.vue)    https://www.escook.cn/docs-uni-shop/mds/3.home.html#_3-%E9%A6%96%E9%A1%B5
+        首页-轮播图
+        首页-分类导航 
+        首页-楼层区域
+            双循环渲染左侧和右侧盒子
+            楼层数据getFloorList双forEach处理
+        main合并Home分支、main将本地仓库推倒云端、并删掉Home分支
+
+
+Day02(3-5): 
+    xxx
+    1、分类页面功能实现：  (cate.vue)
+        1.1 uni获取设备信息: https://uniapp.dcloud.net.cn/api/system/info.html#getsysteminfosync
+            const sysInfo = uni.getSystemInfoSync(), // 获取设备信息，动态给每个手机设置滚动的高度
+            this.wh = sysInfo.windowHeight - 50,  // 可使用高度
+        1.2 获取分类列表
+
+        1.3 分类中的一级分类(左侧列表), 二级分类(右侧标题名), 三级分类(右侧标题下面的图片)
+            循环渲染三级分类(右侧小图片)
+            切换一级分类后重置滚动条的位置(this.scrollTop)
+            点击三级分类跳转到商品列表页面
+                点击图片：@click=gotoGoodsList(item3)
+                函数处理：gotoGoodsList(item) { uni.navigateTo({ url: '/subpkg/goods_list/goods_list?cid=' + item.cat_id }) }, 
+        1.4 分类的合并与提交
+
+    2、自定义搜索组件
+        父子组件传值：    父：< @my-click="gotoSearch">    子传父： this.emit('myclick')触发
+        搜索相关功能：
+            搜索建议
+            搜索历史
+        在uni-app中创建uni-app组件：创建的组件在uni-app的components中
+            渲染my-search组件
+            1. <my-search @click="gotoSearch"></my-search>
+            2. 组件在components-> my-search.vue中添加样式  好复用
+        搜索组件(home.vue) 
+            吸顶效果： position: sticky、top:0 、 z-index: 999    吸顶位置、层级防止被覆盖
+            样式渲染：可以向my-search组件传递属性
+
+        搜索建议：
+            .1 刚进入搜索页面时，搜索框会自动获取焦点：修改uni-search-bar源代码 改为true
+            .2 搜索框防抖处理 - 延时器和定时器 
+                重点：定义一个延时器id，在触发输入事件的时候都先清除掉之前的延时器, 再重新开一个延时器
+            .3 搜索结果列表接口：https://www.showdoc.com.cn/128719739414963/2526176842444912
+                根据搜索关键词查询搜索建议列表
+                    1、定义搜索结果列表i searchResults:[]
+                    2、在setTimeout里面getSearchList获取建议结果
+                    3、在getSearchList中如果搜索结果为空 就清空searchResults、不为空就发请求
+                    4、最后把结果放到searchResults
+        搜索历史：
+            渲染结构
+            渲染UI样式
+            实现搜索建议和搜索历史的按需展示 v-if  v-else
+            解决关键词重复问题 new Set
+            将历史记录持久化存储 - uni.setStorageSync('kw', JSON.stringify(this.historyList))
+            取数据onLoad() {this.historyList = JSON.parse(uni.getStorageSync('kw') || '[]');} // 如果前面的值不存在 取[]
+            情况搜索历史
+        
+Day03(6-7):
+    xxx
+    一、商品列表：
+        1、定义请求参数对象
+        2、获取商品列表数据
+        3、定义UI结构
+        4、梅花UI结构
+        5、把商品Item项封装为自定义组件
+            5.1 在渲染商品价格的时候，通过管道符 | 调用过滤器 filters: { toFixed () {}}
+        6、初步实现上拉加载更多：
+            6.1 在app.json中配置
+            6.2 修改getGoodsList函数代码...   page+1
+        7、通过节流阀防止发起额外的请求
+            7.1 在data中定义isLoading节流阀
+            7.2 修改getGoodsList方法，在请求数据前后，分别打开和关闭节流阀
+            7.3 在onRearchBottom触发事件处理函数中，根据节流阀的状态，来决定是否发起请求
+        8、判断是否还有下一页数据
+            当前页码值 * 每页显示多少条数据 >= 总数条数
+            pagenum * pagesize >= total
+        9、下拉刷新效果
+            9.1 在pages.json配置文件中，为当前的goods_list页面单独开启下拉刷新效果
+            9.2 监听页面的onPullDownRefresh事件处理函数
+            9.3 修改getGoodsList函数，接收cb回调函数并按需进行调用
+    二、点击商品item项跳转到详情页面
+        1、将block改造成view：因为block不支持@click点击事件
+        2、在methods节点中，定义gotoDetail事件处理函数 - 点击跳转到商品详情页面中 gotoDetail(){}
+        3、添加商品详情页的编译模式
+        4、跳转到商品详情页并携带参数
+        5、商品详情数据：https://www.showdoc.com.cn/128719739414963/2526175298570888
+        6、实现轮播图的大图预览功能 - preview(i){}
+        7、渲染商品信息区域的UI结构
+        8、使用rich-text组件渲染HTML内容
+        9、解决商品图文详情中图片底部空白间隙问题
+            9.1 res.message.goods_introduce 
+            = res.message.goods_introduce.replace(/<img /g, '<img style="display:block;" ').replace(/webp/g, 'jpg')
+        10、解决webp格式在ios设备显示不出问题
+        11、解决商品价格闪烁的问题
+            11.1 导致问题的原因：在商品详情数据请求回来之前，data中的get_info的值为{} 因此初次渲染时导致商品价格，名称闪烁
+            11.2 解决方案：判断goods_info.goods_name属性的值是否存在，从而使用v-if指令控制页面的显示与隐藏
+        12、自定义商品导航区域按钮信息
+
+
+ 
+
+
+
+        
+Day04(8-10):
+    xxx
+    加入购物车：
+        1、配置Vuex
+        2、创建购物车是Store模块
+        3、在商品详情页中使用Store模块
+
+        // mapMutations 的返回值通过展开运算符交给methods节点
+        // 把 m_cart 模块中的 addToCart 方法映射到当前页面使用
+        methods: { ...mapMutations('m_cart', ['addToCart']) }
+
+    购物车页面：
+        2、为 my-goods 组件封装radio勾选状态
+
+
+ 
+    商品列表区域 - 修改 uni-number-box中的 _onBlur 及 inputValue 函数
+    商品列表区域 - 修改购物车商品数量
+    
+
+    收货地址区域 - 渲染收货地址
+    收货地址区域 - 实现收货地址区域按需展示
+    收货地址区域 - 实现选择收货地址
+    收货地址区域 - 解决收货地址授权失败的问题(清控制台/清授权，选择取消，无法再次选地址)
+    收货地址区域 - 解决 Iphone真机上无法重新授权的问题
+
+
+Day05:
+    xxx
+
+    购物车页面 - 结算区域 - 动态渲染已勾选的商品
+    购物车页面 - 结算区域 - 动态渲染已勾选商品的总价格：https://www.escook.cn/docs-uni-shop/mds/9.cart.html#_9-3-6-%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E5%B7%B2%E5%8B%BE%E9%80%89%E5%95%86%E5%93%81%E7%9A%84%E6%80%BB%E4%BB%B7%E6%A0%BC
+    购物车页面 - 结算区域 - 动态计算tabBar中徽标的数量
+
+    登陆与支付 - 用户信息 - 用户页面的渲染及CSS美化
+    微信支付流程：
+        1、创建订单
+        2、订单预支付
+        3、发起微信支付

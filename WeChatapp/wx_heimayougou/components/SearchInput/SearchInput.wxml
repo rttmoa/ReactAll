@@ -1,0 +1,4 @@
+<!--components/SearchInput/SearchInput.wxml-->
+<view class="view">
+  <navigator class="navigate" open-type="navigate" url="../../pages/search/index">搜索</navigator>
+</view>

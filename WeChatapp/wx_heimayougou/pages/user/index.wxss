@@ -1,0 +1,116 @@
+/* pages/user/index.wxss */
+@import '../../style/iconfont.wxss';
+page{
+  background-color: rgb(221, 219, 219);
+}
+.iconbg{
+  position: relative;
+  width: 100%;
+  /* height: 400rpx; */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+.loginBtn{
+  margin-top: 200rpx;
+  margin-bottom: 100rpx;
+  color: white;
+  background-color: #f40;
+}
+.bgimg{
+  filter: blur(10rpx);
+}
+.user_icon{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 30%;
+}
+.user_icon image{
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 100rpx;
+}
+.user_icon .username{
+  text-align: center;
+  margin-top: 20rpx;
+}
+.favor_list{
+ position: relative;
+}
+.favor{
+  position: absolute;
+  background-color: #fff;
+  width: 90%;
+  margin: 0 35rpx;
+  height: 100rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -30rpx;
+}
+.favor_item{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.favor_item_num{
+  color: #f40;
+}
+.myorder{
+  margin-top: 100rpx;
+  height: 200rpx;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin-left: 35rpx;
+}
+.myorder .myorder_title{
+  flex: 2;
+  border-bottom: 1px solid #999;
+  display: flex;
+  align-items: center;
+  padding-left: 20rpx;
+}
+.myorder .myorder_item{
+  flex: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.myorder .myorder_item .item{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.myorder .myorder_item .item .iconfont{
+  color: #f40;
+  font-size: 50rpx;
+}
+.mytools{
+  height: 400rpx;
+  background-color: #fff;
+  width: 90%;
+  margin-left: 35rpx;
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+.tools_item{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 30rpx;
+  border-bottom: 1px solid rgb(221, 219, 219);
+  padding-left: 20rpx;
+}
+.public{
+  margin: 20rpx 0;
+  text-align: center;
+  color: rgb(192, 191, 191);
+}

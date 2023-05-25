@@ -1,0 +1,19 @@
+/**app.wxss**/
+@import "./style/iconfont.wxss";
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+/* 设置全局样式，并命名 */
+page{
+  --themeColor:#f40;
+  font-size: 28rpx;
+}
+image{
+  width: 100%;
+}

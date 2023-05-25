@@ -1,0 +1,6 @@
+/* pages/login/index.wxss */
+.loginBtn{
+  margin-top: 400rpx;
+  color: white;
+  background-color: #f40;
+}
