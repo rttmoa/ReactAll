@@ -1,0 +1,85 @@
+{
+  "data": {
+      "blocks": [
+          {
+              "@type": "@builder.io/sdk:Element",
+              "@version": 2,
+              "id": "builder-cb6c2ab55d6c4232803d0b9f8400ba57",
+              "component": {
+                  "name": "Text",
+                  "options": {
+                      "text": "Enter some text..."
+                  }
+              },
+              "responsiveStyles": {
+                  "large": {
+                      "display": "flex",
+                      "flexDirection": "column",
+                      "alignItems": "stretch",
+                      "position": "relative",
+                      "marginTop": "20px",
+                      "lineHeight": "normal",
+                      "height": "auto",
+                      "textAlign": "center"
+                  }
+              }
+          },
+          {
+              "@type": "@builder.io/sdk:Element",
+              "@version": 2,
+              "id": "builder-f0e4f99ad48743a29f35400fdb955a2f",
+              "component": {
+                  "name": "@steedos/builder-form:Table",
+                  "options": {
+                      "size": "default",
+                      "bordered": true,
+                      "headerTitle": "ABC",
+                      "columns": [
+                          {
+                              "width": 60,
+                              "align": "left",
+                              "title": "col1",
+                              "dataIndex": "col1",
+                              "key": "col1",
+                              "valueType": "text"
+                          },
+                          {
+                              "width": 60,
+                              "align": "left",
+                              "title": "col2",
+                              "dataIndex": "col2",
+                              "key": "col2",
+                              "valueType": "text"
+                          },
+                          {
+                              "width": 60,
+                              "align": "left",
+                              "title": "col3",
+                              "dataIndex": "col3",
+                              "key": "col3",
+                              "valueType": "text"
+                          }
+                      ],
+                      "defaultData": [
+                          {
+                              "col1": "a1",
+                              "col2": "b1",
+                              "col3": "c1"
+                          }
+                      ],
+                      "request": "async (params, sorter, filter) => {\n        // 表单搜索项会从 params 传入，传递给后端接口。\n        console.log(\"===Request===\");\n        console.log(params, sorter, filter);\n        return {\n          data: [{\n              key:\"1\",\n              col1:\"1\",\n              col2:\"2\",\n              col3:\"3\"\n          }],\n          success: true,\n        };\n      }"
+                  }
+              },
+              "responsiveStyles": {
+                  "large": {
+                      "display": "flex",
+                      "flexDirection": "column",
+                      "alignItems": "stretch",
+                      "position": "relative",
+                      "marginTop": "20px"
+                  }
+              }
+          }
+      ]
+  }
+}

@@ -1,0 +1,42 @@
+<script>
+  ;(function setColorModeVar(initialValue) {
+    const mql = window.matchMedia("(prefers-color-scheme: dark)")
+    const systemPreference = mql.matches ? "dark" : "light"
+
+    let persistedPreference
+
+    try {
+      persistedPreference = localStorage.getItem("chakra-ui-color-mode")
+    } catch (error) {
+      console.log(
+        "Chakra UI: localStorage is not available. Color mode persistence might not work as expected",
+      )
+    }
+
+    const isInStorage = typeof persistedPreference === "string"
+
+    let colorMode
+
+    if (isInStorage) {
+      colorMode = persistedPreference
+    } else {
+      colorMode = initialValue === "system" ? systemPreference : initialValue
+    }
+
+    if (colorMode) {
+      const root = document.documentElement
+      root.style.setProperty("--chakra-ui-color-mode", colorMode)
+    }
+  })("light")
+</script>
+
+<!-- <link rel="stylesheet" type="text/css" href="https://unpkg.com/antd/dist/antd.css" />
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/@ant-design/pro-table/dist/table.css" />
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/@ant-design/pro-card/dist/card.css" /> -->
+
+<!-- <link rel="stylesheet" type="text/css" href="/node_modules/@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.min.css" /> -->
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" />
+
+<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>

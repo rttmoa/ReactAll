@@ -1,0 +1,6 @@
+env:
+  PORT: 3200
+  # MONGO_URL: mongodb://127.0.0.1/steedos
+  MONGO_URL: mongodb://192.168.0.21/fssh20181214
+
+
