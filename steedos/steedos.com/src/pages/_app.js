@@ -39,15 +39,15 @@ if (typeof window !== 'undefined') {
 Router.events.on('routeChangeStart', progress.start)
 Router.events.on('routeChangeComplete', () => {
   progress.finish()
-  window.scrollTo(0, 0)
+  window.scrollTo(0, 0);
 })
 Router.events.on('routeChangeError', progress.finish)
 
-export default function App({ 
-  Component,
-  pageProps: { session, ...pageProps }, 
-  router 
-}) {
+
+
+
+
+export default function App({Component, pageProps: { session, ...pageProps }, router}) {
 
   usePostHog('phc_Hs5rJpeE5JK3GdR3NWOf75TvjEcnYShmBxNU2Y942HB', {
     api_host: 'https://posthog.steedos.cn',
@@ -55,8 +55,8 @@ export default function App({
       window.posthog = posthog;
       posthog.opt_in_capturing()
     },
-  })  
-  
+  })
+
   let [navIsOpen, setNavIsOpen] = useState(false)
 
   useEffect(() => {
@@ -70,24 +70,21 @@ export default function App({
     }
   }, [navIsOpen])
 
-  const Layout = Component.layoutProps?.Layout || Fragment
+  const Layout = Component.layoutProps?.Layout || Fragment;
 
-  const layoutProps = Component.layoutProps?.Layout
-    ? { layoutProps: Component.layoutProps, navIsOpen, setNavIsOpen }
-    : { }
+  const layoutProps = Component.layoutProps?.Layout ? { layoutProps: Component.layoutProps, navIsOpen, setNavIsOpen } : {}
+
   const showHeader = !router.pathname.startsWith('/embed') && !router.pathname.startsWith('/login')
   const showFooter = !router.pathname.startsWith('/docs') && !router.pathname.startsWith('/embed') && !router.pathname.startsWith('/login')
   const meta = Component.layoutProps?.meta || pageProps?.meta || {}
-  const description =
-    meta.metaDescription || meta.description || '开源低代码 DevOps 平台'
+  const description = meta.metaDescription || meta.description || '开源低代码 DevOps 平台';
 
-  let section =
-  meta.section ||
-  Object.entries(Component.layoutProps?.Layout?.nav ?? {}).find(([, items]) =>
+  let section = meta.section || Object.entries(Component.layoutProps?.Layout?.nav ?? {}).find(([, items]) =>
     items.find(({ href }) => href === router.pathname)
-  )?.[0]
+  )?.[0];
 
   return (
+    // TODO: 项目总结构
     <SessionProvider session={session}>
       <SearchProvider>
         {showHeader && (
@@ -121,7 +118,7 @@ export default function App({
 //       console.error(err);
 //     }
 //   }
-//   return { 
-//     site: site 
+//   return {
+//     site: site
 //   }
 // }

@@ -45,24 +45,22 @@ async function fetchGraphql(query) {
 
 async function getCollections(siteId){
   //TODO：按站点获取数据 , filters:["site","=","${siteId}"]
-  const query = `
-  {
-      document_collections(sort: "sort_no"){
+  const query = `{
+    document_collections(sort: "sort_no"){
+        _id,
+        slug,
+        name,
+        description,
+        documents: _related_documents_collection(sort: "sort_no"){
           _id,
           slug,
           name,
-          description,
-    			documents: _related_documents_collection(sort: "sort_no"){
-            _id,
-            slug,
-            name,
-            image,
-            summary,
-            body
-          }
-      } 
-  }
-  `
+          image,
+          summary,
+          body
+        }
+    }
+  }`;
   const result = await fetchGraphql(query);
 
   let collections = null;
@@ -83,7 +81,7 @@ async function sync(){
       fs.mkdirSync(dirname)
     collection.documents.forEach(doc => {
       const filename = path.join(dirname, doc.slug + '.mdx')
-      const content = 
+      const content =
 `---
 title: ${doc.name}
 description: ${doc.summary}

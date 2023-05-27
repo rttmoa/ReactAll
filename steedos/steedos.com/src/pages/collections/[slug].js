@@ -16,7 +16,6 @@ export async function getStaticProps({params}) {
       notFound: true,
     }
   }
-
   return {
     props: {
       collection: collection
@@ -28,9 +27,9 @@ export async function getStaticProps({params}) {
 export async function getStaticPaths() {
   const items = await getCollections()
 
-  // Get the paths we want to pre-render based on posts
+  // TODO: 根据帖子获取我们要预渲染的路径
   const paths = items.map((item) => ({
-    params: { 
+    params: {
       slug: item.slug },
   }))
   console.log('Building Product Collections...');
@@ -43,7 +42,7 @@ export async function getStaticPaths() {
 }
 
 export default class Collection extends React.Component {
-  
+
   render(){
     const { collection } = this.props;
     return (
@@ -128,7 +127,7 @@ export default class Collection extends React.Component {
                   //           </div>
                   //       </div>
                   //     </div>
-                      
+
                   //     <div className=''>
                   //       <div className="-mt-px flex divide-x divide-gray-200">
                   //         <div className="w-0 flex-1 flex items-center justify-between">

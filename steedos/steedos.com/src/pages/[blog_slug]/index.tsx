@@ -23,9 +23,9 @@ export async function getStaticProps({params}) {
   const { blog_slug } = params;
   const blog = await getBlog(blog_slug);
   const errorCode = !blog?404: 0;
-  
-  const posts = blog? await getBlogPosts(blog._id): [];
-  
+
+  const posts = blog ? await getBlogPosts(blog._id): [];
+
   return {
     props: {
       errorCode,
@@ -42,7 +42,7 @@ export async function getStaticPaths() {
 
   // Get the paths we want to pre-render based on posts
   const paths = items.map((item) => ({
-    params: { 
+    params: {
       blog_slug: item.slug },
   }))
   console.log('Building Blogs...');

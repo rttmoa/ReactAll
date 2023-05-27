@@ -37,7 +37,7 @@ const getTOC = (markdown) => {
 
   slugs.reset()
   const tree = fromMarkdown(markdown)
-  
+
   const contents = []
 
   for (let i = 0; i < tree.children.length; i++) {
@@ -49,7 +49,7 @@ const getTOC = (markdown) => {
         .filter((n) => n.type === 'text')
         .map((n) => n.value)
         .join('')
-      let slug = slugs.slug(title, true) 
+      let slug = slugs.slug(title, true)
 
       // let allOtherSlugs = contents.flatMap((entry) => [
       //   entry.slug,
@@ -248,7 +248,7 @@ export async function getStaticProps({
   const blog = await getBlog(blog_slug);
   const post = blog? await getPost(blog_slug, post_slug):null;
   const errorCode = !blog || !post?404: 0;
-  
+
   return {
     props: {
       errorCode,
@@ -263,9 +263,9 @@ export async function getStaticProps({
 export async function getStaticPaths() {
   const posts = await getPosts()
 
-  // Get the paths we want to pre-render based on posts
+  // 根据帖子获取我们要预渲染的路径
   const paths = posts.map((post) => ({
-    params: { 
+    params: {
       blog_slug: post.blog__expand.slug,
       post_slug: post.slug },
   }))
@@ -286,7 +286,7 @@ export default function Post(props) {
     errorCode,
     name = 'Missing title',
     body,
-    blog, 
+    blog,
     summary,
     seo_title,
     image,
@@ -305,7 +305,7 @@ export default function Post(props) {
   let seo_title_calc = seo_title ? seo_title : name;
   if (blog && blog.name){
     seo_title_calc += ' - ' + blog.name
-    // if (blog.site__expand) 
+    // if (blog.site__expand)
     //   seo_title_calc += ' | ' + blog.site__expand.name
   }
   const section = blog.name
@@ -395,13 +395,13 @@ export default function Post(props) {
         <div className="max-w-3xl mx-auto py-10 xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16">
           <div id="content-wrapper" className="lg:px-8 min-w-0 w-full flex-auto lg:static lg:max-h-full lg:overflow-visible">
             <article className="">
-            
+
               <PageHeader
                 title={name}
                 // description={summary}
                 section={section}
               />
-              
+
               <div
                 id="content-wrapper"
                 className="relative z-20 prose prose-slate dark:prose-dark"

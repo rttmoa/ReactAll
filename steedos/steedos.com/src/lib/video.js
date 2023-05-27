@@ -15,11 +15,11 @@ const QUERY_SITE_VIDEOS = `
         thumb_image,
         summary
       }
-    
+
   }
 `
 
-export async function getVideos(){
+export async function getVideos() {
     //TODO：按站点获取数据 , filters:["site","=","${siteId}"]
     const query = `
         {

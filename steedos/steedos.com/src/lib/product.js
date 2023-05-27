@@ -75,7 +75,7 @@ const QUERY_PRODUCT_INFO = `
 }
 `
 
-export async function getProducts(){
+export async function getProducts() {
     const query = `
     {
         shop_products
@@ -119,7 +119,7 @@ export async function getCollections(){
 
 /**
  * 获取指定系列下的所有产品
- * @param {*} slug 
+ * @param {*} slug
  */
 export async function getCollectionProducts(slug){
     const query = `
@@ -130,7 +130,7 @@ export async function getCollectionProducts(slug){
             image,
             body,
             products:_related_shop_products_product_collection(filters: ["status","=", "published"])${QUERY_PRODUCT_INFO}
-        }   
+        }
     }
     `
     const result = await fetchGraphql(query);

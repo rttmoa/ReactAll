@@ -43,7 +43,7 @@ export function removeAuthInfo(){
     localStorage.removeItem("steedos:token");
 }
 
-export async function getAuthorization(){
+export async function getAuthorization() {
     try {
         const session = await getSession()
         if(!session || !session.steedos){
