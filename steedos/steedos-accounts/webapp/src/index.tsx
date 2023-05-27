@@ -23,7 +23,7 @@ history.listen((location, action) => {
 
 ReactDOM.render(
     <Provider store={store}>
-        123
+        12
         <IntlProvider>
             <Router />
         </IntlProvider>

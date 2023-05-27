@@ -37,6 +37,7 @@ export function cleanUrlForLogging(baseUrl, apiUrl) {
     ];
 
     url = url.split('/').map((part) => {
+        console.log("part", part)
         if (part !== '' && whitelist.indexOf(part) === -1) {
             return '<filtered>';
         }

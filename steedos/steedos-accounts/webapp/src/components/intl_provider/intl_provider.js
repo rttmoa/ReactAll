@@ -62,7 +62,7 @@ export default class IntlProvider extends React.PureComponent {
     }
 
     render() {
-        console.log(this.props.children)
+        // console.log(this.props.children)
 
         if (!this.props.translations) {
             return null;
