@@ -62,7 +62,7 @@ export default class IntlProvider extends React.PureComponent {
     }
 
     render() {
-        // console.log(this.props.children)
+        // console.log(this.props)
 
         if (!this.props.translations) {
             return null;
@@ -73,7 +73,8 @@ export default class IntlProvider extends React.PureComponent {
                 key={this.props.locale}
                 locale={this.props.locale}
                 messages={this.props.translations}
-            >
+            > 
+                {/* children传递失败 */}
                 {this.props.children}
             </BaseIntlProvider>
         );

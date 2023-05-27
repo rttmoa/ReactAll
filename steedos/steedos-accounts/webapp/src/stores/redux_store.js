@@ -37,7 +37,7 @@ export function bindActionToRedux(action, ...args) {
         await action(...args)(store.dispatch, store.getState);
     };
 }
-
+// 生产环境下 挂载window
 if (process.env.NODE_ENV !== 'production') { //eslint-disable-line no-process-env
     window.store = store;
 }

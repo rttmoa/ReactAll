@@ -1,0 +1,2 @@
+extend: instances
+enable_enhanced_lookup: true

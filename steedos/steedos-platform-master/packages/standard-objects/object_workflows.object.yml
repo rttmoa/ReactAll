@@ -1,0 +1,175 @@
+name: object_workflows
+label: Object Synchronization Rule
+icon: link
+hidden: true
+version: 2
+fields:
+  name:
+    label: Name
+    type: text
+    required: true
+  object_name:
+    label: Object
+    type: master_detail
+    write_requires_master_read: true
+    required: true
+    reference_to: objects
+    reference_to_field: name
+    filters: [["enable_workflow", "=", true]]
+  flow_id:
+    label: Workflow
+    type: lookup
+    required: true
+    reference_to: flows
+  field_map:
+    label: Field Mappings（from Object to Workflow）
+    type: grid
+    is_wide: true
+    depend_on:
+      - object_name
+      - flow_id
+  field_map.$.workflow_field:
+    label: Field of Workflow
+    type: lookup
+    depend_on:
+      - flow_id
+    amis: 
+      "autoComplete": 
+        "method": "get"
+        "cache": 60000
+        "url": "${context.rootUrl}/api/object_workflows/workflow_field/options?flow_id=${flow_id}&term=${term}"
+        "headers": 
+          "Authorization": "Bearer ${context.tenantId},${context.authToken}" 
+        "sendOn": "!!this.flow_id"
+  field_map.$.object_field:
+    label: Field of Object
+    type: lookup
+    depend_on:
+      - object_name
+    reference_to: object_fields
+    reference_to_field: name
+    defaultIcon: service_contract
+    amis: 
+      "autoComplete": 
+        "method": "get"
+        "cache": 60000
+        "url": "${context.rootUrl}/service/api/amis-metadata-objects/objects/${object_name}/fields/options?include_deep=true&include_hide=true&include_related=true&term=${term}"
+        "headers": 
+          "Authorization": "Bearer ${context.tenantId},${context.authToken}" 
+        "sendOn": "!!this.object_name"
+  field_map_back:
+    label: Field Mappings（from Workflow to Object）
+    type: grid
+    is_wide: true
+    depend_on:
+      - object_name
+      - flow_id
+  field_map_back.$.object_field:
+    label: Field of Object
+    type: lookup
+    depend_on:
+      - object_name
+    reference_to: object_fields
+    reference_to_field: name
+    defaultIcon: service_contract
+    amis: 
+      "autoComplete": 
+        "method": "get"
+        "cache": 60000
+        "url": "${context.rootUrl}/service/api/amis-metadata-objects/objects/${object_name}/fields/options?include_deep=true&include_hide=true&include_related=true&term=${term}"
+        "headers": 
+          "Authorization": "Bearer ${context.tenantId},${context.authToken}" 
+        "sendOn": "!!this.object_name"
+  field_map_back.$.workflow_field:
+    label: Field of Workflow
+    type: lookup
+    depend_on:
+      - flow_id
+    amis: 
+      "autoComplete": 
+        "method": "get"
+        "cache": 60000
+        "url": "${context.rootUrl}/api/object_workflows/workflow_field/options?flow_id=${flow_id}&term=${term}&instance_fields=true"
+        "headers": 
+          "Authorization": "Bearer ${context.tenantId},${context.authToken}" 
+        "sendOn": "!!this.flow_id"
+  field_map_script:
+    label: Synchronization Script（from Object to Workflow）
+    type: textarea
+    is_wide: true
+    group: Script
+  field_map_back_script:
+    label: Synchronization Script（from Workflow to Object）
+    type: textarea
+    is_wide: true
+    group: Script
+  sync_attachment:
+    label: Synchronization Mode of Attachment
+    type: select
+    options:
+      - label: No Synchronization
+        value: "null"
+      - label: Synchronize the Latest Version
+        value: lastest
+      - label: Synchronize All Versions
+        value: all
+    required: true
+  sync_type:
+    label: Synchronization Mode
+    type: select
+    options:
+      - label: Every Step
+        value: "every_step"
+      - label: Final Step
+        value: "final_step"
+    defaultValue: every_step
+    required: true
+  sync_direction:
+    label: Synchronization Direction
+    type: select
+    options:
+      - label: Both
+        value: "both"
+      - label: Instance To Object
+        value: "ins_to_obj"
+      - label: Object To Instance
+        value: "obj_to_ins"
+    defaultValue: both
+    required: true
+  lock_record_after_approval:
+    label: Lock record after approval
+    type: boolean
+    defaultValue: false
+    required: false
+list_views:
+  default:
+    columns:
+      - name
+      - object_name
+      - flow_id
+  all:
+    columns:
+      - name
+      - object_name
+      - flow_id
+    label: All Rules
+    filter_scope: space
+actions:
+  forceSync:
+    label: sync history approvals
+    on: record
+permission_set:
+  user:
+    allowCreate: false
+    allowDelete: false
+    allowEdit: false
+    allowRead: true
+    modifyAllRecords: false
+    viewAllRecords: true
+  admin:
+    allowCreate: true
+    allowDelete: true
+    allowEdit: true
+    allowRead: true
+    modifyAllRecords: true
+    viewAllRecords: true

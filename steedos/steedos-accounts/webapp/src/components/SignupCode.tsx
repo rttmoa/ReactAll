@@ -38,6 +38,7 @@ const SignupCode = ({ match, settingsTenantId, settings, history, location, tena
     let spaceId = searchParams.get("X-Space-Id") || settingsTenantId;
     
     signUpEventOnError((err: any)=>{
+        console.log("报错了！", err);
         setError(err.message);
     })
 
@@ -76,14 +77,20 @@ const SignupCode = ({ match, settingsTenantId, settings, history, location, tena
             if(!tenant.enable_bind_mobile && action === 'mobileSignupAccount'){
                 throw new Error("accounts.invalidEmail");
             }
+            console.log("/SignupCode.tsx 没有校验错误!")
+            // console.log(tenant, history, location, spaceId, email, action)
 
+            // TODO: 发送data到signUpEvent
             await signUpEvent.emit('inputNext', tenant, history, location, spaceId, email, action);
-        } catch (err) {
-            setError(err.message);
+        } catch (err) { 
+            console.log("报错+", err)
+            setError(err)
         }
     };
+    
 
     return (
+        // url: http://localhost:3000/#/signup
         <form onSubmit={onSubmit} className={classes.formContainer} autoCapitalize="none">
             <FormControl margin="normal">
                 <InputLabel htmlFor="verifyCode">
@@ -112,13 +119,14 @@ const SignupCode = ({ match, settingsTenantId, settings, history, location, tena
                     onChange={e => setEmail(e.target.value)}
                 />
             </FormControl>
-            {error && <FormError error={error!} />}
+            {/* FIXME: Next提交后，报错TAPi18n is not defined，显示error组件 */}
+            {error && <FormError error={error!} />} 
             <Button variant="contained" color="primary" type="submit">
                 <FormattedMessage
                     id='accounts.next'
                     defaultMessage='Next'
                 />
-            </Button>
+            </Button> 
             <Button component={LogInLink} location={location}>
                 <FormattedMessage
                     id='accounts.signin'

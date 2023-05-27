@@ -58,7 +58,7 @@ const Title = ({ tenant, location }: any) => {
   return (
     <div className={classes.container}>
       {!location.pathname.startsWith("/verify/") && (
-        <h4 className={classes.title}><FormattedMessage id={messageId}/></h4>
+        <h4 className={classes.title}><FormattedMessage id={messageId || "华炎云"}/></h4>
       )}
     </div>
   );

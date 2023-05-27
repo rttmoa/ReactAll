@@ -25,8 +25,7 @@ const Home = ({ history, settings, tenant, location }: any) => {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    fetchUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // fetchUser();
   }, []);
 
   const getCookie = (name: string) => {
@@ -81,16 +80,15 @@ const Home = ({ history, settings, tenant, location }: any) => {
     window.location.href = settings.root_url ? settings.root_url : "/";
   };
 
-  if (!user) {
-    return null;
-  }
+  // if (!user) return null;
   return (
     <div className={classes.formContainer}>
       <h4 className={classes.title}>
         <FormattedMessage
             id='accounts.welcome'
             defaultMessage='Welcome' 
-        /> {user.email || user.name}
+        /> { "user" }
+        {/* {user && user.email || user?.name} */}
       </h4>
       {/* 
       <Typography gutterBottom>You are logged in</Typography>

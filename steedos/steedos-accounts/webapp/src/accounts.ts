@@ -11,6 +11,7 @@ const accountsRest = new RestClient({
   apiHost: accountsApiHost,
   rootPath: '/accounts',
 });
+// console.log(accountsRest);
 const accountsClient = new AccountsClient({}, accountsRest);
 const accountsPassword = new AccountsClientPassword(accountsClient);
 

@@ -63,8 +63,7 @@ const Signup = ({ match, history, settingsTenantId, location, actions, settings,
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
-    try {
-      
+    try { 
       if(!name.trim()){
         throw new Error('accounts.nameRequired');
       }
@@ -105,6 +104,7 @@ const Signup = ({ match, history, settingsTenantId, location, actions, settings,
 
   return (
     <form onSubmit={onSubmit} className={classes.formContainer} autoCapitalize="none">
+      组件：Signup.tsx
     <FormControl margin="normal">
       <InputLabel htmlFor="name">
         <FormattedMessage

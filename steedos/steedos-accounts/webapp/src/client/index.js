@@ -15,6 +15,7 @@ const getCookie = (name) => {
     }
     return ''
   }
+  // 获取浏览器默认语言
 const getBrowserLng = function () {
   var l, lng;
   var navigator = window.navigator;
@@ -46,7 +47,7 @@ const Login = async (data, history, tenant, location, action)=>{
 
     data.locale = getBrowserLocale();
 
-    let result = await accountsRest.authFetch( 'password/authenticate', {
+    let result = await accountsRest.authFetch('password/authenticate', {
         method: 'POST',
         body: JSON.stringify({
           ...data,
@@ -144,20 +145,25 @@ const ApplyCode = async (data) =>{
     try {
       // const state = store.getState();
       // const tenant = getTenant(state);
-
       // if(data.action.startsWith("mobile") && tenant.already_sms_service != true){
       //   throw new Error("短信服务未配置，<mobile_help>点击查看帮助</mobile_help>");
       // }
-
       // if(data.action.startsWith("email") && tenant.already_mail_service != true){
       //   throw new Error("邮件服务未配置，<email_help>点击查看帮助</email_help>");
       // }
-      data.lng = getBrowserLng();
+
+      // FIXME: 修改请求的默认语言
+      // data.lng = getBrowserLng(); // 初始获取浏览器语言
+      // data.lng = store.getState().i18n.translations
+      data.lng = "en"; 
+      console.log(await accountsRest.fetch(`code/apply`, { method: 'POST',body: JSON.stringify(data),}))
+      console.log(123)
       return await accountsRest.fetch(`code/apply`, {
           method: 'POST',
           body: JSON.stringify(data),
       });
     } catch (error) {
+      console.log("请求error", error)
       if(error.message === 'accounts.spaceUnExists'){
         store.dispatch({
           type: "UNEXISTS_TENANT"

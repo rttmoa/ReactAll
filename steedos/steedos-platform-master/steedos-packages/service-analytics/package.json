@@ -1,0 +1,13 @@
+{
+  "name": "@steedos/service-analytics",
+  "version": "2.4.18-beta.3",
+  "main": "package.service.js",
+  "description": "Analytics for product",
+  "scripts": {},
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "b847ccfc5a84c9e918b95188fa07b7e57526215a"
+}

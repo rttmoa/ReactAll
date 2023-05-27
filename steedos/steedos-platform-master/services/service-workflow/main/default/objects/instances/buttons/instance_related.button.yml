@@ -1,0 +1,155 @@
+name: instance_related
+amis_schema: |-
+  {
+      "type": "service",
+      "body": [
+          {
+              "type": "button",
+              "label": "关联文件",
+              "id": "u:instance_link",
+              "className": "  ",
+              "onEvent": {
+                  "click": {
+                      "actions": [
+                          {
+                              "actionType": "dialog",
+                              "dialog": {
+                                  "type": "dialog",
+                                  "title": "关联文件",
+                                  "body": [
+                                      {
+                                          "type": "form",
+                                          "body": [
+                                            {
+                                                "type": "steedos-field",
+                                                "config": {
+                                                  "type": "lookup",
+                                                  "label": "字段1",
+                                                  "name": "related_instances",
+                                                  "id": "u:ff88cc3375b5",
+                                                  "reference_to": "instances",
+                                                  "amis": {
+                                                    "id": "u:f0273e374d19",
+                                                    "embed": true,
+                                                    "label": false,
+                                                    "multiple": true,
+                                                    "source": {
+                                                      "method": "post",
+                                                      "url": "${context.rootUrl}/graphql",
+                                                      "requestAdaptor": "const { pageNo, pageSize, keywords ='' } = api.data;\nconsole.log(\"===\", JSON.stringify(api.data));\napi.data = {\n    query: `\n        query{\n            rows: instances__getRelatedInstances(keywords: \"${keywords}\", top: ${pageSize}, skip: ${(pageNo - 1) * pageSize}){\n                 _id,\n    name,\n    flow,\n    form,\n    submit_date,\n    submitter\n    _display:_ui{\n      flow,\n      form,\n      submit_date,\n      submitter\n    }\n            },\n            count: instances__getRelatedInstances__count(keywords: \"${keywords}\")\n            }\n    `\n};\nreturn api;",
+                                                      "headers": {
+                                                        "Authorization": "Bearer ${context.tenantId},${context.authToken}"
+                                                      },
+                                                      "adaptor": "return payload",
+                                                      "data": {
+                                                        "orderBy": "${orderBy}",
+                                                        "orderDir": "${orderDir}",
+                                                        "pageNo": "${page}",
+                                                        "pageSize": "${perPage}",
+                                                        "$self": "$$",
+                                                        "keywords": "${keywords}",
+                                                        "ids": "${ids}"
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "id": "u:774bdcbde030"
+                                              }
+                                          ],
+                                          "initApi": {
+                                              "method": "post",
+                                              "url": "${context.rootUrl}/graphql",
+                                              "requestAdaptor": "const { _id: recordId } = api.data.record;\napi.data = {\n  query:`\n            {\n              instance: instances__findOne(id:\"${recordId}\"){\n                related_instances: related_instances__expand{\n                  _id,\n                 name\n                }\n              }\n            }\n          `\n        }\n        return api;",
+                                              "adaptor": "payload.data = {\n  related_instances: payload.data.instance?.related_instances\n};console.log('====payload', payload);\nreturn payload;"
+                                          }
+                                      }
+                                  ],
+                                  "id": "u:47c202e8149b",
+                                  "actions": [
+                                      {
+                                          "type": "button",
+                                          "label": "取消",
+                                          "onEvent": {
+                                              "click": {
+                                                  "actions": [
+                                                      {
+                                                          "componentId": "",
+                                                          "args": {},
+                                                          "actionType": "closeDialog"
+                                                      }
+                                                  ]
+                                              }
+                                          },
+                                          "id": "u:d8e1e81fc42e"
+                                      },
+                                      {
+                                          "type": "button",
+                                          "label": "确定",
+                                          "onEvent": {
+                                              "click": {
+                                                  "actions": [
+                                                      {
+                                                          "args": {
+                                                              "api": {
+                                                                  "url": "${context.rootUrl}/api/workflow/v2/instance/change/related",
+                                                                  "method": "post",
+                                                                  "headers": {
+                                                                      "Authorization": "Bearer ${context.tenantId},${context.authToken}"
+                                                                  },
+                                                                  "requestAdaptor": "console.log(api);\nconst { record, related_instances } = api.data;\napi.data = {\n  id: record._id,\n  related_instances: related_instances\n};\nreturn api;",
+                                                                  "data": {
+                                                                      "&": "$$",
+                                                                      "record": "${record}",
+                                                                      "related_instances": "${related_instances}"
+                                                                  }
+                                                              },
+                                                              "messages": {}
+                                                          },
+                                                          "actionType": "ajax"
+                                                      },
+                                                      {
+                                                        "actionType": "broadcast",
+                                                        "args": {
+                                                            "eventName": "@data.@instanceDetail.changed"
+                                                        },
+                                                        "data": {
+
+                                                        }
+                                                      },
+                                                      {
+                                                          "componentId": "",
+                                                          "args": {},
+                                                          "actionType": "closeDialog"
+                                                      }
+                                                  ]
+                                              }
+                                          },
+                                          "id": "u:ba9e7778f165",
+                                          "level": "primary"
+                                      }
+                                  ],
+                                  "closeOnEsc": false,
+                                  "closeOnOutside": false,
+                                  "showCloseButton": true,
+                                  "size": "lg"
+                              }
+                          }
+                      ],
+                      "weight": 0
+                  }
+              },
+              "hiddenOn": "!((record.box === 'draft' || record.box === 'inbox') \n  && (\n  record.step?.can_edit_main_attach \n  || record.step?.can_edit_normal_attach\n  || !record.step?.can_edit_normal_attach\n) )"
+          }
+      ],
+      "regions": [
+          "body"
+      ],
+      "bodyClassName": "p-0",
+      "id": "u:f215e4c0c4ed",
+      "messages": {}
+  }
+is_enable: true
+label: 关联文件
+'on': record_only
+type: amis_button
+visible: true

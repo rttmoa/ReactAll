@@ -15,7 +15,8 @@ import { getSettings } from '../../selectors';
 
 
 function mapStateToProps(state) {
-    const locale = getCurrentLocale(state);
+    const locale = getCurrentLocale(state); // locale: // zh-CN
+    // console.log("translations", getTranslations(state, locale))  //  {accounts.signin: 'Sign In', accounts.signup: 'Sign Up', accounts.submit: 'Submit', accounts.forget_password: 'Forget Password', accounts.reset_password: 'Reset Password', …}
     return {
         locale,
         translations: getTranslations(state, locale),

@@ -30,6 +30,10 @@ import Signup from './components/Signup';
 import GenerateLicense from './components/GenerateLicense';
 import LicenseResult from './components/LicenseResult';
 
+
+
+
+
 const Router = ({tenant}:any) => {
   let backgroundUrl = require("./assets/background.svg");
   if (tenant.background_url) {
@@ -84,9 +88,11 @@ const Router = ({tenant}:any) => {
   }
 
   let signupComponent = Signup;
-  if(tenant.enable_bind_mobile || tenant.enable_bind_email){
-    signupComponent = SignupCode;
-  }
+  // FIXME: 注释SignupCode
+  // console.log("tenant", tenant);
+  // if(tenant.enable_bind_mobile || tenant.enable_bind_email){
+  //   signupComponent = SignupCode;
+  // }
 
   return (
     <HashRouter basename="">
@@ -95,19 +101,22 @@ const Router = ({tenant}:any) => {
           <Loading></Loading>
           <GlobalMessage></GlobalMessage>
           <Grid className={classes.container} container id="container">
+            123
             <Grid item xs={12}>
               <Paper className={classes.paper} id="paper">
                 <CssBaseline />
+                555555555555555 
                 <Route path="/" component={GoBack}/>
                 <Route path="/" component={Logo}/>
                 <Route path="/" component={Title}/>
                 <Route exact path="/" component={Home}/>
+
                 <Route path="/signup" component={signupComponent} />
                 <Route path="/signup-password" component={Signup} />
 
                 <Route path="/login" component={loginComponent} />
                 <Route path="/login-password" component={LoginPassword} />
-                
+                {/* http://127.0.0.1:3000/#/create-tenant */}
                 <Route path="/create-tenant" component={CreateTenant} />
                 <Route path="/choose-tenant" component={ChooseTenant} />
                 <Route exact path="/reset-password" component={resetPasswordComponent} />
@@ -117,10 +126,11 @@ const Router = ({tenant}:any) => {
                 <Route path="/verify/:token" component={Verify} />
                 <Route path="/login-code" component={LoginCode} />
                 <Route path="/set-name" component={SetName} />
-                <Route path="/verify-mobile/:token" component={VerifyMobile} />
-                {/* <Route path="/generate-license" component={GenerateLicense} />
-                <Route path="/result-license" component={LicenseResult} /> */}
+                <Route path="/verify-mobile/:token" component={VerifyMobile} /> 
+                {/* 两步验证 */}
                 <Route path="/two-factor" component={TwoFactor} />
+                <Route path="/generate-license" component={GenerateLicense} />
+                <Route path="/result-license" component={LicenseResult} />
               </Paper>
             </Grid>
           </Grid>

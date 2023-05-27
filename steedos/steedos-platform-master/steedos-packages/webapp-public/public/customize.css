@@ -1,0 +1,65 @@
+/* 由用户自定义 */
+html {
+	background: unset;
+}
+
+.slds-page-header {
+  background: rgb(248, 250, 252);
+}
+
+.slds-button__icon {
+  display: inline;
+}
+
+.slds-global-header_container{
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.slds-tabs_card, .slds-tabs_card.slds-tabs_card {
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+  border-width: 0;
+}
+
+.slds-illustration__svg {
+  display: inline !important;
+}
+
+/* 隐藏左侧 ‘关于’ 菜单 */
+.creator-content-wrapper .split-left .dx-treeview-node-container li[data-item-id=about]{
+  display: none;
+}
+
+:root {
+  --body-bg: rgb(225, 239, 254);
+  /* --body-bg: top / cover no-repeat url(/images/defaultBackground.svg);  */
+}
+
+@media only screen and (max-width: 768px) {
+  :root {
+      --body-bg: white;
+  }
+}
+
+body {
+  background: var(--body-bg);
+}
+
+.creator-content-wrapper {
+  overflow: auto !important;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 4rem;
+  left: 0;
+  margin-top: 90px;
+}
+
+@media only screen and (max-width: 768px) {
+  .creator-content-wrapper {
+    margin-top: 50px;
+  }
+}
+
+.antd-Form-item.form-control {
+  height: auto;
+}

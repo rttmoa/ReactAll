@@ -47,10 +47,10 @@ const LicenseResult = ({ history, settings, tenant, location }: any) => {
       <Box textAlign="center" m={1}>
         授权期限: {data.start_date} 至 {data.end_date}
       </Box>
-      {/* <br/>
+      <br/>
       <Box textAlign="center" color='rgba(0,0,0,.45)' m={1}>
         请关闭当前窗口
-      </Box> */}
+      </Box>
     </div>
   );
 };

@@ -23,9 +23,11 @@ history.listen((location, action) => {
 
 ReactDOM.render(
     <Provider store={store}>
-        12
+        IntProvider -- 
         <IntlProvider>
+            Router
             <Router />
         </IntlProvider>
     </Provider>,
-    document.getElementById('root') as HTMLElement);
+    document.getElementById('root') as HTMLElement
+);
