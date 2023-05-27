@@ -5,6 +5,11 @@ import routes from './routes';
 
 import './App.css';
 
+
+
+
+
+
 const App = () => (
   <Switch>
     {renderRoutes(routes)}

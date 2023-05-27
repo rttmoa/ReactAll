@@ -24,7 +24,9 @@ class ReportList extends Component {
     }
 
     render() {
+        console.log(123)
         let list = this.state.list;
+        console.log(list)
         var items = list.map(function (item) {
             return (
                 <div className="report-list-item" key={item._id}>
