@@ -1,7 +1,7 @@
 // import { Widont } from '@/components/home/common'
 import PostItem from '@/components/PostItem'
 import Link from 'next/link'
-import tinytime from 'tinytime'
+import tinytime from 'tinytime'   // TODO: 简单的日期和时间格式
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { MDXProvider } from '@mdx-js/react'
@@ -15,7 +15,9 @@ let grid = 'max-w-3xl mx-auto xl:max-w-none xl:grid xl:grid-cols-[1fr_50rem] xl:
 
 
 
+// 可能未使用此组件哦
 export function BlogPostLayout({ children, meta, slug, latestPosts }) {
+  console.log("/layouts -> BlogPostLayout.js??? ")
   return (
     <div className="mx-auto mt-10 px-4 pb-28 sm:mt-16 sm:px-6 md:px-8 xl:px-12 xl:max-w-6xl">
       <main>
@@ -104,6 +106,7 @@ export function BlogPostLayout({ children, meta, slug, latestPosts }) {
 }
 
 export function getStaticProps() {
+  console.log("/layouts -> BlogPostLayout.js??? ")
   return {
     props: {
       latestPosts: getAllPosts()
@@ -117,6 +120,7 @@ export function getStaticProps() {
 
 function Metadata({ meta }) {
   let router = useRouter()
+  console.log("/layouts -> BlogPostLayout.js??? ")
 
   return (
     <Head>

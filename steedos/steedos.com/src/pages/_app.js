@@ -1,32 +1,34 @@
 import '../css/fonts.css'
 import '../css/main.css'
 import 'focus-visible'
-import { useState, useEffect, Fragment } from 'react'
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer';
 import { Title } from '@/components/Title'
-import Router from 'next/router'
-import ProgressBar from '@badrap/bar-of-progress'
 import Head from 'next/head'
 import twitterLargeCard from '@/img/twitter-large-card.jpg'
-import { ResizeObserver } from '@juggle/resize-observer'
-import 'intersection-observer'
 import {has, isArray} from 'lodash';
 import { saveAuthInfo } from '@/lib/auth.client';
-import { SearchProvider } from '@/components/Search'
-import { SessionProvider } from "next-auth/react"
+
+import { useState, useEffect, Fragment } from 'react'
+import Router from 'next/router'
+import ProgressBar from '@badrap/bar-of-progress'
+import { ResizeObserver } from '@juggle/resize-observer'
+import 'intersection-observer'
+
 import { usePostHog } from 'next-use-posthog'
+import { SessionProvider } from "next-auth/react"
+import { SearchProvider } from '../components/Search'
+import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
 // import { getSite } from '@/lib/site';
 
-if (typeof window !== 'undefined' && !('ResizeObserver' in window)) {
-  window.ResizeObserver = ResizeObserver
-}
+
+
+if (typeof window !== 'undefined' && !('ResizeObserver' in window)) window.ResizeObserver = ResizeObserver;
 
 const progress = new ProgressBar({
   size: 2,
   color: '#22D3EE',
   className: 'bar-of-progress',
-  delay: 100,
+  delay: 1000,
 })
 
 // this fixes safari jumping to the bottom of the page
@@ -52,15 +54,17 @@ export default function App({Component, pageProps: { session, ...pageProps }, ro
   usePostHog('phc_Hs5rJpeE5JK3GdR3NWOf75TvjEcnYShmBxNU2Y942HB', {
     api_host: 'https://posthog.steedos.cn',
     loaded: (posthog) => {
+      // console.log("posthog", posthog) // {compression, config, init, people, persistence, toobar, sessionRecording}
       window.posthog = posthog;
       posthog.opt_in_capturing()
     },
   })
 
+  // 当窗口尺寸小于1024时，文档中左侧nav是否开关
   let [navIsOpen, setNavIsOpen] = useState(false)
-
   useEffect(() => {
     if (!navIsOpen) return
+    console.log("appjs nav开关")
     function handleRouteChange() {
       setNavIsOpen(false)
     }
@@ -78,13 +82,18 @@ export default function App({Component, pageProps: { session, ...pageProps }, ro
   const showFooter = !router.pathname.startsWith('/docs') && !router.pathname.startsWith('/embed') && !router.pathname.startsWith('/login')
   const meta = Component.layoutProps?.meta || pageProps?.meta || {}
   const description = meta.metaDescription || meta.description || '开源低代码 DevOps 平台';
+  // console.log(description)
 
   let section = meta.section || Object.entries(Component.layoutProps?.Layout?.nav ?? {}).find(([, items]) =>
     items.find(({ href }) => href === router.pathname)
   )?.[0];
 
+
+
+  // console.log(session) // undefined
+  // console.log(showHeader) // 页面中true， Login时为false
   return (
-    // TODO: 项目总结构
+    // TODO: 项目总结构：next-auth && SearchProvider && Header && Layout && Component
     <SessionProvider session={session}>
       <SearchProvider>
         {showHeader && (
@@ -99,9 +108,7 @@ export default function App({Component, pageProps: { session, ...pageProps }, ro
           <Layout {...layoutProps}>
             <Component section={section} {...pageProps} />
           </Layout>
-        {showFooter && (
-          <Footer/>
-        )}
+        {showFooter && <Footer/>}
       </SearchProvider>
     </SessionProvider>
   )

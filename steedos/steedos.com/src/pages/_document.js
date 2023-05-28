@@ -1,13 +1,13 @@
 import clsx from 'clsx'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
+
+
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx)
     return { ...initialProps }
   }
-
-
   render() {
     return (
       <Html lang="en" className="[--scroll-mt:9.875rem] lg:[--scroll-mt:6.3125rem]">
@@ -18,7 +18,7 @@ export default class MyDocument extends Document {
           <link rel="manifest" href="/manifest.json" />
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#00b4b6" />
           <meta name="application-name" content="华炎魔方" />
-  
+
           <meta name="theme-color" content="#ffffff" />
         </Head>
         <body

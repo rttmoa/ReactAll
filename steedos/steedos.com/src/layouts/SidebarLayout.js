@@ -8,6 +8,9 @@ import { Dialog } from '@headlessui/react'
 
 export const SidebarContext = createContext()
 
+
+
+// Nav组件封装NavItem组件 可复用
 const NavItem = forwardRef(({ href, children, isActive, isPublished, fallbackHref }, ref) => {
   return (
     <li ref={ref}>
@@ -28,20 +31,9 @@ const NavItem = forwardRef(({ href, children, isActive, isPublished, fallbackHre
   )
 })
 
-/**
- * Find the nearst scrollable ancestor (or self if scrollable)
- *
- * Code adapted and simplified from the smoothscroll polyfill
- *
- *
- * @param {Element} el
- */
+/** 找到最近的可滚动祖先 (如果可滚动则为 self)  ->  @param  {Element} el */
 function nearestScrollableContainer(el) {
-  /**
-   * indicates if an element can be scrolled
-   *
-   * @param {Node} el
-   */
+  /** 显示元素是否可以滚动 -> @param {Node} el */
   function isScrollable(el) {
     const style = window.getComputedStyle(el)
     const overflowX = style['overflowX']
@@ -54,11 +46,9 @@ function nearestScrollableContainer(el) {
 
     return isScrollableY || isScrollableX
   }
-
   while (el !== document.body && isScrollable(el) === false) {
     el = el.parentNode || el.host
   }
-
   return el
 }
 
@@ -194,6 +184,7 @@ function Nav({ nav, children, fallbackHref, mobile = false }) {
   )
 }
 
+// 父 TopLevelLink -> 子 TopLevelAnchor
 const TopLevelAnchor = forwardRef(
   (
     { children, href, className, icon, isActive, onClick, shadow, activeBackground, mobile },
@@ -235,6 +226,7 @@ const TopLevelAnchor = forwardRef(
   }
 )
 
+// 父 TopLevelNav -> 子 TopLevelLink
 function TopLevelLink({ href, as, ...props }) {
   // if (/^https?:\/\//.test(href)) {
     return <TopLevelAnchor href={href} {...props} />
@@ -247,6 +239,7 @@ function TopLevelLink({ href, as, ...props }) {
   // )
 }
 
+// 父 Nav -> 子 TopLevelNav
 function TopLevelNav({ mobile }) {
   let { pathname } = useRouter()
 
@@ -490,6 +483,7 @@ function TopLevelNav({ mobile }) {
   )
 }
 
+// 父 SidebarLayout -> 子 Wrapper
 function Wrapper({ allowOverflow, children }) {
   return <div className={allowOverflow ? undefined : 'overflow-hidden'}>{children}</div>
 }
@@ -505,6 +499,7 @@ export function SidebarLayout({
 }) {
   return (
     <SidebarContext.Provider value={{ nav, navIsOpen, setNavIsOpen }}>
+
       <Wrapper allowOverflow={allowOverflow}>
         <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
           <div className="hidden lg:block fixed z-20 inset-0 top-[3.8125rem] left-[max(0px,calc(50%-45rem))] right-auto w-[19.5rem] pb-10 px-8 overflow-y-auto">
@@ -515,6 +510,7 @@ export function SidebarLayout({
           <div className="lg:pl-[19.5rem]">{children}</div>
         </div>
       </Wrapper>
+
       <Dialog
         as="div"
         open={navIsOpen}
@@ -544,6 +540,7 @@ export function SidebarLayout({
           </Nav>
         </div>
       </Dialog>
+
     </SidebarContext.Provider>
   )
 }

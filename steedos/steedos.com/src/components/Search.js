@@ -17,6 +17,10 @@ const APP_ID = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
 
 const SearchContext = createContext()
 
+
+
+
+
 export function SearchProvider({ children }) {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)

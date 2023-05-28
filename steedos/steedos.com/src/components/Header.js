@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { SearchButton } from '@/components/Search'
 import clsx from 'clsx'
 import Router from 'next/router'
-import { Logo } from '@/components/Logo'
+import { Logo } from './Logo'
 import { useEffect, Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition, Menu } from '@headlessui/react'
 import { UserIcon, CodeIcon, ChevronDownIcon, CogIcon, LogoutIcon, ShoppingBagIcon, ViewGridIcon, UserAddIcon } from '@heroicons/react/outline'
@@ -171,7 +171,7 @@ export function NavPopover({ display = 'md:hidden', className, ...props }) {
 export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section }) {
   let [isOpaque, setIsOpaque] = useState(false)
   const { data: session } = useSession()
-
+  // console.log("Headerjs session", session) // null
 
   useEffect(() => {
     if (session) {
@@ -186,7 +186,7 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
       window.posthog.people.set(people);
     }
   }, [session]);
-  
+
   const [open, setOpen] = useState(false)
   const [userInfo, setUserInfo] = useState({})
   const [cart, setCart] = useState({lines: []})
@@ -194,6 +194,7 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
   useEffect(() => {
     let offset = 50
     function onScroll() {
+      // console.log("滚动")
       if (!isOpaque && window.scrollY > offset) {
         setIsOpaque(true)
       } else if (isOpaque && window.scrollY <= offset) {
@@ -202,20 +203,21 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
     }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => {
-      window.removeEventListener('scroll', onScroll, { passive: true })
-    }
+    return () => { window.removeEventListener('scroll', onScroll, { passive: true }) }
   }, [isOpaque])
 
+  // TODO: SWR是用于数据请求的React Hooks库：   https://www.oschina.net/p/swr?hmsr=aladdin1e1
+  // console.log(getCart().then(res => console.log(res))) // 401: 无权限
   useSWR('cart', async () => {
     const cart = await getCart();
+    console.log('Headerjs fetch cart', cart)
     if (!cart.error) {
       setCart(cart)
     } else {
       setCart({lines: []})
     }
   })
-  
+
   return (
     <>
       {/* <div className="py-2 bg-gradient-to-r from-sky-600 to-light-blue-500 overflow-hidden">
@@ -262,12 +264,13 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
           </picture>
         </div>
       </div>
+
+
+
       <header className="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] bg-white supports-backdrop-blur:bg-white/95 dark:bg-slate-900/75">
-       
         <nav aria-label="Top" className="max-w-8xl mx-auto font-semibold text-base leading-6 ">
           <div className="py-4 border-b border-slate-900/10 lg:px-8 lg:border-0 dark:border-slate-300/10 mx-4 lg:mx-0">
             <div className="flex items-center">
-             
               {/* Logo */}
               <div className="flex lg:ml-0">
                 <a href="/">
@@ -276,9 +279,10 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
                 </a>
               </div>
 
-              {/* Flyout menus */}
+              {/* Flyout menus: 产品/客户/文档/视频/联系我们 */}
               <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
                 <div className="h-full flex space-x-4">
+                  {/* 渲染：产品 / 客户 */}
                   {navigation.categories.map((category) => (
                     <Popover key={category.name} className="flex">
                       {({ open }) => (
@@ -308,7 +312,7 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
                           <Popover.Panel className="absolute top-full inset-x-0 text-sm">
                             {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                             <div className="absolute inset-0 top-1/2 shadow" aria-hidden="true" />
-
+                            {/* 渲染：产品 / 客户 下children */}
                             <div className="relative bg-white dark:bg-slate-800 font-normal">
                               <div className="max-w-8xl mx-auto px-8">
                                 <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
@@ -363,7 +367,7 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
                       )}
                     </Popover>
                   ))}
-
+                  {/* 渲染：文档 / 视频 / 联系我们 */}
                   {navigation.pages.map((page) => (
                     <a
                       key={page.name}
@@ -377,15 +381,16 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
                 </div>
               </Popover.Group>
 
-              <div className="ml-auto flex items-center">
 
+
+              <div className="ml-auto flex items-center">
                 <div className="relative hidden lg:flex items-center ml-auto">
                   <div className="text-slate-700 dark:text-slate-200">
 
                     <Menu as="div" className="relative inline-block text-left">
                       <div>
                         <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium rounded-md bg-opacity-20 hover:text-sky-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                        {/* {userInfo.name && (userInfo.name)} */}
+                        {userInfo.name && (userInfo.name)}
                         我的账户
                           <ChevronDownIcon
                             className="w-5 h-5 ml-1 -mr-1 text-violet-300 hover:text-sky-500"
@@ -404,17 +409,17 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
                       >
                         <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                           <div className="px-1 py-1">
-                            {/* Cart */}
-                            {/* {userInfo.name && (
-                            <Menu.Item>
-                              <a href="/store/shopping-cart" className="text-gray-900 group flex rounded-md items-center w-full px-2 py-2 text-sm">
-                                <ShoppingBagIcon
-                                  className="w-5 h-5 mr-2 text-sky-400"
-                                  aria-hidden="true"
-                                />
-                                购物车 ({cart?.lines?.length})
-                              </a>
-                            </Menu.Item>)} */}
+                            {/* Cart
+                            {userInfo.name && (
+                              <Menu.Item>
+                                <a href="/store/shopping-cart" className="text-gray-900 group flex rounded-md items-center w-full px-2 py-2 text-sm">
+                                  <ShoppingBagIcon
+                                    className="w-5 h-5 mr-2 text-sky-400"
+                                    aria-hidden="true"
+                                  />
+                                  购物车 ({cart?.lines?.length})
+                                </a>
+                              </Menu.Item>)} */}
                             {!session && (
                               <Menu.Item>
                                 <a href="#" onClick={() => signIn("keycloak")} className="font-medium text-gray-900 group flex rounded-md items-center w-full px-2 py-2 text-sm">
@@ -523,9 +528,9 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
               </div>
             </div>
           </div>
-
         </nav>
 
+        {/* 当屏幕尺寸小于1024时 */}
         {hasNav && (
             <div className="flex items-center p-4 border-b border-slate-900/10 lg:hidden dark:border-slate-50/[0.06]">
               <button

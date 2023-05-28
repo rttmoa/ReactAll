@@ -1,7 +1,11 @@
 
 import { AuthLayout } from "@/components/AuthLayout";
 
-export default function Register({ }) {
+
+
+
+
+export default function Register() {
     return (
         <div>
             Register
@@ -13,4 +17,3 @@ export default function Register({ }) {
 Register.layoutProps = {
     Layout: AuthLayout
 };
-  

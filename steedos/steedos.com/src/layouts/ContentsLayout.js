@@ -12,6 +12,9 @@ import { MDXProvider } from '@mdx-js/react'
 
 export const ContentsContext = createContext()
 
+
+
+
 function TableOfContents({ tableOfContents, currentSection }) {
   let sidebarContext = useContext(SidebarContext)
   let isMainNav = Boolean(sidebarContext)
