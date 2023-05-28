@@ -3,7 +3,7 @@ import { ClassTable } from '@/components/ClassTable'
 import { useRouter } from 'next/router'
 import { usePrevNext } from '@/hooks/usePrevNext'
 import Link from 'next/link'
-import { SidebarLayout, SidebarContext } from '@/layouts/SidebarLayout'
+import { SidebarLayout, SidebarContext } from './SidebarLayout'
 import { PageHeader } from '@/components/PageHeader'
 import clsx from 'clsx'
 import { Footer } from '@/components/FooterDocs'
@@ -144,9 +144,7 @@ function useTableOfContents(tableOfContents) {
 }
 
 export function ContentsLayoutOuter({ children, layoutProps, ...props }) {
-  const { currentSection, registerHeading, unregisterHeading } = useTableOfContents(
-    layoutProps.tableOfContents
-  )
+  const { currentSection, registerHeading, unregisterHeading } = useTableOfContents(layoutProps.tableOfContents)
 
   return (
     <SidebarLayout
@@ -208,9 +206,7 @@ export function ContentsLayout({ children, meta, classes, tableOfContents, secti
       </ContentsContext.Provider>
 
       <Footer previous={prev} next={next}>
-        <Link
-          href={`https://github.com/steedos/steedos.com/edit/master/src/pages${router.pathname}.mdx`}
-        >
+        <Link href={`https://github.com/steedos/steedos.com/edit/master/src/pages${router.pathname}.mdx`}>
           <a className="hover:text-slate-900 dark:hover:text-slate-400">在 GitHub 上编辑此页面</a>
         </Link>
       </Footer>
