@@ -15,8 +15,8 @@ import { documentationNav } from '@/navs/documentation'
 // TODO: 文档布局
 export function DocumentationLayout(props) {
   let router = useRouter()
-  // console.log("/layouts DocumentationLayoutjs")
-  
+  // console.log("/layouts Funtion DocumentationLayout () {}") // +
+
   return (
     <>
       <Title suffix={router.pathname === '/' ? undefined : '华炎魔方'}>

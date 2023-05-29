@@ -81,7 +81,6 @@ function appendTypes(types, add) {
   if (typesSize > 0 && types[typesSize - 1] === add) {
     return types
   }
-
   return types.concat(add)
 }
 

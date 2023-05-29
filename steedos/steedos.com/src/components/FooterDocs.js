@@ -1,7 +1,13 @@
 import Link from 'next/link'
 import clsx from 'clsx'
 
+
+
+
 export function Footer({ children, previous, next }) {
+
+
+  // return null
   return (
     <footer className={clsx('text-sm leading-6', previous || next ? 'mt-12' : 'mt-16')}>
       {(previous || next) && (
@@ -9,10 +15,7 @@ export function Footer({ children, previous, next }) {
           {previous && (
             <Link href={previous.href}>
               <a className="group flex items-center hover:text-slate-900 dark:hover:text-white">
-                <svg
-                  viewBox="0 0 3 6"
-                  className="mr-3 w-auto h-1.5 text-slate-400 overflow-visible group-hover:text-slate-600 dark:group-hover:text-slate-300"
-                >
+                <svg viewBox="0 0 3 6" className="mr-3 w-auto h-1.5 text-slate-400 overflow-visible group-hover:text-slate-600 dark:group-hover:text-slate-300">
                   <path
                     d="M3 0L0 3L3 6"
                     fill="none"
@@ -30,10 +33,7 @@ export function Footer({ children, previous, next }) {
             <Link href={next.href}>
               <a className="group ml-auto flex items-center hover:text-slate-900 dark:hover:text-white">
                 {next.shortTitle || next.title}
-                <svg
-                  viewBox="0 0 3 6"
-                  className="ml-3 w-auto h-1.5 text-slate-400 overflow-visible group-hover:text-slate-600 dark:group-hover:text-slate-300"
-                >
+                <svg viewBox="0 0 3 6" className="ml-3 w-auto h-1.5 text-slate-400 overflow-visible group-hover:text-slate-600 dark:group-hover:text-slate-300">
                   <path
                     d="M0 0L3 3L0 6"
                     fill="none"
@@ -51,20 +51,16 @@ export function Footer({ children, previous, next }) {
       <div className="pt-10 pb-28 border-t border-slate-200 sm:flex justify-between text-slate-500 dark:border-slate-200/5">
         <div className="mb-6 sm:mb-0 sm:flex">
           <p>Copyright &copy; {new Date().getFullYear()} Steedos Inc.</p>
-          {/* <p className="sm:ml-4 sm:pl-4 sm:border-l sm:border-slate-200 dark:sm:border-slate-200/5">
+          <p className="sm:ml-4 sm:pl-4 sm:border-l sm:border-slate-200 dark:sm:border-slate-200/5">
             <Link href="/brand">
               <a className="hover:text-slate-900 dark:hover:text-slate-400">Policy</a>
             </Link>
-          </p> */}
+          </p>
         </div>
-        {children ? (
-          children
-        ) : (
+        {children ? (children) : (
+          // 渲染Github图标
           <div className="flex space-x-10 text-slate-400 dark:text-slate-500">
-            <a
-              href="https://github.com/steedos/steedos-platform"
-              className="hover:text-slate-500 dark:hover:text-slate-400"
-            >
+            <a href="https://github.com/steedos/steedos-platform" className="hover:text-slate-500 dark:hover:text-slate-400">
               <span className="sr-only">GitHub</span>
               <svg width="25" height="24" fill="currentColor">
                 <path

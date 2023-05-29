@@ -3,20 +3,22 @@ import { useRouter } from 'next/router'
 import { createContext, forwardRef, useRef } from 'react'
 import { useIsomorphicLayoutEffect } from '@/hooks/useIsomorphicLayoutEffect'
 import clsx from 'clsx'
-import { SearchButton } from '@/components/Search'
+import { SearchButton } from '../components/Search'
 import { Dialog } from '@headlessui/react'
 
 export const SidebarContext = createContext()
 
 
 
-// Nav组件封装NavItem组件 可复用
+
+//========={父 Nav}==========
 const NavItem = forwardRef(({ href, children, isActive, isPublished, fallbackHref }, ref) => {
+
+  // 渲染Title下Children
   return (
     <li ref={ref}>
       <Link href={isPublished ? href : fallbackHref}>
-        <a
-          className={clsx('block border-l pl-4 -ml-px', {
+        <a className={clsx('block border-l pl-4 -ml-px', {
             'text-sky-500 border-current font-semibold dark:text-sky-400': isActive,
             'border-transparent hover:border-slate-400 dark:hover:border-slate-500': !isActive,
             'text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300':
@@ -31,6 +33,7 @@ const NavItem = forwardRef(({ href, children, isActive, isPublished, fallbackHre
   )
 })
 
+//========={父 Nav}==========
 /** 找到最近的可滚动祖先 (如果可滚动则为 self)  ->  @param  {Element} el */
 function nearestScrollableContainer(el) {
   /** 显示元素是否可以滚动 -> @param {Node} el */
@@ -52,6 +55,7 @@ function nearestScrollableContainer(el) {
   return el
 }
 
+//========={父 SidebarLayout}==========
 function Nav({ nav, children, fallbackHref, mobile = false }) {
   const router = useRouter()
   const activeItemRef = useRef()
@@ -130,82 +134,70 @@ function Nav({ nav, children, fallbackHref, mobile = false }) {
         {!mobile && <div className="h-8 bg-gradient-to-b from-white dark:from-slate-900" />}
       </div>
       <ul>
+        {/* ========={顶部6个Link}========== */}
         <TopLevelNav mobile={mobile} />
         {children}
-        {nav &&
-          Object.keys(nav)
-            .map((category) => {
-              let publishedItems = nav[category].filter((item) => item?.published !== false)
-              if (publishedItems.length === 0 && !fallbackHref) return null
-              return (
-                <li key={category} className="mt-12 lg:mt-8">
-                  <h5
-                    className={clsx('mb-8 lg:mb-3 font-semibold', {
-                      'text-slate-900 dark:text-slate-200': publishedItems.length > 0,
-                      'text-slate-400': publishedItems.length === 0,
-                    })}
-                  >
-                    {category}
-                  </h5>
-                  <ul
-                    className={clsx(
-                      'space-y-6 lg:space-y-2 border-l border-slate-100',
-                      mobile ? 'dark:border-slate-700' : 'dark:border-slate-800'
-                    )}
-                  >
-                    {(fallbackHref ? nav[category] : publishedItems).map((item, i) => {
-                      if (!item) {
-                        console.log(i)
-                        return null
-                      }
-                      let isActive = item.match
-                        ? item.match.test(router.pathname)
-                        : item.href === router.pathname
-                      return (
-                        <NavItem
-                          key={i}
-                          href={item.href}
-                          isActive={isActive}
-                          ref={isActive ? activeItemRef : undefined}
-                          isPublished={item.published !== false}
-                          fallbackHref={fallbackHref}
-                        >
-                          {item.shortTitle || item.title}
-                        </NavItem>
-                      )
-                    })}
-                  </ul>
-                </li>
-              )
-            })
-            .filter(Boolean)}
+        {nav && Object.keys(nav).map((category) => {
+            let publishedItems = nav[category].filter((item) => item?.published !== false)
+            if (publishedItems.length === 0 && !fallbackHref) return null
+            return (
+              <li key={category} className="mt-12 lg:mt-8">
+                <h5
+                  className={clsx('mb-8 lg:mb-3 font-semibold', {
+                    'text-slate-900 dark:text-slate-200': publishedItems.length > 0,
+                    'text-slate-400': publishedItems.length === 0,
+                  })}
+                >
+                  {category}
+                </h5>
+                <ul
+                  className={clsx(
+                    'space-y-6 lg:space-y-2 border-l border-slate-100',
+                    mobile ? 'dark:border-slate-700' : 'dark:border-slate-800'
+                  )}
+                >
+                  {(fallbackHref ? nav[category] : publishedItems).map((item, i) => {
+                    if (!item) {
+                      console.log(i)
+                      return null
+                    }
+                    let isActive = item.match
+                      ? item.match.test(router.pathname)
+                      : item.href === router.pathname
+                    return (
+                      <NavItem
+                        key={i}
+                        href={item.href}
+                        isActive={isActive}
+                        ref={isActive ? activeItemRef : undefined}
+                        isPublished={item.published !== false}
+                        fallbackHref={fallbackHref}
+                      >
+                        {item.shortTitle || item.title}
+                      </NavItem>
+                    )
+                  })}
+                </ul>
+              </li>
+            )
+          }).filter(Boolean)}
       </ul>
     </nav>
   )
 }
 
-// 父 TopLevelLink -> 子 TopLevelAnchor
-const TopLevelAnchor = forwardRef(
-  (
-    { children, href, className, icon, isActive, onClick, shadow, activeBackground, mobile },
-    ref
-  ) => {
+//========={父 TopLevelLink}==========
+const TopLevelAnchor = forwardRef(({ children, href, className, icon, isActive, onClick, shadow, activeBackground, mobile }, ref) => {
     return (
       <li>
-        <a
-          ref={ref}
+        <a ref={ref}
           href={href}
           onClick={onClick}
-          className={clsx(
-            'group flex items-center lg:text-sm lg:leading-6',
-            className,
-            isActive
-              ? 'font-semibold text-sky-500 dark:text-sky-400'
-              : 'font-medium text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300'
+          className={clsx('group flex items-center lg:text-sm lg:leading-6', className,
+            isActive ? 'font-semibold text-sky-500 dark:text-sky-400' : 'font-medium text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300'
           )}
         >
-          <div
-            className={clsx(
+          <div className={clsx(
               'mr-4 rounded-md ring-1 ring-slate-900/5 shadow-sm group-hover:shadow group-hover:ring-slate-900/10 dark:ring-0 dark:shadow-none dark:group-hover:shadow-none dark:group-hover:highlight-white/10',
               shadow,
               isActive
@@ -225,24 +217,17 @@ const TopLevelAnchor = forwardRef(
     )
   }
 )
-
-// 父 TopLevelNav -> 子 TopLevelLink
+//========={父 TopLevelNav}==========
 function TopLevelLink({ href, as, ...props }) {
-  // if (/^https?:\/\//.test(href)) {
-    return <TopLevelAnchor href={href} {...props} />
-  // }
-
-  // return (
-  //   <Link href={href} as={as} passHref>
-  //     <TopLevelAnchor {...props} />
-  //   </Link>
-  // )
+  // if (/^https?:\/\//.test(href)) return <TopLevelAnchor href={href} {...props} />
+  // return <Link href={href} as={as} passHref><TopLevelAnchor {...props} /></Link>
+  return <TopLevelAnchor href={href} {...props} />
 }
+//========={父 Nav}==========
+function TopLevelNav({ mobile }) { //========={安装部署 开发人员 系统管理员 低代码协议 Resource 社区}==========
+  let { pathname } = useRouter();
 
-// 父 Nav -> 子 TopLevelNav
-function TopLevelNav({ mobile }) {
-  let { pathname } = useRouter()
-
+  //========={安装部署 开发人员 系统管理员 低代码协议 Resource 社区}==========
   return (
     <>
       <TopLevelLink
@@ -281,6 +266,7 @@ function TopLevelNav({ mobile }) {
       >
         安装部署
       </TopLevelLink>
+
       <TopLevelLink
         mobile={mobile}
         href="/docs/developer/getting-started"
@@ -310,6 +296,7 @@ function TopLevelNav({ mobile }) {
       >
         开发人员
       </TopLevelLink>
+
       <TopLevelLink
         mobile={mobile}
         href="/docs/admin/getting-started"
@@ -350,7 +337,8 @@ function TopLevelNav({ mobile }) {
       >
         系统管理员
       </TopLevelLink>
-      {/* <TopLevelLink
+
+      <TopLevelLink
         mobile={mobile}
         href="/docs/protocol/overview"
         isActive={pathname.startsWith('/docs/protocol')}
@@ -383,8 +371,9 @@ function TopLevelNav({ mobile }) {
         }
       >
         低代码协议
-      </TopLevelLink> */}
-      {/* <TopLevelLink
+      </TopLevelLink>
+
+      <TopLevelLink
         mobile={mobile}
         href="/resources"
         isActive={pathname === '/resources'}
@@ -430,8 +419,9 @@ function TopLevelNav({ mobile }) {
         }
       >
         <span className={pathname === '/resources' ? 'dark:text-purple-400' : ''}>Resources</span>
-      </TopLevelLink> */}
-      {/* <TopLevelLink
+      </TopLevelLink>
+
+      <TopLevelLink
         mobile={mobile}
         href="https://community.steedos.cn"
         className="mb-8"
@@ -478,28 +468,28 @@ function TopLevelNav({ mobile }) {
         }
       >
         社区
-      </TopLevelLink> */}
+      </TopLevelLink>
     </>
   )
 }
 
-// 父 SidebarLayout -> 子 Wrapper
+//========={父 SidebarLayout}==========
 function Wrapper({ allowOverflow, children }) {
-  return <div className={allowOverflow ? undefined : 'overflow-hidden'}>{children}</div>
+  return <div className={allowOverflow ? undefined : 'overflow-hidden'}>
+    {/* {"children"} */}
+    {children}
+  </div>
 }
 
-export function SidebarLayout({
-  children,
-  navIsOpen,
-  setNavIsOpen,
-  nav,
-  sidebar,
-  fallbackHref,
-  layoutProps: { allowOverflow = true } = {},
-}) {
+
+
+
+//========={侧边栏}==========
+export function SidebarLayout({ children,navIsOpen,setNavIsOpen,nav,sidebar,fallbackHref,layoutProps: { allowOverflow = true } = {}, }) {
   return (
     <SidebarContext.Provider value={{ nav, navIsOpen, setNavIsOpen }}>
 
+      {/* ========={width > 1024}========== */}
       <Wrapper allowOverflow={allowOverflow}>
         <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
           <div className="hidden lg:block fixed z-20 inset-0 top-[3.8125rem] left-[max(0px,calc(50%-45rem))] right-auto w-[19.5rem] pb-10 px-8 overflow-y-auto">
@@ -507,21 +497,16 @@ export function SidebarLayout({
               {sidebar}
             </Nav>
           </div>
+          {/* ========={右 -> 内容部分}========== */}
           <div className="lg:pl-[19.5rem]">{children}</div>
         </div>
       </Wrapper>
 
-      <Dialog
-        as="div"
-        open={navIsOpen}
-        onClose={() => setNavIsOpen(false)}
-        className="fixed z-50 inset-0 overflow-y-auto lg:hidden"
-      >
+      {/* ========={width < 1024}========== */}
+      <Dialog as="div" open={navIsOpen} onClose={() => setNavIsOpen(false)} className="fixed z-50 inset-0 overflow-y-auto lg:hidden">
         <Dialog.Overlay className="fixed inset-0 bg-black/20 backdrop-blur-sm dark:bg-slate-900/80" />
         <div className="relative bg-white w-80 max-w-[calc(100%-3rem)] p-6 dark:bg-slate-800">
-          <button
-            type="button"
-            onClick={() => setNavIsOpen(false)}
+          <button type="button" onClick={() => setNavIsOpen(false)}
             className="absolute z-10 top-5 right-5 w-8 h-8 flex items-center justify-center text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
           >
             <span className="sr-only">Close navigation</span>
@@ -538,6 +523,7 @@ export function SidebarLayout({
           <Nav nav={nav} fallbackHref={fallbackHref} mobile={true}>
             {sidebar}
           </Nav>
+          <div className="lg:pl-[19.5rem]">{children}</div>
         </div>
       </Dialog>
 
