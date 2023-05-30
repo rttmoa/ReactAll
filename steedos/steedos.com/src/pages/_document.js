@@ -18,7 +18,6 @@ export default class MyDocument extends Document {
           <link rel="manifest" href="/manifest.json" />
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#00b4b6" />
           <meta name="application-name" content="华炎魔方" />
-
           <meta name="theme-color" content="#ffffff" />
         </Head>
         <body

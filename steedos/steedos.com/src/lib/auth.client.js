@@ -2,7 +2,7 @@ import { fetchAPI, ROOT_URL } from '@/lib/base.client';
 import { getSession, signOut } from 'next-auth/react';
 
 
-
+// TODO: 控制台中打印
 function getRedirectUrl(href = window.location.href){
 	const redirect = href.replace("/steedos/sign-in", "").replace("/accounts/a/#/logout", "");
 	const u = new URL(redirect);

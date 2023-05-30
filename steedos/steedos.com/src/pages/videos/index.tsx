@@ -3,9 +3,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { getVideos,  } from '@/lib/video';
 import { Markdown } from '@/components/Markdown'
-export async function getStaticProps( {params,} ) {
+
+
+
+export async function getStaticProps( {params} ) {
   const videos = await getVideos();
-  
+  // console.log("服务端获取videos", videos) // null
   return {
     props: {
       videos
@@ -23,9 +26,9 @@ const SiteVideos: React.FC = (props: any) => {
         <h2 className="mt-1 text-3xl font-extrabold sm:text-4xl sm:tracking-tight lg:text-5xl text-black dark:text-white">
         {name}
         </h2>
-        {/* <p className="prose max-w-xl mt-5 mx-auto text-xl text-gray-500">
-        欢迎使用华炎魔方低代码平台，您可以免费访问这里的视频。
-        </p> */}
+        <p className="prose max-w-xl mt-5 mx-auto text-xl text-gray-500">
+          欢迎使用华炎魔方低代码平台，您可以免费访问这里的视频。
+        </p>
       </div>
       <div className="mx-auto w-full lg:py-16 py-6 px-1">
       {videos && videos.map((video_collection: any) => {

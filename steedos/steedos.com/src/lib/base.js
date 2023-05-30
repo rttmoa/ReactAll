@@ -16,7 +16,7 @@ export function getAuthHeaders() {
 }
 
 
-
+// TODO: 控制台中打印
 export async function fetchGraphql(query) {
     const headers = getAuthHeaders();
     const res = await fetch(`${ROOT_URL}${GRAPHQL_API}`, {
@@ -29,6 +29,6 @@ export async function fetchGraphql(query) {
         console.error(json.errors)
         throw new Error('Failed to fetch API')
     }
-    console.log("base.js fetchGraphql 数据结果")
+    // console.log("base.js fetchGraphql 数据结果")
     return json
 }

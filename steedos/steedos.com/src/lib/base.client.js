@@ -5,6 +5,7 @@ export const ROOT_URL = process.env.NEXT_PUBLIC_STEEDOS_ROOT_URL; // ROOT_URL:  
 
 
 
+// TODO: 控制台中打印
 export async function fetchAPI(api, options = { credentials: 'include' }) {
     const headers = { 'Content-Type': 'application/json' }
     const AUTHORIZATION = await getAuthorization();
@@ -22,7 +23,7 @@ export async function fetchAPI(api, options = { credentials: 'include' }) {
         console.error(json.errors);
         throw new Error('Failed to fetch API')
     }
-    console.log("base.client.js fetchAPI数据结果")
+    // console.log("base.client.js fetchAPI数据结果")
     return json
 }
 

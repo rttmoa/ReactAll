@@ -7,7 +7,9 @@ import screenshotProject from '@/images/screenshots/project.png'
 import screenshotCost from '@/images/screenshots/cost.png'
 import screenshotHR from '@/images/screenshots/hr.png'
 
-let count =1;
+
+
+let count = 1;
 const features = [
   {
     name: '项目管理',
@@ -206,6 +208,7 @@ function FeaturesDesktop() {
   )
 }
 
+//=============={零代码融合高代码，快速且强大}=====================
 export function SecondaryFeatures() {
   return (
     <section

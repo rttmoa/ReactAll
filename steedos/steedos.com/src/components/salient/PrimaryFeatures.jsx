@@ -46,6 +46,8 @@ const features = [
   },
 ]
 
+
+//========={ 可视化，更高效的开发方式 }==========
 export function PrimaryFeatures() {
   let [tabOrientation, setTabOrientation] = useState('horizontal')
 
@@ -64,6 +66,9 @@ export function PrimaryFeatures() {
     }
   }, [])
 
+
+
+
   return (
     <section
       id="features"
@@ -81,11 +86,10 @@ export function PrimaryFeatures() {
       <Container className="relative">
         <div className="max-w-2xl md:mx-auto md:text-center xl:max-w-none">
           <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl md:text-5xl">
-          可视化，更高效的开发方式
+            可视化，更高效的开发方式
           </h2>
           <p className="mt-6 text-lg tracking-tight text-blue-100">
-          对于现代企业而言，能够根据快速变化的工作环境而做出调整并为之适应已变得至关重要。您的公司如何应对这些变化，以及您如何快速做出响应，可能成为决定您的长期成败的关键。您的企业可以通过多种方式实现这种变化，使用低代码开发是越来越受欢迎的一种方式，可使企业适应不断变化的外部环境。
-
+            对于现代企业而言，能够根据快速变化的工作环境而做出调整并为之适应已变得至关重要。您的公司如何应对这些变化，以及您如何快速做出响应，可能成为决定您的长期成败的关键。您的企业可以通过多种方式实现这种变化，使用低代码开发是越来越受欢迎的一种方式，可使企业适应不断变化的外部环境。
           </p>
         </div>
         <Tab.Group
@@ -98,8 +102,7 @@ export function PrimaryFeatures() {
               <div className="-mx-4 flex overflow-x-auto pb-4 sm:mx-0 sm:overflow-visible sm:pb-0 lg:col-span-5">
                 <Tab.List className="relative z-10 flex gap-x-4 whitespace-nowrap px-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-x-0 lg:gap-y-1 lg:whitespace-normal">
                   {features.map((feature, featureIndex) => (
-                    <div
-                      key={feature.title}
+                    <div key={feature.title}
                       className={clsx(
                         'group relative rounded-full py-1 px-4 lg:rounded-r-none lg:rounded-l-xl lg:p-6',
                         selectedIndex === featureIndex
@@ -108,26 +111,18 @@ export function PrimaryFeatures() {
                       )}
                     >
                       <h3>
-                        <Tab
-                          className={clsx(
+                        <Tab className={clsx(
                             'font-display text-lg [&:not(:focus-visible)]:focus:outline-none',
-                            selectedIndex === featureIndex
-                              ? 'text-blue-600 lg:text-white'
-                              : 'text-blue-100 hover:text-white lg:text-white'
+                            selectedIndex === featureIndex ? 'text-blue-600 lg:text-white' : 'text-blue-100 hover:text-white lg:text-white'
                           )}
                         >
                           <span className="absolute inset-0 rounded-full lg:rounded-r-none lg:rounded-l-xl" />
                           {feature.title}
                         </Tab>
                       </h3>
-                      <p
-                        className={clsx(
-                          'mt-2 hidden text-sm lg:block',
-                          selectedIndex === featureIndex
-                            ? 'text-white'
-                            : 'text-blue-100 group-hover:text-white'
-                        )}
-                      >
+                      <p className={
+                        clsx('mt-2 hidden text-sm lg:block', selectedIndex === featureIndex ? 'text-white' : 'text-blue-100 group-hover:text-white'
+                      )}>
                         {feature.description}
                       </p>
                     </div>
