@@ -1,3 +1,6 @@
+
+
+//========={Home中 底部Footer}==========
 export const footerNav = [
   {
     id: 'platform',
@@ -9,7 +12,7 @@ export const footerNav = [
       { name: '技术架构', href: '/platform/architecture' },
       { name: '十大引擎', href: '/platform/features' },
       { name: '报价', href: '/pricing/platform' },
-      
+
     ],
   },
   {

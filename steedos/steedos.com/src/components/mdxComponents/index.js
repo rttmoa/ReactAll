@@ -1,7 +1,10 @@
-import { Heading } from '@/components/Heading'
-import Frame from '@/components/Frame'
 import { XCircleIcon, InformationCircleIcon, ExclamationIcon, StarIcon } from '@heroicons/react/solid'
+import { Heading } from '../Heading'
+import Frame from '../Frame'
 import { isString } from 'lodash'
+
+
+
 
 export function a({ node, ...props }) {
   if (props.href && isString(props.href)) {

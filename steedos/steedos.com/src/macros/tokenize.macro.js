@@ -5,6 +5,8 @@ const generate = require('@babel/generator').default
 
 module.exports = createMacro(tokenizeMacro)
 
+
+
 function simplify(token) {
   if (typeof token === 'string') return token
   return [token.type, Array.isArray(token.content) ? token.content.map(simplify) : token.content]
@@ -119,7 +121,6 @@ function normalizeTokens(tokens) {
         if (token.alias) {
           types = appendTypes(types, token.alias)
         }
-
         content = token.content
       }
 

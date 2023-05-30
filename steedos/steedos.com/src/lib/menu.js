@@ -1,6 +1,8 @@
 import { fetchGraphql } from '@/lib/base'
 
 
+
+
 export async function getMenu(menuId) {
     const query = `
       {

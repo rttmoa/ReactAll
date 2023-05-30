@@ -7,14 +7,14 @@ import { SidebarLayout, SidebarContext } from './SidebarLayout'
 import { PageHeader } from '../components/PageHeader'
 import clsx from 'clsx'
 import { Footer } from '@/components/FooterDocs'
-import { mdxComponents } from '@/components/mdxComponents'
+import { mdxComponents } from '../components/mdxComponents'
 import { MDXProvider } from '@mdx-js/react'
 
 export const ContentsContext = createContext()
 
 
 
-// ========={本页内容}==========
+//========={本页内容}==========
 function TableOfContents({ tableOfContents, currentSection }) {
   let sidebarContext = useContext(SidebarContext)
   let isMainNav = Boolean(sidebarContext)
@@ -164,8 +164,8 @@ export function ContentsLayout({ children, meta, classes, tableOfContents, secti
     ...(classes ? [{ title: 'Quick reference', slug: 'class-reference', children: [] }] : []),
     ...tableOfContents,
   ];
-  const { currentSection, registerHeading, unregisterHeading } = useTableOfContents(toc)
-  let { prev, next } = usePrevNext()
+  const { currentSection, registerHeading, unregisterHeading } = useTableOfContents(toc);
+  let { prev, next } = usePrevNext();
 
 
   // return null

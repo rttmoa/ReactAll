@@ -1,6 +1,8 @@
 import { fetchAPI, ROOT_URL } from '@/lib/base.client';
 import { getSession, signOut } from 'next-auth/react';
 
+
+
 function getRedirectUrl(href = window.location.href){
 	const redirect = href.replace("/steedos/sign-in", "").replace("/accounts/a/#/logout", "");
 	const u = new URL(redirect);
@@ -46,9 +48,7 @@ export function removeAuthInfo(){
 export async function getAuthorization() {
     try {
         const session = await getSession()
-        if(!session || !session.steedos){
-            return ;
-        }
+        if(!session || !session.steedos){ return; }
         let spaceId = session.steedos.space;
         let token = session.steedos.token;
 
@@ -57,9 +57,7 @@ export async function getAuthorization() {
         //     spaceId = searchParams.get('X-Space-Id');
         //     token = searchParams.get('X-Auth-Token');
         // }
-        if (!spaceId || !token) {
-            return null;
-        }
+        if (!spaceId || !token) { return null; }
         return `Bearer ${spaceId},${token}`;
     } catch (error) {
         console.error(error)

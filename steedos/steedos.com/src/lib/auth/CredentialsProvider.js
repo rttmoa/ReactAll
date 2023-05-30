@@ -3,7 +3,7 @@
  * @Date: 2022-07-21 16:45:44
  * @LastEditors: baozhoutao@steedos.com
  * @LastEditTime: 2022-07-22 14:04:02
- * @Description: 
+ * @Description:
  */
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -22,13 +22,11 @@ export default CredentialsProvider({
       // Add logic here to look up the user from the credentials supplied
       const user = { id: 1, name: "J Smith", email: "jsmith@example.com" }
       try {
-
         const res = await fetch(`${process.env.NEXT_PUBLIC_STEEDOS_ROOT_URL}/accounts/password/login`, {
           method: 'POST',
           body: JSON.stringify({ user: {email: credentials.email}, password: credentials.password })
         })
         const json = await res.json()
-
       } catch (e) {console.log(e)}
 
       if (user) {
@@ -37,7 +35,6 @@ export default CredentialsProvider({
       } else {
         // If you return null then an error will be displayed advising the user to check their details.
         return null
-
         // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
       }
     }

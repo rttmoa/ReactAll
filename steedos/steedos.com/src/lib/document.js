@@ -6,14 +6,14 @@ import { fetchGraphql } from '@/lib/base'
  * TODO 支持根据blogSlug + postSlug 查询
  * @param {*} blogSlug
  * @param {*} postSlug : post._id || post.slug(暂不支持)
- * @returns 
+ * @returns
  */
 export async function getDocument(collectionSlug, documentSlug){
     if (!collectionSlug || !documentSlug)
       return null;
     const collection = await getCollection(collectionSlug)
     if (!collection)
-      return null; 
+      return null;
     const query = `
         {
             documents(sort: "sort_no", filters: [["collection", "=", "${collection._id}"], ["slug","=","${documentSlug}"]]){
@@ -29,7 +29,7 @@ export async function getDocument(collectionSlug, documentSlug){
                 name
                 description
               }
-            } 
+            }
         }
     `
     const result = await fetchGraphql(query);
@@ -44,6 +44,7 @@ export async function getDocument(collectionSlug, documentSlug){
 }
 
 
+
 export async function getDocuments(){
   const query = `
     {
@@ -56,7 +57,7 @@ export async function getDocuments(){
           name
           slug
         }
-      } 
+      }
     }
   `
   const result = await fetchGraphql(query);
@@ -70,10 +71,12 @@ export async function getDocuments(){
   return documents;
 }
 
+
+
 /**
- * 
- * @param {*} blogSlug 
- * @returns 
+ *
+ * @param {*} blogSlug
+ * @returns
  */
 export async function getCollection(slug){
   const query = `
@@ -90,7 +93,7 @@ export async function getCollection(slug){
             image,
             summary
           }
-      } 
+      }
   }
   `
   const result = await fetchGraphql(query);
@@ -103,6 +106,8 @@ export async function getCollection(slug){
 
   return collection;
 }
+
+
 
 export async function getCollections(siteId){
   //TODO：按站点获取数据 , filters:["site","=","${siteId}"]
@@ -120,7 +125,7 @@ export async function getCollections(siteId){
             image,
             summary
           }
-      } 
+      }
   }
   `
   const result = await fetchGraphql(query);

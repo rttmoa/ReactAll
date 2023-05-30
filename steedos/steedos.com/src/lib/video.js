@@ -1,7 +1,6 @@
 import { fetchGraphql } from '@/lib/base'
 
-const QUERY_SITE_VIDEOS = `
-{
+const QUERY_SITE_VIDEOS = `{
     _id,
     slug,
     name,
@@ -16,19 +15,13 @@ const QUERY_SITE_VIDEOS = `
         summary
       }
 
-  }
-`
+}`
 
 export async function getVideos() {
     //TODO：按站点获取数据 , filters:["site","=","${siteId}"]
-    const query = `
-        {
-            site_videos_collections(sort: "sort_no")${QUERY_SITE_VIDEOS}
-        }
-    `
+    const query = `{site_videos_collections(sort: "sort_no")${QUERY_SITE_VIDEOS}}`;
     const result = await fetchGraphql(query);
     let videos = null;
-
     if(result.data && result.data.site_videos_collections && result.data.site_videos_collections.length > 0){
         videos = result.data.site_videos_collections;
     }
@@ -36,34 +29,31 @@ export async function getVideos() {
 }
 
 export async function getVideo(slug){
-    const query = `
+    const query = `{
+        site_videos(sort: "sort_no", filters:["slug","=", "${slug}"])
         {
-            site_videos(sort: "sort_no", filters:["slug","=", "${slug}"])
-            {
-                _id,
-                body,
-                download_url,
-                duration,
-                hls_url,
-                is_free,
-                name,
-                owner,
-                published_at,
-                site,
-                summary,
-                slug,
-                subtitles_url,
-                thumb_image,
-                owner__expand{
-                    name
-                }
+            _id,
+            body,
+            download_url,
+            duration,
+            hls_url,
+            is_free,
+            name,
+            owner,
+            published_at,
+            site,
+            summary,
+            slug,
+            subtitles_url,
+            thumb_image,
+            owner__expand{
+                name
             }
         }
-    `
+    }`
     const result = await fetchGraphql(query);
 
     let video = null;
-
     if(result.data && result.data.site_videos && result.data.site_videos.length > 0){
         video = result.data.site_videos[0];
     }

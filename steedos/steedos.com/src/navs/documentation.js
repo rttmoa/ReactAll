@@ -3,14 +3,14 @@
  * @Date: 2022-06-18 07:20:28
  * @LastEditors: yinlianghui@steedos.com
  * @LastEditTime: 2022-07-11 17:19:01
- * @Description: 
+ * @Description:
  */
-import { createPageList } from '@/utils/createPageList'
+import { createPageList } from '../utils/createPageList';  // TODO: utils/createPageList
 
-const deploy = createPageList(
-  require.context(`../pages/docs/deploy/?meta=title,shortTitle,published`, false, /\.mdx$/),
-  'docs/deploy'
-)
+
+
+const deploy = createPageList(require.context(`../pages/docs/deploy/?meta=title,shortTitle,published`, false, /\.mdx$/), 'docs/deploy');
+
 const admin = createPageList(
   require.context(`../pages/docs/admin/?meta=title,shortTitle,published`, false, /\.mdx$/),
   'docs/admin'
@@ -40,12 +40,14 @@ const apps = createPageList(
   'docs/apps'
 )
 
+
+//========={docs SideBar}==========
 export const documentationNav = {
   '安装部署': [
     deploy['getting-started'],
     deploy['deploy-docker'],
-    // deploy['deploy-activate'],
-    // deploy['app-store'],
+    deploy['deploy-activate'],
+    deploy['app-store'],
     deploy['steedos-config'],
     deploy['upgrade'],
   ],
@@ -103,7 +105,7 @@ export const documentationNav = {
     developer['service'],
     developer['action-trigger'],
     developer['action-api'],
-    // developer['objectql'],
+    developer['objectql'],
     developer['filters'],
     developer['flow-trigger'],
     developer['locale'],
@@ -130,11 +132,11 @@ export const documentationNav = {
     protocol['metadata-permissions'],
     protocol['metadata-automation'],
   ],
-  // '统计分析': [
-  //   admin['reports'],
-  //   admin['record_report'],
-  //   admin['dashboard'],
-  //   admin['stimulsoft'],
-  //   developer['jsreport'],
-  // ],
+  '统计分析': [
+    admin['reports'],
+    admin['record_report'],
+    admin['dashboard'],
+    admin['stimulsoft'],
+    developer['jsreport'],
+  ],
 }

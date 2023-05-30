@@ -1,7 +1,9 @@
 import { fetchGraphql } from '@/lib/base'
 
-export async function getSiteByDomain(domain){
-    const query = `
+
+
+export async function getSiteByDomain(domain) {
+  const query = `
         {
             site_domains(filters:["name","=", "${domain}"]){
                 site,
@@ -19,19 +21,20 @@ export async function getSiteByDomain(domain){
             }
         }
     `
-    const result = await fetchGraphql(query);
+  const result = await fetchGraphql(query)
 
-    let site = null;
+  let site = null
 
-    if(result.data && result.data.site_domains && result.data.site_domains.length > 0){
-        site = result.data.site_domains[0].site__expand;
-    }
-    return site;
+  if (result.data && result.data.site_domains && result.data.site_domains.length > 0) {
+    site = result.data.site_domains[0].site__expand
+  }
+  return site
 }
 
 
-export async function getSite(){
-    const query = `
+
+export async function getSite() {
+  const query = `
         {
             sites {
                 name,
@@ -46,18 +49,20 @@ export async function getSite(){
             }
         }
     `
-    const result = await fetchGraphql(query);
+  const result = await fetchGraphql(query)
 
-    let site = null;
+  let site = null
 
-    if(result.data && result.data.sites && result.data.sites.length > 0){
-        site = result.data.sites[0];
-    }
-    return site;
+  if (result.data && result.data.sites && result.data.sites.length > 0) {
+    site = result.data.sites[0]
+  }
+  return site
 }
 
-export async function getSiteDomains(){
-    const query = `
+
+
+export async function getSiteDomains() {
+  const query = `
         {
             site_domains{
                 name
@@ -69,12 +74,12 @@ export async function getSiteDomains(){
             }
         }
     `
-    const result = await fetchGraphql(query);
+  const result = await fetchGraphql(query)
 
-    let site_domains = null;
+  let site_domains = null
 
-    if(result.data && result.data.site_domains){
-        site_domains = result.data.site_domains
-    }
-    return site_domains;
+  if (result.data && result.data.site_domains) {
+    site_domains = result.data.site_domains
+  }
+  return site_domains
 }

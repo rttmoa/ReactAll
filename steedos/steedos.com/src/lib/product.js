@@ -76,7 +76,7 @@ const QUERY_PRODUCT_INFO = `
 `
 
 export async function getProducts() {
-    const query = `
+  const query = `
     {
         shop_products
         {
@@ -86,18 +86,18 @@ export async function getProducts() {
         }
     }
     `
-    const result = await fetchGraphql(query);
+  const result = await fetchGraphql(query)
 
-    let products = null;
+  let products = null
 
-    if(result.data && result.data.shop_products){
-        products = result.data.shop_products;
-    }
-    return products;
+  if (result.data && result.data.shop_products) {
+    products = result.data.shop_products
+  }
+  return products
 }
 
-export async function getCollections(){
-    const query = `
+export async function getCollections() {
+  const query = `
     {
         shop_collections
         {
@@ -107,22 +107,22 @@ export async function getCollections(){
         }
     }
     `
-    const result = await fetchGraphql(query);
+  const result = await fetchGraphql(query)
 
-    let shop_collections = null;
+  let shop_collections = null
 
-    if(result.data && result.data.shop_collections){
-        shop_collections = result.data.shop_collections;
-    }
-    return shop_collections;
+  if (result.data && result.data.shop_collections) {
+    shop_collections = result.data.shop_collections
+  }
+  return shop_collections
 }
 
 /**
  * 获取指定系列下的所有产品
  * @param {*} slug
  */
-export async function getCollectionProducts(slug){
-    const query = `
+export async function getCollectionProducts(slug) {
+  const query = `
     {
         shop_collections(filters:["slug","=", "${slug}"]){
             name,
@@ -133,19 +133,18 @@ export async function getCollectionProducts(slug){
         }
     }
     `
-    const result = await fetchGraphql(query);
+  const result = await fetchGraphql(query)
 
-    let collection = null;
+  let collection = null
 
-    if(result.data && result.data.shop_collections && result.data.shop_collections.length > 0){
-        collection = result.data.shop_collections[0];
-    }
-    return collection;
+  if (result.data && result.data.shop_collections && result.data.shop_collections.length > 0) {
+    collection = result.data.shop_collections[0]
+  }
+  return collection
 }
 
-
-export async function getProductsVariant(ids){
-    const query = `
+export async function getProductsVariant(ids) {
+  const query = `
         {
             product_variants: shop_product_variants(filters:["_id","in", ["${ids.join('","')}"]]){
                 _id,
@@ -194,29 +193,28 @@ export async function getProductsVariant(ids){
             }
         }
     `
-    const result = await fetchGraphql(query);
+  const result = await fetchGraphql(query)
 
-    let productsVariant = null;
+  let productsVariant = null
 
-    if(result.data && result.data.product_variants){
-        productsVariant = result.data.product_variants;
-    }
-    return productsVariant;
+  if (result.data && result.data.product_variants) {
+    productsVariant = result.data.product_variants
+  }
+  return productsVariant
 }
 
-
-export async function getProduct(slug){
-    const query = `
+export async function getProduct(slug) {
+  const query = `
     {
         shop_products(filters:["slug","=", "${slug}"])${QUERY_PRODUCT_INFO}
     }
     `
-    const result = await fetchGraphql(query);
+  const result = await fetchGraphql(query)
 
-    let product = null;
+  let product = null
 
-    if(result.data && result.data.shop_products && result.data.shop_products.length > 0){
-        product = result.data.shop_products[0];
-    }
-    return product;
+  if (result.data && result.data.shop_products && result.data.shop_products.length > 0) {
+    product = result.data.shop_products[0]
+  }
+  return product
 }
