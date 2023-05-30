@@ -22,7 +22,7 @@ export async function getVideos() {
     const query = `{site_videos_collections(sort: "sort_no")${QUERY_SITE_VIDEOS}}`;
     const result = await fetchGraphql(query);
     let videos = null;
-    // console.log(result) // FIXME: 没有权限：{ code: 401, type: 'NO_RIGHTS', retryable: false }
+    // console.log("result", result) // FIXME: 没有权限：{ code: 401, type: 'NO_RIGHTS', retryable: false }
     if(result.data && result.data.site_videos_collections && result.data.site_videos_collections.length > 0){
         videos = result.data.site_videos_collections;
     }

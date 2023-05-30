@@ -1,5 +1,5 @@
-export const ROOT_URL = process.env.NEXT_PUBLIC_STEEDOS_ROOT_URL
-export const API_KEY = process.env.STEEDOS_SERVER_API_KEY
+export const ROOT_URL = process.env.NEXT_PUBLIC_STEEDOS_ROOT_URL; // https://console.steedos.cn
+export const API_KEY = process.env.STEEDOS_SERVER_API_KEY; // -2IXhhWzbwkoE1uI_Jw1oPCAiOb-8RASgGw9W3y94_GY
 
 const GRAPHQL_API = '/graphql';
 
@@ -24,7 +24,8 @@ export async function fetchGraphql(query) {
         headers: headers,
         body: JSON.stringify({ query: query })
     })
-    const json = await res.json()
+    // console.log(res)
+    const json = await res.json();
     if (json.errors) {
         console.error(json.errors)
         throw new Error('Failed to fetch API')
