@@ -33,6 +33,10 @@ import { Header } from '@/components/Header'
 
 const slugs = new BananaSlug()
 
+
+
+
+
 const getTOC = (markdown) => {
 
   slugs.reset()
@@ -264,7 +268,7 @@ export async function getStaticPaths() {
   const posts = await getPosts()
 
   // 根据帖子获取我们要预渲染的路径
-  const paths = posts.map((post) => ({
+  const paths = posts && posts.map((post) => ({
     params: {
       blog_slug: post.blog__expand.slug,
       post_slug: post.slug },

@@ -16,7 +16,7 @@ const UpdatedAt: React.FunctionComponent<{date: string}> = ({date}) => (
 export async function getStaticProps({params}) {
   const { collection_slug } = params;
   const collection = await getCollection(collection_slug);
-  
+
   return {
     props: {
       ...collection
@@ -30,7 +30,7 @@ export async function getStaticPaths() {
 
   // Get the paths we want to pre-render based on posts
   const paths = items.map((item) => ({
-    params: { 
+    params: {
       collection_slug: item.slug },
   }))
   console.log('Building Document Collections...');
@@ -44,7 +44,7 @@ export async function getStaticPaths() {
 
 const Collection: React.FC = (props: any) => {
   const {name, slug, description, documents} = props;
-
+  console.log("Collection")
   return (
     <>
       <NextSeo

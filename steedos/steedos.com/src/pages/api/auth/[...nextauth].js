@@ -3,7 +3,7 @@
  * @Date: 2022-07-20 16:29:22
  * @LastEditors: baozhoutao@steedos.com
  * @LastEditTime: 2022-11-19 16:02:57
- * @Description: 
+ * @Description:
  */
 
 import NextAuth from "next-auth"
@@ -48,10 +48,9 @@ const validateSteedosToken = async (space, token)=>{
  */
  async function refreshAccessToken(token) {
   try {
-    const url =
-      `${process.env.KEYCLOAK_ISSUER}/protocol/openid-connect/token`
+    const url =  `${process.env.KEYCLOAK_ISSUER}/protocol/openid-connect/token`
 
-    const response = await axios.post(url, 
+    const response = await axios.post(url,
       querystring.stringify({
         client_id: process.env.KEYCLOAK_ID,
         client_secret: process.env.KEYCLOAK_SECRET,
@@ -61,7 +60,7 @@ const validateSteedosToken = async (space, token)=>{
     )
 
     const refreshedTokens = response.data
-    
+
     return {
       ...token,
       accessToken: refreshedTokens.access_token,
@@ -100,7 +99,7 @@ export const authOptions = {
 
         if (account.provider === 'keycloak') {
           const loginResult = await loginSteedosByOIDC(account.access_token);
-          
+
           user.space = loginResult.space;
           user.token = loginResult.token;
         }
@@ -113,7 +112,7 @@ export const authOptions = {
         return token
       }
 
-      if (token.provider != 'keycloak') 
+      if (token.provider != 'keycloak')
         return token
 
       // Return previous token if the access token has not expired yet
@@ -123,7 +122,7 @@ export const authOptions = {
 
       // Access token has expired, try to update it
       return refreshAccessToken(token)
-    }, 
+    },
 
     async session({ session, token, user }) {
 
