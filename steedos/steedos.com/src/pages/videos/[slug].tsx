@@ -1,16 +1,20 @@
-import React, { FunctionComponent } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import get from 'lodash/get'
 import Image from 'next/image'
 import useSWR from 'swr'
-import { useWindowSize } from 'react-use'
-import { NextSeo } from 'next-seo'
-import Head from 'next/head'
 import removeMarkdown from 'remove-markdown'
 import { getVideo, getVideos } from '@/lib/video'
+
+
+import React, { FunctionComponent } from 'react'
+import { useWindowSize } from 'react-use'
+import { useRouter } from 'next/router'
+import { NextSeo } from 'next-seo'
+import Head from 'next/head'
 import { Markdown } from '@/components/Markdown'
 import { Player } from '@/components/player'
+
+import { FakeJSONData } from './FakeData'
 
 const OFFSET_Y = 80
 const VIDEO_MIN_HEIGHT = 480
@@ -19,46 +23,39 @@ const VIDEO_MIN_HEIGHT = 480
 
 
 
+// FIXME: 获取不到 先注释掉
+// export async function getStaticProps({ params, res, locale, locales, preview }) {
+//   const { slug } = params;
+//   const video = await getVideo(slug)
+//   if (!video) return { notFound: true };
+//   return {
+//     props: {
+//       title: video.name,
+//       ...video,
+//     },
+//     revalidate: parseInt(process.env.NEXT_STATIC_PROPS_REVALIDATE), // In seconds
+//   }
+// }
 
-export async function getStaticProps({ params, res, locale, locales, preview }) {
-  const { slug } = params
-  const video = await getVideo(slug)
-  if (!video) {
-    return {
-      notFound: true,
-    }
-  }
+// export async function getStaticPaths() {
+//   const items = await getVideos()
+//   // Get the paths we want to pre-render based on posts
+//   const paths = items.map((item) => ({
+//     params: { slug: item.slug },
+//   }))
+//   console.log('Building Videos...')
+//   console.log(paths)
+//   // We'll pre-render only these paths at build time.
+//   // { fallback: blocking } will server-render pages
+//   // on-demand if the path doesn't exist.
+//   return { paths, fallback: 'blocking' }
+// }
 
-  return {
-    props: {
-      title: video.name,
-      ...video,
-    },
-    revalidate: parseInt(process.env.NEXT_STATIC_PROPS_REVALIDATE), // In seconds
-  }
-}
-
-export async function getStaticPaths() {
-  const items = await getVideos()
-
-  // Get the paths we want to pre-render based on posts
-  const paths = items.map((item) => ({
-    params: {
-      slug: item.slug,
-    },
-  }))
-  console.log('Building Videos...')
-  console.log(paths)
-
-  // We'll pre-render only these paths at build time.
-  // { fallback: blocking } will server-render pages
-  // on-demand if the path doesn't exist.
-  return { paths, fallback: 'blocking' }
-}
 
 
 
 const Video: FunctionComponent<any> = (props) => {
+  // console.log(parseInt(process.env.NEXT_STATIC_PROPS_REVALIDATE)) // 3600
   const playerRef = React.useRef(null)
   const { height } = useWindowSize()
   const [videoMaxWidth, setVideoMaxWidth] = React.useState(0)
@@ -69,42 +66,24 @@ const Video: FunctionComponent<any> = (props) => {
 
   const router = useRouter()
 
-  const {
-    title = 'Missing title',
-    _id,
-    body,
-    download_url,
-    duration,
-    hls_url,
-    is_free,
-    name,
-    owner,
-    published_at,
-    site,
-    slug,
-    subtitles_url,
-    owner__expand,
-    thumb_image,
-  } = props;
+  // const {
+  //   title = 'Missing title', _id, body, download_url, duration, hls_url, is_free, name, owner, site, slug, subtitles_url, owner__expand, thumb_image,
+  // } = props;
+
+  const { title, body, hls_url, name, owner__expand, thumb_image } = FakeJSONData[2];
+
 
   let seo_title_calc = title
   const url = process.env.NEXT_PUBLIC_DEPLOYMENT_URL + router.asPath
-  const imageUrl = thumb_image
-    ? process.env.NEXT_PUBLIC_STEEDOS_ROOT_URL + `/api/files/images/${thumb_image}`
-    : null
+  const imageUrl = thumb_image ? process.env.NEXT_PUBLIC_STEEDOS_ROOT_URL + `/api/files/images/${thumb_image}` : null;
   return (
     <>
-      <NextSeo
-        title={seo_title_calc}
-        openGraph={{
-          title: seo_title_calc,
-          url,
-          images: [
-            {
-              url: imageUrl,
-              alt: title,
-            },
-          ],
+      <NextSeo title={seo_title_calc}
+        openGraph={{ title: seo_title_calc, url,
+          images: [{
+            url: imageUrl,
+            alt: title,
+          }],
         }}
       />
       <Head>
@@ -112,17 +91,10 @@ const Video: FunctionComponent<any> = (props) => {
       </Head>
       <div>
         <div className="bg-black -mt-3">
-          <div
-            className="w-full mx-auto"
-            style={{
-              maxWidth:
-                height > VIDEO_MIN_HEIGHT + OFFSET_Y ? videoMaxWidth : VIDEO_MIN_HEIGHT * 1.6,
-            }}
+          <div className="w-full mx-auto"
+            style={{ maxWidth: height > VIDEO_MIN_HEIGHT + OFFSET_Y ? videoMaxWidth : VIDEO_MIN_HEIGHT * 1.6 }}
           >
-            <div
-              className="w-full relative overflow-hidden bg-black text-white"
-              style={{ paddingTop: '56.25%' }}
-            >
+            <div className="w-full relative overflow-hidden bg-black text-white" style={{ paddingTop: '56.25%' }}>
               <div className="absolute w-full h-full top-0 left-0">
                 <Player
                   ref={playerRef}
