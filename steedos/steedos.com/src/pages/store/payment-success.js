@@ -9,14 +9,17 @@ import {has, isArray} from 'lodash';
 function openOrderInfo(orderId) {
   window.open(`${ROOT_URL}/app/-/shop_orders/view/${orderId}`)
 }
+
+
+
 export default function PaymentSuccess() {
-  const router = useRouter()
+  const router = useRouter();
   const click = (params) => {
     if(typeof window !== 'undefined' && router.query){
       if(has(router.query, 'order')){
         let orderId = router.query['order'];
         if(isArray(orderId)){
-          orderId = orderId[orderId.length-1]
+          orderId = orderId[orderId.length - 1]
         }
         openOrderInfo(orderId);
       }
@@ -26,7 +29,7 @@ export default function PaymentSuccess() {
   return (
     <>
       <Transition.Root show={true} as={Fragment}>
-        <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={() => { }}>
+        <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={() => {}}>
           <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <Transition.Child
               as={Fragment}
@@ -34,7 +37,7 @@ export default function PaymentSuccess() {
               enterFrom="opacity-0"
               enterTo="opacity-100"
               leave="ease-in duration-200"
-              leaveFrom="opacity-100"   
+              leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
               <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />

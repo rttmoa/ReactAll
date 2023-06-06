@@ -1,30 +1,20 @@
-import {
-  useRef,
-  useState,
-  useEffect,
-  createContext,
-  Fragment,
-  useCallback,
-  isValidElement,
-  useContext,
-} from 'react'
-
+import {  useRef,  useState,  useEffect,  createContext,  Fragment,  useCallback,  isValidElement,  useContext  } from 'react'
 import dynamic from 'next/dynamic'
-
 import { SidebarLayout } from '@/layouts/SidebarLayout'
 import tinytime from 'tinytime'
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { PageHeader } from '@/components/PageHeader'
-import { getVideo, getVideos } from '@/lib/video'
-import { NextSeo } from 'next-seo'
-// const {serialize} = require('next-mdx-remote/serialize')
-// import { MDXRemote } from 'next-mdx-remote'
-import { Heading } from '@/components/Heading'
+import { MDXRemote } from 'next-mdx-remote'
 import { Markdown } from '@/components/Markdown'
 import Link from 'next/link'
+const {serialize} = require('next-mdx-remote/serialize')
+
+import { useRouter } from 'next/router'
+import { NextSeo } from 'next-seo'
+import { getVideo, getVideos } from '@/lib/video'
 import { Player } from '@/components/player'
+import { Heading } from '@/components/Heading'
 
 const components = { Heading }
 
@@ -59,9 +49,12 @@ export async function getStaticPaths() {
   return { paths, fallback: 'blocking' }
 }
 
+
+
+
+
 export default function VideoEmbed(props) {
   const router = useRouter()
-
   const {
     title = 'Missing title',_id,body,download_url, duration, hls_url, is_free, name,owner,site,slug,thumb_image,
   } = props;
@@ -76,12 +69,7 @@ export default function VideoEmbed(props) {
         openGraph={{
           title: seo_title_calc,
           url,
-          images: [
-            {
-              url: imageUrl,
-              alt: title,
-            },
-          ],
+          images: [{url: imageUrl,alt: title},],
         }}
       />
       <div className="react-player-wrapper" style={{ position: 'relative', paddingTop: '56.25%' }}>

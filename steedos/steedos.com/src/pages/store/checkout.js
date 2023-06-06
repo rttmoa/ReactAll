@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-
 // import useSWR from 'swr'
 import Price from '@/components/product/Price'
 import { getImageSrc } from '@/lib/base.client'
@@ -12,6 +11,9 @@ import { each, isFunction, sum, values, has, map } from 'lodash'
 import SubmitOrderButton from '@/components/product/SubmitOrderButton'
 import useSWR from 'swr'
 import { getCart } from '@/lib/cart.client';
+
+
+
 export async function getServerSideProps(context) {
   const { ids } = context.query;
   let productsVariant = []
@@ -89,7 +91,7 @@ export default function Checkout({productsVariant, productsVariantPrice}) {
   useEffect(() => {
     calculateTotalPrice();
   }, [JSON.stringify(variantsSubTotalPrice), JSON.stringify(productsVariant)]);
-  
+
   return (
       <div className="bg-gray-50">
         <div className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -117,7 +119,7 @@ export default function Checkout({productsVariant, productsVariantPrice}) {
                   <div className="flex items-center justify-between">
                     <dt className="text-sm">运费</dt>
                     <dd className="text-sm font-medium text-gray-900">{formatPrice()}</dd>
-                  </div> 
+                  </div>
                   <div className="flex items-center justify-between border-t border-gray-200 pt-6">
                     <dt className="text-base font-medium">应付总额</dt>
                     <dd className="text-base font-medium text-gray-900">{formatPrice(productsVariantPrice)}</dd>

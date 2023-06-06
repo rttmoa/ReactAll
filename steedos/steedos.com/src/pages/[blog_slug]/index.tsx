@@ -73,7 +73,7 @@ const BlogPosts: React.FC = (props: any) => {
       <div className="mx-auto max-w-screen-lg lg:py-16 py-10">
         <div className="pb-20">
         <h1 className="md:text-4xl text-2xl text-center font-bold text-slate-700 dark:text-slate-200">
-          {blog.name}
+          {blog.name}213
         </h1>
         {blog.body && (<div className="pt-10">
           <Markdown body={blog.body}></Markdown>

@@ -10,6 +10,9 @@ import useSWR from 'swr'
 function openOrderInfo(orderId) {
   window.open(`${ROOT_URL}/app/-/shop_orders/view/${orderId}`)
 }
+
+
+
 export default function Cart() {
   const router = useRouter();
   const relatedProducts = [];
@@ -39,7 +42,7 @@ export default function Cart() {
   })
 
 
-  
+
   return (
     <>
       <main className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8" style={{ width: '80rem' }}>

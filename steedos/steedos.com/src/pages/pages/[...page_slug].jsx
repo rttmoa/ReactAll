@@ -18,6 +18,7 @@ const STEEDOS_SERVER_API_KEY = process.env.STEEDOS_SERVER_API_KEY;
 
 
 export default function Page({ page, site_slug, page_slug }) {
+  console.log("[...page_slug].jsx")
   useEffect(() => {
     if (!page || !page.schema) return
     const amisJSON = JSON.parse(page.schema)
@@ -42,7 +43,7 @@ export default function Page({ page, site_slug, page_slug }) {
 }
 
 export async function getServerSideProps({ params, locale, locales, preview }) {
-  const { page_slug } = params
+  const { page_slug } = params;
   const slug = page_slug.join('/')
   const result = await axios({
     url: `${STEEDOS_ROOT_URL}/graphql`,
@@ -62,7 +63,7 @@ export async function getServerSideProps({ params, locale, locales, preview }) {
       Authorization: `Bearer apikey,${STEEDOS_SERVER_API_KEY}`,
     },
   })
-  const page = result?.data?.data?.site_pages[0] || {}
+  const page = result?.data?.data?.site_pages[0] || {};
   return {
     props: {
       page_slug,

@@ -1,4 +1,4 @@
-import { fetchGraphql } from '@/lib/base'
+import { fetchGraphql } from './base'
 
 const QUERY_PRODUCT_INFO = `
 {

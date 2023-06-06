@@ -12,14 +12,10 @@ export async function getStaticProps({params}) {
   const { slug } = params
   const collection = await getCollectionProducts(slug)
   if (!collection) {
-    return {
-      notFound: true,
-    }
+    return { notFound: true, }
   }
   return {
-    props: {
-      collection: collection
-    },
+    props: { collection: collection },
     revalidate: parseInt(process.env.NEXT_STATIC_PROPS_REVALIDATE), // In seconds
   }
 }
@@ -29,8 +25,7 @@ export async function getStaticPaths() {
 
   // TODO: 根据帖子获取我们要预渲染的路径
   const paths = items.map((item) => ({
-    params: {
-      slug: item.slug },
+    params: { slug: item.slug },
   }))
   console.log('Building Product Collections...');
   console.log(paths);
@@ -42,7 +37,7 @@ export async function getStaticPaths() {
 }
 
 export default class Collection extends React.Component {
-
+  // console.log("Collection")
   render(){
     const { collection } = this.props;
     return (
@@ -51,14 +46,13 @@ export default class Collection extends React.Component {
 
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
               <div className="py-24 text-center">
-                <h1 className="text-4xl font-extrabold tracking-tight text-black dark:text-white">{collection.name}</h1>
+                <h1 className="text-4xl font-extrabold tracking-tight text-black dark:text-white">{collection.name}123123123123</h1>
                 <p className="mt-4 max-w-3xl mx-auto">
                   {collection.body}
                 </p>
               </div>
               <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
                 {collection?.products?.map((product) => {
-
                   const imageUrl = product.image?process.env.NEXT_PUBLIC_STEEDOS_ROOT_URL + `/api/files/images/${product.image}` : null
                   return (
                   <div

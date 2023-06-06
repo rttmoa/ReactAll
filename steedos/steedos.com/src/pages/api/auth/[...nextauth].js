@@ -80,9 +80,7 @@ const validateSteedosToken = async (space, token)=>{
 export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   // Configure one or more authentication providers
-  providers: [
-    KeycloakProvider
-  ],
+  providers: [KeycloakProvider],
   callbacks: {
     async jwt(props) {
       const { token, account, user } = props;
@@ -140,8 +138,7 @@ export const authOptions = {
     }
   },
   events:{
-    async signOut(token, session){
-    }
+    async signOut(token, session){}
   },
   pages: {
     signIn: '/login',

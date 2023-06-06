@@ -96,6 +96,7 @@ function Plan({ name, price, description, href, hrefTitle, features, featured = 
   )
 }
 
+// 主页面 -> 版本与报价
 export function Pricing() {
   return (
     <section

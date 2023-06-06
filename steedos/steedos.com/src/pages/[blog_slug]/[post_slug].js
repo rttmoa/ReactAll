@@ -1,17 +1,6 @@
-import {
-  useRef,
-  useState,
-  useEffect,
-  createContext,
-  Fragment,
-  useCallback,
-  isValidElement,
-  useContext,
-} from 'react'
-
+import {  useRef,  useState,  useEffect,  createContext,  Fragment,  useCallback,  isValidElement,  useContext  } from 'react'
 import Error from 'next/error'
 import dynamic from 'next/dynamic'
-
 import { SidebarLayout } from '@/layouts/SidebarLayout'
 import tinytime from 'tinytime'
 import clsx from 'clsx'
@@ -24,10 +13,7 @@ import {NextSeo} from 'next-seo'
 import { Heading } from '@/components/Heading';
 import { Markdown } from '@/components/Markdown'
 import {fromMarkdown} from 'mdast-util-from-markdown';
-
-
 import { ContentsContext } from '@/layouts/ContentsLayout'
-
 import BananaSlug from 'github-slugger'
 import { Header } from '@/components/Header'
 
@@ -283,34 +269,18 @@ export async function getStaticPaths() {
 }
 
 export default function Post(props) {
-
+  console.log("/pages/[blog_slug]/[post_slug].js")
   const router = useRouter()
-
   const {
-    errorCode,
-    name = 'Missing title',
-    body,
-    blog,
-    summary,
-    seo_title,
-    image,
-    background_image,
-    // mdxSource,
+    errorCode, name = 'Missing title', body, blog, summary, seo_title, image, background_image, // mdxSource,
   } = props
-
   const toc = getTOC(body)
   const { currentSection, registerHeading, unregisterHeading } = useTableOfContents(toc)
-
-  if (errorCode) {
-    return <Error statusCode={errorCode} />
-  }
-
-
+  if (errorCode) return <Error statusCode={errorCode} />;
   let seo_title_calc = seo_title ? seo_title : name;
   if (blog && blog.name){
     seo_title_calc += ' - ' + blog.name
-    // if (blog.site__expand)
-    //   seo_title_calc += ' | ' + blog.site__expand.name
+    // if (blog.site__expand) seo_title_calc += ' | ' + blog.site__expand.name
   }
   const section = blog.name
   const url = process.env.NEXT_PUBLIC_DEPLOYMENT_URL + router.asPath
