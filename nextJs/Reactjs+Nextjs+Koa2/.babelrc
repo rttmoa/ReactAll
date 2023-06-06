@@ -1,0 +1,14 @@
+{
+  "presets": ["next/babel"],
+  "plugins": [
+    [
+      // 让antd按需加载，webpack和nextjs查找会找/antd/lib/button
+      "import",
+      {
+        "libraryName": "antd"
+      }
+    ],
+    // 预编译CSS：https://styled-components.com/docs/advanced#nextjs
+    ["styled-components", { "ssr": true }]
+  ]
+}

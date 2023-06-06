@@ -1,0 +1,11 @@
+
+
+// @  设置的路径别名
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}

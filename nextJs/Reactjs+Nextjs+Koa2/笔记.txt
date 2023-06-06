@@ -1,0 +1,137 @@
+
+
+启动项目：npm run dev  &&  npm start
+Next.js强大的功能： 我们建议是把数据请求都放到getInitialProps里面，而不是放到React生命周期中去加载，有了这个规范之后，它会做更好的处理数据同步的问题(Nextjs最核心的功能)
+注：修改服务需要重启项目
+注：需要替换owner和scrent_id
+注：issuesjs -> 业务逻辑复杂+如何封装,拆分组件+把组件的功能复用起来+如何使用Hooks去做一些的页面功能
+注：npm i -g http-server   ->   http-server out  (启动静态服务 / out是打包后的静态文件夹)
+注：页面导出静态文件  npm run build & npm run export
+注：项目部署到服务器  使用SSH方式连接Github上传代码
+注：封装组件或传递组件要用大写字母开头，否则会被jsx认定为是原生HTML标签，引起不必要的错误
+注：Layoutjsx中cloneElement可复用组件的使用(父子组件传值)
+注：pages-test/b.js/ React Hooks组件的使用方式
+    import React, {  useState,  useReducer,  useContext,  useLayoutEffect,  useEffect,  useRef,  memo,  useMemo,  useCallback, } from 'react'
+总结： nextjs(同构框架) && OAuth(流程图)  &&  
+
+
+SSR服务端渲染Github全栈项目
+
+
+一、课程导学：
+    同构项目 服务端渲染    对TO C
+    公司官网：使用同构框架next.js
+    技术栈：next.js、OAuth授权体系、React Hooks、Koa、Redis
+
+二、搭建项目
+    1、创建next.js项目
+        1.1、手动创建 / 命令创建：export default () => <span>Index</span> = import React from 'react'  React.createEelement('span',{},"Index")
+    2、nextjs作为koa中间件使用，去处理Http请求的响应(server.js)
+    3、nextjs集成antd：
+        3.1、按需加载antd组件： import Button from 'antd/lib/button'     import 'antd/lib/button/style'
+
+三、Next.js基础
+    1、nextjs项目目录结构
+    2、页面跳转
+    3、动态路由：只能通过query： <Link href="/a?id=3">   Router.push('/test/b?id=4')   Router.push({pathname:'/test/b', query: {id: 1} })
+    4、路由映射：改变地址栏的显示方式： 
+        <Link href="/a?id=3" as="/a/3">   Router.push({pathname:'/test/b', query: {id: 1}, "/test/b/1" })   localhost:3000/test/b/1（文件夹/文件夹/1.js）
+    5、路由变化的钩子：6个钩子：hashChangeStart, hashChangeComplete
+    6、nextjs数据获取方式：
+    7、nextjs自定义App；重写 _app.js 文件
+    8、nextjs自定义Document 
+    9、nextjs样式的定义：在jsx中使用 styled-jsx
+    10、nextjs集成styled-components：ctx.renderPage     https://styled-components.com/docs/advanced#nextjs
+    11、nextjs中异步模块和组件的加载：
+    12、nextjs中的配置项：next.config.js
+    13、nextjs服务端渲染流程深度解析
+    Next.js强大的功能： 我们建议是把数据请求都放到getInitialProps里面，而不是放到React生命周期中去加载，有了这个规范之后，它会做更好的处理数据同步的问题(Nextjs最核心的功能)
+    此节Nextjs服务端渲染流程、如何实现服务端渲染在客户端重用、客户端链接跳转需要做哪些事情、为什么一定要使用getInitialProps数据加载的原因
+
+四、React新特性Hooks讲解：
+    1、什么是Hooks: 使用Class组件和Function组件的区别
+    2、State-Hooks: useState('jokcy') || useReducer(countReducer, 0)
+    3、Effect-Hooks: useEffect()
+    4、Context-Hooks: React.createContext('') && <MyContext.Provider value={this.state.context}> && const context = useContext(MyContext)
+    5、Ref-Hooks: React.createRef()  |   useRef()
+    6、Hooks渲染优化: memo, useMemo, useCallback
+    7、闭包陷阱：先点击按钮让count变成3，再点此函数，再点按钮让count变为5，两秒后，alert(count)的值为3
+
+五、引入Redux
+    1、什么是Redux
+    2、创建一个Store
+    3、Redux中的reducer
+    4、Redux中的action
+    5、react-redux连接react和redux：  _app提供全部redux <Provider store={reduxStore}>  &&  react-redux的数据流，数据流向
+    6、redux-devtool的使用
+    7、nextjs中的HOC
+    8、nextjs集成redux：1、服务端如何写入数据到Store   2、如何同步服务端的数据到客户端
+    9、nextjs集成redux2：讲解1和2的两个问题
+
+六、OAuth的介绍和接入：
+    1、认证和授权介绍： 比如：用户名密码登陆、邮箱发送登陆连接、手机号接收验证码
+    2、OAuth概述： 多种授权方式：Authorization Code || Refresh Token || Device Code || PassWord || Client Credentials
+    3、code认证方式的流程: 图片介绍流程(需写下来)
+    4、注册github-OAuth-App：   https://github.com/settings/developers   注册名字，开发URL，授权后跳转的生产URL
+    5、OAuth的字段讲解以及流程演示：
+        restlet网页接口测试工具：https://chrome.zzzmh.cn/#/index
+        https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps
+        https://github.com/login/oauth/authorize?client_id=b545a2ba1f9f58b9815e
+        https://github.com/login/oauth/authorize?client_id=b545a2ba1f9f58b9815e&&scope=user,repo:status
+    6、OAuth-code认证方式如何保证安全: 策略：  一次性code | id+secret  |  redirect_uri 
+    7、cookie 和 session: 什么是cookie、什么是session
+        7.1、
+    8、创建koa-seesion的redis存储store（1）： class RedisSessionStore {}
+    9、创建koa-seesion的redis存储store（2）：serverjs中配置redis和session   ||  redis数据库中存储session信息  "session:sessionId"
+    10、接入Github-OAuth（1）
+    11、接入Github-OAuth（2）：auth.js中 if (ctx.path === '/auth') {} 去Github上OAuth获取code，换取Token，最后获取到用户信息的过程   
+
+七、项目整体设计：
+    1、项目整体需求介绍
+    2、项目整体布局Layout组件的开发： 1、写Layout.jsx内容  2、安装vscode-styled-jsx插件 
+    3、！cloneElement拓展组件可复用的高级技巧: 需要多次观察 查看组件如何传递值
+    4、服务端渲染同步用户信息
+    5、完善登录功能
+    6、用户登出功能实现：storejs、authjs、serverjs、Layoutjsx、退出后return {}
+    7、维持OAuth之前得页面访问
+    8、增加全局页面切换的Loading效果
+    9、Github接口代理
+    10、完善整体布局：首页的页面功能
+    11、Github接口代理完善：  /lib/api.js | Index.js ->  服务端渲染和客户端请求的区别  ||  同构概念
+    12、koa中处理post请求的数据
+
+八、首页开发
+    1、联调主页数据：Indexjs页面中获取reduxStore判断用户信息是Login
+    2、展示用户数据以及用户登出时的页面内容：Indexjs页面布局(用户信息+渲染内容)
+    3、Repo组件展示基本组件内容的开发：渲染结构+动态处理
+    4、tab切换展示创建的仓库和关注的仓库：Indexjs中动态根据路由切换 你的仓库 | 你关注的仓库   &&   Tabs的数据绑定
+    5、使用缓存数据： let cachedUserRepos, cachedUserStaredRepos
+    6、使用缓存更新策略： 包lru-cache
+
+九、搜索页面的开发?节流
+    1、搜索功能概述：搜索页的请求参数：https://docs.github.com/en/rest/search?apiVersion=2022-11-28#search-repositories
+    2、搜索接口联调以及搜索条件展示
+    3、搜索条件筛选功能实现：查看URL地址和控制台中href
+    4、搜索条件跳转的优化-提取组件：<FilterLink />
+    5、搜索结果的展示: <Repo repo={repo} key={repo.id} />
+    6、处理Github搜索结果限制：对搜索结果返回前1000条数据，1000条数据之后不会给予返回，会返回422 (Github API限制)无法解除  
+        6.1、解决方式：total={1000} 传递参数最大数量为1000条
+
+十、仓库详情页开发：
+    1、仓库详情页面功能概述： 页面详情：markdown内容转化为HTML内容  Issues：问题
+    2、仓库布局开发：详情页面的开发
+    3、提取布局成为一个HOC
+    4、仓库基础信息缓存功能的实现
+    5、获取markdown内容并转义：返回的内容是base64格式的 - 需要解码  &&  atob(temp1)  &&  全局增加一个atob方法(global.atob = atob)
+    6、使用markdown-it来转换markdown
+    7、打包分析：npm run analyze:browser && 优化代码
+    8、issues页面的开发：
+    9、创建用户搜索组件
+    10、完成issue搜索功能的开发
+    11、完善issues页面：业务逻辑复杂+如何封装,拆分组件+把组件的功能复用起来+如何使用Hooks去做一些的页面功能
+
+
+十一、项目优化  
+    1、nextjs静态页面导出功能
+    2、项目部署到服务器
+    3、总结
