@@ -35,10 +35,7 @@ export const tabsWithOutline = () => (
 )
 
 export const tabsWithCustom = () => (
-  <Tabs
-    onSelect={function noRefCheck(){}}
-    styleType="outline"
-  >
+  <Tabs onSelect={function noRefCheck(){}} styleType="outline">
     <TabsItem label={<><Icon icon="exclamation-circle" />{'  '}自定义图标</>}>
       this is card one
     </TabsItem>

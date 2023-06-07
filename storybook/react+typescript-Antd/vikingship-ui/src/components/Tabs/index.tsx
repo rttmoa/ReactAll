@@ -13,4 +13,4 @@ let TransTab: TabsComponent = Tabs;
 TransTab.Item = TabsItem;
 
 // export type {TabProps, TabsItemProps}
-export default TransTab
+export default TransTab;

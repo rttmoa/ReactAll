@@ -35,10 +35,8 @@ export const Alert: React.FC<AlertProps> = (props) => {
   const classes = classnames('alert', {[`alert-${type}`]: type})
 
   const handleClick = () => {
-    setVisible(false)
-    if (onClose) {
-      onClose()
-    }
+    setVisible(false);
+    onClose && onClose();
   }
 
   const [visible, setVisible] = useState(true)

@@ -60,8 +60,10 @@ export interface UploadProps {
 
 export const Upload: FC<UploadProps> = (props) => {
 
-  const { action, defaultFileList, beforeUpload,  onProgress,  onSuccess,  onError,  onChange,  onRemove,
-          headers,  name,  data,  withCredentials,  accept,  multiple,  children,  drag  } = props;
+  const { 
+    action, defaultFileList, beforeUpload,  onProgress,  onSuccess,  onError,  onChange,  onRemove, 
+    headers,  name,  data,  withCredentials,  accept,  multiple,  children,  drag  
+  } = props;
 
   const fileInput = useRef<HTMLInputElement>(null);
 

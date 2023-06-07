@@ -16,8 +16,7 @@ export interface TabsItemProps {
 export const TabsItem: React.FC<TabsItemProps> = (props) => {
   const classes = classNames('tabs-content', props.className, {
     'tabs-content-active': props.isActive,
-  })
-
+  }) 
   return (
     <div key={props.label} className={classes}>
       {props.children}
