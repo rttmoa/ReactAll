@@ -16,7 +16,9 @@ export default {
 export const base = () => (
       <Provider store={store}>
         <Bootstrap>
+          123  List组件中没有rows属性，无法显示数据
           <List objectName={'instances'} 
+            // rows={[{name: 123}]}
             columns={[
               {
                 field: 'name',
@@ -39,7 +41,8 @@ export const base = () => (
               },
             ]} 
             sort="name, modified desc"
-            pageSize={5}>
+            pageSize={5}
+          >
           </List>
         </Bootstrap>
       </Provider>

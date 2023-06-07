@@ -308,7 +308,7 @@ class Grid extends React.Component {
 	}
 
 	render() {
-		console.log("this.props", this.props)
+		// console.log("this.props", this.props)
 		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, search, columns, id, 
 			noHeader, unborderedRow, sort, rowIcon, enableFilters, 
 			pager, handlePageChanged, totalCount, pageSize, currentPage} = this.props;

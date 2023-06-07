@@ -276,18 +276,21 @@ class List extends React.Component {
 	}
 
 	render() {
-		const { rows, handleChanged, selection, selectionLabel, selectRows, objectName, 
+		const { 
+			rows, handleChanged, selection, selectionLabel, selectRows, objectName, 
 			search, columns, id, noHeader, unborderedRow, sort, rowIcon, rowIconKey, 
 			pager, handlePageChanged, handleLoadMore, totalCount, pageSize, currentPage, 
-			showMoreLink, filteringText, resetFiltering } = this.props;
+			showMoreLink, filteringText, resetFiltering 
+		} = this.props;
 		const isLoading = this.props.loading;
 		const items = rows;
 		if(!currentPage){
 			// 每次currentPage为0或undefined时，清空滚动条数据
 			this.state.items = [];
 		}
-		let listOptions = this.state.items;
+		let listOptions = this.state.items; 
 		if(!isLoading && items.length){
+			console.log(123)
 			const currentPageListOptions = this.getListOptions(items, columns, rowIcon, rowIconKey);
 			listOptions = _.union(this.state.items, currentPageListOptions);
 			this.state.items = listOptions;

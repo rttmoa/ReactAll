@@ -360,6 +360,7 @@ export const configTypeApps = () => (
   <div className="App">
     <Provider store={store}>
       <Bootstrap>
+        {/* <div>123</div> */}
         <Dashboard config={config3} />
       </Bootstrap>
     </Provider>

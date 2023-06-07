@@ -3,13 +3,11 @@ import Bootstrap from '../components/bootstrap'
 import { Provider } from 'react-redux';
 import store from '../stores/configureStore'
 import styled from 'styled-components'
-
 import Pullable from '../components/pullable'
 
 export default {
 	title: 'Pullable',
 };
-
 
 let ListContainer = styled.div`
 	.pullable-container{
@@ -135,7 +133,7 @@ class ExampleComponent extends React.Component {
 	}
 }
 
-export const base = () => (
+export const base下拉刷新 = () => (
 	<ListContainer>
 		<ExampleComponent />
 	</ListContainer>

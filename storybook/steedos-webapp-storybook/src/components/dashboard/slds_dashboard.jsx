@@ -201,6 +201,8 @@ class Dashboard extends React.Component {
     };
 
     convertConfigItemToSection(value, key){
+        // console.log(value)
+        // console.log(value.component)
         switch (value.type) {
             case "apps":
                 if(value.position === "RIGHT"){
@@ -225,11 +227,11 @@ class Dashboard extends React.Component {
                         </React.Fragment>
                     )
                 }
-                else if (typeof value.component === "string" && value.component.length){
+                else if (typeof value.component === "string" && value.component && value.component.length){
                     return <WidgetRemote key={key} label={value.label} url={value.component} assistiveText={value.assistiveText} />
                 }
             case "html":
-                if (!(typeof value.html === "string" && value.html.length)) {
+                if (!(typeof value.html === "string" && value.html && value.html.length)) {
                     value.html = "";
                 }
                 let markup = {__html: value.html};
@@ -375,7 +377,6 @@ class Dashboard extends React.Component {
             configSection = this.convertConfigToSection(config, assistiveText);
         }
         let { leftSection, centerTopSection, centerBottomLeftSection, centerBottomRightSection, rightSection } = { ...this.state, ...configSection };
-
         return (
             <Container className="slds-dashboard">
                 <Column className="slds-dashboard-column slds-dashboard-column-center">

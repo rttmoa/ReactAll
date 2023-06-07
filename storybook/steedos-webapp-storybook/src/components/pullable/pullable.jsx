@@ -331,7 +331,7 @@ class Pullable extends React.Component {
         this.initialTouch.scrollTop = distance;
       }
       const pullHeight = easing(pullDistance);
-      if (pullHeight) e.preventDefault();// 减弱滚动
+      if (pullHeight) e.preventDefault(); // 减弱滚动
 
       this.setState({
         loaderState: pullHeight > distanceToRefresh ? STATS.enough : STATS.pulling,
@@ -464,8 +464,7 @@ class Pullable extends React.Component {
           onTouchMove={this.touchMove}
           onTouchEnd={this.touchEnd}
           onAnimationEnd={this.animationEnd}
-        >
-
+        > 
           <div className="pullable-symbol">
             <div className="pullable-msg"><i /></div>
             <div className="pullable-loading"><i className="ui-loading" /></div>

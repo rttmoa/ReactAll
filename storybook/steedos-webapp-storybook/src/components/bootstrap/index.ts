@@ -5,7 +5,7 @@ import { entityStateSelector, isRequestStarted } from '../../selectors';
 
 
 function mapStateToProps() {
-    console.log("BootStrap ++++")
+    // console.log("BootStrap ++++")
     return (state: any, ownProps: any) => {
         let space = entityStateSelector(state, "space") || null;
         return Object.assign({ isBootstrapLoaded: !!space }, { ...ownProps, isRequestStarted: isRequestStarted(state)});

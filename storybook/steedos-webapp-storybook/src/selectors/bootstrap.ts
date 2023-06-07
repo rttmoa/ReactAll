@@ -38,7 +38,7 @@ export function creatorAppsSelector(state: any) {
     // admin菜单显示在最后
     creatorApps.admin = adminApp;
 
-    if (assigned_apps.length) {
+    if (assigned_apps && assigned_apps.length) {
         _.each(creatorApps, function (app: any, key: string) {
             if (assigned_apps.indexOf(key) > -1) {
                 app.visible = app.is_creator;
