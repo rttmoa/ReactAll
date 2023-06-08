@@ -8,7 +8,7 @@ import Setting from '../components/Set'
 
 
 
-const routes = [ {
+const routes = [{
         path: '/',
         component: AllComponent,
         routes: [
