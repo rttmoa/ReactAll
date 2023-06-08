@@ -45,13 +45,13 @@ function reducer(state = initialState, action){
  
 // 1.监听状态的改变
 store.subscribe(() => {
-    console.log("subscribe", store.getState())
+    // console.log("subscribe", store.getState())
 })
 
 // 2.获取Store中存储的状态
-console.log(store.getState())
+// console.log(store.getState())
 
 // 3.修改Store中存储的状态
 store.dispatch(addAction(2));
 store.dispatch(subAction(5))
-console.log(store.getState())
+// console.log(store.getState())
