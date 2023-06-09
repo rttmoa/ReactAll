@@ -876,7 +876,7 @@ config7.push({
     noHeader: false
   }]
 });
-
+ 
 export const assistiveTextI18n = () => (
   <div className="App">
     <Provider store={store}>

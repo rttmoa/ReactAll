@@ -16,9 +16,7 @@ function App() {
 
   let rootNodes = ["593b97230cda012fa65270f9", "xZXy9x8o6qykf2ZAf"] // , "51aefb658e296a29c9000049"
 
-  let selectionLabel = (item) => {
-    return `${item.name}(${item.email})`
-  }
+  let selectionLabel = (item) => { return `${item.name}(${item.email})` }
 
   let service = dataServicesSelector(store.getState());
   let iconPath = `/assets/icons`;
