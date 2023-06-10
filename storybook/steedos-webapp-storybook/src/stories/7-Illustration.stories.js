@@ -1,6 +1,6 @@
 import React from 'react';
 import { Illustration } from '../components';
-// import { WalkthroughNotAvailableSVG } from '../components';
+import { WalkthroughNotAvailableSVG } from '../components';
 
 export default {
     title: 'Illustration',

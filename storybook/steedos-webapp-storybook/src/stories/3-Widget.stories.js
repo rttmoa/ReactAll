@@ -12,6 +12,7 @@ export default {
 export const widgetApps = () => (
   <Provider store={store}>
     <Bootstrap>
+    <h3>List组件中没有rows属性（没有redux数据），无法显示数据</h3>  
       <WidgetApps />
       <WidgetApps showAllItems={true} label="showAllItems模式的应用程序启动器" />
       <WidgetApps ignoreApps={['admin']} label="忽略部分应用" />

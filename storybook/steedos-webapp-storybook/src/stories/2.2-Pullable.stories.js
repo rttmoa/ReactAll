@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import Pullable from '../components/pullable'
 
 export default {
-	title: 'Pullable',
+	title: 'Pullable__Test',
 };
 
 let ListContainer = styled.div`
@@ -133,7 +133,7 @@ class ExampleComponent extends React.Component {
 	}
 }
 
-export const base下拉刷新 = () => (
+export const base封装下拉刷新 = () => (
 	<ListContainer>
 		<ExampleComponent />
 	</ListContainer>

@@ -16,7 +16,7 @@ export default {
 export const base = () => (
       <Provider store={store}>
         <Bootstrap>
-          123  List组件中没有rows属性，无法显示数据
+          <h3>List组件中没有rows属性（没有redux数据），无法显示数据</h3>  
           <List objectName={'instances'} 
             // rows={[{name: 123}]}
             columns={[

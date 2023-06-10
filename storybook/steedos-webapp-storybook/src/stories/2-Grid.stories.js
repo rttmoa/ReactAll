@@ -13,6 +13,7 @@ export default {
 export const company = () => (
       <Provider store={store}>
         <Bootstrap>
+          <h3>redux中处理数据，显示到页面上</h3>
           <Grid objectName={'company'} 
             columns={[
               {
@@ -50,6 +51,7 @@ export const company = () => (
 export const space_users = () => (
     <Provider store={store}>
       <Bootstrap>
+        <h3>redux中处理数据，显示到页面上</h3>
           <Grid objectName={'space_users'} 
             columns={[
               {
@@ -84,7 +86,8 @@ export const space_users = () => (
 export const cms_files = () => (
   <Provider store={store}>
     <Bootstrap>
-      <Grid objectName={'cms_files'}
+      <Grid 
+        objectName={'cms_files'}
         columns={[
           {
             field: 'name',
@@ -112,7 +115,9 @@ export const cms_files = () => (
         filters={[['space', '=', '{spaceId}']]}
         pageSize={10}
         sort={[["created", "desc"], ["name"]]}
-        enableSearch={true}></Grid>
+        enableSearch={true}
+      >
+      </Grid>
     </Bootstrap>
   </Provider>
 )

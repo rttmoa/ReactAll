@@ -112,33 +112,33 @@ class favorites extends React.Component {
         const { title, records, onToggleActionSelected, actionSelected, actionDisabled, recordOnClick, assistiveText, editOnClick} = this.props
 		return (
             <GlobalHeaderFavorites
-            actionSelected={actionSelected}
-            actionDisabled={actionDisabled}
-            assistiveText={assistiveText}
-            onToggleActionSelected={onToggleActionSelected}
-            popover={
-                <Popover
-                    ariaLabelledby="favorites-heading"
-                    body={getBody(records, recordOnClick)}
-                    classNameBody='slds-p-around_none'
-                    align='bottom right'
-                    footer={
-                        <div className="slds-media slds-media--center slds-p-left--none">
-                            <a className="footerAction slds-grow" href="javacript:void(0);" onClick={()=>{editOnClick()}}>
-                                <div className="slds-media slds-media--center slds-p-left--medium">
-                                    <div className="slds-icon--x-small slds-icon_container slds-media__figure">
-                                    <Icon
-                                        category="utility"
-                                        name="edit"
-                                        size="x-small"
-                                        style={{fill:'currentColor'}}
-                                    />
-                        </div><div className="slds-media__body slds-m-left--none">{assistiveText.editFavorites}</div></div></a></div>
-                    }
-                    heading={title}
-                    id="header-favorites-popover-id"
-                />
-            }
+                actionSelected={actionSelected}
+                actionDisabled={actionDisabled}
+                assistiveText={assistiveText}
+                onToggleActionSelected={onToggleActionSelected}
+                popover={
+                    <Popover
+                        ariaLabelledby="favorites-heading"
+                        body={getBody(records, recordOnClick)}
+                        classNameBody='slds-p-around_none'
+                        align='bottom right'
+                        footer={
+                            <div className="slds-media slds-media--center slds-p-left--none">
+                                <a className="footerAction slds-grow" href="javacript:void(0);" onClick={()=>{editOnClick()}}>
+                                    <div className="slds-media slds-media--center slds-p-left--medium">
+                                        <div className="slds-icon--x-small slds-icon_container slds-media__figure">
+                                        <Icon
+                                            category="utility"
+                                            name="edit"
+                                            size="x-small"
+                                            style={{fill:'currentColor'}}
+                                        />
+                            </div><div className="slds-media__body slds-m-left--none">{assistiveText.editFavorites}</div></div></a></div>
+                        }
+                        heading={title}
+                        id="header-favorites-popover-id"
+                    />
+                }
             />
 		);
 	}

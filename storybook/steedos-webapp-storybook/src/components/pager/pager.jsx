@@ -196,20 +196,21 @@ class Pager extends React.Component {
 		return (
 			<nav>
 				<ul className={className}>
+					{/* 最开始 */}
 					<Page
 						className="btn-first-page"
 						key="btn-first-page"
 						isDisabled={this.isPrevDisabled()}
 						onClick={this.handleFirstPage}
 					>{titles('first')}</Page>
-
+					{/* 上一页 */}
 					<Page
 						className="btn-prev-page"
 						key="btn-prev-page"
 						isDisabled={this.isPrevDisabled()}
 						onClick={this.handlePreviousPage}
 					>{titles('prev')}</Page>
-
+					{/* ... */}
 					<Page
 						className="btn-prev-more"
 						key="btn-prev-more"
@@ -219,20 +220,21 @@ class Pager extends React.Component {
 
 					{this.renderPages(this.visibleRange())}
 
+					{/* ... */}
 					<Page
 						className="btn-next-more"
 						key="btn-next-more"
 						isHidden={this.isNextMoreHidden()}
 						onClick={this.handleMoreNextPages}
 					>{titles('nextSet')}</Page>
-
+					{/* 下一页 */}
 					<Page
 						className="btn-next-page"
 						key="btn-next-page"
 						isDisabled={this.isNextDisabled()}
 						onClick={this.handleNextPage}
 					>{titles('next')}</Page>
-
+					{/* 最后 */}
 					<Page
 						className="btn-last-page"
 						key="btn-last-page"

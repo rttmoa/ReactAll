@@ -12,6 +12,7 @@ export default {
   title: 'Dashboard'
 };
 
+/***--- styled CSS ---**/
 let CenterDiv = styled.div`
   text-align: center;
   height: 230px;
@@ -19,11 +20,12 @@ let CenterDiv = styled.div`
   border: solid 1px #eee;
 `;
 
+
 export const sections = () => (
   <div className="App">
     <Provider store={store}>
       123
-      <Bootstrap> 
+      <Bootstrap>
         <Dashboard
           centerTopSection={(
             <CenterDiv>
@@ -50,6 +52,8 @@ export const sections = () => (
     </Provider>
   </div>
 );
+
+
 
 const config1 = {
   sectionCT1: {
@@ -125,7 +129,6 @@ const config1 = {
     }
   }
 }
-
 export const configPosition = () => (
   <div className="App">
     <Provider store={store}>
@@ -136,6 +139,8 @@ export const configPosition = () => (
   </div>
 )
 
+
+// TODO: 要有数据，  可显示数据
 const config2 = {
   workflow: {
     label: "待审批",
@@ -309,16 +314,19 @@ const config2 = {
     unborderedRow: true
   }
 }
-
 export const configTypeObject = () => (
   <div className="App">
     <Provider store={store}>
       <Bootstrap>
+        <h3>要有数据，  可显示数据</h3>
         <Dashboard config={config2} />
       </Bootstrap>
     </Provider>
   </div>
 )
+
+
+
 
 const config3 = {
   apps: {
@@ -348,14 +356,13 @@ const config3 = {
     ignoreApps: ['admin']
   },
   apps_mini_right: {
-    label: 'Mini',
+    label: 'Mini2',
     position: 'RIGHT',
     type: 'apps',
     mini: true,
     ignoreApps: ['admin']
   }
 }
-
 export const configTypeApps = () => (
   <div className="App">
     <Provider store={store}>
@@ -367,9 +374,10 @@ export const configTypeApps = () => (
   </div>
 )
 
+
 const config4 = {
   testReact1: {
-    label: "Test React Component Simple",
+    label: "Test React Component Simple2",
     position: "CENTER_TOP",
     type: "react",
     component: function (options) {
@@ -470,7 +478,6 @@ const config4 = {
     component: "/dashboard_type_react_url.js"
   }
 }
-
 export const configTypeReact = () => (
   <div className="App">
     <Provider store={store}>
@@ -740,8 +747,7 @@ const config5 = [{
 }, {
   position: "RIGHT",
   type: "events_today"
-}]
-
+}];
 export const widgetReducts = () => (
   <div className="App">
     <Provider store={store}>
@@ -751,6 +757,8 @@ export const widgetReducts = () => (
     </Provider>
   </div>
 )
+
+
 
 const config6 = [{
   label: "Test Dashboard config some reduced widgets as an array, and reverse left to right",
@@ -806,7 +814,6 @@ const config6 = [{
   position: "CENTER_BOTTOM_RIGHT",
   type: "events_today"
 }]
-
 export const widgetReductsReverse = () => (
   <div className="App">
     <Provider store={store}>
@@ -816,6 +823,8 @@ export const widgetReductsReverse = () => (
     </Provider>
   </div>
 )
+
+
 
 const assistiveText = {
   widgets: {

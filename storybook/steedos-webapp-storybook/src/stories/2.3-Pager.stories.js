@@ -6,7 +6,7 @@ import store from '../stores/configureStore'
 import Pager from '../components/pager'
 
 export default {
-  title: 'Pager',
+  title: 'Pager__Test',
 };
 
 class ExampleComponent extends React.Component {
@@ -18,7 +18,7 @@ class ExampleComponent extends React.Component {
 		this.state = {
 			total:       11,
 			current:     7,
-			visiblePage: 3,
+			visiblePage: 5,
 		};
 	}
 
@@ -40,10 +40,11 @@ class ExampleComponent extends React.Component {
 }
 
 
-export const base = () => (
+export const base封装分页 = () => (
   <Provider store={store}>
     <Bootstrap>
-      <ExampleComponent></ExampleComponent>
+		<br /><br /><br /><br /><br /><br /><br /><br /><br />
+      <ExampleComponent /> 
     </Bootstrap>
   </Provider>
 )

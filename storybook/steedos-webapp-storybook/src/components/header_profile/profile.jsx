@@ -4,6 +4,8 @@ import { GlobalHeaderProfile, Popover, MediaObject, Icon, Avatar } from '@salesf
 import PropTypes from 'prop-types';
 import _ from 'underscore';
 
+
+
 const ProfileContainer = styled.div`
     .slds-popover__body, .slds-popover__footer{
         padding: 0px;
@@ -79,13 +81,12 @@ class profile extends React.Component {
     render() {
 
         const { profile, avatarURL, footers, assistiveText } = this.props
-
+        // console.log("个人信息", profile)
         return (
             <ProfileContainer>
-                <GlobalHeaderProfile
-                    popover={
-                        <Popover
-                            hasNoCloseButton={true}
+                <GlobalHeaderProfile popover={
+                        <Popover 
+                            hasNoCloseButton={false}
                             body={
                                 <MediaObject
                                     className="user-profile-content slds-var-p-around_medium"
@@ -99,6 +100,7 @@ class profile extends React.Component {
                                             </span>
                                         </div>
                                     }
+                                    // 主Logo下的小Logo
                                     figure={<Avatar
                                         imgSrc={avatarURL}
                                         imgAlt={profile.name}
@@ -109,7 +111,7 @@ class profile extends React.Component {
                             id="header-profile-popover-id"
                             ariaLabelledby=""
                             footer={
-                            <div className="profile-footer slds-var-p-around_medium"> 
+                                <div className="profile-footer slds-var-p-around_medium"> 
                                     {footers.map((item, _index)=>{
                                         return (
                                             <div key={`profile-footer-${item.id || _index}`} className="slds-media slds-media--center slds-p-left--none">
@@ -125,7 +127,8 @@ class profile extends React.Component {
                             }
                         />
                     }
-                    userName={profile.name}
+                    userName={profile.name || "nba"}
+                    // 远程图片
                     avatar={<Avatar
                         imgSrc={avatarURL}
                         imgAlt={profile.name}
