@@ -204,11 +204,11 @@ let PullableContainer = styled.div`
   }
   @media (max-width: 767px) {
     .pullable-footer{
-      // 手机上不显示加载更多按钮，因为手机上性能问题state-loading样式类加载到dom中有延时会先看到该按钮
+      // FIXME: 手机上不显示加载更多按钮，因为手机上性能问题state-loading样式类加载到dom中有延时会先看到该按钮
       .pullable-btn {
         display: none;
       }
-      // 手机上也因为性能问题state-loading样式类加载到dom中有延时，所以默认显示出来
+      // FIXME: 手机上也因为性能问题state-loading样式类加载到dom中有延时，所以默认显示出来
       .pullable-loading {
         display: block;
       }
@@ -280,7 +280,10 @@ let PullableScroller = styled.div`
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   
-`;
+`; 
+
+
+
 
 // pull to refresh
 // tap bottom to load more
@@ -368,22 +371,23 @@ class Pullable extends React.Component {
     } else this.setState(endState);// reset
   }
 
+  /***--- 点击三角形 调用父组件的loadMore ---**/
   loadMore = () => {
     this.setState({ loaderState: STATS.loading });
+    // TODO: 调用父组件成功后，再回调加载状态
     this.props.onLoadMore(() => {
       // resolve
       this.setState({ loaderState: STATS.init });
     });
   }
 
-  scroll = (e) => {
-    if (
-      this.props.autoLoadMore
-      && this.props.hasMore
-      && (this.state.loaderState !== STATS.loading || !this.props.loading)
-    ) {
+  scroll = (e) => {  
+    // autoLoadMore默认为true && hasMore为true && (loaderState不为loading || 父loading不为true)
+    if (this.props.autoLoadMore && this.props.hasMore && (this.state.loaderState !== STATS.loading || !this.props.loading)) {
       const panel = e.currentTarget;
+      // console.log(panel) // DOM
       const scrollBottom = panel.scrollHeight - panel.clientHeight - panel.scrollTop;
+      // debugger
       if(panel.scrollTop === 0){
         // 如果是变更过滤条件时重新加载scrollTop为0，不应该加载下一页
         return;
@@ -394,8 +398,8 @@ class Pullable extends React.Component {
   }
 
   animationEnd = () => {
+    console.log("触发了 animationEnd 函数")
     const newState = {};
-
     if (this.state.loaderState === STATS.refreshed || !this.props.loading) newState.loaderState = STATS.init;
     if (this.props.initializing > 1) newState.progressed = 1;
 
@@ -407,6 +411,7 @@ class Pullable extends React.Component {
   }
 
   canRefresh() {
+    console.log("触发 canRefresh 函数")
     const { onRefresh, loading } = this.props;
     const { loaderState } = this.state;
     return onRefresh && ([STATS.refreshing, STATS.loading].indexOf(loaderState) < 0 || !loading);
@@ -414,12 +419,14 @@ class Pullable extends React.Component {
 
   initialTouch
 
+
+
+
   render() {
-    const {
-      children, className, hasMore, initializing, loading
-    } = this.props;
+    const { children, className, hasMore, initializing, loading } = this.props;
     const { loaderState, pullHeight, progressed } = this.state;
 
+    /***--- 三角形 / 加载中... ---**/
     const footer = hasMore ? (
       <div className="pullable-footer">
         <div className="pullable-btn" onClick={this.loadMore} />
@@ -453,19 +460,22 @@ class Pullable extends React.Component {
     else{
       loaderStateClassName = loaderState || STATS.refreshing;
     }
-
+    // TODO: 控制台中监听 storybook-preview-iframe localhost:9009
     return (
       <PullableContainer className={`pullable-container ${className}`}>
         <PullableScroller
           ref={(el) => { this.panel = el; }}
           className={`pullable state-${loaderStateClassName} ${className}${progressClassName}`}
           onScroll={this.scroll}
+          // 当手指触摸屏幕时候触发，即使已经有一个手指放在屏幕上也会触发
           onTouchStart={this.touchStart}
+          // onTouchMove事件实现H5上下左右滚动
           onTouchMove={this.touchMove}
+          // 当手指从屏幕上离开的时候触发
           onTouchEnd={this.touchEnd}
           onAnimationEnd={this.animationEnd}
-        > 
-          <div className="pullable-symbol">
+        >
+          <div className="pullable-symbol"> 
             <div className="pullable-msg"><i /></div>
             <div className="pullable-loading"><i className="ui-loading" /></div>
           </div>

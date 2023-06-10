@@ -87,6 +87,7 @@ class Pager extends React.Component {
 		return this.props.current <= BASE_SHIFT;
 	}
 
+	/***--- 前进 禁止状态 ---**/
 	isNextDisabled() {
 		return this.props.current >= (this.props.total - TITLE_SHIFT);
 	}
@@ -122,14 +123,14 @@ class Pager extends React.Component {
 		if (!this.isPrevDisabled()) {
 			this.handlePageChanged(this.props.current - TITLE_SHIFT);
 		}
-	}
-
+	} 
+	/***--- 点击下一页 ---**/
 	handleNextPage() {
 		if (!this.isNextDisabled()) {
 			this.handlePageChanged(this.props.current + TITLE_SHIFT);
 		}
 	}
-
+	/***--- 点击最终页 ---**/
 	handleLastPage() {
 		if (!this.isNextDisabled()) {
 			this.handlePageChanged(this.props.total - TITLE_SHIFT);
@@ -246,7 +247,6 @@ class Pager extends React.Component {
 		);
 	}
 }
-
 Pager.propTypes = {
 	current:           PropTypes.number,
 	total:             PropTypes.number.isRequired,
@@ -254,7 +254,6 @@ Pager.propTypes = {
 	titles:            PropTypes.object,
 	onPageChanged:     PropTypes.func,
 };
-
 Pager.defaultProps = {
 	current: 0,
 	visiblePages: 3,
