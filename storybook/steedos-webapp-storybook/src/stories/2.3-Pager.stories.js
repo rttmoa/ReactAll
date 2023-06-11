@@ -2,6 +2,7 @@ import React from 'react';
 import Bootstrap from '../components/bootstrap'
 import { Provider  } from 'react-redux';
 import store from '../stores/configureStore'
+
 import Pager from '../components/pager'
 
 export default {
@@ -15,7 +16,7 @@ class ExampleComponent extends React.Component {
 		this.state = {
 			total:       11,
 			current:     7,
-			visiblePage: 5,
+			visiblePage: 4,
 		};
 	}
 	handlePageChanged(newPage) {

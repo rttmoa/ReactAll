@@ -185,9 +185,7 @@ class Dashboard extends React.Component {
 
     componentDidMount() {
         const { init } = this.props;
-        if (init) {
-            init(this.props)
-        }
+        init && init(this.props)
     }
 
     static displayName = 'Dashboard';

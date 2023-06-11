@@ -14,27 +14,22 @@ if (steedosService){
     // 去掉url中的最后一个斜杠
     steedosService = steedosService.replace(/\/$/, "");
 }
-
 const initialStore = {
     settings: {
-        services: {
-            steedos: steedosService
-        }
+        services: { steedos: steedosService }
     }
 }
-
 const store = createStore(
-        rootReducer,
-        Object.assign({}, initialStore),
-        composeEnhancers(applyMiddleware(thunkMiddleware)),
-    );
-
+    rootReducer,
+    Object.assign({}, initialStore),
+    composeEnhancers(applyMiddleware(thunkMiddleware)),
+);
 export function bindActionToRedux(action, ...args) {
     return async () => {
         await action(...args)(store.dispatch, store.getState);
     };
 }
-
+// TODO: 如果是生产环境  注册window挂载store
 if (process.env.NODE_ENV !== 'production') { //eslint-disable-line no-process-env
     window.store = store;
 }

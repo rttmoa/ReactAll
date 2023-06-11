@@ -15,13 +15,11 @@ const HeaderNotifications = ({ children, ...props }) => (
 
 class DefaultPlugin {
     initialize(registry, store) {
-        registry.registerNotificationsComponent(
-            'steedos-default-header-notifications',
-            HeaderNotifications
-        );
+        registry.registerNotificationsComponent('steedos-default-header-notifications', HeaderNotifications);
     }
 }
 
 export const registerDefaultPlugins = () => {
+    // TODO: 注册插件
     registerPlugin('com.steedos.default', new DefaultPlugin());
 }

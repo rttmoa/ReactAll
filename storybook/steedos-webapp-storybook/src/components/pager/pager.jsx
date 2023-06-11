@@ -49,8 +49,7 @@ const TITLES = {
  */
 class Pager extends React.Component {
 	constructor(props) {
-		super(props);
-
+		super(props); 
 		this.handleFirstPage     = this.handleFirstPage.bind(this);
 		this.handlePreviousPage  = this.handlePreviousPage.bind(this);
 		this.handleNextPage      = this.handleNextPage.bind(this);
@@ -71,35 +70,42 @@ class Pager extends React.Component {
 	calcBlocks() {
 		const props = this.props;
 		const total = props.total;
-		const blockSize = props.visiblePages;
+		const visiblePages = props.visiblePages;
 		const current = props.current + TITLE_SHIFT;
-		const blocks = Math.ceil(total / blockSize);
-		const currBlock = Math.ceil(current / blockSize) - TITLE_SHIFT;
+
+		const blocks = Math.ceil(total / visiblePages);
+		const currBlock = Math.ceil(current / visiblePages) - TITLE_SHIFT;
 
 		return {
 			total:    blocks,
 			current:  currBlock,
-			size:     blockSize,
+			size:     visiblePages,
 		};
 	}
-
+	/** #### First/Prev 禁止状态 ---*/
 	isPrevDisabled() {
+		// 如果是第一个 那么按钮将禁止
+		// console.log(this.props.current)
 		return this.props.current <= BASE_SHIFT;
 	}
-
-	/***--- 前进 禁止状态 ---**/
+	/** #### Next/Last 禁止状态 ---**/
 	isNextDisabled() {
+		// console.log("禁止！")
+		// console.log(this.props.current) // 当前 index: 0-10
+		// console.log(this.props.total)   // 11
+		// console.log(TITLE_SHIFT)        // 1
 		return this.props.current >= (this.props.total - TITLE_SHIFT);
 	}
 
+	/** ### Prev ... 是否隐藏 ---**/
 	isPrevMoreHidden() {
-		const blocks = this.calcBlocks();
-		return (blocks.total === TITLE_SHIFT) || (blocks.current === BASE_SHIFT);
+		const blocks = this.calcBlocks(); // {total: 3, current: 1, size: 4} 
+		return (blocks.total === TITLE_SHIFT) || (blocks.current === BASE_SHIFT); // 条件：仅一页 或 第一页
 	}
-
+	/** ### Next ... 是否隐藏 ---**/
 	isNextMoreHidden() {
 		const blocks = this.calcBlocks();
-		return (blocks.total === TITLE_SHIFT) || (blocks.current === (blocks.total - TITLE_SHIFT));
+		return (blocks.total === TITLE_SHIFT) || (blocks.current === (blocks.total - TITLE_SHIFT)); // 条件：仅一页 或 最后一页
 	}
 
 	visibleRange() {
@@ -111,53 +117,39 @@ class Pager extends React.Component {
 		return [start + TITLE_SHIFT, end + TITLE_SHIFT];
 	}
 
-
+ 
     /* ========================= HANDLERS =============================*/
+	/***--- 按钮：点击起始页 ---**/
 	handleFirstPage() {
-		if (!this.isPrevDisabled()) {
-			this.handlePageChanged(BASE_SHIFT);
-		}
+		if (!this.isPrevDisabled()) this.handlePageChanged(BASE_SHIFT); // 设置 current = 1
 	}
-
+	/***--- 按钮：点击上一页 ---**/
 	handlePreviousPage() {
-		if (!this.isPrevDisabled()) {
-			this.handlePageChanged(this.props.current - TITLE_SHIFT);
-		}
-	} 
-	/***--- 点击下一页 ---**/
-	handleNextPage() {
-		if (!this.isNextDisabled()) {
-			this.handlePageChanged(this.props.current + TITLE_SHIFT);
-		}
+		if (!this.isPrevDisabled()) this.handlePageChanged(this.props.current - TITLE_SHIFT); // 设置 current = current - 1
 	}
-	/***--- 点击最终页 ---**/
+	/***--- 按钮：点击下一页 ---**/
+	handleNextPage() {
+		if (!this.isNextDisabled()) this.handlePageChanged(this.props.current + TITLE_SHIFT); // 设置 current = current + 1
+	}
+	/***--- 按钮：点击最终页 ---**/
 	handleLastPage() {
-		if (!this.isNextDisabled()) {
-			this.handlePageChanged(this.props.total - TITLE_SHIFT);
-		}
+		if (!this.isNextDisabled()) this.handlePageChanged(this.props.total - TITLE_SHIFT); // 设置 current = total - 1
 	}
 
-    /**
-     * Chooses page, that is one before min of currently visible
-     * pages.
-     */
+	/** #### 点击 ... 显示前序的页码 ---*/
 	handleMorePrevPages() {
 		const blocks = this.calcBlocks();
 		this.handlePageChanged((blocks.current * blocks.size) - TITLE_SHIFT);
 	}
-
-    /**
-     * Chooses page, that is one after max of currently visible
-     * pages.
-     */
+    /** #### 点击 ... 显示后序的页码 ---*/
 	handleMoreNextPages() {
 		const blocks = this.calcBlocks();
 		this.handlePageChanged((blocks.current + TITLE_SHIFT) * blocks.size);
 	}
-
+	/***--- set current value ---**/
 	handlePageChanged(num) {
 		const handler = this.props.onPageChanged;
-		if (handler) handler(num);
+		handler && handler(num);
 	}
 
 
@@ -169,6 +161,8 @@ class Pager extends React.Component {
      * @return {React.Element[]} - array of React nodes.
      */
 	renderPages(pair) {
+		// console.log(pair) // [5, 9]
+		// console.log(range(pair[0], pair[1])) // [5, 6, 7, 8]
 		return range(pair[0], pair[1]).map((num, idx) => {
 			const current = num - TITLE_SHIFT;
 			const onClick = this.handlePageChanged.bind(this, current);
@@ -181,7 +175,10 @@ class Pager extends React.Component {
 					isActive={isActive}
 					className="btn-numbered-page"
 					onClick={onClick}
-				>{num}</Page>
+					// isHidden 
+				>
+					{num}
+				</Page>
 			);
 		});
 	}
@@ -260,20 +257,29 @@ Pager.defaultProps = {
 	titles: TITLES
 };
 
+const Page = ({isHidden, className, isActive, isDisabled, index, onClick, children  }) => {
+	if (isHidden) return null;
 
-const Page = (props) => {
-	if (props.isHidden) return null;
-
-	const baseCss = props.className ? `${props.className} ` : '';
-	const fullCss = `${baseCss}${props.isActive ? ' active' : ''}${props.isDisabled ? ' disabled' : ''}`;
+	const baseCss = className ? `${className} ` : '';
+	const fullCss = `${baseCss}${isActive ? ' active' : ''}${isDisabled ? ' disabled' : ''}`;
 
 	return (
-		<li key={props.index} className={fullCss}>
-			<a onClick={props.onClick}>{props.children}</a>
+		<li key={index} className={fullCss}>
+			<a onClick={onClick}>{children}</a>
 		</li>
 	);
 };
 
+// const Page = (props) => {
+// 	if (props.isHidden) return null;
+// 	const baseCss = props.className ? `${props.className} ` : '';
+// 	const fullCss = `${baseCss}${props.isActive ? ' active' : ''}${props.isDisabled ? ' disabled' : ''}`;
+// 	return (
+// 		<li key={props.index} className={fullCss}>
+// 			<a onClick={props.onClick}>{props.children}</a>
+// 		</li>
+// 	);
+// };
 Page.propTypes = {
 	isHidden:   PropTypes.bool,
 	isActive:   PropTypes.bool,
@@ -282,13 +288,12 @@ Page.propTypes = {
 	onClick:    PropTypes.func,
 };
 
-
+/** #### @param (start, end] ---*/
 function range(start, end) {
 	const res = [];
 	for (let i = start; i < end; i++) {
 		res.push(i);
 	}
-
 	return res;
 }
 

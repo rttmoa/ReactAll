@@ -8,7 +8,7 @@ function transformEntityState(state: any, payload: any){
 
 function reducer(state:any = {}, action: any){
     if (action.type === BOOTSTRAP_STATE_CHANGE_ACTION) {
-        const payload = action.payload
+        const payload = action.payload;
         switch (payload.partialStateName) {
             case BootstrapTypes.GET_BOOTSTRAP_SUCCESS:
                 return transformEntityState(state, payload);

@@ -1,11 +1,15 @@
 import { getBetweenTimeBuiltinValueItem } from "@steedos/filters";
 import moment from 'moment';
 
+
+
+// TODO: 获取对象记录 url
 export const getObjectRecordUrl = (objectName, recordId) => {
     let url = `/app/-/${objectName}/view/${recordId}`;
     return getRelativeUrl(url);
 }
 
+// TODO: 获取对象 url
 export const getObjectUrl = (objectName) => {
     let url = `/app/-/${objectName}`;
     return getRelativeUrl(url);
@@ -25,6 +29,7 @@ export const getRelativeUrl = (url) => {
     return url;
 }
 
+// TODO: 是否是 Mobile
 export const isMobile = () => {
     if (window.Steedos && window.Steedos.isMobile()) {
         // Steedos.isMobile中写的是：$(window).width()<767
@@ -34,6 +39,7 @@ export const isMobile = () => {
     }
 }
 
+// TODO: 过滤数据配置
 export const getWidgetReductsConfig = () => {
     // 简化组件时默认的标准配置
     return {

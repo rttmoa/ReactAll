@@ -1,6 +1,9 @@
 import { getUserId, getAuthToken, getSpaceId } from '../utils';
 import { fetch } from "whatwg-fetch";
 
+
+
+
 export async function request(url: string, opts: any = {}) {
     let options = Object.assign({ method: "GET", compress: false }, opts)
     let authToken = getAuthToken();

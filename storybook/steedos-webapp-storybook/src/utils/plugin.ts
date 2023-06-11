@@ -17,6 +17,9 @@ import { receivePluginInstance, receivePluginComponent } from '../actions';
 import { ObjectHomeIFrame, generateIFrame } from "../components/object_home_iframe";
 const _ = require('underscore')
 
+
+
+
 /**
 * Register a plugin to window
 */
@@ -28,7 +31,7 @@ export const registerPlugin = ( pluginName, pluginInstance ) => {
     pluginInstance.initialize(registry, store);
 }
 
-export const registerWindowLibraries = () => { // TODO: 注册Window库
+export const registerWindowLibraries = () => {      // TODO: 注册Window库
     window["React"] = React;
     window["PropTypes"] = PropTypes;
     window["ReactDom"] = ReactDom;
@@ -47,9 +50,8 @@ export const registerWindowLibraries = () => { // TODO: 注册Window库
 }
 
 function dispatchPluginComponentAction(name: string, pluginId: string, component: any, id: string = "") {
-    if(!id){
-        id = generateId();
-    }
+    if(!id) id = generateId();
+
     store.dispatch(receivePluginComponent(name, {
         id,
         pluginId,
@@ -59,6 +61,7 @@ function dispatchPluginComponentAction(name: string, pluginId: string, component
     return id;
 }
 
+// 生成 Id
 export function generateId() {
     // implementation taken from http://stackoverflow.com/a/2117523
     var id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
@@ -78,6 +81,7 @@ export function generateId() {
 
     return id;
 }
+
 export class PluginRegistry {
     id: string;
 
@@ -115,7 +119,7 @@ export class PluginRegistry {
         if(!_.isArray(appNames)){
             appNames = (<string>appNames).split(",");
         }
-        (<string[]>appNames).forEach((item)=>{
+        (<string[]> appNames).forEach((item)=>{
             dispatchPluginComponentAction("Dashboard", this.id, componentClass, item)
         });
     }
