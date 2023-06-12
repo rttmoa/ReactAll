@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
 import './index.css';
+
+
+
 class NotFound extends Component {
     render() {
         return (

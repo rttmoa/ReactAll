@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+
+// 生成报表的平台: https://www.zizhi888.cn/vue/97.html
 class ReportViewer extends Component {
     render() {
         return <div id="report-viewer"></div>;
