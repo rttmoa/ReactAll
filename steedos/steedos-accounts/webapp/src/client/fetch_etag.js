@@ -14,8 +14,7 @@ export default (url = null, options = {headers: {}}) => {
             options.headers['If-None-Match'] = etag;
         }
 
-        return fetch(url, options).
-            then((response) => {
+        return fetch(url, options).then((response) => {
                 if (response.status === 304) {
                     return cachedResponse.clone();
                 }
