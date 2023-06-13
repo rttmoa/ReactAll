@@ -8,6 +8,7 @@ export default defineConfig({
     type: 'none',
   },
   mock: false,
+  // TODO: 代理端口
   proxy: {
     '/api': {
       'target': 'http://127.0.0.1:7001/',
@@ -17,6 +18,7 @@ export default defineConfig({
   history: {
     type: 'hash'
   },
+  // umi-routes
   routes: [{
       path: '/',
       component: '@/layouts/index',
@@ -68,6 +70,7 @@ export default defineConfig({
           title: '注册'
         },
       ]
+
     }
   ],
 });
