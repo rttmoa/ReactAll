@@ -23,7 +23,7 @@ signUpEvent.on('inputNext', async (tenant, history, location, spaceId, name, act
             //         state: { email: name.trim() }
             //     })
             // }
-        }else{
+        } else {
             history.push({
                 pathname: `/signup-password`,
                 search: location.search,
@@ -33,7 +33,7 @@ signUpEvent.on('inputNext', async (tenant, history, location, spaceId, name, act
     } catch (error) {
         signUpEvent.emit('error', error); // emit error后，具体：error
     }
-}) 
+})
 
 function signUpEventOnError(Func){
     if(lastOnError){

@@ -32,7 +32,7 @@ const useCountDown = (
     addData()
   }, [addData])
 
-  const getRestTime = useCallback(() => {
+  const getRestTime = useCallback(() => {  // 根据expiredTime获取剩余时间
     let expiredTime: string | null | number = getData()
     if (!expiredTime) {
       return 0

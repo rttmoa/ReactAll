@@ -117,7 +117,6 @@ const LoginAfterHistoryPush = (history, url, state) => {
 }
 
 const goInSystem = (history, location, accessToken, root_url, canGoHome)=>{
-
   const searchParams = new URLSearchParams(location.search);
   let redirect_uri = searchParams.get("redirect_uri");
 

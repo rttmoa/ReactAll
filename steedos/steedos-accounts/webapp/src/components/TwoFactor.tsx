@@ -20,7 +20,7 @@ const TwoFactor = () => {
   const onSetTwoFactor = async () => {
     try {
       await accountsRest.twoFactorSet(secret, oneTimeCode);
-    } catch (err) {
+    } catch (err: any) {
       alert(err.message);
     }
   };
