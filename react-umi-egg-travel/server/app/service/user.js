@@ -10,13 +10,13 @@ class UserService extends BaseService {
       const { ctx, app } = this;
       const _where = password ? { username, password: md5(password + app.config.salt) } : { username };
       const result = await ctx.model.User.findOne({
-        where: _where
+        where: _where,
       });
       return result;
     });
   }
 
-  async add(params){
+  async add(params) {
     return this.run(async () => {
       const { ctx } = this;
       const result = await ctx.model.User.create(params);
@@ -24,17 +24,17 @@ class UserService extends BaseService {
     });
   }
 
-  async edit(params){
-    return this.run(async (ctx) => {
+  async edit(params) {
+    return this.run(async ctx => {
       try {
         const result = await ctx.model.User.update(params, {
           where: {
-            username: ctx.username
-          }
+            username: ctx.username,
+          },
         });
         return result;
       } catch (error) {
-        console.log('edit', error)
+        console.log('edit', error);
         return null;
       }
       // const result = await ctx.model.User.update(params, {

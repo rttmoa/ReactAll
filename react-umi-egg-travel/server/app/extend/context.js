@@ -2,7 +2,7 @@
 module.exports = {
   params(key) {
     const method = this.request.method;
-    if (method === "GET") {
+    if (method === 'GET') {
       return key ? this.query[key] : this.query;
     // eslint-disable-next-line no-else-return
     } else {

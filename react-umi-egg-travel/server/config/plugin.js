@@ -8,55 +8,55 @@ exports.validate = {
 
 exports.ejs = {
   enable: true,
-  package: 'egg-view-ejs'
+  package: 'egg-view-ejs',
 };
 
 exports.auth = {
   enable: true,
-  path: path.join(__dirname, '../lib/plugin/egg-auth')
+  path: path.join(__dirname, '../lib/plugin/egg-auth'),
 };
 
 exports.info = {
   enable: true,
-  path: path.join(__dirname, '../lib/plugin/egg-info')
+  path: path.join(__dirname, '../lib/plugin/egg-info'),
 };
 
 exports.mysql = {
   enable: true,
-  package: 'egg-mysql'
+  package: 'egg-mysql',
 };
 
 exports.sequelize = {
   enable: true,
-  package: 'egg-sequelize'
+  package: 'egg-sequelize',
 };
 
 exports.jwt = {
   enable: true,
-  package: 'egg-jwt'
+  package: 'egg-jwt',
 };
 
 exports.redis = {
   enable: true,
-  package: 'egg-redis'
+  package: 'egg-redis',
 };
 
 exports.notFound = {
   enable: true,
-  path: path.join(__dirname, '../lib/plugin/egg-notFound')
+  path: path.join(__dirname, '../lib/plugin/egg-notFound'),
 };
 
 exports.allowHosts = {
   enable: true,
-  path: path.join(__dirname, '../lib/plugin/egg-allowHosts')
+  path: path.join(__dirname, '../lib/plugin/egg-allowHosts'),
 };
 
 exports.interfaceLimit = {
   enable: true,
-  path: path.join(__dirname, '../lib/plugin/egg-interfaceLimit')
+  path: path.join(__dirname, '../lib/plugin/egg-interfaceLimit'),
 };
 
 exports.interfaceCache = {
   enable: true,
-  path: path.join(__dirname, '../lib/plugin/egg-interfaceCache')
+  path: path.join(__dirname, '../lib/plugin/egg-interfaceCache'),
 };

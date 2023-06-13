@@ -25,4 +25,4 @@ class CommentController extends BaseController {
   }
 }
 
-module.exports = CommentController
+module.exports = CommentController;
