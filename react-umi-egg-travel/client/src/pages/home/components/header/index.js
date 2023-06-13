@@ -13,7 +13,7 @@ function Header(props) {
   // console.log('header render  memo防止多次渲染')
 
   useEffect(() => {
-    // console.log(cookie.get('user'))
+    // console.log(cookie.get("username"))
   }, [])
 
   return (

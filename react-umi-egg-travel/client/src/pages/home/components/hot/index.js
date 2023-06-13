@@ -28,7 +28,7 @@ function Hot(props) {
             <div className='title'>{item.title}</div>
             <div className='info'>{item.info}</div>
             <div className='price'>￥{item.price}</div>
-          </div>
+          </div>  
         ))}
       </div>
     </div>

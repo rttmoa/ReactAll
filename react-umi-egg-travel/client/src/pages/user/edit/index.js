@@ -9,9 +9,7 @@ import { useStoreHook } from 'think-react-store';
 // 上传图片 antd-ImagePicker
 function Edit(props) {
   const { getFieldProps, validateFields } = props.form;
-  const {
-    user: { editUserAsync, getUserAsync, avatar, phone, sign },
-  } = useStoreHook();
+  const { user: { editUserAsync, getUserAsync, avatar, phone, sign } } = useStoreHook();
   const [files, setFiles] = useState([{ url: avatar }]);
 
   const handleChange = (files) => {

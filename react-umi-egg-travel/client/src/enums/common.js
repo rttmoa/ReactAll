@@ -1,6 +1,6 @@
 export const LOADING_ID = 'mk-loading';
 
 export const PAGE = {
-  pageSize: 8,
+  pageSize: 4, // 原： 8
   pageNum: 1
 };

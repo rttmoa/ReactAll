@@ -10,11 +10,11 @@ import { history } from 'umi';
 function Search(props) {
   // console.log('search render')
   const [citys, setCitys] = useState([[{ label: '杭州', value: '10001' }, { label: '苏州', value: '10002' },{ label: '广州', value: '10003' }]]);
-  const [selectedCity, setSelectedCity] = useState(['10002']);
-  const [times, setTimes] = useState('可选时间'); // 选择的 时间 - 时间
+  const [selectedCity, setSelectedCity] = useState(['10001']);
+  const [times, setTimes] = useState('可选时间'); // Wed Apr 12 2023 00:00:00 GMT+0800 (中国标准时间) Thu Apr 20 2023 00:00:00 GMT+0800 (中国标准时间)
   const [dateShow, setDateShow] = useState(false);
 
-  /***--- 选择城市 ---**/
+  /** #### 选择城市 ---*/
   const handleCityChange = (value) => {
     setSelectedCity(value);
   };
@@ -25,13 +25,13 @@ function Search(props) {
 
   /***--- 日历组件 选择 起始时间到结束时间 ---**/
   const handleDateConfirm = (startTime, endTime) => {
-    // console.log(startTime, endTime); // Wed Apr 12 2023 00:00:00 GMT+0800 (中国标准时间) Thu Apr 20 2023 00:00:00 GMT+0800 (中国标准时间)
     setDateShow(!dateShow);
     setTimes(dayjs(startTime).format('YYYY-MM-DD') + ' ~ ' + dayjs(endTime).format('YYYY-MM-DD'));
   };
 
   const handleClick = () => {
     if(times.includes('~')){
+      // TODO: push到浏览器地址栏中
       history.push({
         pathname: '/search',
         query: {

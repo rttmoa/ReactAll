@@ -4,8 +4,9 @@ import Search from './components/search';
 import Hot from './components/hot';
 import { useHttpHook } from '@/hooks';
 import { ErrorBoundary } from '@/components';
-import './index.less';
 
+import house from './components/json';
+import './index.less';
 
 
 
@@ -15,7 +16,7 @@ export default function (props) {
   const [city, setState] = useState([{ label: '杭州', value: '10001' }, { label: '苏州', value: '10002' }])
   const [citys, citysLoading] = useHttpHook({url: '/commons/citys'});
   const [houses] = useHttpHook({url: '/house/hot'});
-  // console.log(citysLoading)
+  // console.log("houses", houses)
 
 
   return (
@@ -27,12 +28,12 @@ export default function (props) {
 
         {/**搜索 */}
         {city && <Search citys={city} citysLoading={citysLoading} />}
-        {/* <Search citys={city} citysLoading={citysLoading} /> */}
 
-        {/**热门民宿 */}
+        {/**最热民宿 */}
         {houses && <Hot houses={houses} />}
 
       </div>
     </ErrorBoundary>
   )
+
 }
