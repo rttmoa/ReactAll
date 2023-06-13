@@ -1408,3 +1408,23 @@
 2023-04-13 21:27:18 [httpLog] {"method":"POST","url":"/api/house/search","data":{"pageSize":8,"pageNum":1,"houseName":"","code":"10002","startTime":"2023-04-13 00:00:00","endTime":" 2023-04-14 23:59:59"},"startTime":"2023-04-13 21:27:18","endTime":"2023-04-13 21:27:18","timeLength":21}
 2023-04-13 21:27:20 [httpLog] {"method":"POST","url":"/api/house/hot","data":{},"startTime":"2023-04-13 21:27:20","endTime":"2023-04-13 21:27:20","timeLength":23}
 2023-04-13 21:27:21 [httpLog] {"method":"POST","url":"/api/commons/citys","data":{},"startTime":"2023-04-13 21:27:20","endTime":"2023-04-13 21:27:21","timeLength":96}
+2023-06-13 16:15:03 [httpLog] {"method":"POST","url":"/api/user/login","data":{"username":"admin","password":"admin"},"startTime":"2023-06-13 16:15:03","endTime":"2023-06-13 16:15:03","timeLength":30}
+2023-06-13 16:15:03 [httpLog] {"method":"POST","url":"/api/house/hot","data":{},"startTime":"2023-06-13 16:15:03","endTime":"2023-06-13 16:15:03","timeLength":19}
+2023-06-13 16:15:03 [httpLog] {"method":"POST","url":"/api/commons/citys","data":{},"startTime":"2023-06-13 16:15:03","endTime":"2023-06-13 16:15:03","timeLength":201}
+2023-06-13 16:15:06 [httpLog] {"method":"POST","url":"/api/orders/lists","data":{"pageSize":8,"pageNum":1,"type":0},"startTime":"2023-06-13 16:15:06","endTime":"2023-06-13 16:15:06","timeLength":29}
+2023-06-13 16:15:07 [httpLog] {"method":"POST","url":"/api/orders/lists","data":{"pageSize":8,"pageNum":2,"type":0},"startTime":"2023-06-13 16:15:07","endTime":"2023-06-13 16:15:07","timeLength":11}
+2023-06-13 16:15:09 [httpLog] {"method":"POST","url":"/api/orders/lists","data":{"pageSize":8,"pageNum":1,"type":1},"startTime":"2023-06-13 16:15:09","endTime":"2023-06-13 16:15:09","timeLength":17}
+2023-06-13 16:15:10 [httpLog] {"method":"POST","url":"/api/orders/lists","data":{"pageSize":8,"pageNum":2,"type":1},"startTime":"2023-06-13 16:15:10","endTime":"2023-06-13 16:15:10","timeLength":11}
+2023-06-13 16:15:10 [httpLog] {"method":"POST","url":"/api/orders/lists","data":{"pageSize":8,"pageNum":1,"type":0},"startTime":"2023-06-13 16:15:10","endTime":"2023-06-13 16:15:10","timeLength":22}
+2023-06-13 16:15:11 [httpLog] {"method":"POST","url":"/api/orders/pay","data":{"id":7},"startTime":"2023-06-13 16:15:11","endTime":"2023-06-13 16:15:11","timeLength":19}
+2023-06-13 16:15:12 [httpLog] {"method":"POST","url":"/api/orders/lists","data":{"pageSize":8,"pageNum":1,"type":0},"startTime":"2023-06-13 16:15:12","endTime":"2023-06-13 16:15:12","timeLength":20}
+2023-06-13 16:15:12 [httpLog] {"method":"POST","url":"/api/orders/lists","data":{"pageSize":8,"pageNum":2,"type":0},"startTime":"2023-06-13 16:15:12","endTime":"2023-06-13 16:15:12","timeLength":11}
+2023-06-13 16:15:13 [httpLog] {"method":"POST","url":"/api/orders/lists","data":{"pageSize":8,"pageNum":1,"type":1},"startTime":"2023-06-13 16:15:13","endTime":"2023-06-13 16:15:13","timeLength":17}
+2023-06-13 16:15:14 [httpLog] {"method":"POST","url":"/api/orders/lists","data":{"pageSize":8,"pageNum":2,"type":1},"startTime":"2023-06-13 16:15:14","endTime":"2023-06-13 16:15:14","timeLength":9}
+2023-06-13 16:15:14 [httpLog] {"method":"POST","url":"/api/orders/lists","data":{"pageSize":8,"pageNum":1,"type":0},"startTime":"2023-06-13 16:15:14","endTime":"2023-06-13 16:15:14","timeLength":24}
+2023-06-13 16:15:15 [httpLog] {"method":"POST","url":"/api/orders/lists","data":{"pageSize":8,"pageNum":2,"type":0},"startTime":"2023-06-13 16:15:15","endTime":"2023-06-13 16:15:15","timeLength":7}
+2023-06-13 16:15:18 [httpLog] {"method":"POST","url":"/api/user/detail","data":{"id":10},"startTime":"2023-06-13 16:15:18","endTime":"2023-06-13 16:15:18","timeLength":8}
+2023-06-13 16:15:25 [httpLog] {"method":"POST","url":"/api/user/logout","data":{},"startTime":"2023-06-13 16:15:25","endTime":"2023-06-13 16:15:25","timeLength":1}
+2023-06-13 16:15:39 [httpLog] {"method":"POST","url":"/api/user/login","data":{"username":"admin","password":"admin"},"startTime":"2023-06-13 16:15:39","endTime":"2023-06-13 16:15:39","timeLength":10}
+2023-06-13 16:15:40 [httpLog] {"method":"POST","url":"/api/house/hot","data":{},"startTime":"2023-06-13 16:15:40","endTime":"2023-06-13 16:15:40","timeLength":11}
+2023-06-13 16:15:40 [httpLog] {"method":"POST","url":"/api/commons/citys","data":{},"startTime":"2023-06-13 16:15:40","endTime":"2023-06-13 16:15:40","timeLength":185}
