@@ -5,10 +5,7 @@ import { BsHouseDoorFill, BsHouseDoor, BsBagFill, BsBag, BsPersonFill, BsPerson 
 import { history } from 'umi';
 import './index.less';
 
-
-
 export default class MenuBar extends Component {
-
   state = {
     items: [
       {
@@ -33,7 +30,7 @@ export default class MenuBar extends Component {
   };
 
   render() {
-    const { show, pathname } = this.props;  // /Layouts/indexjs  show：是否显示MenuBar组件， pathnmae：当前url地址信息
+    const { show, pathname } = this.props;  //   /Layouts/indexjs  show：是否显示MenuBar组件， pathnmae：当前url地址信息
 
     return (
       <div className='menu-bar'>

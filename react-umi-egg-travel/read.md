@@ -2,10 +2,12 @@
 
 ##### 前端技术
 
-###### teck: `hooks、umijs、think-react-store`
+###### teck: `hooks、umijs、think-react-store、rc-form、project-libs、react-icons`
 
-npm: `project-libs`
+###### /components 复用组件
 
+
+ 
 ##### 后端技术
 
 `eggJs、Sequelize、mysql、redis`

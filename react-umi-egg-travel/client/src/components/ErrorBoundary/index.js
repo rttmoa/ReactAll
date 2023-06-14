@@ -22,14 +22,12 @@ export default class ErrorBoundary extends Component {
   /* error: 抛出的错误
    * info: 带有 componentStack key 的对象，其中包含有关组件引发错误的栈信息
   */
-  componentDidCatch(error, info) {
-
-  }
+  componentDidCatch(error, info) {}
 
   render() {
     return (
       <div>
-        {this.state.flag ? <h1 className='mk-error-page'>网络异常，请稍后再试！</h1> : this.props.children}
+        {this.state.flag ? <h1 className='mk-error-page'>网络异常，请稍后再试！ {"->"} ErrorBoundary </h1> : this.props.children}
       </div>
     )
   }

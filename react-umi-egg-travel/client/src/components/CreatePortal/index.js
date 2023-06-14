@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 
 
 
-
+// NOTE: 创建门户
 export default class CreatePortal extends Component {
 
   constructor(props) {
@@ -22,6 +22,7 @@ export default class CreatePortal extends Component {
     this.body.removeChild(this.el);
   }
 
+  // TODO: ReactDOM.createPortal来实现弹框组件的改造；比较初级，比较通俗易懂
   render() {
     return ReactDOM.createPortal(this.props.children, this.el)
   }
