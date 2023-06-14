@@ -31,6 +31,7 @@ class Home extends PureComponent {
 					<Recommend />
 					<Writer />
 				</HomeRight>
+				{/* TODO: 如果scrollTop>100, 发送redux切换状态，再传递回来，显示 顶部的块 */}
 				{ this.props.showScroll ? <BackTop onClick={this.handleScrollTop}>顶部</BackTop> : null}
 			</HomeWrapper>
 		)

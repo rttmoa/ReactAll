@@ -42,9 +42,7 @@ class Header extends Component {
 				<SearchInfo onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} >
 					<SearchInfoTitle>
 						热门搜索
-						<SearchInfoSwitch 
-							onClick={() => handleChangePage(page, totalPage, this.spinIcon)}
-						>
+						<SearchInfoSwitch onClick={() => handleChangePage(page, totalPage, this.spinIcon)}>
 							<i ref={(icon) => {this.spinIcon = icon}} className="iconfont spin">&#xe851;</i>
 							换一批
 						</SearchInfoSwitch>
@@ -90,9 +88,7 @@ class Header extends Component {
 						<i className={focused ? 'focused iconfont zoom': 'iconfont zoom'}>
 							&#xe614;
 						</i>
-						{
-							this.getListArea()
-						}
+						{ this.getListArea() }
 					</SearchWrapper>
 				</Nav>
 				<Addition>

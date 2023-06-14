@@ -29,6 +29,7 @@ class List extends PureComponent {
 						);
 					})
 				}
+				{/* TODO: 点击更多文字 加载新数据 page+1 */}
 				<LoadMore onClick={() => getMoreList(page)}>更多文字</LoadMore>
 			</div>
 		)
@@ -40,6 +41,7 @@ const mapState = (state) => ({
 });
 const mapDispatch = (dispatch) => ({
 	getMoreList(page) {
+		// TODO: page是redux存储的最新数据
 		dispatch(actionCreators.getMoreList(page))
 	}
 })
