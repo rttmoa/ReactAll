@@ -26,7 +26,7 @@ export default function (props) {
       {isEmpty(props?.orders) ?  <>{state ? <ShowLoading showLoading={false}/> : <OrderSkeletons/>}</> :
         <div className='tab-lists'>
           {props.orders.map(item => (
-            <OrderItem type={props.type} key={item.id} {...item}/>
+            <OrderItem type={props.type} key={item.id} {...item} />
           ))}
           <ShowLoading showLoading={props.showLoading}/>
         </div>

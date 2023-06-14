@@ -44,8 +44,9 @@ export default function (props) {
    * 4，监听loading变化，拼装数据
    */
   useObserverHook('#' + CommonEnum.LOADING_ID, (entries) => {
-    // console.log(entries)
     if (!loading && entries[0].isIntersecting) {
+    // console.log(entries) // [IntersectionObserverEntry]
+    // FIXME: 如果滚动了 加载下一页 useHttpHook监听watch
       setPage({
         ...page,
         pageNum: page.pageNum + 1
@@ -53,6 +54,7 @@ export default function (props) {
     }
   }, null);
 
+  // TODO: useImgHook
   useImgHook('.item-img', (enties)=>{}, null);
 
   /** #### 输入框 值改变   @description 设置民宿名 ---*/
@@ -85,7 +87,7 @@ export default function (props) {
   }, [loading])
 
 
-
+  console.log("民宿Array", houseLists.length)
   return (
     <div className='search-page'>
 

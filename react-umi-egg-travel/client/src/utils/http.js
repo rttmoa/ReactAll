@@ -2,10 +2,6 @@ import { Toast } from 'antd-mobile';
 
 
 
-
-
-
-
 export default function Http({  url,  method = 'post',  headers = {},  body = {},  setLoading,  setResult }){
   setLoading && setLoading(true);
 
@@ -34,7 +30,8 @@ export default function Http({  url,  method = 'post',  headers = {},  body = {}
   }
 
   return new Promise((resolve, reject)=>{
-    fetch('/api' + url, params).then(res => res.json()).then(res => {
+    setTimeout(() => {
+      fetch('/api' + url, params).then(res => res.json()).then(res => {
         // console.log("Http Request", res)
         if(res.status === 200){
           resolve(res.data);
@@ -56,5 +53,7 @@ export default function Http({  url,  method = 'post',  headers = {},  body = {}
       .finally(() => {
         setLoading && setLoading(false);
       })
-  });
+      // console.log(123)
+    }, 1000);
+  })
 }

@@ -72,7 +72,7 @@ export default {
     }
   },
   effects: {
-    async getDetailAsync(dispatch, rootState, payload) {
+    async getDetailAsync(dispatch, rootState, payload) {  // 获取民宿详情
       const detail = await Http({
         url: '/house/detail',
         body: payload
@@ -82,7 +82,7 @@ export default {
         payload: detail
       });
     },
-    async getCommentsAsync(dispatch, rootState, payload) {
+    async getCommentsAsync(dispatch, rootState, payload) {  // 获取评论数据
       const { comments, page } = rootState.house;
       const lists = await Http({
         url: '/comment/lists',
@@ -101,7 +101,7 @@ export default {
         payload: lists.length ? true : false
       });
     },
-    async addCommentsAsync(dispatch, rootState, payload) {
+    async addCommentsAsync(dispatch, rootState, payload) { // 添加评论
       // console.log("payload", payload) // {comment: '123', houseId: '3'}
       const result = await Http({
         url: '/comment/add',

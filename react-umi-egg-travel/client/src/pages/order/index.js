@@ -26,7 +26,7 @@ export default function (props) {
   //   }
   // });
 
-  // 执行Http
+
   const invokeHttp = async (pageNum) => {
     const result = await Http({
       url: '/orders/lists',
@@ -38,7 +38,7 @@ export default function (props) {
     });
     return result;
   };
-  // 搜索订单
+  // TODO: 根据type切换去  搜索订单
   const fetchOrder = async (pageNum) => {
     const result = await invokeHttp(pageNum);
     // console.log(result)
@@ -51,8 +51,7 @@ export default function (props) {
   };
 
   /***--- 切换 未支付/已支付 ---**/
-  const handleChange = (e) => {
-    // console.log(e)  //  {title: '已支付', sub: 1}  ||  {title: '未支付', sub: 0}
+  const handleChange = (e) => { // e：  {title: '已支付', sub: 1}  ||  {title: '未支付', sub: 0}
     setType(e.sub);
     setPage(CommonEnum.PAGE); // 枚举
     setOrders([]);
@@ -70,8 +69,8 @@ export default function (props) {
    * 4，拼装数据，然后page
    */
   useObserverHook('#' + CommonEnum.LOADING_ID, async (entries) => {
-    // console.log(entries[0])
     if (entries[0].isIntersecting) {
+      // console.log(entries[0])
       const result = await invokeHttp(page.pageNum + 1);
       if (!isEmpty(orders) && !isEmpty(result) && result.length === page.pageSize) {
         setOrders([...orders, ...result]);
