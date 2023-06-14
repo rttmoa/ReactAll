@@ -15,12 +15,12 @@ export default function(props){
   const renderBtn = () => {
     // order里面没有id，说明订单一定不存在
     if(!props.order?.id){
-      return <Button className='info-btn' type='warning' onClick={()=>handleOrder()}>预定</Button>
+      return <Button className='info-btn' type='warning' onClick={() => handleOrder()}>预定</Button>
     }
 
     // 已经有订单了，处于未支付状态
     if(props.order?.isPayed === 0){
-      return <Button className='info-btn' type='ghost' onClick={()=>handleOrder(props.order.id)}>取消预定</Button>
+      return <Button className='info-btn' type='ghost' onClick={() => handleOrder(props.order.id)}>取消预定</Button>
     }
 
     // 已经有订单了，处于已支付状态

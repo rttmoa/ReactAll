@@ -102,12 +102,12 @@ export default {
       });
     },
     async addCommentsAsync(dispatch, rootState, payload) { // 添加评论
-      // console.log("payload", payload) // {comment: '123', houseId: '3'}
+      console.log("payload", payload) // {comment: '123', houseId: '3'}
       const result = await Http({
         url: '/comment/add',
         body: payload
       });
-      console.log(result)
+      console.log("添加评论result", result)  // TODO: 添加失败 报错
       if (result) {
         dispatch({
           type: 'resetData',
