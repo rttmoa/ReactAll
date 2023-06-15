@@ -107,7 +107,6 @@ function mapStateToProps(state) {
     }
 } 
 function mapDispatchToProps(dispatch) {
-    return {
-    }
+    return {}
 }
 export default connect( mapStateToProps,mapDispatchToProps )(SearchList)

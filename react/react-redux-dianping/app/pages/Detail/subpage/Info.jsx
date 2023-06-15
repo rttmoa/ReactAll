@@ -21,10 +21,10 @@ class Info extends React.Component {
     /***--- 获取商户信息 ---**/
     componentDidMount() { this.getInfo() }
     getInfo() {
-        const id = this.props.id
+        const id = this.props.id;
         const result = getInfoData(id)
         result.then(res => {
-            return res.json()
+            return res.json();
         }).then(json => {
             // console.log('获取商户信息', json)
             this.setState({ info: json })

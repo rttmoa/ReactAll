@@ -9,7 +9,7 @@ import OrderList from './subpage/OrderList'    //---->  组件
 
 
 /***--- 
- * 用户页面
+ * TODO: 用户页面
  * 一、渲染评价的状态(未评价、已评价、评价中、提交、取消)、
  * 二、控制显示与隐藏及颜色(未评价、已评价、评价中、提交、取消的点击事件处理、使用函数方式控制类名)、
  * 三、评价几颗星处理Star(点击的星星是第几颗、点击的星星颜色变成红色、回调函数的处理和封装和调用的方法)、
@@ -21,12 +21,11 @@ class User extends React.Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
     }
     render() {
-        const userinfo = this.props.userinfo
-        // console.log(userinfo) // {cityName: '北京'}
+        const userinfo = this.props.userinfo; // {cityName: '北京'}
         userinfo.username = "zhangsan"
         return (
             <div>
-                <Header title="用户主页" backRouter="/"/>
+                <Header title="用户主页" backRouter="/" />
                 <UserInfo UserName={userinfo.username} City={userinfo.cityName}/>
                 {/* GET、POST接口 */}
                 <OrderList UserName={userinfo.username}/>
@@ -48,7 +47,6 @@ function mapStateToProps(state) {
     }
 } 
 function mapDispatchToProps(dispatch) {
-    return {
-    }
+    return {}
 }
 export default connect( mapStateToProps,mapDispatchToProps )(User)

@@ -57,7 +57,6 @@ class Login extends React.Component {
 
         const params = this.props.params // 路由中的参数 - 就是说从哪里来的
         const router = params.router
-        // return  
         
         if (router) {
             // 跳转到指定的页面
@@ -77,8 +76,7 @@ function mapStateToProps(state) {
         userinfo: state.userinfo
     }
 }
-function mapDispatchToProps(dispatch) {
-    // console.log(userInfoActionsFromOtherFile) // {__esModule: true, update: ƒ, User: ƒ}
+function mapDispatchToProps(dispatch) { 
     return {
         userInfoActions: bindActionCreators(userInfoActionsFromOtherFile, dispatch)
     }

@@ -3,7 +3,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 import './style.less'
 
 
-// 用户点评 和 首页下拉加载 都用到了这个组件
+/** ####  TODO: 用户点评 和 首页下拉加载 都用到了这个组件 ---*/
 class LoadMore extends React.Component {
     constructor(props, context) {
         super(props, context);

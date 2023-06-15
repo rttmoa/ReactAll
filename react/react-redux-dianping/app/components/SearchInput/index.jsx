@@ -3,6 +3,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 
 import './style.less'
 
+
+/** #### 封装首页顶部搜索框  ---*/
 class SearchInput extends React.Component {
     constructor(props, context) {
         super(props, context);

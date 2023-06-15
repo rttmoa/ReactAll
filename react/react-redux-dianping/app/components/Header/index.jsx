@@ -6,7 +6,7 @@ import './style.less'
 
 
 
-
+/** #### Header 头部 封装 ---*/
 class Header extends React.Component {
     constructor(props, context) {
         super(props, context);

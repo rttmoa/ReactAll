@@ -3,6 +3,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 
 import './style.less'
 
+
+/** #### 选择城市  当前城市   ---*/
 class CurrentCity extends React.Component {
     constructor(props, context) {
         super(props, context);

@@ -7,8 +7,6 @@ import Category from '../../components/Category'    //---->  组件
 import Ad from './subpage/Ad'
 import List from './subpage/List'
 
-
-
 class Home extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -21,7 +19,7 @@ class Home extends React.Component {
                 <HomeHeader cityName={this.props.userinfo.cityName}/>
 
                 {/* 轮播图 - CSS结构 */}
-                <Category/>
+                <Category />
                 
                 <div style={{height: '3px',textAlign:'center'  }}>{/* '分割线' */}</div>
 
@@ -33,16 +31,5 @@ class Home extends React.Component {
             </div>
         )
     }
-}
-function mapStateToProps(state) {
-    // console.log('Home state', state) // userinfo:{cityName: '北京'}  store:[]
-    return {
-        userinfo: state.userinfo
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-    }
-}
-export default connect( mapStateToProps, mapDispatchToProps )(Home)
+} 
+export default connect((state) => { return { userinfo: state.userinfo }}, null )(Home)

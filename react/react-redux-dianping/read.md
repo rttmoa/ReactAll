@@ -8,24 +8,18 @@
 
 ##### Skill:  `mock + koa`
 
-
 ## Issue:
 
 ###### **安装：**`npm install`  **启动：**`npm run mock & npm start`
+
+**[大众点评Webapp](https://coding.imooc.com/class/chapter/313.html#Anchor](https://coding.imooc.com/class/chapter/313.html#Anchor))**
 
 **/docs下开发文档**
 
 **webpack配置**
 
-**改动程序需多次重启服务**
+**改动程序需多次重启服务** 
 
-**项目已备份**
-
-下拉加载组件 - /component/LoadMore组件
-
-搜索页面组件
-
-**[Url](https://coding.imooc.com/class/chapter/313.html#Anchor](https://coding.imooc.com/class/chapter/313.html#Anchor))**
 
 * [X] 端口：本地(8080)，Mock(3000)
 * [X] Webpack配置(开发与生产环境)

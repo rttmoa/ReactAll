@@ -48,19 +48,11 @@ class List extends React.Component {
     // 加载更多数据
     loadMoreData() {
         // 记录状态
-        this.setState({
-            isLoadingMore: true
-        })
-
+        this.setState({isLoadingMore: true}) 
         const cityName = this.props.cityName
         const page = this.state.page
-        const result = getListData(cityName, page)
-        // console.log('同步1')
-        this.resultHandle(result)
-        // console.log(page)
-
-        // console.log('同步3')
-        // 增加 page 技术
+        const result = getListData(cityName, page) 
+        this.resultHandle(result);
         this.setState({
             page: page + 1,
             isLoadingMore: false
@@ -81,7 +73,6 @@ class List extends React.Component {
                 // 注意，这里讲最新获取的数据，拼接到原数据之后，使用 concat 函数
                 // 两种方法都可以ES6、ES7语法
                 data: this.state.data.concat(data)
-                // data: [...this.state.data, ...data]
             })
             // console.log('同步2')
         }).catch(ex => {

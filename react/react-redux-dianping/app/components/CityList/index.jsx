@@ -63,7 +63,7 @@ class CityList extends React.Component {
         )
     }
     clickHandle(cityName) {
-        const changeFn = this.props.changeFn
+        const changeFn = this.props.changeFn;
         changeFn(cityName)
     }
 }
