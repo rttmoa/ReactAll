@@ -1,6 +1,21 @@
-# 项目目录   Class组件
+# 大众点评-H5
 
-**安装：**`npm install`    **启动：**`npm run mock & npm start`
+## 前端技术
+
+##### Skill:   `class + redux + 可查看package`
+
+## 后端技术
+
+##### Skill:  `mock + koa`
+
+
+## Issue:
+
+###### **安装：**`npm install`  **启动：**`npm run mock & npm start`
+
+**/docs下开发文档**
+
+**webpack配置**
 
 **改动程序需多次重启服务**
 
