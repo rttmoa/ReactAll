@@ -1,9 +1,8 @@
-# 仿简书
+# 简书-pc
 
-技术栈：react + redux + styled-components + immutable.fromJS + react-loadable + react-transition-group
+##### 技术栈：`react + redux + styled-components + immutable.fromJS + react-loadable + react-transition-group`
 
 **项目较小，查看实现功能**
-
 
 一、使用加载器懒加载页面
 
@@ -25,4 +24,23 @@ import reducer from './reducer';
 import * as actionCreators from './actionCreators';
 import * as constants from './constants';
 export { reducer, actionCreators, constants };
+```
+
+三、CSS样式： styled-components
+
+```
+  import { DetailWrapper, Header, Content } from './style'; 
+
+  class Detail extends PureComponent {
+    render() {
+      return (
+        <DetailWrapper>
+          <Header>{this.props.title}</Header>
+          <Content 
+            dangerouslySetInnerHTML={{__html: this.props.content}}
+          />
+        </DetailWrapper>
+      )
+    }
+  }
 ```

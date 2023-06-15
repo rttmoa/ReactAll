@@ -1,16 +1,14 @@
-# 旅游电商项目
+# 旅游电商项目-H5
 
-##### 前端技术
+## 前端技术
 
-###### teck: `hooks、umijs、think-react-store、rc-form、project-libs、react-icons`
+##### teck:  `hooks、umijs、think-react-store、rc-form、project-libs、react-icons`
 
 ###### /components 复用组件
 
+## 后端技术
 
- 
-##### 后端技术
-
-`eggJs、Sequelize、mysql、redis`
+##### teck:  `eggJs、Sequelize、mysql、redis`
 
 **启动**： `前端：npm start &&  后端：npm run dev`
 
