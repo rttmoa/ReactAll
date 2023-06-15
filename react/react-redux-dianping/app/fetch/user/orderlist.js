@@ -1,6 +1,10 @@
 import { get } from '../get'
 import { post } from '../post'
 
+
+
+
+
 export function getOrderListData(username) {
     const result = get('/api/orderlist/' + username)
     // console.log('result', result) // Promise
