@@ -76,7 +76,7 @@ class Main extends React.Component {
                         ></textarea>
                         <span className="count">{this.state.count}</span>
                     </div>
-                    <p className="one-line product-name">+厚切鸡排 香辣口水鸡饭. 中辣</p>
+                    <p className="one-line product-name">+厚切鸡排 香辣口水鸡饭. 中辣 - 固定文本</p>
                 </div>
                 <div className="submit">提交评价</div>
             </div>

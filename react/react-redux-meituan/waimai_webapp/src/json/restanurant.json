@@ -8,12 +8,12 @@
         "phone_list": [
             "15118120697"
         ],
-        "address": "深圳市南山区南新路2084号(田夏商业大厦)(田夏商业大厦1楼)",
+        "address": "深圳市南山区南新路2084号22222222222222222",
         "pic_url": "http://p1.meituan.net/waimaipoi/8b2b00292ed6f2ed762858485c66a32a536824.jpg",
         "shipping_time": "10:00-23:20",
         "shipping_fee": 3.0,
         "min_price": 20.0,
-        "bulletin": "亲，为了更符合您的口味，点餐时口味必选哦！没选口味的亲，本店就默认做微辣哦",
+        "bulletin": "777777777777777777777777777777777",
         "wm_poi_score": 4.6,
         "in_time_delivery_percent": 86,
         "in_time_delivery_percent_ranking": 75,
@@ -127,12 +127,12 @@
         "shipping_fee_tip": "配送 ¥3",
         "origin_shipping_fee_tip": "",
         "min_price_tip": "起送 ¥20",
-        "delivery_time_tip": "40分钟",
+        "delivery_time_tip": "50分钟",
         "poi_sell_status": 1,
         "head_pic_url": "",
         "promotion_head_pic_url": "",
         "poi_service": []
     },
     "code": 0,
-    "msg": "成功"
+    "msg": "成功 -> /src/json/restanrant.json"
 }

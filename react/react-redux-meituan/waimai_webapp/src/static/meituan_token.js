@@ -1,3 +1,4 @@
+/* eslint-disable no-redeclare */
 
 (function(a, b, c) {
     "use strict";
@@ -11,7 +12,7 @@
                 }
                 return r
             } else {
-                for (var t = 0; t < e.length; t++) {
+                for (let t = 0; t < e.length; t++) {
                     if (e[t] < 0 || e[t] >= 256 || typeof e[t] !== "number") {
                         throw new Error("invalid byte (" + e[t] + ":" + t + ")")
                     }
@@ -20,7 +21,7 @@
                     return e.slice(0)
                 }
                 var r = [];
-                for (var t = 0; t < e.length; t++) {
+                for (let t = 0; t < e.length; t++) {
                     r.push(e[t])
                 }
                 return r
