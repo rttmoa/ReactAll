@@ -1,19 +1,18 @@
+import React from 'react';
 import './My.scss';
 
-import React from 'react';
 
-
-
-
-
-/***--- SASS中使用px2rem & CSS ---**/
+/** ####  TODO: SASS中使用px2rem & CSS 静态 ---*/
+// FIXME: HTML页面结构
 export default function My () {
     return (
         <div className="my">
+
             <div className="header">
                 <img className="avatar" src="http://i.waimai.meituan.com/static/img/default-avatar.png"/>
                 <p className="nickname">美团小骑手 &gt;</p>
             </div>
+
             <div className="content">
                 <ul className="items">
                     <li className="address">
@@ -34,6 +33,7 @@ export default function My () {
                 <p className="tel">客服电话:&nbsp;101-097-77</p>
                 <p className="time">服务时间:&nbsp;9:00-23:00</p>
             </div>
+
         </div>
     );
 }

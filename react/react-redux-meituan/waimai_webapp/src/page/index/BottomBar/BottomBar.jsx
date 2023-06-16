@@ -10,14 +10,13 @@ import { NavLink, withRouter } from 'react-router-dom';
  * @description 首页底部tab栏
  */ 
 class BottomBar extends React.Component {
-
-    changeTab(item){ // {name: '首页', key: 'home'} | {name: '订单', key: 'order'} | {name: '我的', key: 'my'}
+    changeTab(item){ // item: {name: '首页', key: 'home'} | {name: '订单', key: 'order'} | {name: '我的', key: 'my'}
         this.props.history.replace(item.key);
         // this.props.dispatch(changeTab({ activeKey: item.key }));
     }
     renderItems(){
         let tabs = this.props.tabs;
-        return tabs.map((item, index)=>{
+        return tabs.map((item, index) => {
             let cls = item.key + ' btn-item';
             let name = item.name; 
             return (
@@ -28,7 +27,7 @@ class BottomBar extends React.Component {
             )
         });
     }
-    render(){
+    render() {
         return (
             <div className="bottom-bar">
                 {this.renderItems()}
@@ -36,9 +35,4 @@ class BottomBar extends React.Component {
         )
     }
 }
-
-export default withRouter(connect(state => ({
-        tabs: state.tabReducer.tabs,
-        activeKey: state.tabReducer.activeKey,
-    })
-)(BottomBar));
+export default withRouter(connect(state => ({ tabs: state.tabReducer.tabs, activeKey: state.tabReducer.activeKey }))(BottomBar));

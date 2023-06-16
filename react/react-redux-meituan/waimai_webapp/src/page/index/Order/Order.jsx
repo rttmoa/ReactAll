@@ -1,36 +1,19 @@
-import './Order.scss';
 import React from 'react';
-
 import { connect } from 'react-redux';
-
 import { getOrderData } from '../actions/orderAction';
-
 import ScrollView from 'component/ScrollView/ScrollView.jsx';
-
 import ListItem from './ListItem/ListItem';
+import './Order.scss';
 
 
-/**
- * @constructor <Order />
- * @description 订单tab代码
- */
-
+/** #### TODO: 订单页 ---*/
 class Order extends React.Component {
     constructor(props){
-        super(props);
-
-        // 标示分页
-        this.page = 0;
-
-
-        // 是否还可以滚动加载
-        this.state = {
-            isend: false
-        };
-
+        super(props); 
+        this.page = 0; 
+        this.state = { isend: false }; // 是否可滚动加载
         this.fetchData(this.page);
     }
-
     loadPage(){
         this.page++;
         if (this.page > 3) {
@@ -41,13 +24,11 @@ class Order extends React.Component {
             this.fetchData(this.page);
         }
     }
-
     fetchData(page){
         this.props.dispatch(getOrderData(page));
     }
     renderList(){
         let list = this.props.list;
-
         return list.map((item, index)=>{
             return <ListItem itemData={item} key={index}></ListItem>
         });

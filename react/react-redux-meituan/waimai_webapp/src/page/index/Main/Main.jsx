@@ -9,17 +9,7 @@ import Loading from './Loading';
 
 
 
-// 懒加载加载器
-const Order = Loadable({
-    loader: () => import(/* webpackChunkName: "order" */'../Order/Order'),
-    loading: Loading,
-});
-
-const My = Loadable({
-    loader: () => import('../My/My'),
-    loading: Loading,
-});
-
+/** #### TODO: Home ---*/ 
 class Main extends React.Component {
     // loadMy(location, cb){ import(/* webpackChunkName: "my" */'../My/My').then((component)=>{ cb(null, component.default) }) }
     
@@ -35,5 +25,13 @@ class Main extends React.Component {
         );
     }
 }
-
+// 懒加载加载器
+const Order = Loadable({
+    loader: () => import(/* webpackChunkName: "order" */'../Order/Order'),
+    loading: Loading,
+});
+const My = Loadable({
+    loader: () => import('../My/My'),
+    loading: Loading,
+});
 export default withRouter(connect(state => ({thing: state}), null)(Main));

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import ReactDom from "react-dom";
 import { Provider } from "react-redux"
@@ -7,6 +8,7 @@ import { ConnectedRouter } from "react-router-redux";
 import Container from "./Main/Container";
 
 
+import home from './Main/Main.jsx'
 
 
 

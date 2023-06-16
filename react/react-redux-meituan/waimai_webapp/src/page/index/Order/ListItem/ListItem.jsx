@@ -1,23 +1,12 @@
+import React from 'react';
+import { connect } from 'react-redux';
 import './ListItem.scss';
 
 
-import React from 'react';
-
-
-
-import { connect } from 'react-redux';
-
-
-
-/**
- * @constructor <ListItem />
- * @description 订单列表单个组件
- */
-
+/** #### 订单中循环每一个Item项 ---*/
 class ListItem extends React.Component {
     constructor(props) {
         super(props);
-
     }
     /**
      * 渲染每个菜品的总计
