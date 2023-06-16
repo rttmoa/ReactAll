@@ -4,11 +4,10 @@ import React from 'react';
 import NavHeader from 'component/NavHeader/NavHeader.jsx';
 
 
+
+
 // 渲染星星个数
 // 实时监听 textarea 的状态
-
-
-
 class Main extends React.Component {
     constructor(props) {
         super(props); 
@@ -30,26 +29,18 @@ class Main extends React.Component {
             this.onIuput(e.target.value);
         });
     }
-    /**
-     * 用户输入回调
-     */
+    /** #### 用户输入回调 ---*/
     onIuput(value){
         let num = value.length;
         if (!this.chineseInputing) {
-            this.setState({
-                count: this.maxCount - num
-            });
+            this.setState({ count: this.maxCount - num });
         }
     }
-    /**
-     * 点击评分
-     */
+    /** #### 点击评分 ---*/
     doEva(i){
         this.setState({ startIndex: i + 1 });
     }
-    /**
-     * 渲染评分用的星
-     */
+    /** #### 渲染评分用的星 ---*/
     renderStar() {
         let array = [];
         for (let i = 0 ; i < 5 ;i++) {
@@ -58,6 +49,8 @@ class Main extends React.Component {
         }
         return array;
     }
+
+
     render(){
         return (
             <div className="content">

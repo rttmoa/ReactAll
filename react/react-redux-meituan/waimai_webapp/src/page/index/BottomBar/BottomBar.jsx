@@ -20,7 +20,14 @@ class BottomBar extends React.Component {
             let cls = item.key + ' btn-item';
             let name = item.name; 
             return (
-                <NavLink key={index} className={cls} replace={true} to={"/" + item.key} activeClassName="active" onClick={() => this.changeTab(item)}>
+                <NavLink 
+                    key={index} 
+                    className={cls} 
+                    replace={true} 
+                    to={"/" + item.key} 
+                    activeClassName="active" 
+                    onClick={() => this.changeTab(item)}
+                >
                     <div className="tab-icon"></div>
                     <div className="btn-name">{name}</div>
                 </NavLink>

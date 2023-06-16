@@ -14,19 +14,16 @@ class Category extends React.Component {
         super(props);
         this.fetchData();
     }
-    fetchData(){
-        // console.log(this.props)
+    fetchData(){ 
         this.props.dispatch(getHeaderData())
     }
     goCategory () {
         window.location.href = './category.html';
     }
     renderItems() {
-        let items = this.props.items;
-        
+        let items = this.props.items; 
         // 复制数组防止引用
-        let _items = JSON.parse(JSON.stringify(items));
-        
+        let _items = JSON.parse(JSON.stringify(items)); 
         return _items.splice(0,8).map((item, index) => {
             return (
                 <div key={index} className="category-item" onClick={this.goCategory} >
@@ -38,6 +35,6 @@ class Category extends React.Component {
     } 
     render(){
         return <div className="category-content clearfix">{this.renderItems()}</div>
-    }
+    }   
 }
 export default connect( state =>({ items: state.categoryReducer.items }), null )(Category);

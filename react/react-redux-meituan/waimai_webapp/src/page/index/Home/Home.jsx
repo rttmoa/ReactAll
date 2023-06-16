@@ -6,15 +6,23 @@ import ContentList from './ContentList/ContentList.jsx';
 
  
  
+
+
+
 export default function Home () {
     return (
         <div>
+
             {/* 头部 */}
             <Header />
+            
+            {/* <span>外卖类别</span> */} 
             {/* 外卖类别 */}
             <Category />
+
             {/* 附近商家列表 */}
             <ContentList />
+
         </div>
     );
 }

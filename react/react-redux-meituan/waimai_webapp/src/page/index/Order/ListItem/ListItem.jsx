@@ -3,16 +3,14 @@ import { connect } from 'react-redux';
 import './ListItem.scss';
 
 
+
 /** #### 订单中循环每一个Item项 ---*/
 class ListItem extends React.Component {
     constructor(props) {
         super(props);
     }
-    /**
-     * 渲染每个菜品的总计
-     * @param {*} data 
-     */
-    renderTotalPrice(item, data, index){
+    /** #### 渲染支付金额 ---*/
+    renderTotalPrice(item, data, index) {
         return (
             <div key={index} className="product-item">
                 <span>...</span>
@@ -23,13 +21,9 @@ class ListItem extends React.Component {
             </div>
         )
     }
-    /**
-     * 渲染具体菜品
-     * @param {*} data 
-     */
-    renderProduct(data){
+    /** #### 渲染具体菜品及支付金额 ---*/
+    renderProduct(data) {
         let list = data.product_list;
-
         // 复制数组防止引用
         let _list = JSON.parse(JSON.stringify(list));
         // push一个用来计算总计的{type：more}
@@ -42,11 +36,8 @@ class ListItem extends React.Component {
             return <div className="product-item" key={index}>{item.product_name}<div className="p-count">x{item.product_count}</div></div>;
         })
     }
-    /**
-     * 渲染评价按钮
-     * @param {*} data 
-     */
-    renderComment(data){
+    /** #### 渲染评价按钮 ---*/
+    renderComment(data) {
         let evaluation = !data.is_comment;
         if (evaluation) {
             return (
@@ -54,40 +45,42 @@ class ListItem extends React.Component {
                     <div className="evaluation-btn" onClick={this.goEval}>评价</div>
                 </div>
             );
-        } 
+        }
         return null;
     }
-    goEval(){
+    /** #### 跳转到评价页面  /evaluation.html ---*/
+    goEval() {
         window.location.href = './evaluation.html';
     }
-    goDetail(){
+    /** #### 跳转到详情页面 /detail.html ---*/
+    goDetail() {
         window.location.href = './detail.html';
     }
     render(){
-
         let data = this.props.itemData;
         return (
             <div className="order-item">
                 <div className="order-item-inner">
                     <img className="item-img" src={data.poi_pic}/>
                     <div className="item-right">
+
                         <div className="item-top" onClick={this.goDetail}>
-                            <p className="order-name one-line">{data.poi_name}</p>
+                            <p className="order-name one-line">{data.poi_name} poi</p>
                             <div className="arrow"></div>
                             <div className="order-state">{data.status_description}</div>
                         </div>
+
                         <div className="item-bottom">
                             {this.renderProduct(data)}
                         </div>
+
                     </div>
                 </div>
+
                 {this.renderComment(data)}
+                
             </div>
-        );
+        )
     }
 }
-export default connect(
-    // state =>({
-    //     list: state.contentListReducer.list
-    // })
-)(ListItem);
+export default connect(state => ({ list: state.contentListReducer.list }))(ListItem);

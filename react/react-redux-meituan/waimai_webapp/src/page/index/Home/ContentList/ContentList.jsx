@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getListData } from '../../actions/contentListAction';
 
-import ListItem from 'component/ListItem/ListItem.jsx';
+import ListItem from '../../../../component/ListItem/ListItem.jsx';
 import ScrollView from 'component/ScrollView/ScrollView.jsx';
 
 
@@ -17,28 +17,19 @@ class ContentList extends React.Component {
     constructor(props) {
         super(props); 
         this.page = 0; // 记录当前页码 
-        this.fetchData(this.page); // 请求第一屏数据 
-        this.state = { isend: false }; // 标识页面是否可以滚动
+        this.fetchData(this.page); // TODO: 请求第一屏数据 
+        this.state = { isend: false }; // 是否end，有无数据了
     }
     fetchData(page){ this.props.dispatch(getListData(page))}
     
-    onLoadPage(){
-        this.page++;
-        // 最多滚动3页3次
-        if (this.page > 3) {
-            this.setState({
-                isend: true
-            });
-        } else {
-            this.fetchData(this.page);
-        }
-    } 
+    onLoadPage() {
+        this.page++; 
+        if (this.page > 3) this.setState({ isend: true }); // 最多滚动3页3次
+        else this.fetchData(this.page);
+    }
 
-    renderItems(){
-        let list = this.props.list;
-        return list.map((item, index)=>{
-            return <ListItem key={index} itemData={item}></ListItem>
-        });
+    renderItems() { 
+        return this.props.list.map((item, index) => <ListItem key={index} itemData={item}></ListItem>);
     }
 
     render(){

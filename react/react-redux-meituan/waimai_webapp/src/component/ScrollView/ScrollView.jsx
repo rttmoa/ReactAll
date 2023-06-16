@@ -1,15 +1,11 @@
-import './ScrollView.scss';
 import React from 'react';
 import { connect } from 'react-redux';
-
 import Loading from 'component/Loading/Loading.jsx';
+import './ScrollView.scss';
 
 
 
-/**
- * <ScrollView loadCallback={function} isend={bool}/>
- * @description 滚动加载组件
- */
+/** #### TODO: 封装滚动加载组件 ---*/
 class ScrollView extends React.Component {
     constructor(props) {
         super(props);
@@ -43,6 +39,4 @@ class ScrollView extends React.Component {
         );
     }
 }
-
-
 export default connect(state =>({readyToLoad: state.scrollViewReducer.readyToLoad}), null)(ScrollView);

@@ -2,6 +2,8 @@ import { ORDER_DATA } from './actionTypes';
 import { CHANGEREADYSTATE } from 'component/ScrollView/scrollViewActionsTypes.js';
 import axios from 'axios';
 
+
+
 export const getOrderData = (page)=> async (dispatch) =>{
     dispatch({
         type: CHANGEREADYSTATE,
@@ -29,6 +31,4 @@ export const getOrderData = (page)=> async (dispatch) =>{
         type: CHANGEREADYSTATE,
         obj: true
     });
-
-
 }

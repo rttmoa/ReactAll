@@ -6,14 +6,8 @@ import StarScore from 'component/StarScore/StarScore';
 
 
 
-// 渲染列表外壳
-// 跳转到 window.location.href = './detail.html?id=' + data.id 详情页面
-
-
-/**
- * @constructor <ListItem />
- * @description 列表单个组件
- */
+/** #### TODO: 渲染商家Item外壳   跳转到 window.location.href = './detail.html?id=' + data.id 详情页面 ---*/
+// http://localhost:8080/detail.html?id=487054588838638#/menu
 class ListItem extends React.Component { 
     /**
      * 渲染是否是新到和品牌标签
@@ -29,7 +23,7 @@ class ListItem extends React.Component {
 
     /**
      *  渲染月售数量
-     * @param {*} data 
+     * @param {*} data
      */
     renderMonthNum(data){ 
         return data.month_sale_num > 999 ? '999+' :  data.month_sale_num;
