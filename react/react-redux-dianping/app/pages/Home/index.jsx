@@ -26,8 +26,8 @@ class Home extends React.Component {
                 {/* 超值特惠 */}
                 <Ad/>
 
-                {/* 猜你喜欢 - 滚动加载(节流) */}
-                <List cityName={this.props.userinfo.cityName}/>
+                {/* TODO: 猜你喜欢 - 滚动加载(节流) */}
+                <List cityName={this.props.userinfo.cityName} />
             </div>
         )
     }

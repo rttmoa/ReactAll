@@ -16,14 +16,15 @@ class List extends React.Component {
             page: 0
         }
     }
-    /***--- 渲染数据处理 ---**/
+    /***--- TODO: 渲染列表数据 ---**/
     renderList () {
         return this.state.data.length ? <ListCompoent data={this.state.data}/> : <div>正在加载中...</div>
     }
-    /***--- 加载更多滚动处理.... ---**/
-    renderLoadMore () {
-        return  this.state.hasMore ? 
-            <LoadMore isLoadingMore={this.state.isLoadingMore} loadMoreFn={this.loadMoreData.bind(this)}/> : null
+    /***--- TODO: 加载更多滚动处理.... ---**/
+    renderLoadMore () { 
+        const { hasMore } = this.state;
+        let loadMore = <LoadMore isLoadingMore={this.state.isLoadingMore} loadMoreFn={this.loadMoreData.bind(this)}/>
+        return  hasMore ? loadMore : null
     }
     render() {
         return (
@@ -34,51 +35,34 @@ class List extends React.Component {
             </div>
         )
     }
-    componentDidMount() {
-        // 获取首页数据
+    componentDidMount() { 
         this.loadFirstPageData()
     }
     // 获取首页数据
     loadFirstPageData() {
-        const cityName = this.props.cityName
-        // console.log(cityName)
+        const cityName = this.props.cityName; 
         const result = getListData(cityName, 0) // 请求地址： /api/homelist/%E5%A4%A9%E6%B4%A5/0
-        this.resultHandle(result)// result回来的是Promise、所以需要.then()处理、 函数可复用、所以要封装使用
+        this.resultHandle(result)// promise
     }
-    // 加载更多数据
-    loadMoreData() {
-        // 记录状态
-        this.setState({isLoadingMore: true}) 
-        const cityName = this.props.cityName
-        const page = this.state.page
-        const result = getListData(cityName, page) 
-        this.resultHandle(result);
+    // TODO: 加载更多数据
+    loadMoreData() { 
+        this.setState({ isLoadingMore: true })  
+        const result = getListData(this.props.cityName, this.state.page); // query：{cityName, page} 
+        this.resultHandle(result); // promise
         this.setState({
-            page: page + 1,
+            page: this.state.page + 1,
             isLoadingMore: false
         })
     }
     // 处理数据
     resultHandle(result) {
-        result.then(res => {
-            // console.log(res)// 在这里可以看到状态码、是否成功、URL地址等返回的基本信息
-            return res.json()
-        }).then(json => {
+        result.then(res => { return res.json() }).then(json => { // res: 在这里可以看到状态码、是否成功、URL地址等返回的基本信息
             // console.log(json) // 返回的数据为数组和hasMore、 {distance, id, img, number, price, subTitle, title}
             const hasMore = json.hasMore
             const data = json.data
-
-            this.setState({
-                hasMore: hasMore,
-                // 注意，这里讲最新获取的数据，拼接到原数据之后，使用 concat 函数
-                // 两种方法都可以ES6、ES7语法
-                data: this.state.data.concat(data)
-            })
-            // console.log('同步2')
+            this.setState({ hasMore: hasMore, data: this.state.data.concat(data) }) 
         }).catch(ex => {
-            // if (__DEV__) {
-            //     console.error('首页”猜你喜欢“获取数据报错, ', ex.message)
-            // }
+            // if (__DEV__) console.error('首页”猜你喜欢“获取数据报错, ', ex.message)
         })
     }
 }
