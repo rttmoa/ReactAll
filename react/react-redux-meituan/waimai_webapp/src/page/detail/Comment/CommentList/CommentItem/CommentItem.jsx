@@ -5,12 +5,10 @@ import StarScore from 'component/StarScore/StarScore';
 
 
 
-/**
- * 评论单页组件
- * @description <CommentItem />
- */
+/** #### 评论单页组件 ---*/
 class CommentItem extends React.Component {
 
+    /** #### 渲染 发表的相册图片 ---*/
     renderImgs(item) {
         let imgs = item.comment_pics || [];
         if (imgs.length) {
@@ -18,9 +16,7 @@ class CommentItem extends React.Component {
                 <div className="img-content clearfix">
                     {imgs.map((item, index)=>{
                         let src = item.url;
-                        let style = {
-                            backgroundImage: 'url(' + src + ')'
-                        }
+                        let style = { backgroundImage: 'url(' + src + ')' }
                         return <div key={index} className={'img-item'} style={style}></div>
                     })}
                 </div>
@@ -53,8 +49,8 @@ class CommentItem extends React.Component {
                     </div>
                     <div className="comment-text">{item.comment}</div>
                     {this.renderImgs(item)}
-                    {item.praise_food_tip ? <div className="like-info">{item.praise_food_tip}</div> : null}
-                    {item.comment_labels.length ? <div className="tag-info">{this.renderTags(item.comment_labels)}</div> : null}
+                    {item.praise_food_tip ? <div className="like-info">tip: {item.praise_food_tip}</div> : null}
+                    {item.comment_labels.length ? <div className="tag-info">Tags: {this.renderTags(item.comment_labels)}</div> : null}
                 </div>
             </div>
         );

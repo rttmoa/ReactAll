@@ -8,17 +8,13 @@ import { getListData } from '../../store/actions/commentAction';
 
 
 
-/**
- * 评论列表
- * @description <CommentList />
- */
+/** #### 评论列表数据 ---*/
 class CommentList extends React.Component {
+    // 渲染每一项ItemList
     renderList(){
-        let list = this.props.commentList;
-        return list.map((item, index)=>{
-            return <CommentItem key={index} data={item}></CommentItem>
-        })
+        return this.props.commentList.map((item, index) => <CommentItem key={index} data={item}></CommentItem> )
     }
+    // ScrollView加载更多数据， 需要使用Loading控制page加载页码
     onLoadPage(){this.props.dispatch(getListData({}));}
     render(){
         return (

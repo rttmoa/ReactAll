@@ -7,10 +7,7 @@ import ShopBar from './ShopBar/ShopBar';
 
 
 
-/**
- * 点菜tab页面
- * @description <Menu />
- */
+/** #### TODO: 点菜 / 购物车 页面 ---*/
 class Menu extends React.Component {
     constructor(props) {
         super(props);
@@ -18,10 +15,10 @@ class Menu extends React.Component {
     }
 
 
-    /***--- TODO: 渲染spus数组中内容 ---**/
-    renderRightList(array) {
-        let _array = array || [];
-        return _array.map((item, index)=>{
+    /***--- 渲染右侧商品列表数据 ---**/
+    renderRightList(rightArray) {
+        let _rightArray = rightArray || [];
+        return _rightArray.map((item, index)=>{
             if (!item.chooseCount) { // 如果没有chooseCount属性，就默认一个初始值为0
                 item.chooseCount = 0;
             }
@@ -32,15 +29,12 @@ class Menu extends React.Component {
     /***--- 点击index切换右边数据 ---**/
     itemClick(index) {this.props.dispatch(itemClick({currentLeftIndex: index}));}
     
-    /***--- 渲染右边的列表 ---**/
+    /** #### TODO: 渲染右边的列表 ---*/
     renderRight() {
-        let index = this.props.currentLeftIndex; // 获取点击的索引
-        let array = this.props.listData.food_spu_tags || []; // 获取所有数据
-        let currentItem = array[index];
-        // console.log("currentItem", currentItem) // 点击的Index中的数据
-
+        let currentLeftIndex = this.props.currentLeftIndex; // 获取左侧点击的索引
+        let list = this.props.listData.food_spu_tags || [];  
+        let currentItem = list[currentLeftIndex]; // 同下
         if (currentItem) {
-            // 此title是右侧内容顶部的标题
             let title = <p key={1} className="right-title">{currentItem.name}</p>
             return [
                 title,
@@ -48,16 +42,12 @@ class Menu extends React.Component {
                     <div className="right-list-inner">{this.renderRightList(currentItem.spus)}</div>
                 </div>
             ]
-        } else {
-            return null
-        }
+        } else return null
     }
-    /***--- 渲染左边的列表 ---**/
-    // TODO: 左边的每个item中的spus属性中有每个children
+    /** #### TODO: 渲染左边的列表 ,,,, 左边的每个item中的spus属性中是右侧商品的内容  ---*/
     renderLeft() {
-        // console.log("this.props", this.props.listData)
         let list = this.props.listData.food_spu_tags || [];
-
+        // console.log(list) // list: (13)[{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
         return list.map((item, index) => {
             let cls = this.props.currentLeftIndex === index ? 'left-item active' : 'left-item';
             return (

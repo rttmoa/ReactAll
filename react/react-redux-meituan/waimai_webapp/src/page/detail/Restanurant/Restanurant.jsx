@@ -4,10 +4,7 @@ import { connect } from 'react-redux';
 import { getRestanurantData } from '../store/actions/restanurantAction';
 
 
-
-
-
-/***--- 商家信息 ---**/
+/** #### TODO: 商家信息 ---*/
 class Restanurant extends React.Component {
     constructor(props) {
         super(props);
@@ -24,9 +21,7 @@ class Restanurant extends React.Component {
             )
         });
     }
-    render(){
-        // let data = {}
-        // console.log(this.props)
+    render(){  
         let data = this.props.resData;
         return (
             <div className="restanurant-content">
@@ -52,5 +47,4 @@ class Restanurant extends React.Component {
         );
     }
 }
-
-export default connect(state =>({ resData: state.restanurantReducer.resData }), null)(Restanurant);
+export default connect(state => ({ resData: state.restanurantReducer.resData }), null)(Restanurant);

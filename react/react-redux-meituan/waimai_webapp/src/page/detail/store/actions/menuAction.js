@@ -42,8 +42,7 @@ export const getListData = () => {
 }
 
 /***--- 商品 + 数量 ---**/
-export const addSelectItem = (obj) =>{
-    // console.log("addSelectItem", obj) // {index: 16}
+export const addSelectItem = (obj) => { // obj： {index: 16}      右侧商品第几个 index
     return {
         type: ADD_SELECTI_ITEM,
         obj: obj
@@ -51,21 +50,20 @@ export const addSelectItem = (obj) =>{
 }
 
 /***--- 商品 - 数量 ---**/
-export const minusSelectItem = (obj) =>{
-    // console.log("minusSelectItem", obj) // {index: 6}
+export const minusSelectItem = (obj) => { // obj： {index: 6}      右侧商品第几个 index
     return {
         type: MINUS_SELECTI_ITEM,
         obj: obj
     }
 }
 
-export const showChoose = (obj) =>{
+export const showChoose = (obj) =>{ // obj: {flag: true}            是否显示底部购物车弹窗 
     return {
         type: SHOW_CHOOSE_CONTENT,
         obj: obj
     }
 }
-export const clearCar = (obj) =>{
+export const clearCar = (obj) =>{ // obj: undefined 
     return {
         type: CLEAR_CAR,
         obj: obj

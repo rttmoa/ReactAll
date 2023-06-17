@@ -14,19 +14,18 @@ import Restanurant from '../Restanurant/Restanurant';
 
 
 class Main extends React.Component {
-    
-    // changeTab(){}  // 切换Tab 存储到redux中
+    /** #### 渲染  点菜 / 评价 / 商家 ---*/
     renderTabs() {
         let tabs = this.props.tabs;
-        return tabs.map((item)=>{
+        return tabs.map((item) => {
             return (
                 <NavLink
-                    activeClassName="active" 
-                    // onClick={() => this.changeTab(item)} 
+                    className="tab-item"
+                    activeClassName="active"  
                     replace={true} 
                     to={'/' + item.key} 
                     key={item.key} 
-                    className="tab-item"
+                    // onClick={() => this.changeTab(item)}  
                 >
                     {item.name}
                 </NavLink>
@@ -34,7 +33,6 @@ class Main extends React.Component {
         })
     }
     render(){
-        // console.log(this.props)
         let poiName = this.props.poiInfo.poi_info ? this.props.poiInfo.poi_info.name : '';
         return (
             <div className="detail">
@@ -45,10 +43,13 @@ class Main extends React.Component {
                     {this.renderTabs()}
                 </div>
 
-                <Route exact path="/menu" component={Menu}/>
-                <Route path="/comment" component={Comment}/>
-                <Route path="/restanurant" component={Restanurant}/>
+                {/* TODO: 切换Tabs地址栏变化，Route匹配path，渲染component */}
+                <Route exact path="/menu" component={Menu} />
+                <Route path="/comment" component={Comment} />
+                <Route path="/restanurant" component={Restanurant} />
+
                 {this.props.showChooseContent ? <div className="mask"></div> : null}
+
             </div>
         );
     }

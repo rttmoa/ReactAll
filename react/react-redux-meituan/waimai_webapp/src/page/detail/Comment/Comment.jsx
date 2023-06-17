@@ -12,16 +12,13 @@ class Comment extends React.Component {
     constructor(props) {
         super(props);
         this.fetchData();
-    }
-
-    async fetchData() {
-        await this.props.dispatch(getListData())
-    }
-
+    } 
+    async fetchData() { await this.props.dispatch(getListData()) }
     render(){
         let data = this.props.commentData;
         return (
             <div className="comment-inner">
+
                 <div className="comment-score">
                     <div className="mail-score-content">
                         <div className="mail-score">{data.comment_score ? data.comment_score.toFixed(1) : ''}</div>
@@ -44,7 +41,10 @@ class Comment extends React.Component {
                         <div className="send-text">商家评价</div>
                     </div>
                 </div>
+
+                {/* TODO: 渲染 客户评论列表数据 */}
                 <CommentList />
+
             </div>
         );
     }

@@ -9,16 +9,13 @@ import ScrollView from '../../../component/ScrollView/ScrollView.jsx';
 
 
 
-/**
- * @constructor <ContentList />
- * @description 附近商家列表
- */
+/** #### TODO: 分类中 附近商家列表 ---*/
 class ContentList extends React.Component {
     constructor(props) {
         super(props); 
-        // 请求第一屏数据
-        this.fetchData(); 
+        this.fetchData();
     }
+    fetchData() {this.props.dispatch(getListData({}))}
 
     onLoadPage(){ 
         // FIXME: 最多滚动3页3次， 这里一次加载了10多次
@@ -27,13 +24,9 @@ class ContentList extends React.Component {
         }
     }
 
-    fetchData() {this.props.dispatch(getListData({}))}
 
-    renderItems(){
-        let list = this.props.list;
-        return list.map((item, index)=>{
-            return <ListItem key={index} itemData={item}></ListItem>
-        });
+    renderItems(){ 
+        return this.props.list.map((item, index)=> <ListItem key={index} itemData={item}></ListItem> );
     }
 
     render(){

@@ -16,8 +16,7 @@ class Header extends React.Component {
         super(props);
         this.fetchData();
     }
-    fetchData(){
-        // FIXME: 当进入分类页面时，在redux中发请求，获取所有 过滤条件
+    fetchData(){ 
         this.props.dispatch(getFilterData());   
     }
     /** FIXME: */
@@ -46,8 +45,7 @@ class Header extends React.Component {
     changeDoFilter(item, key, dataList){
         // console.log("changeDoFilter", item, key, dataList)
         this.revertActive(key, dataList);
-        item.active = true;
-
+        item.active = true; 
         this.props.dispatch(changeFilter({  // FIXME: 切换过滤条件，将条件存储到redux
             item,
             key
@@ -59,39 +57,7 @@ class Header extends React.Component {
         }));
     }
     
-    changeTab(key) { /***--- 点击切换tab ---**/
-        // 是否关闭面板：否
-        let closePanel = false; 
-        // 如果前后点击的是同一个tab 就关闭panel
-        if (this.props.activeKey === key && !this.props.closePanel) {
-            closePanel = true;
-        }
-        this.props.dispatch(changeTab({ // 切换tabs将key传递给redux
-            activeKey: key,
-            closePanel: closePanel
-        }));
-    }
-    /**
-     * TODO: 渲染顶部Nav：全部分类cate||综合排序type||筛选filter 
-     */
-    renderTabs() {
-        // console.log(this.props)
-        let tabs = this.props.tabs;
-        let array = [];
-        for (let key in tabs) { // 遍历tabs对象
-            let item = tabs[key]; // item是tabs中每一个对象
-            let cls = item.key + ' item';
-            if (item.key === this.props.activeKey && !this.props.closePanel) { // 点击key && 关闭面板+false取反为true
-                cls += ' current';
-            }
-            array.push(
-                <div className={cls} key={item.key} onClick={() => {this.changeTab(item.key)}}>
-                    {item.text}
-                </div>
-            );
-        }
-        return array;
-    }
+    
     
     renderFilterInnerContent(items, filterList) { /** 筛选内部的每个类目*/
         return items.map((item, index) => {
@@ -169,9 +135,7 @@ class Header extends React.Component {
             )
         });
     }
-    /**
-     * TODO: 渲染面板中数据 
-     */
+    /** #### TODO: 渲染Tabs中所有的过滤条件  ---*/
     renderContent() {
         let tabs = this.props.tabs;
         // console.log(tabs)
@@ -202,17 +166,45 @@ class Header extends React.Component {
                 );
             }
         }
-        // console.log("array", array)
         return array;
     }
 
+
+
+
+
+    /** #### 点击切换Tabs.Item ---*/
+    changeTab(key) {  
+        let closePanel = false; 
+        // 如果前后点击的是同一个tab 就关闭panel
+        if (this.props.activeKey === key && !this.props.closePanel) {
+            closePanel = true;
+        }
+        this.props.dispatch(changeTab({ activeKey: key, closePanel: closePanel }));
+    }
+    /** #### TODO: 渲染顶部Nav：全部分类cate||综合排序type||筛选filter  ---*/
+    renderTabs(params, arr = []) {
+        let tabs = this.props.tabs;  // tabs: {cate: {…}, type: {…}, filter: {…}}
+        for (let key in tabs) {
+            let item = tabs[key];  
+            let cls = item.key + ' item';
+            if (item.key === this.props.activeKey && !this.props.closePanel) { // 点击key && 关闭面板+false取反为true
+                cls += ' current';
+            }
+            arr.push(<div className={cls} key={item.key} onClick={() => {this.changeTab(item.key)}}>{item.text}</div>);
+        }
+        return arr;
+    }
+
+
+
+
     render() {
         let cls = 'panel';
-        if (!this.props.closePanel) {
-            cls += ' show';
-        } else {
-            cls = 'panel';
-        }
+        if (!this.props.closePanel)  cls += ' show';
+        else cls = 'panel';
+
+        
         
         return (
             <div className="header">
@@ -228,8 +220,8 @@ class Header extends React.Component {
         );
     }
 }
-
-export default connect(state =>({
+// 
+export default connect(state => ({
         tabs: state.headerReducer.tabs,
         activeKey: state.headerReducer.activeKey,
         filterData: state.headerReducer.filterData,

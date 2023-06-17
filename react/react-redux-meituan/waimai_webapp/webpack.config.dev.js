@@ -53,6 +53,7 @@ const htmlArray = getHtmlArray(entryMap);
 module.exports = {
     mode: 'development',
     devServer: {
+        open: true,
         contentBase: devPath,
         hot: true
     },

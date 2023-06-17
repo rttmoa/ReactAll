@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 
-/***--- 获取评论列表数据 ---**/
+/** #### 获取评论列表数据  描述：发请求 + 存redux ---*/
 export const getListData = () => {
     return async(dispatch) => {
         dispatch({

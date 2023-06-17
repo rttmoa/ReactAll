@@ -5,35 +5,22 @@ import { addSelectItem, minusSelectItem } from "../../store/actions/menuAction";
 
 
 
-/**
- * 每个菜品的组件
- * @description <MenuItem />
- */
+
+/** #### 左侧的CurrentItem对应右侧的Array[]  ---*/
 class MenuItem extends React.Component {
-  /**
-   * 添加菜品数量
-   */
+
+  /** #### 添加菜品数量 ---*/
   addSelectItem() {
-    this.props.dispatch(
-      addSelectItem({
-        index: this.props._index,
-      })
-    );
+    this.props.dispatch(addSelectItem({index: this.props._index}));
   }
-  /**
-   * 减少菜品数量
-   */
+  /** #### 减少菜品数量 ---*/
   minusSelectItem() {
-    this.props.dispatch(
-      minusSelectItem({
-        index: this.props._index, // 点击的是哪个index
-      })
-    );
+    this.props.dispatch(minusSelectItem({ index: this.props._index }));
   }
   render() {
     let item = this.props.data;
     return (
-      <div className="menu-item">
+      <div className="menu-item"> 
         <img className="img" src={item.picture} />
         <div className="menu-item-right">
           <p className="item-title">{item.name}</p>
@@ -45,12 +32,8 @@ class MenuItem extends React.Component {
           </p>
         </div>
         <div className="select-content">
-          {item.chooseCount > 0 ? (
-            <div onClick={() => this.minusSelectItem()} className="minus" />
-          ) : null}
-          {item.chooseCount > 0 ? (
-            <div className="count">{item.chooseCount}</div>
-          ) : null}
+          {item.chooseCount > 0 ? (<div onClick={() => this.minusSelectItem()} className="minus" />) : null}
+          {item.chooseCount > 0 ? (<div className="count">{item.chooseCount}</div>) : null}
           <div onClick={() => this.addSelectItem()} className="plus" />
         </div>
       </div>
