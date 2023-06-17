@@ -9,14 +9,35 @@ const initState = {
     poiInfo: {}, // 商家信息
 };
 
+/** #### 切换左侧商品模块 ---*/
 const itemClick = (state, action) =>{
     return {...state, currentLeftIndex: action.obj.currentLeftIndex}
 }
+/** #### 获取商家详情数据 ---*/
 const getListData = (state, action) =>{
+    // console.log(action) // action: {type: 'GET_LIST_DATA', obj: {data: {container_template: {…}food_spu_tags: Array(13), poi_info: {…}, …}, code: 0, msg: '成功'}} 
     if (state.listData.food_spu_tags.length > 0) {
         return {...state};
     }
     return {...state, poiInfo:action.obj.data, listData: action.obj.data || {food_spu_tags:[]}}
+}
+/***--- 展开 / 关闭购物车 ---**/
+const chooseContent = (state, action) => {
+    // console.log("chooseContent", action) // {type: 'SHOW_CHOOSE_CONTENT', obj: {obj: {flag: false}, type: 'SHOW_CHOOSE_CONTENT'}}
+    return {...state, showChooseContent: action.obj.flag };
+}
+/** #### 清空购物车 ---*/
+const clearCar = (state) => {
+    let listData = state.listData;
+    // 找到外层，左边list列表
+    let list = listData.food_spu_tags || [];
+    for (let i = 0 ; i< list.length ; i++) {
+        let spus = list[i].spus || [];
+        for (let j = 0 ; j < spus.length ; j++) {
+            spus[j].chooseCount = 0;
+        }
+    }
+    return {...state, listData: JSON.parse(JSON.stringify(listData)) };
 }
 
 /***--- 添加 + 商品 ---**/
@@ -27,53 +48,32 @@ const addSelectItem = (state, action) => {
 /***--- 减少 - 商品 ---**/
 const minusSelectItem = (state, action) => {
     return {...state, listData: dealWithSelectItem(state, action, MINUS_SELECTI_ITEM)};
-
 }
-/***--- 展开购物车 ---**/
-const chooseContent = (state, action) => {
-    // console.log("chooseContent", action) // {type: 'SHOW_CHOOSE_CONTENT', obj: {obj: {flag: false}, type: 'SHOW_CHOOSE_CONTENT'}}
-    return {...state, showChooseContent: action.obj.flag };
 
-}
-/***--- 处理选择的商品， 加/减 ---**/
-const dealWithSelectItem = (state, action, type) =>{
-    // console.log("商家信息", state.poiInfo.poi_info)
-    console.log("添加/减少 商品的数据", state, action, type)
+/***--- 处理选择的商品， 加 / 减 ---**/
+const dealWithSelectItem = (state, action, type) => {
+    // console.log("商家详情信息", state.poiInfo.poi_info)
+    // console.log("处理购物车 State", state) // state: {listData: {…}, currentLeftIndex: 0, showChooseContent: false, poiInfo: {…}}
+    // console.log("处理购物车 Action", action) // action: {type: 'MINUS_SELECTI_ITEM', obj: {index: 3}} // 右侧的Item索引
 
-    
-    let listData = state.listData; 
-    // 找到外层，左边list列表
-    let list = listData.food_spu_tags || []; // FIXME: 13个模块
 
-    // 通过列表找到左边item使用的数据也就是点击的item数据
-    // console.log("action.outIndex", action.outIndex)
-    let currentItem = list[action.outIndex || state.currentLeftIndex];
+    let listData = state.listData;
 
-    // 对当前点击这个item的chooseCount加一或减一
-    if (type === ADD_SELECTI_ITEM) {
-        currentItem.spus[action.obj.index].chooseCount ++;
-    } else {
-        currentItem.spus[action.obj.index].chooseCount --;
-    }
+    let leftListArray = listData.food_spu_tags || []; // 左侧的13个模块
+
+    let currentItem = leftListArray[action.outIndex || state.currentLeftIndex]; // 获取左侧13个模块中第几个模块的索引
+    console.log("左侧模块数据", currentItem)
+    console.log("右侧列表索引", action.obj)
+
+    let rightItemIndex = action.obj.index; // 右侧Item索引值
+
+    if (type === ADD_SELECTI_ITEM) { currentItem.spus[rightItemIndex].chooseCount ++; }
+    else { currentItem.spus[rightItemIndex].chooseCount --; }
 
     let _listData = JSON.parse(JSON.stringify(listData));
-
     return _listData;
 }
 
-const clearCar = (state) => {
-    let listData = state.listData;
-    // 找到外层，左边list列表
-    let list = listData.food_spu_tags || [];
-
-    for (let i = 0 ; i< list.length ; i++) {
-        let spus = list[i].spus || [];
-        for (let j = 0 ; j < spus.length ; j++) {
-            spus[j].chooseCount = 0;
-        }
-    }
-    return {...state, listData: JSON.parse(JSON.stringify(listData)) };
-}
  
 
 const menuReducer = (state = initState, action) => {
