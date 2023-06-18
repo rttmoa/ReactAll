@@ -19,7 +19,7 @@ const SORT_TYPES = [{
     value: 'stars',
     order: 'desc',
   },
-  { 
+  {
     name: 'Fewest Stars',
     value: 'stars',
     order: 'asc',

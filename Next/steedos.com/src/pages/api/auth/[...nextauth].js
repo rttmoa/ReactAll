@@ -20,9 +20,7 @@ const loginSteedosByOIDC = async (accessToken) => {
   const rest = await axios({
     url: `${projectRootUrl}${OIDC_API}`,
     method: 'post',
-    data: {
-      accessToken,
-    },
+    data: { accessToken },
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${accessToken}` },
   })
   return rest.data

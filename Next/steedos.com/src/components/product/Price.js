@@ -1,4 +1,7 @@
 import { formatPrice } from '@/lib/product.client'
+
+
+
 export default function Price({ price }) {
   return (
     <>
