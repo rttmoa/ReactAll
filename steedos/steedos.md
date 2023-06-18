@@ -2,7 +2,7 @@
 
 ## steedos-accounts 华炎云 账户登陆
 
-    **已截图到_Code**
+    **_Code / _HomePage**
 
 ## steedos-platform 低代码
 
@@ -10,4 +10,4 @@
 
 ## steedos-report 报表
 
-    **已截图到_Code**
+    **_Code**
