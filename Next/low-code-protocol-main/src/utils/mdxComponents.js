@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 
 
-
+// markdown 渲染 children
 export const mdxComponents = {
   img: (props) => (
     <div className="relative not-prose my-[2em] first:mt-0 last:mb-0 rounded-lg overflow-hidden">

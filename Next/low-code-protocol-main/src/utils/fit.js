@@ -1,3 +1,4 @@
+// 自适应元素内容
 export function fit(
   parentWidth,
   parentHeight,

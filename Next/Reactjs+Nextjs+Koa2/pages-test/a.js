@@ -18,7 +18,7 @@ const Title = styled.h1`
 const color = '#113366'
 
 const A = ({ router, name, time }) => {
-  console.log(serverRuntimeConfig, publicRuntimeConfig)
+  // console.log(serverRuntimeConfig, publicRuntimeConfig)
 
   return (
     <>
