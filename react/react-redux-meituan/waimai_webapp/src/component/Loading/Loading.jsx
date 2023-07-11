@@ -5,14 +5,12 @@ import React from 'react';
 
 
 
+
+
 export default function Loading({ isend }) {
-    let str = '加载中';
-    if (isend) {
-        str = '已完成';
-    } 
+    let str = isend ? "已完成" : "加载中...";
     return <div className="loading">{str}</div>;
 }
-
 
 
 // class Loading extends React.Component {

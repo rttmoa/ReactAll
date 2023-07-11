@@ -1,13 +1,16 @@
-.order {
+.order { 
     .header {
+        // position: fixed; 
         width: 100%;
         height: px2rem(64px);
+        line-height: px2rem(64px);
+        font-size: px2rem(17px);
+        font-weight: bold;
+        color: #333;
         background-color: #fff;
         border-bottom: 1px solid #b2b2b2;
-        font-size: px2rem(17px);
-        color: #333;
         text-align: center;
-        line-height: px2rem(64px);
-        font-weight: bold;
+        z-index: 100;
+        // margin-bottom: px2rem(64px);
     }
 }

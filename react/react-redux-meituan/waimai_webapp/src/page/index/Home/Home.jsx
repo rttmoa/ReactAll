@@ -15,9 +15,8 @@ export default function Home () {
 
             {/* 头部 */}
             <Header />
-            
-            {/* <span>外卖类别</span> */} 
-            {/* 外卖类别 */}
+             
+            {/* 外卖类别 (8个类别) */}
             <Category />
 
             {/* 附近商家列表 */}

@@ -10,10 +10,9 @@
 
     .avatar {
         width: px2rem(72px);
-        height: px2rem(72px);
-        margin: 0 auto;
+        height: px2rem(72px); 
         display: block;
-        margin-top: px2rem(25px);
+        margin: px2rem(25px) auto 0;
         border: px2rem(3px) solid rgba(255,255,255,0.4);
         border-radius: 50%;
     }

@@ -27,13 +27,15 @@ class ListItem extends React.Component {
         // 复制数组防止引用
         let _list = JSON.parse(JSON.stringify(list));
         // push一个用来计算总计的{type：more}
-        _list.push({type: 'more'});
-
+        _list.push({type: 'more'}); 
         return _list.map((item, index)=>{
             if (item.type === 'more') {
                 return this.renderTotalPrice(item, data, index);
             }
-            return <div className="product-item" key={index}>{item.product_name}<div className="p-count">x{item.product_count}</div></div>;
+            return <div className="product-item" key={index}>
+                {item.product_name}
+                <div className="p-count">x{item.product_count}</div>
+            </div>;
         })
     }
     /** #### 渲染评价按钮 ---*/
@@ -48,11 +50,11 @@ class ListItem extends React.Component {
         }
         return null;
     }
-    /** #### 跳转到评价页面  /evaluation.html ---*/
+    /** FIXME: #### 跳转到评价页面  /evaluation.html ---*/
     goEval() {
         window.location.href = './evaluation.html';
     }
-    /** #### 跳转到详情页面 /detail.html ---*/
+    /** FIXME: #### 跳转到详情页面 /detail.html ---*/
     goDetail() {
         window.location.href = './detail.html';
     }
@@ -61,19 +63,17 @@ class ListItem extends React.Component {
         return (
             <div className="order-item">
                 <div className="order-item-inner">
+                    {/* display：flex、左侧img给宽高、右侧flex=1 */}
                     <img className="item-img" src={data.poi_pic}/>
                     <div className="item-right">
-
                         <div className="item-top" onClick={this.goDetail}>
                             <p className="order-name one-line">{data.poi_name} poi</p>
                             <div className="arrow"></div>
                             <div className="order-state">{data.status_description}</div>
-                        </div>
-
+                        </div> 
                         <div className="item-bottom">
                             {this.renderProduct(data)}
-                        </div>
-
+                        </div> 
                     </div>
                 </div>
 

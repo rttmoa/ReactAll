@@ -16,7 +16,7 @@ const historyMiddl = routerMiddleware(history);
 const store = createStore(mainReducer, applyMiddleware(thunk, historyMiddl));
 
 if (module.hot) {
-    module.hot.accept('./reducers/main', ()=>{
+    module.hot.accept('./reducers/main', () => {
         const nextRootReducer = require('./reducers/main.js').default;
         store.replaceReducer(nextRootReducer)
     });

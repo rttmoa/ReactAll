@@ -4,15 +4,16 @@
     position: absolute;
     display: flex;
     align-items: center;
-    justify-content: center;
+    // justify-content: center;
+    justify-content:space-around;
     padding-top: px2rem(14px);
     
     .bar-location {
-        margin-right: px2rem(20px);
-        border-radius: px2rem(13px);
-        background-color: rgba(0,0,0,0.33);
-        height: px2rem(28px);
+        // margin-right: px2rem(20px);
         width: px2rem(92px);
+        height: px2rem(28px);   
+        border-radius: px2rem(10px);
+        background-color: rgba(0,0,0,0.33);
     }
     .location-icon {
         display: inline-block;
@@ -49,11 +50,12 @@
         height: px2rem(30px);
         background-color: #fff;
         border-radius: px2rem(20px);
+
         &:before {
             content: '';
             display: block;
             position: absolute;
-            width: px2rem(14px);
+            width: px2rem(14px);    
             height: px2rem(14px);
             background-image: url('./img/searchIcon.png');
             background-size: cover;
@@ -66,7 +68,8 @@
         font-size: px2rem(14px);
         height: 100%;
         line-height: px2rem(30px);
-        margin-left: px2rem(28px);
+        // margin-left: px2rem(30px);
+        padding-left: px2rem(30px);
     }
 
 }

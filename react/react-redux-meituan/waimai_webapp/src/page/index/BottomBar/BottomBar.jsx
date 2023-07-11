@@ -14,10 +14,11 @@ class BottomBar extends React.Component {
         this.props.history.replace(item.key);
         // this.props.dispatch(changeTab({ activeKey: item.key }));
     }
-    renderItems(){
+    renderItems() {
         let tabs = this.props.tabs;
         return tabs.map((item, index) => {
             let cls = item.key + ' btn-item';
+            // cls：'home btn-item'
             let name = item.name; 
             return (
                 <NavLink 
