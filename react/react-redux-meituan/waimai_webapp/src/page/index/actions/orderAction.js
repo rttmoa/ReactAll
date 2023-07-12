@@ -22,13 +22,15 @@ export const getOrderData = (page)=> async (dispatch) =>{
         //     }
         // }
     });
-    dispatch({
-        type: ORDER_DATA,
-        currentPage: page, 
-        obj: resp.data
-    });
-    dispatch({
-        type: CHANGEREADYSTATE,
-        obj: true
-    });
+    if(resp.data){
+        dispatch({
+            type: ORDER_DATA,
+            currentPage: page, 
+            obj: resp.data
+        });
+        dispatch({
+            type: CHANGEREADYSTATE,
+            obj: true
+        });
+    }
 }

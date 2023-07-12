@@ -59,7 +59,7 @@ class Header extends React.Component {
     
     
     
-    renderFilterInnerContent(items, filterList) { /** 筛选内部的每个类目*/
+    renderFilterInnerContent(items, filterList) { /** 筛选 内部的每个类目*/
         return items.map((item, index) => {
             let cls = item.icon ? 'cate-box-inner has-icon' : 'cate-box-inner';
             if (item.active) {
@@ -146,6 +146,14 @@ class Header extends React.Component {
             if (item.key === this.props.activeKey) { // 点击的key
                 cls += ' current';
             }
+            // FIXME: 显示面板
+            // console.log(cls) 
+            // 点击筛选条件后： cate-panel || type-panel || filter-panel current
+            // 哪个current为true后显示新仓的面板
+            // > ul{
+            //     display:none; 
+            //     &.current{ dispaly: block }
+            // } 
             if (item.key === TABKEY.cate) { // 如果是 cate && 全部分类
                 array.push(
                     <ul key={item.key} className={cls}>
@@ -191,6 +199,7 @@ class Header extends React.Component {
             if (item.key === this.props.activeKey && !this.props.closePanel) { // 点击key && 关闭面板+false取反为true
                 cls += ' current';
             }
+            // console.log(cls) // type item current
             arr.push(<div className={cls} key={item.key} onClick={() => {this.changeTab(item.key)}}>{item.text}</div>);
         }
         return arr;
@@ -203,14 +212,16 @@ class Header extends React.Component {
         let cls = 'panel';
         if (!this.props.closePanel)  cls += ' show';
         else cls = 'panel';
+        // console.log(cls) // 面板条件：  如选中：panel show  未选中：panel
 
-        
-        
+
         return (
             <div className="header">
+                {/* 三个Tabs */}
                 <div className="header-top">
                     {this.renderTabs()}
                 </div>
+                {/* 三个Tabs下的 选项 */}
                 <div className={cls}>
                     <div className="panel-inner">
                         {this.renderContent()}

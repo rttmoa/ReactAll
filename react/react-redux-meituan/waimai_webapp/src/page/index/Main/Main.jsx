@@ -21,7 +21,7 @@ class Main extends React.Component {
                 <Route path="/order" component={Order}/>
                 <Route path="/my" component={My}/>
                 <BottomBar />
-            </div>
+            </div>  
         );
     }
 }

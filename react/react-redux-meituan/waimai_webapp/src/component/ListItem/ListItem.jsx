@@ -46,7 +46,7 @@ class ListItem extends React.Component {
      */
     renderOthers(data) {
         let array = data.discounts2; 
-        return array.map((item, index)=>{
+        return array.map((item, index) => {
             return (
                 <div key={index} className="other-info">
                     <img src={item.icon_url} className="other-tag" />

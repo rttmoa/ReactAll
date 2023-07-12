@@ -2,17 +2,19 @@
     width: 100%;
     background-color: #fff;
     margin-top: px2rem(64px);
+
+    // FIXME: 三个Tabs
     .header-top {
         position: fixed;
         width: 100%;
-        display: flex;
         height: px2rem(40px);
-        
+        display: flex;
         align-items: center;
         border-bottom: 1px solid #e4e4e4;
         background-color: #fff;
         z-index: 4;
     }
+    // 每一个tab，当前current类名 (type item current)
     .item {
         font-size: px2rem(13px);
         color: #2f2f2f;
@@ -23,7 +25,9 @@
         &:last-child {
             border: none;
         }
-        &.cate:after, &.type:after {
+        // 全部分类、综合排序
+        &.cate:after,
+        &.type:after {
             content: '';
             display: inline-block;
             width: px2rem(5px);
@@ -32,11 +36,13 @@
             margin-left: px2rem(6px);
             border: 1px solid #666;
             border-width: 0 1px 1px 0;
+            // border-width: 1px;
             transform: rotate(45deg);
             -webkit-transform: rotate(45deg);
             -webkit-transition: .3s;
             transition: .3s;
         }
+        // 筛选
         &.filter:after {
             content: '';
             display: inline-block;
@@ -46,10 +52,12 @@
             background-image: url('./img/filter.png');
             background-size: cover;
         }
+        // 全部分类、综合排序 （动画效果：旋转）
         &.current:not(.filter)::after {
             transform: rotate(225deg);
             -webkit-transform: rotate(225deg);
         }
+        // 选中current的 三角形 △
         &:before {
             display: none;
             content: '';
@@ -69,9 +77,10 @@
         }
         &.current:before {
             display: block;
-        }
-        
+        }   
     }
+
+    // FIXME: 面板条件： 如选中：panel show  未选中：panel
     .panel {
         position: absolute;
         z-index: 1;
@@ -81,6 +90,7 @@
         right: 0;
         background-color: rgba(0,0,0,0.7);
         display: none;
+
         &.show {
             display: block;
         }
@@ -88,8 +98,9 @@
             height: px2rem(300px);
             overflow-x: hidden;
             overflow-y: auto;
-            -webkit-overflow-scrolling:touch;
+            -webkit-overflow-scrolling: touch;
             background-color: #fff;
+
             > ul {
                 display: none;
                 background-color: #fff;
@@ -98,29 +109,36 @@
                 }
             }
         }
+        // 全部分类面板CSS + Title
         .item-title {
             position: relative;
             font-size: px2rem(12px);
             font-weight: bold;
             height: px2rem(30px);
-            background-color: #efefef;
             line-height: px2rem(30px);
             color: #666;
+            background-color: #efefef;
             padding-left: px2rem(13px);
+
+            // Title左边黄色的竖线
             &:before {
                 content: '';
                 position: absolute;
                 display: block;
                 margin-top: px2rem(8px);
                 margin-left: px2rem(-13px);
-                width: px2rem(2px);
+                width: px2rem(4px);
                 height: px2rem(16px);
                 background-color: #ffd161;
             }
         }
+
+        // FIXME: 面板内容的每一种类
+        // FIXME: div盒子的最小高度 （全部分类和筛选）
         .item-content {
             min-height: px2rem(20px);
         }
+        // 每一个 分类盒子
         .cate-box {
             float: left;
             width: 33.33%;
@@ -128,19 +146,22 @@
             padding: px2rem(10px);
             box-sizing: border-box;
         }
+        // 分类盒子内容的文字及背景设计
         .cate-box-inner {
-            border: 1px solid #c4c4c4;
-            text-align: center;
-            color: #666;
+            position: relative;
             height: px2rem(37px);
             line-height: px2rem(37px);
-            position: relative;
+            text-align: center;
+            color: #666;
+            border: 1px solid #c4c4c4;
             &.active {
                 background-color: #fffbf1;
                 color: #ffb000;
                 border-color: #ffb000;
             }
         }
+
+        // 筛选面板的Picture
         .has-icon img {
             display: block;
             width: px2rem(18px);
@@ -149,6 +170,8 @@
             top: px2rem(10px);
             left: px2rem(4px);
         }
+
+        // 销量最高面板CSS
         .type-item {
             border-bottom: 1px solid #e9e9e9;
             height: px2rem(44px);
@@ -160,6 +183,8 @@
                 color: #ffb000;
             }
         }
+
+        // 筛选面板CSS
         .filter-item {
             margin-bottom: px2rem(10px);
             margin-top: px2rem(5px);

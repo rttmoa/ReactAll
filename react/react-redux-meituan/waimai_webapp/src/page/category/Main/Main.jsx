@@ -20,17 +20,21 @@ class Main extends React.Component {
 
         // TODO: 过滤条件中获取headerReducer的Redux数据，渲染到页面
         // TODO: 调试时，打开 查看结果
-        // console.log("Filter",state.headerReducer) 
+        // console.log("Filter", state.headerReducer) 
         return (
             <div className="category">
 
-                {/* Title */}
                 <NavHeader title="分类"/>
 
-                {/* Filter */}
+                {/* Filter   过滤数据条件 */}
+                {/* 
+                    introduction： 跟据哪个过滤条件显示哪个面板的内容，渲染标题及每项条件，哪个隐藏，哪个显示 使用class
+                    let cls = tabs[key].key + ' item';
+                    if (item.key === this.props.activeKey && !this.props.closePanel) cls += ' current';
+                */}
                 <Header />
-
-                {/* List */}
+                  
+                {/* ListData  滚动数据列表 */}
                 <ContentList />
 
             </div>

@@ -22,7 +22,6 @@ export const getListData = (page)=> (dispatch) =>{
                 type: CHANGEREADYSTATE,
                 obj: true
             });
-
         }, 500); 
     });
 }

@@ -12,16 +12,15 @@ class Restanurant extends React.Component {
     }
     renderPayType(types = []) {
         let array = types || [];
-        return array.map((item, index)=>{
+        return array.map((item, index) => {
             return (
                 <p key={index} className="restanurant-pay-type res-section">
-                    <img className="icon" src={item.icon_url}/>
-                    {item.info}
+                    <img className="icon" src={item.icon_url} />{item.info}
                 </p>
             )
         });
     }
-    render(){  
+    render(){
         let data = this.props.resData;
         return (
             <div className="restanurant-content">

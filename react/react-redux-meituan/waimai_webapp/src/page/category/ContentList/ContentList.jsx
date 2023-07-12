@@ -18,15 +18,13 @@ class ContentList extends React.Component {
     fetchData() {this.props.dispatch(getListData({}))}
 
     onLoadPage(){ 
-        // FIXME: 最多滚动3页3次， 这里一次加载了10多次
-        if (this.props.page <= 3) {
-            this.fetchData();
-        }
+        // FIXME: 最多滚动3页3次， 这里一次加载了10多次 （限制条件）
+        if (this.props.page <= 3) this.fetchData();
     }
 
 
-    renderItems(){ 
-        return this.props.list.map((item, index)=> <ListItem key={index} itemData={item}></ListItem> );
+    renderItems(){
+        return this.props.list.map((item, index)=> <ListItem key={index} itemData={item}></ListItem>);
     }
 
     render(){

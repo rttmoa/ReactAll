@@ -4,8 +4,10 @@
     position: fixed;
     width: 100%;
     top: 0;
+    // FIXME: 层级高，且固定定位
     z-index: 99;
     background-color: #fff;
+
     .title {
         font-size: px2rem(17px);
         color: #2f2f2f;

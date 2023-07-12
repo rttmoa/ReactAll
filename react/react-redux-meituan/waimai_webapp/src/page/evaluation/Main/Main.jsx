@@ -60,10 +60,10 @@ class Main extends React.Component {
                         {this.renderStar()}
                     </div>
                     <div className="comment">
-                        <textarea 
+                        <textarea
                             ref={(ref) => {this.commentInput = ref}} 
                             onChange={(e) => this.onIuput(e.target.value)} 
-                            minLength="140" 
+                            minLength="140"
                             placeholder="亲，菜品的口味如何，商家的服务是否周到?" 
                             className="comment-input"
                         ></textarea>

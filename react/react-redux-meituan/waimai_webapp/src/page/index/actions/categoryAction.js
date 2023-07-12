@@ -10,10 +10,10 @@ export const getHeaderData = ()=> async (dispatch) =>{
         method: 'get',
         url: './json/head.json',
     });
-
-    dispatch({
-        type: HEAD_DATA,
-        obj: resp.data
-    });
-
+    if(resp.data){
+        dispatch({
+            type: HEAD_DATA,
+            obj: resp.data
+        });
+    }
 }

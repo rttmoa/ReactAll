@@ -29,7 +29,6 @@ export const getRestanurantData = () =>async(dispatch)=>{
         }
       }
     });
-    // console.log(resp.data)
     if(resp.status === 200){
       dispatch({
         type: RESTANURANT_DATA,

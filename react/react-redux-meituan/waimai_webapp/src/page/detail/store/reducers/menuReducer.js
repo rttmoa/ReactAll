@@ -31,7 +31,7 @@ const clearCar = (state) => {
     let listData = state.listData;
     // 找到外层，左边list列表
     let list = listData.food_spu_tags || [];
-    for (let i = 0 ; i< list.length ; i++) {
+    for (let i = 0 ; i < list.length ; i++) {
         let spus = list[i].spus || [];
         for (let j = 0 ; j < spus.length ; j++) {
             spus[j].chooseCount = 0;
@@ -56,11 +56,8 @@ const dealWithSelectItem = (state, action, type) => {
     // console.log("处理购物车 State", state) // state: {listData: {…}, currentLeftIndex: 0, showChooseContent: false, poiInfo: {…}}
     // console.log("处理购物车 Action", action) // action: {type: 'MINUS_SELECTI_ITEM', obj: {index: 3}} // 右侧的Item索引
 
-
     let listData = state.listData;
-
     let leftListArray = listData.food_spu_tags || []; // 左侧的13个模块
-
     let currentItem = leftListArray[action.outIndex || state.currentLeftIndex]; // 获取左侧13个模块中第几个模块的索引
     console.log("左侧模块数据", currentItem)
     console.log("右侧列表索引", action.obj)

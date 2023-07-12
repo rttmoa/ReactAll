@@ -1,6 +1,8 @@
 import { COMMENT_LIST_DATA } from '../actions/actionTypes.js';
 
 
+
+
 const initState = {
     commentData: {}, // 接口中 每次获取的评论
     commentList: []  // 接口中 所有的评论集合
@@ -21,6 +23,7 @@ const getListData = (state, action) => {
         commentList: list
     }
 }
+
 const commentReducer = (state = initState, action) => {
     switch(action.type) {
         // TODO: 评论列表数据
