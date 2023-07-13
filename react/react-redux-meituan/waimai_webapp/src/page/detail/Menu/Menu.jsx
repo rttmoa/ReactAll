@@ -16,43 +16,54 @@ class Menu extends React.Component {
 
 
     /***--- 渲染右侧商品列表数据 ---**/
-    renderRightList(rightArray) {
-        let _rightArray = rightArray || [];
-        return _rightArray.map((item, index)=>{
-            if (!item.chooseCount) { // 如果没有chooseCount属性，就默认一个初始值为0
-                item.chooseCount = 0;
-            }
-            return <MenuItem key={index} data={item} _index={index}></MenuItem>
-        });
-    }
+    // renderRightList(rightArray) { // @params: currentItem.spus
+    //     let _rightArray = rightArray || [];
+    //     return _rightArray.map((item, index)=>{
+    //         if (!item.chooseCount) { // 如果没有chooseCount属性，就默认一个初始值为0
+    //             item.chooseCount = 0;
+    //         }
+    //         return <MenuItem key={index} data={item} _index={index}></MenuItem>
+    //     });
+    // } 
+    // itemClick(index) {this.props.dispatch(itemClick({currentLeftIndex: index}));}
 
-    /***--- 点击index切换右边数据 ---**/
-    itemClick(index) {this.props.dispatch(itemClick({currentLeftIndex: index}));}
     
     /** #### TODO: 渲染右边的列表 ---*/
     renderRight() {
-        let currentLeftIndex = this.props.currentLeftIndex; // 获取左侧点击的索引
-        let list = this.props.listData.food_spu_tags || [];  
-        let currentItem = list[currentLeftIndex]; // 同下
-        if (currentItem) {
-            let title = <p key={1} className="right-title">{currentItem.name}</p>
-            return [
-                title,
+        if(this.props){   
+            let arrayList = this.props.listData.food_spu_tags; // 左侧13个菜单
+            let currentItem = arrayList[this.props.currentLeftIndex];  // 当前选中的菜单项
+            // 右侧的数据列表
+            let rightList = [
+                <p key={1} className="right-title">{currentItem.name}</p>,
                 <div key={2} className="right-list">
-                    <div className="right-list-inner">{this.renderRightList(currentItem.spus)}</div>
+                    <div className="right-list-inner"> 
+                        {currentItem.spus.map((item, index) => {
+                            if(!item.chooseCount) item.chooseCount = 0;
+                            return <MenuItem key={index} data={item} _index={index}></MenuItem>
+                        })}
+                    </div>
                 </div>
-            ]
-        } else return null
+            ];
+            // 判断点击的当前索引是否存在
+            return currentItem ? rightList : null;
+        }
     }
-    /** #### TODO: 渲染左边的列表 ,,,, 左边的每个item中的spus属性中是右侧商品的内容  ---*/
+    
+    /** #### TODO: 菜单 ,,,, 左边的每个item中的spus属性中是右侧商品的内容  ---*/
     renderLeft() {
-        let list = this.props.listData.food_spu_tags || [];
-        // console.log(list) // list: (13)[{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
-        return list.map((item, index) => {
-            let cls = this.props.currentLeftIndex === index ? 'left-item active' : 'left-item';
+        return this.props && this.props.listData.food_spu_tags.map((item, index) => {
+            const { icon, name } = item;
+            let classNames = this.props.currentLeftIndex === index ? 'left-item active' : 'left-item';
             return (
-                <div onClick={() => this.itemClick(index)} key={index} className={cls}>
-                    <div className="item-text">{item.icon ? <img className="item-icon" src={item.icon} /> : null} {item.name}</div>
+                <div
+                    className={classNames}
+                    key={index} 
+                    onClick={() => this.props.dispatch(itemClick({currentLeftIndex: index}))}  
+                >
+                    <div className="item-text">
+                        {icon ? <img className="item-icon" src={icon} /> : null} {name}
+                    </div>
                 </div>
             )
         })
@@ -63,8 +74,11 @@ class Menu extends React.Component {
 
     render(){ 
         // TODO: 渲染左侧的item时，根据点击的哪个index，渲染具体的哪些内容
+        {/* // FIXME: 修改高和字体，且左侧可滚动 */}
+        {/* 左侧CSS：对齐方式：(vertical-align; line-height: 0.53333rem; align-self: center; text-align: center;) */} 
+        {/* 滚动：overflow：auto， overflow: x, overflow: y */}
         return (
-            <div className="menu-inner">
+            <div className="menu-inner"> 
                 <div className="left-bar">
                     <div className="left-bar-inner">
                         {this.renderLeft()}
@@ -79,9 +93,7 @@ class Menu extends React.Component {
     }
 }
 function mapState(state) {
-    return {
-        listData: state.menuReducer.listData,
-        currentLeftIndex: state.menuReducer.currentLeftIndex
-    }
+    const { listData, currentLeftIndex } =  state.menuReducer;
+    return { listData, currentLeftIndex }
 }
 export default connect(mapState, null)(Menu);

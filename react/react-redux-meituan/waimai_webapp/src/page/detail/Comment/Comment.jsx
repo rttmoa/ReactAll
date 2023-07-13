@@ -8,6 +8,7 @@ import { getListData } from '../store/actions/commentAction'
 
 
 
+
 class Comment extends React.Component {
     constructor(props) {
         super(props);
@@ -42,7 +43,7 @@ class Comment extends React.Component {
                     </div>
                 </div>
 
-                {/* TODO: 渲染 客户评论列表数据 */}
+                {/* TODO: 渲染 客户评论列表数据  CommentItem CSS */}
                 <CommentList />
 
             </div>

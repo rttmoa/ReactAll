@@ -1,9 +1,11 @@
 .menu-item {
     display: flex;
+    // 上下padding
     padding-top: px2rem(25px);
     padding-bottom: px2rem(25px);
     border-bottom: 1px solid #f0f0f0;
     position: relative;
+    
     .img {
         width: px2rem(62px);
         height: px2rem(62px);
@@ -16,7 +18,8 @@
         font-size: px2rem(16px);
         color: #2f2f2f;
     }
-    .item-desc,.item-zan {
+    .item-desc,
+    .item-zan {
         color: #a9a9a9;
         font-size: px2rem(12px);
         margin-top: px2rem(6px);
@@ -35,6 +38,8 @@
         color:#a9a9a9;
         font-size: px2rem(12px);
     }
+
+    // FIXME: 加减按钮
     .select-content {
         position: absolute;
         right: px2rem(9px);

@@ -1,3 +1,4 @@
+// FIXME: 顶部得分部分
 .comment-score {
     display: flex;
     padding-left: px2rem(25px);
@@ -6,24 +7,31 @@
     padding-bottom: px2rem(15px);
     border-top: px2rem(10px) solid #f6f6f6;
     border-bottom: 1px solid #d5d5d5;
+    // 左侧商家评价div
     .mail-score-content {
         display: flex;
         flex-direction: column;
     }
+    // 中间口味 包装div
     .other-score-content {
         display: flex;
         flex-direction: column;
         flex: 1;
         justify-content: space-around;
     }
-    .taste-star-wrap, .package-star-wrap {
+    // 五角星
+    .taste-star-wrap, 
+    .package-star-wrap {
         margin-left: px2rem(15px);
         margin-right: px2rem(15px);
     }
-    .package-score, .taste-score {
+    // 口味和包装两个div盒子 内容水平排列
+    .package-score,
+    .taste-score {
         display: flex;
         justify-content: center;
     }
+    // 商家评价4.6
     .mail-score {
         font-size: px2rem(32px);
         color: #ffb000;
@@ -33,25 +41,32 @@
         font-size: px2rem(12px);
         color: #656565;
     }
-    .taste-text,.package-text {
+    // 口味，包装文字
+    .taste-text,
+    .package-text {
         font-size: px2rem(12px);
         color: #554343;
     }
-    .taste-score-text, .package-score-text {
+    // 4.5， 4.6数字
+    .taste-score-text, 
+    .package-score-text {
         font-size: px2rem(15px);
         color: #ffb000;
     }
+    // 商家评价4.9
     .send-score-content {
         display: flex;
         flex-direction: column;
         margin-top: px2rem(3px);
     }
+    // 4.9
     .send-score {
         font-size: px2rem(24px);
         color: #999;
         margin-bottom: px2rem(5px);
         text-align: center;
     }
+    // 商家评价
     .send-text {
         font-size: px2rem(12px);
         color: #999;

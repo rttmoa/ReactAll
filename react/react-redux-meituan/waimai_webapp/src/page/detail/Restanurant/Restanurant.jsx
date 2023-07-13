@@ -24,6 +24,8 @@ class Restanurant extends React.Component {
         let data = this.props.resData;
         return (
             <div className="restanurant-content">
+                
+                {/* FIXME: res-section是文字的公共部分，第一个class为图标的 :before */}
                 <div className="restanurant-basic">
                     <div className="restanurant-tel res-section">{data.call_center}</div>
                     <div className="restanurant-addr res-section">
@@ -42,6 +44,7 @@ class Restanurant extends React.Component {
                 <div className="restanurant-basic">
                     {this.renderPayType(data.discounts2)}
                 </div>
+                
             </div>
         );
     }
