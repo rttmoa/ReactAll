@@ -1,6 +1,6 @@
 # ReactAll记录：
 
-common：      Echarts(3)     Wechat(小程序)
+common：      Echarts(3)     Wechat
 document:     测试React      封装Image旋转,裁剪功能
 typesciprt:   封装antd组件    todomvc
 
