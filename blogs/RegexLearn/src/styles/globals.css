@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #343028;
+}
+
+@layer base {
+  body {
+    background-color: var(--background);
+  }
+
+  * {
+    @apply focus-visible:ring focus-visible:ring-regreen-400 focus-visible:outline-none focus-visible:rounded-sm;
+  }
+}
+
+::-webkit-scrollbar {
+  @apply h-1 w-1;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-neutral-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded bg-neutral-700;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-neutral-600;
+}

@@ -1,0 +1,39 @@
+{
+  "general.prev": "Önceki",
+  "general.next": "Sonraki",
+  "general.result": "Sonuç",
+  "general.regex": "Regex",
+  "general.text": "Metin",
+  "general.watch": "İzle",
+  "general.start": "Başla",
+  "general.continue": "Devam Et",
+  "general.completedStep": "Adım Tamamlandı.",
+  "general.hintQuestion": "Cevabı Göster",
+  "general.reportStep": "Sorun Bildir",
+  "general.startLearning": "Öğrenmeye Başla",
+  "general.comingSoon": "Yakında",
+  "general.becomeSponsor": "Sponsor Ol",
+  "general.learn": "Öğren",
+  "general.playground": "Playground",
+  "general.cheatsheet": "Cheatsheet",
+  "general.ourSponsors": "Sponsorlarımız",
+  "general.share": "Paylaş",
+  "general.shareLinkCopied": "Paylaş linki kopyalandı!",
+  "general.somethingWentWrong": "Bir şeyler ters gitti!",
+
+  "notFound.intro": "Aradığın sayfa mevcut değil.",
+  "notFound.button": "Anasayfaya dön",
+
+  "page.landing.title": "Regex Learn - Adım adım, sıfırdan ileri seviyeye.",
+  "page.learn.title": "Regex Learn - Regex İnteraktif Kurs",
+  "page.cheatsheet.title": "Regex Learn - Regex Cheatsheet",
+  "page.playground.title": "Regex Learn - Playground",
+  "page.404.title": "Regex Learn - Sayfa Bulunamadı",
+
+  "page.landing.description": "İnteraktif bir şekilde Regex öğren, seviyene uygun pratikler yap, kendi Regex'ini test et ve paylaş.",
+  "page.learn.description": "Regex'i adım adım öğren. Öğrenmeni kolaylaştırıp hızlandıracak interaktif eğitimi tamamla.",
+  "page.cheatsheet.description": "Regex'i bazen sadece hatırlamaya ihtiyaç duyarsın, anlamanı kolaylaştıracak ve daha iyi hatırlamanı sağlayacak cheatsheet'i dene.",
+  "page.playground.description": "Kendi Regex'inizi Playground aracılığıyla çevrimiçi olarak kolayca oluşturabilir ve test edebilirsiniz.",
+
+  "learn.safari.unsupportWarning": "Bu adımdaki Regex bazı tarayıcılar tarafından desteklenmez. Bu adımı geçmekte sorun yaşarsanız. Buraya tıklayabilirsiniz."
+}

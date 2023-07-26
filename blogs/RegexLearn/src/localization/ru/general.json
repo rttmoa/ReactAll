@@ -1,0 +1,39 @@
+{
+  "general.prev": "Предыдущее",
+  "general.next": "Следующее",
+  "general.result": "Результат",
+  "general.regex": "Regex",
+  "general.text": "Текст",
+  "general.watch": "Смотреть",
+  "general.start": "Начинать",
+  "general.continue": "Продолжать",
+  "general.completedStep": "Шаг завершён!",
+  "general.hintQuestion": "Показать ответ",
+  "general.reportStep": "Сообщить о проблеме",
+  "general.startLearning": "Начать обучение",
+  "general.comingSoon": "Скоро",
+  "general.becomeSponsor": "Стать спонсором",
+  "general.learn": "Изучить",
+  "general.playground": "Playground",
+  "general.cheatsheet": "Cheatsheet",
+  "general.ourSponsors": "Наши спонсоры",
+  "general.share": "Делиться",
+  "general.shareLinkCopied": "Ссылка на общий доступ скопирована!",
+  "general.somethingWentWrong": "Что-то пошло не так!",
+
+  "notFound.intro": "Страница, которую вы ищете, не найдена.",
+  "notFound.button": "Вернуться домой",
+
+  "page.landing.title": "Regex Learn - шаг за шагом, от нуля до продвинутого уровня.",
+  "page.learn.title": "Regex Learn - интерактивный курс Regex",
+  "page.cheatsheet.title": "Regex Learn - Regex Cheatsheet",
+  "page.playground.title": "Regex Learn - Playground",
+  "page.404.title": "Regex Learn - не найдено",
+
+  "page.landing.description": "Изучайте Regex в интерактивном режиме, практикуйтесь на своём уровне, протестируйте и поделитесь своими собственными Regex с другими участниками.",
+  "page.learn.description": "Изучайте Regex шаг за шагом. Пройдите интерактивное руководство, которое сделает ваше обучение проще и быстрее.",
+  "page.cheatsheet.description": "Иногда вам просто необходимо запомнить Regex. Попробуйте шпаргалку, которая поможет вам лучше понять и запомнить Regexp.",
+  "page.playground.description": "Вы можете легко создать и протестировать шаблон регулярного выражения онлайн через Playground.",
+
+  "learn.safari.unsupportWarning": "Регулярные выражения на этом этапе не поддерживаются некоторыми браузерами. Если у вас возникли проблемы с прохождением этого шага. Вы можете нажать здесь."
+}
