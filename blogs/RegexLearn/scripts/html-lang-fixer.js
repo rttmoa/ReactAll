@@ -7,9 +7,9 @@ function replaceLangTag(path, locale) {
   fs.writeFileSync(path, content.replace(/(<html lang=")en(" class="dark">)/, `$1${locale}$2`));
 }
 
+
 function htmlLangFixer(path) {
   const list = fs.readdirSync(path);
-
   list.forEach(el => {
     const currentPath = `${path}/${el}`;
     const stats = fs.lstatSync(currentPath);

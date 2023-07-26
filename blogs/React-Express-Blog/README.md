@@ -112,6 +112,8 @@ db @3.4.0
 
     npm start
 
+先启动服务端，再启动客户端
+
 ## 独立打包
 
     npm run build
