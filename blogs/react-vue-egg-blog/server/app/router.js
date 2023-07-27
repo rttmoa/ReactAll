@@ -3,7 +3,7 @@
 /**
  * @param {Egg.Application} app - egg application
  */
-module.exports = (app) => {
+module.exports = app => {
   const { router, controller, jwt } = app;
   const baseRouter = app.config.baseRouter; // /api/v1
   // 前台 /web

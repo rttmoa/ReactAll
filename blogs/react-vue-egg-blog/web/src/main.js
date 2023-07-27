@@ -5,40 +5,20 @@ import router from "./router";
 Vue.config.productionTip = false;
 import "lib-flexible";
 import "muse-ui/lib/styles/base.less";
-import "./global.less";
+import "./global.less";   // 导入 global.less
 
 import {
-  Button,
-  Select,
-  AppBar,
-  Icon,
-  Popover,
-  List,
-  Avatar,
-  BottomSheet,
-  Pagination,
-  Paper,
-  Chip,
-  Carousel,
-  Card,
-  Tooltip,
-  TextField,
-  Dialog,
-  Snackbar,
-  Badge,
-  Divider,
-  Form,
-  AutoComplete,
-  Menu
+  Button,  Select,  AppBar,  Icon,  Popover,  List,  Avatar,  BottomSheet,  Pagination,  Paper,  Chip,  
+  Carousel,  Card,  Tooltip, TextField,  Dialog,  Snackbar,  Badge,  Divider,  Form,  AutoComplete,  Menu 
 } from "muse-ui";
 import "muse-ui/lib/styles/theme.less";
 import Toast from "muse-ui-toast";
 
 Vue.use(Toast, {
-  position: "top", // 弹出的位置
-  time: 2000, // 显示的时长
+  position: "top",  // 弹出的位置
+  time: 2000,       // 显示的时长
   closeIcon: "close", // 关闭的图标
-  close: true, // 是否显示关闭按钮
+  close: true,      // 是否显示关闭按钮
   successIcon: "check_circle", // 成功信息图标
   infoIcon: "info", // 信息信息图标
   warningIcon: "priority_high", // 提醒信息图标
@@ -67,8 +47,7 @@ Vue.use(Form);
 Vue.use(AutoComplete);
 Vue.use(Menu);
 
-import Helpers from 'muse-ui/lib/Helpers';
-
+import Helpers from "muse-ui/lib/Helpers";
 Vue.use(Helpers);
 
 import { isPC } from "@/utils";
@@ -84,10 +63,10 @@ Vue.use(VueLazyload, {
   attempt: 1,
 });
 
-//过滤器
+// 过滤器
 import * as filters from "./filter";
-Object.keys(filters).forEach((k) => Vue.filter(k, filters[k])); //注册过滤器
-Vue.prototype.filterDate = filters.filterDate; //时间过滤方法
+Object.keys(filters).forEach((k) => Vue.filter(k, filters[k])); // 注册过滤器
+Vue.prototype.filterDate = filters.filterDate; // 时间过滤方法
 
 import theme from "muse-ui/lib/theme";
 theme.add(
@@ -114,7 +93,6 @@ theme.add(
       default: "#303030",
     },
   },
-
   "dark"
 );
 
@@ -144,7 +122,6 @@ theme.add(
   },
   "light"
 );
-
 
 const hours = new Date().getHours();
 let defaultTheme = "";
