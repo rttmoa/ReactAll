@@ -3,22 +3,16 @@
 module.exports = app => {
   app.once('server', server => {
     // websocket
-
-    console.dir('(====================服务已开启=============================)');
-    console.dir('server ==> ', server);
-    // app.log('123-----');
-    // console.log(app.bar);
+    console.dir('(===================================================服务已开启====================================================================)');
+    // console.log('server ==> ', server);
   });
   app.on('error', err => {
-    // report error
-    console.log('error ==> ', err);
+    // console.error('error ========> ', err);
   });
   app.on('request', ctx => {
-    // log receive request
-    console.log('request ==> ', ctx);
-
+    // console.log('request ========> ', ctx);
   });
   app.on('response', ctx => {
-    console.log('response ==> ', ctx);
+    // console.log('response ========> ', ctx);
   });
 };

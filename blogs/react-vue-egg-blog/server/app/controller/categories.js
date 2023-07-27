@@ -41,7 +41,8 @@ class CategoriesController extends Controller {
     const { ctx, service } = this;
     const data = ctx.request.query;
     ctx.validate(this.queryListParamsRules, data);
-    const res = await service.categories.index(data);
+    // const res = await service.categories.index({ page: 1, pageSize: 50, name: '其他', number: 33 });
+    const res = await service.categories.index(data); // TODO: 调用service服务层
     ctx.helper.success({
       ctx,
       res,

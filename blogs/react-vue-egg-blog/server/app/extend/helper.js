@@ -1,12 +1,14 @@
+/* eslint-disable jsdoc/require-param */
 /* eslint-disable jsdoc/require-returns-type */
 /* eslint-disable jsdoc/require-param-description */
 /* eslint-disable strict */
 const moment = require('moment');
 const bcrypt = require('bcrypt');
 
+/** #### 注册到ctx中 ---*/
 module.exports = {
   moment,
-  // 加密
+  /** #### TODO: 加密：加密密码 生成盐 */
   genSaltPassword(password) {
     return new Promise((resolve, reject) => {
       bcrypt.genSalt(10, (err, salt) => {
@@ -19,14 +21,8 @@ module.exports = {
         });
       });
     });
-  },
-  // 解密
-  /**
-   *
-   * @param {未加密的密码} _password
-   * @param {数据库保存的已经加密的密码} password
-   * @return boolean 是否匹配
-   */
+  }, 
+  /** #### TODO: 解密：与数据库中密码相比较 返回Boolean  */
   comparePassword(_password, password) {
     return new Promise((resolve, reject) => {
       bcrypt.compare(_password, password, (err, isMatch) => {
@@ -36,6 +32,7 @@ module.exports = {
     });
   },
 
+  /** #### TODO: 状态码为200，成功  */
   success({ ctx, res = null }) {
     ctx.status = res.status ? res.status : 200;
     if (res.status) {
@@ -49,6 +46,7 @@ module.exports = {
     };
   },
 
+  /** #### TODO: 过滤空对象，除了page&pageSize是否有别的属性  */
   filterEmptyField(params) {
     const pam = {};
     for (const i in params) {
@@ -61,11 +59,12 @@ module.exports = {
     return pam;
   },
 
+  /** #### TODO: 参数中根据时间查询  */
   getTimeQueryCon(params) {
     const timeQuery = {};
 
-    //     createStartTime		否	number	10位时间戳  2022-1-26 2022-1-27
-    // createEndTime		否	number	10位时间戳   2022-1-27
+    // createStartTime		否	number	10位时间戳    2022-1-26 2022-1-27
+    // createEndTime		  否	number	10位时间戳    2022-1-27
     // updateStartTime		否	number	10位时间戳
     // updateEndTime
 

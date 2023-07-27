@@ -2,33 +2,23 @@
 const Service = require('egg').Service;
 
 class CategoriesService extends Service {
+
   async index(params) {
     const { ctx } = this;
     const page = params.page * 1;
     const pageSize = params.pageSize * 1;
-
-    params = ctx.helper.filterEmptyField(params);
-    console.log('params', params);
+    params = ctx.helper.filterEmptyField(params); // 过滤掉page&pageSize属性
+    console.log('文章查询参数', params);
 
     // name 是模糊匹配
-    const queryCon = params.name
-      ? {
-        name: {
-          $regex: new RegExp(params.name, 'i'),
-        },
-      }
-      : {};
+    const queryCon = params.name ? { name: { $regex: new RegExp(params.name, 'i') } } : {};
 
-    const totalCount = await ctx.model.Categories.find(
-      queryCon
-    ).countDocuments();
-
+    const totalCount = await ctx.model.Categories.find(queryCon).countDocuments();
     const data = await ctx.model.Categories.find(queryCon)
-      .sort({
-        createTime: -1,
-      })
+      .sort({ createTime: -1 })
       .skip((page - 1) * pageSize)
       .limit(pageSize);
+    // TODO: 返回给控制器
     return {
       data: {
         page,
@@ -38,6 +28,7 @@ class CategoriesService extends Service {
       },
     };
   }
+
   async create(params) {
     const { ctx } = this;
     const oldTags = await ctx.model.Categories.findOne({

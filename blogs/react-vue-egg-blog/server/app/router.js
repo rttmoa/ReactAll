@@ -1,12 +1,9 @@
 'use strict';
-
-
 /** @param {Egg.Application} app - egg application */
 // TODO: 路由配置：https://www.eggjs.org/zh-CN/basics/router
 module.exports = app => {
   const { router, controller, jwt } = app;
-  const baseRouter = app.config.baseRouter; // /api/v1
-  // 前台 /web
+  const baseRouter = app.config.baseRouter; //  -->  /api/v1   -->  前台 /web
   router.post(baseRouter + '/upload', jwt, controller.utils.uploadFiles); // 上传文件到七牛云
   router.post(baseRouter + '/admin/login', controller.admin.adminLogin);
   router.post(baseRouter + '/admin/logout', controller.admin.adminLogout);
@@ -34,4 +31,4 @@ module.exports = app => {
 
 // model(new Schema)
 // router(router)
-// controller()
+// controller
