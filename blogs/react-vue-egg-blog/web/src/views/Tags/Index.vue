@@ -36,17 +36,18 @@ export default {
     return {
       tags: [
         {
-          name: "Vue",
+          name: "BMW",
           articleNum: 10,
           color: randomColor(),
         },
         {
-          name: "React",
+          name: "Audi ",
           articleNum: 20,
           color: randomColor(),
         },
       ],
-      tagsBgImg: "http://nevergiveupt.top/tags.jpg",
+      // https://www.igdcc.com/4Kqiche/29191.html
+      tagsBgImg: "https://c.53326.com/d/file/lan20210602/ap4wpuuindk.jpg",
     };
   },
   mounted() {

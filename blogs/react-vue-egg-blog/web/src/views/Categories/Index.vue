@@ -138,7 +138,8 @@ export default {
   data() {
     return {
       categories: [],
-      categoriesBgImg: "http://nevergiveupt.top/category.jpg",
+      // https://www.igdcc.com/4kfengjing/40642.html
+      categoriesBgImg: "https://c.53326.com/d/file/lan20221010/zwzfuk5jp2f.jpg",
     };
   },
   mounted() {},

@@ -10,83 +10,61 @@ Vue.use(VueRouter); // Vue.use 全局router
 const routes = [
   {
     path: "/",
-    redirect: {
-      name: "index",
-    },
+    redirect: { name: "index" },
   },
-  {
-    // 首页
+  { 
     path: "/index",
     name: "index",
     component: () =>
-      import(/* webpackChunkName: "index" */ "./views/Home/Index.vue"),
+      import(/* webpackChunkName: "index" */ "./views/Home/Index.vue"), // TODO: 首页
   },
-  {
-    // 归档
+  { 
     path: "/archives",
     name: "archives",
     component: () =>
-      import(/* webpackChunkName: "archives" */ "./views/Archives/Index.vue"),
+      import(/* webpackChunkName: "archives" */ "./views/Archives/Index.vue"), // TODO: 归档
   },
-  {
-    // 分类
+  { 
     path: "/categories",
     name: "categories",
     component: () =>
-      import(
-        /* webpackChunkName: "categories" */ "./views/Categories/Index.vue"
-      ),
+      import(/* webpackChunkName: "categories" */ "./views/Categories/Index.vue"),  // TODO: 分类
   },
-  {
-    // 分类详情
+  { 
     path: "/categories/details",
     name: "categoriesDetails",
     component: () =>
-      import(
-        /* webpackChunkName: "categories" */ "./views/Categories/Details.vue"
-      ),
+      import(/* webpackChunkName: "categories" */ "./views/Categories/Details.vue"), // TODO: 分类详情
   },
-  {
-    // 标签
+  { 
     path: "/tags",
     name: "tags",
-    component: () =>
-      import(/* webpackChunkName: "tags" */ "./views/Tags/Index.vue"),
+    component: () => import(/* webpackChunkName: "tags" */ "./views/Tags/Index.vue"), // TODO: 标签
   },
-  {
-    // 标签详情
+  { 
     path: "/tags/details",
     name: "tagsDetails",
-    component: () =>
-      import(/* webpackChunkName: "tags" */ "./views/Tags/Details.vue"),
+    component: () => import(/* webpackChunkName: "tags" */ "./views/Tags/Details.vue"), // TODO: 标签详情
   },
-  {
-    // 关于
+  { 
     path: "/about",
     name: "about",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "./views/About/Index.vue"),
+    component: () => import(/* webpackChunkName: "about" */ "./views/About/Index.vue"), // TODO: 关于
   },
-  {
-    // 文章
+  { 
     path: "/articles",
     name: "articles",
-    component: () =>
-      import(/* webpackChunkName: "articles" */ "./views/Articles/Index.vue"),
+    component: () => import(/* webpackChunkName: "articles" */ "./views/Articles/Index.vue"), // TODO: 文章
   },
-  {
-    // 文章详情
+  { 
     path: "/articles/details",
     name: "articlesDetails",
-    component: () =>
-      import(/* webpackChunkName: "articles" */ "./views/Articles/Details.vue"),
+    component: () => import(/* webpackChunkName: "articles" */ "./views/Articles/Details.vue"), // TODO: 文章详情
   },
-  {
-    // 用户中心
+  { 
     path: "/user",
     name: "user",
-    component: () =>
-      import(/* webpackChunkName: "user" */ "./views/User/Index.vue"),
+    component: () => import(/* webpackChunkName: "user" */ "./views/User/Index.vue"), // TODO: 用户中心
   },
 ];
 

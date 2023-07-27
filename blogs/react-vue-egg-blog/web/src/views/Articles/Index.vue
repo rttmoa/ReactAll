@@ -16,26 +16,17 @@
           <div class="card-box">
             <div class="title">使用jspdf+canvas2html将网页保存为pdf文件</div>
             <mu-card-actions class="sub-title">
-              <mu-button class="cursor-default" flat color="info"
-                >查看(10)</mu-button
-              >
-              <mu-button class="cursor-default" flat color="error"
-                >评论(0)</mu-button
-              >
-              <mu-button class="cursor-default" flat color="primary"
-                >点赞(20)</mu-button
-              >
-              <mu-button class="cursor-default" flat color="#9e9e9e"
-                >2021-02-04 09:57</mu-button
-              >
+              <mu-button class="cursor-default" flat color="info" >查看(10)</mu-button >
+              <mu-button class="cursor-default" flat color="error">评论(0)</mu-button>
+              <mu-button class="cursor-default" flat color="primary">点赞(20)</mu-button>
+              <mu-button class="cursor-default" flat color="#9e9e9e">2021-02-04 09:57</mu-button>
             </mu-card-actions>
-            <mu-card-text class="text">简介</mu-card-text>
+            <mu-card-text class="text">简介?????????????</mu-card-text>
             <mu-card-actions>
               <mu-button flat class="chip cursor-default" color="primary">
                 <mu-icon left value="dns"></mu-icon>
                 分类
-              </mu-button>
-
+              </mu-button> 
               <mu-button flat class="chip cursor-default">
                 <mu-icon left value="loyalty"></mu-icon>
                 标签1
@@ -59,7 +50,7 @@
         :pageSize.sync="pageSize"
         :pageCount="5"
         @change="pageChange"
-      ></mu-pagination>
+      ></mu-pagination> 
     </div>
 
     <Footer></Footer>

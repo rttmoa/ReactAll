@@ -1,56 +1,34 @@
 <template>
   <div class="header">
+
+    <!-- Header-Nav -->
     <mu-appbar :color="background">
-      <!-- title -->
       <span style="cursor: pointer">NeverGiveUpT</span>
-
-      <!-- <mu-avatar slot="left" class="header-avatar" :size="50">
+      <mu-avatar slot="left" class="header-avatar" :size="30">
         <img src="http://www.nevergiveupt.top/user_avatar.png" />
-      </mu-avatar> -->
-
-      <!-- 菜单 -->
-      <mu-button
-        v-show="isPC"
-        class="menu-btn"
-        slot="right"
-        v-for="(item, index) in info.menu"
-        :key="item.name"
-        :color="lightIndex === index ? '#00e676' : ''"
-        flat
-        @click="go(item)"
+      </mu-avatar>
+      <!-- 菜单: 首页、文章、归档、分类、标签、关于 -->
+      <mu-button v-show="isPC" class="menu-btn" slot="right" flat
+        v-for="(item, index) in info.menu" :key="item.name" :color="lightIndex === index ? '#00e676' : ''"  @click="go(item)"
       >
         <mu-icon size="16" :value="item.icon"></mu-icon>
-        {{ item.name }}
+        {{  item.name }} 
       </mu-button>
-
       <!-- 菜单图标 -->
       <mu-button v-show="!isPC" @click="toggleWapMenu(true)" icon slot="left">
         <mu-icon value="menu"></mu-icon>
       </mu-button>
-
       <!-- wap-菜单 -->
       <mu-bottom-sheet :open.sync="openWapMenu">
         <mu-list @item-click="toggleWapMenu(false)">
-          <mu-list-item
-            @click="go(item)"
-            v-for="(item, index) in info.menu"
-            :key="item.name"
-            button
-          >
+          <mu-list-item @click="go(item)" v-for="(item, index) in info.menu" :key="item.name" button>
             <mu-list-item-action>
-              <mu-icon
-                :color="lightIndex === index ? '#00e676' : ''"
-                :value="item.icon"
-              ></mu-icon>
+              <mu-icon  :color="lightIndex === index ? '#00e676' : ''"   :value="item.icon"></mu-icon>
             </mu-list-item-action>
-            <mu-list-item-title
-              :style="{ color: lightIndex === index ? '#00e676' : '' }"
-              >{{ item.name }}</mu-list-item-title
-            >
+            <mu-list-item-title :style="{ color: lightIndex === index ? '#00e676' : '' }">{{ item.name }}</mu-list-item-title>
           </mu-list-item>
         </mu-list>
       </mu-bottom-sheet>
-
       <!-- 主题切换 -->
       <mu-button flat slot="right" ref="theme" @click="openTheme = !openTheme">
         <mu-icon value="color_lens"></mu-icon>
@@ -59,27 +37,20 @@
         <mu-list>
           <mu-list-item button @click="toggleTheme('selfLight')">
             <mu-list-item-title class="theme-title">
-              <mu-icon
-                :color="me === 'selfLight' ? 'primary' : ''"
-                value="brightness_7"
-              ></mu-icon>
+              <mu-icon :color="me === 'selfLight' ? 'primary' : ''" value="brightness_7"></mu-icon>
             </mu-list-item-title>
           </mu-list-item>
           <mu-list-item button @click="toggleTheme('selfDark')">
             <mu-list-item-title class="theme-title">
-              <mu-icon
-                :color="me === 'selfDark' ? 'primary' : ''"
-                value="brightness_4"
-              ></mu-icon>
+              <mu-icon :color="me === 'selfDark' ? 'primary' : ''" value="brightness_4"></mu-icon>
             </mu-list-item-title>
           </mu-list-item>
         </mu-list>
       </mu-popover>
-
       <!-- 用户 -->
       <mu-button flat slot="right" ref="button" @click="openUser = !openUser">
         <div class="user">
-          <span>永不放弃</span>
+          <span>userName</span>
           <mu-icon value="expand_more"></mu-icon>
         </div>
       </mu-button>
@@ -95,79 +66,38 @@
       </mu-popover>
     </mu-appbar>
 
-    <!-- 搜索按钮 -->
+    <!-- 登录 / 注册 / 搜索 按钮 -->
     <div class="tool" v-if="isShowAction">
       <div v-if="info.login && !user" class="tool-row">
         <mu-slide-left-transition>
-          <mu-button
-            v-show="showToolBtn"
-            @click="
-              openLoginModal = true;
-              showToolBtn = false;
-            "
-            fab
-            color="primary"
-            >登录</mu-button
-          >
+          <mu-button v-show="showToolBtn" @click="openLoginModal = true; showToolBtn = false;" fab color="primary">登录</mu-button>
         </mu-slide-left-transition>
       </div>
       <div class="tool-row">
-        <mu-tooltip placement="right-start" content="登录/注册/搜索">
-          <mu-button
-            @click="showToolBtn = !showToolBtn"
-            fab
-            color="info"
-            class="search-fab"
-          >
+        <mu-tooltip placement="right-start" content="登录 / 注册 / 搜索">
+          <mu-button @click="showToolBtn = !showToolBtn" fab color="info" class="search-fab">
             <mu-icon value="adb"></mu-icon>
           </mu-button>
         </mu-tooltip>
-
         <mu-slide-left-transition>
-          <mu-button
-            v-show="showToolBtn && info.openSearch"
-            @click="handleSearch"
-            fab
-            color="error"
-            >搜索</mu-button
-          >
+          <mu-button v-show="showToolBtn && info.openSearch" @click="handleSearch" fab color="error">搜索</mu-button>
         </mu-slide-left-transition>
       </div>
       <div v-if="info.register && !user" class="tool-row">
         <mu-slide-left-transition>
-          <mu-button
-            v-show="showToolBtn"
-            @click="
-              openRegisterModal = true;
-              showToolBtn = false;
-            "
-            fab
-            color="warning"
-            >注册</mu-button
-          >
+          <mu-button v-show="showToolBtn" @click="openRegisterModal = true; showToolBtn = false;" fab color="warning">注册</mu-button>
         </mu-slide-left-transition>
       </div>
     </div>
 
-    <RegisterForm
-      :open="openRegisterModal"
-      @toggle="toggleRegisterModal"
-    ></RegisterForm>
+    <RegisterForm :open="openRegisterModal" @toggle="toggleRegisterModal"></RegisterForm>
     <LoginForm :open="openLoginModal" @toggle="toggleLoginModal"></LoginForm>
-    <SearchForm
-      :open="openSearchModal"
-      @toggle="toggleSearchModal"
-    ></SearchForm>
+    <SearchForm :open="openSearchModal" @toggle="toggleSearchModal"></SearchForm>
 
+    <!-- 滚动时出现返回顶部 -->
     <mu-slide-bottom-transition>
-      <mu-tooltip placement="top" content="Top">
-        <mu-button
-          class="back-top"
-          v-show="showBackTop"
-          @click="scrollTop"
-          fab
-          color="secondary"
-        >
+      <mu-tooltip placement="top" content="返回顶部">
+        <mu-button class="back-top" v-show="showBackTop" @click="scrollTop" fab color="secondary">
           <mu-icon value="arrow_upward"></mu-icon>
         </mu-button>
       </mu-tooltip>
@@ -175,6 +105,8 @@
   </div>
 </template>
 
+
+<!-- script -->
 <script>
 import RegisterForm from "@/components/RegisterForm";
 import LoginForm from "@/components/LoginForm";
@@ -231,11 +163,7 @@ export default {
   },
   computed: {
     isShowAction() {
-      return !(
-        !this.info.openSearch &&
-        !this.info.register &&
-        !this.info.login
-      );
+      return !(!this.info.openSearch && !this.info.register && !this.info.login);
     },
   },
   data() {
@@ -290,9 +218,7 @@ export default {
       this.openWapMenu = openWapMenu;
     },
     go(item) {
-      if (this.$route.name === item.router) {
-        return;
-      }
+      if (this.$route.name === item.router) return;
       this.$router.push({
         name: item.router,
       });
@@ -329,7 +255,7 @@ export default {
   position: fixed;
   z-index: 1501;
   width: 100%;
-  top: 0;
+  top: 0; 
 }
 
 .header-avatar {

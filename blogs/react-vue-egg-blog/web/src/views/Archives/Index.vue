@@ -2,7 +2,7 @@
   <div
     class="common"
     :style="{
-      background: `url(${archiveBgImg}) center center no-repeat`,
+      background: `url(${archiveBgImg}) center center no-repeat`, 
       backgroundSize: 'cover',
     }"
   >
@@ -85,8 +85,9 @@ export default {
   },
   data() {
     return {
-      list: [],
-      archiveBgImg: "http://nevergiveupt.top/archive.jpg",
+      list: [], 
+      // https://www.igdcc.com/
+      archiveBgImg: "https://c.53326.com/d/file/lan20200407/n2v3xodgsz1.jpg"
     };
   },
   mounted() {},

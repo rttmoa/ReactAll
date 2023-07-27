@@ -52,7 +52,7 @@ Vue.use(Helpers);
 
 import { isPC } from "@/utils";
 Vue.prototype.isPC = isPC;
-Vue.prototype.avatar = "http://nevergiveupt.top/index.jpg";
+Vue.prototype.avatar = "https://c.53326.com/d/file/lan20210602/lmcqzcdhhaw.jpg"; // 全局头像  在线图片来自于：https://www.igdcc.com/
 
 import VueLazyload from "vue-lazyload";
 

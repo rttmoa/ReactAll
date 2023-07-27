@@ -1,6 +1,9 @@
 <template>
   <canvas class="index-canvas" ref="canvas">Canvas not supported.</canvas>
 </template>
+
+
+<!-- TODO: 首页3D动画 -->
 <script>
 import { index_fullScreenAnimation } from "@/utils";
 export default {
