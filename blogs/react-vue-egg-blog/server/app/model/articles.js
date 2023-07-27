@@ -1,87 +1,88 @@
-module.exports = (app) => {
+/* eslint-disable strict */
+module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
 
   const ArticlesSchema = new Schema(
     {
       title: {
-        type: "string",
+        type: 'string',
         min: 2,
         max: 200,
       },
       cover: {
-        type: "string",
+        type: 'string',
       },
       introduction: {
-        type: "string",
+        type: 'string',
         min: 10,
         max: 500,
       },
       categories: {
-        type: "string",
+        type: 'string',
       },
       tags: {
-        type: "array",
-        itemType: "string",
+        type: 'array',
+        itemType: 'string',
       },
       content: {
-        type: "string",
+        type: 'string',
       },
       views: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       comment: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       like: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       collect: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       isComment: {
-        type: "boolean",
+        type: 'boolean',
         default: true,
       },
       isLike: {
-        type: "boolean",
+        type: 'boolean',
         default: true,
       },
       isCollect: {
-        type: "boolean",
+        type: 'boolean',
         default: false,
       },
       // 是否开启打赏
       isReward: {
-        type: "boolean",
+        type: 'boolean',
         default: false,
       },
       status: {
-        type: "number",
+        type: 'number',
         default: 1,
       },
       publishStatus: {
-        type: "number",
+        type: 'number',
         default: 2,
       },
       createTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       updateTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
     },
     {
-      collection: "articles",
+      collection: 'articles',
       versionKey: false,
     }
   );
 
-  return mongoose.model("Articles", ArticlesSchema);
+  return mongoose.model('Articles', ArticlesSchema);
 };

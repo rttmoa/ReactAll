@@ -1,25 +1,26 @@
-module.exports = (app) => {
+/* eslint-disable strict */
+module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
 
   const UserSchema = new Schema(
     {
       uid: {
-        type: "string",
+        type: 'string',
         required: false,
       },
       provider: {
-        type: "string",
-        default: "local",
+        type: 'string',
+        default: 'local',
         required: false,
       },
       email: {
-        type: "string",
+        type: 'string',
         required: true,
         math: /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,5}$/,
       },
       password: {
-        type: "string",
+        type: 'string',
         required: true,
       },
       nickName: {
@@ -38,21 +39,21 @@ module.exports = (app) => {
       },
 
       loginTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       registerTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       articleIds: {
-        type: "array",
+        type: 'array',
       },
     },
     {
-      collection: "user",
+      collection: 'user',
       versionKey: false,
     }
   );
-  return mongoose.model("User", UserSchema);
+  return mongoose.model('User', UserSchema);
 };

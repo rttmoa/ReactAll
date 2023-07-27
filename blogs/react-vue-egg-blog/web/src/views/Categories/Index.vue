@@ -1,121 +1,23 @@
 <template>
-  <div
-    class="common"
-    :style="{
-      background: `url(${categoriesBgImg}) 0px center no-repeat`,
-      backgroundSize: 'cover',
-    }"
-  >
+  <div class="common" :style="{ background: `url(${categoriesBgImg}) 0px center no-repeat`, backgroundSize: 'cover',}">
     <Header :light-index="3" background="transparent"></Header>
     <div v-if="isPC">
       <Footer fixed></Footer>
     </div>
-
     <div :class="isPC ? 'content' : 'wap-content'">
       <div class="cols">
-        <div class="cols-item">
+        <div class="cols-item" v-for="item in newCategories" :key="item.Num">
           <div class="container">
-            <div
-              class="front"
-              :style="{
-                backgroundImage: `url(http://img.nevergiveupt.top/2.png)`,
-              }"
-            >
+            <div class="front" :style="{ backgroundImage: `url(${item.Url})`, }">
               <div class="inner">
-                <p>技术</p>
-                <span>100</span>
+                <p>{{item.Title}}</p>
+                <span>{{item.Num}}</span>
               </div>
             </div>
-            <div
-              class="back"
-              :style="{
-                backgroundImage: `url(http://img.nevergiveupt.top/2.png)`,
-              }"
-            >
+            <div class="back" :style="{ backgroundImage: `url(${item.Url})`, }">
               <div class="inner">
-                <p>技术</p>
-                <span>100</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="cols-item">
-          <div class="container">
-            <div
-              class="front"
-              :style="{
-                backgroundImage: `url(http://img.nevergiveupt.top/3.png)`,
-              }"
-            >
-              <div class="inner">
-                <p>生活</p>
-                <span>100</span>
-              </div>
-            </div>
-            <div
-              class="back"
-              :style="{
-                backgroundImage: `url(http://img.nevergiveupt.top/3.png)`,
-              }"
-            >
-              <div class="inner">
-                <p>生活</p>
-                <span>100</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="cols-item">
-          <div class="container">
-            <div
-              class="front"
-              :style="{
-                backgroundImage: `url(http://img.nevergiveupt.top/4.png)`,
-              }"
-            >
-              <div class="inner">
-                <p>照片</p>
-                <span>100</span>
-              </div>
-            </div>
-            <div
-              class="back"
-              :style="{
-                backgroundImage: `url(http://img.nevergiveupt.top/4.png)`,
-              }"
-            >
-              <div class="inner">
-                <p>照片</p>
-                <span>100</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="cols-item">
-          <div class="container">
-            <div
-              class="front"
-              :style="{
-                backgroundImage: `url(http://img.nevergiveupt.top/5.png)`,
-              }"
-            >
-              <div class="inner">
-                <p>其他</p>
-                <span>100</span>
-              </div>
-            </div>
-            <div
-              class="back"
-              :style="{
-                backgroundImage: `url(http://img.nevergiveupt.top/5.png)`,
-              }"
-            >
-              <div class="inner">
-                <p>其他</p>
-                <span>100</span>
+                <p>{{item.Title}}</p>
+                <span>{{item.Num}}</span>
               </div>
             </div>
           </div>
@@ -125,10 +27,12 @@
     </div>
   </div>
 </template>
+
+
+<!-- TODO: 分类： http://localhost:8081/categories -->
 <script>
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
 export default {
   name: "categories",
   components: {
@@ -137,9 +41,15 @@ export default {
   },
   data() {
     return {
-      categories: [],
-      // https://www.igdcc.com/4kfengjing/40642.html
-      categoriesBgImg: "https://c.53326.com/d/file/lan20221010/zwzfuk5jp2f.jpg",
+      categories: [], 
+      categoriesBgImg: "https://c.53326.com/d/file/lan20221010/zwzfuk5jp2f.jpg",  // https://www.igdcc.com/4kfengjing/40642.html
+      newCategories: [
+        {Title: "技术", Num: 100, Url: "http://img.nevergiveupt.top/2.png"},
+        {Title: "生活", Num: 99, Url: "http://img.nevergiveupt.top/3.png"},
+        {Title: "照片", Num: 98, Url: "http://img.nevergiveupt.top/4.png"},
+        {Title: "其他", Num: 97, Url: "http://img.nevergiveupt.top/5.png"},
+        
+      ]
     };
   },
   mounted() {},

@@ -1,56 +1,42 @@
 <template>
+
   <div class="common">
     <Header :light-index="5" background="transparent"></Header>
-    <Footer fixed></Footer>
-
-    <mu-carousel
-      hide-indicators
-      hide-controls
-      style="position: fixed; height: 100%; margin-top: 0"
-    >
+    <Footer fixed></Footer> 
+    <mu-carousel hide-indicators hide-controls style="position: fixed; height: 100%; margin-top: 0">
       <mu-carousel-item v-for="item in info.imgs" :key="item._id">
         <img :src="item.imgUrl" />
       </mu-carousel-item>
     </mu-carousel>
-
     <div class="content" :style="{ paddingTop: isPC ? '64px' : '56px' }">
       <mu-card class="card" :style="{ marginTop: isPC ? '100px' : '0' }">
         <mu-card-header v-if="isPC">
           <mu-paper v-if="isPC" class="avatar-box" circle :z-depth="5">
             <img class="avatar" v-lazy="avatar" />
           </mu-paper>
-        </mu-card-header>
-
+        </mu-card-header> 
         <mu-card-text>
           <div v-html="info.desc"></div>
         </mu-card-text>
         <div class="tags">
-          <mu-chip
-            class="tag"
-            v-for="(item, index) in info.tags"
-            :key="item.name"
-            :color="item.color"
-            @delete="remove(index)"
-            delete
-            >{{ item.name }}</mu-chip
-          >
-          <mu-button
-            color="primary"
-            v-if="info.tags && info.tags.length === 0"
-            @click="reset"
-            >reset</mu-button
-          >
+          <mu-chip class="tag" v-for="(item, index) in info.tags" :key="item.name" :color="item.color" @delete="remove(index)" delete>
+            {{ item.name }}
+          </mu-chip>
+          <mu-button color="primary" v-if="info.tags && info.tags.length === 0" @click="reset">reset</mu-button>
         </div>
       </mu-card>
     </div>
   </div>
+
 </template>
+
+
+
+<!-- TODO: 关于：http://localhost:8081/about -->
 <script>
 import { randomColor } from "@/utils";
-
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
 export default {
   name: "about",
   components: {
@@ -63,15 +49,17 @@ export default {
         imgs: [
           {
             _id: 1,
-            imgUrl: "http://www.nevergiveupt.top/index.jpg",
+            // https://www.igdcc.com/beijing/14138.html
+            imgUrl: "https://c.53326.com/d/file/lan2018081309/dothxdmsf2w.jpg",
           },
           {
             _id: 2,
-            imgUrl: "http://www.nevergiveupt.top/tags.jpg",
-          },
+            // https://www.igdcc.com/beijing/14825.html
+            imgUrl: "https://c.53326.com/d/file/lan2019010709/ka5vuffpoqm.jpg",
+          }, 
           {
             _id: 3,
-            imgUrl: "http://www.nevergiveupt.top/archive.jpg",
+            imgUrl: "https://c.53326.com/d/file/lan2019010709/msthlam54va.jpg",
           },
         ],
         desc:

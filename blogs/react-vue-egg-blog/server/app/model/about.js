@@ -1,4 +1,5 @@
-module.exports = (app) => {
+/* eslint-disable strict */
+module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
 
@@ -6,33 +7,33 @@ module.exports = (app) => {
     {
       imgs: [
         {
-          imgUrl: { type: "string" },
-          link: { type: "string", required: false },
+          imgUrl: { type: 'string' },
+          link: { type: 'string', required: false },
         },
       ],
       desc: {
-        type: "string",
+        type: 'string',
         min: 1,
         max: 800,
       },
-      tags: [String],
+      tags: [ String ],
       createTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       updateTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       showResume: {
-        type: "boolean",
+        type: 'boolean',
         default: false,
       },
     },
     {
-      collection: "about",
+      collection: 'about',
       versionKey: false,
     }
   );
-  return mongoose.model("About", AboutSchema);
+  return mongoose.model('About', AboutSchema);
 };

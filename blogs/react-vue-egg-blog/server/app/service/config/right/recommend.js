@@ -1,4 +1,5 @@
-const Service = require("egg").Service;
+/* eslint-disable strict */
+const Service = require('egg').Service;
 
 class RightRecommendService extends Service {
   async index(params) {
@@ -7,7 +8,7 @@ class RightRecommendService extends Service {
     const pageSize = params.pageSize * 1;
 
     params = ctx.helper.filterEmptyField(params);
-    console.log("params", params);
+    console.log('params', params);
     const queryCon = params.project ? { project: params.project } : {};
     const totalCount = await ctx.model.Tags.find(queryCon).countDocuments();
 
@@ -38,14 +39,14 @@ class RightRecommendService extends Service {
       };
       const res = await ctx.model.Config.Right.Recommend.create(data);
       return {
-        msg: "推荐设置配置信息添加成功",
+        msg: '推荐设置配置信息添加成功',
         data: res,
       };
-    } else {
-      return {
-        msg: "推荐设置配置信息已存在",
-      };
     }
+    return {
+      msg: '推荐设置配置信息已存在',
+    };
+
   }
 
   async update(params) {
@@ -72,14 +73,14 @@ class RightRecommendService extends Service {
         }
       );
       return {
-        msg: "推荐设置配置信息修改成功",
+        msg: '推荐设置配置信息修改成功',
         data: res,
       };
-    } else {
-      return {
-        msg: "推荐设置配置信息不存在",
-      };
     }
+    return {
+      msg: '推荐设置配置信息不存在',
+    };
+
   }
 
   async destroy(id) {
@@ -87,12 +88,12 @@ class RightRecommendService extends Service {
     const oldTags = await ctx.model.Config.Right.Recommend.findOne({ _id: id });
     if (!oldTags) {
       return {
-        msg: "推荐设置不存在",
+        msg: '推荐设置不存在',
       };
     }
     await ctx.model.Config.Right.Recommend.deleteOne({ _id: id });
     return {
-      msg: "推荐设置删除成功",
+      msg: '推荐设置删除成功',
     };
   }
 }

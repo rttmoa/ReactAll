@@ -1,4 +1,5 @@
-const Service = require("egg").Service;
+/* eslint-disable strict */
+const Service = require('egg').Service;
 
 class AdminService extends Service {
 
@@ -11,7 +12,7 @@ class AdminService extends Service {
 
     if (!oldUser) {
       return {
-        msg: "用户不存在",
+        msg: '用户不存在',
       };
     }
 
@@ -21,15 +22,15 @@ class AdminService extends Service {
     );
     if (!isMatch) {
       return {
-        msg: "用户名或密码错误",
+        msg: '用户名或密码错误',
       };
     }
 
     const token = app.jwt.sign({ ...oldUser }, app.config.jwt.secret, {
-      expiresIn: "1h",
+      expiresIn: '1h',
     });
 
-    ctx.cookies.set("token", token, {
+    ctx.cookies.set('token', token, {
       maxAge: 86400000,
       httpOnly: true,
     });
@@ -39,17 +40,17 @@ class AdminService extends Service {
         token,
         userName: oldUser.userName,
       },
-      msg: "登录成功",
+      msg: '登录成功',
     };
   }
+
   async adminLogout() {
     const { ctx } = this;
-    ctx.cookies.set("token", "", {
+    ctx.cookies.set('token', '', {
       maxAge: 0,
     });
-
     return {
-      msg: "退出成功",
+      msg: '退出成功',
     };
   }
 }

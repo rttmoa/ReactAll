@@ -1,6 +1,7 @@
-const helper = require("../extend/helper");
+/* eslint-disable strict */
+const helper = require('../extend/helper');
 
-module.exports = (app) => {
+module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
 
@@ -15,18 +16,18 @@ module.exports = (app) => {
       password: { type: String },
     },
     {
-      collection: "admin",
+      collection: 'admin',
       versionKey: false,
     }
   );
 
-  const AdminModel = mongoose.model("Admin", AdminSchema);
+  const AdminModel = mongoose.model('Admin', AdminSchema);
 
-  let adminUser = {
-    userName: "admin",
-    password: "123456",
+  const adminUser = {
+    userName: 'admin',
+    password: '123456',
   };
-  helper.genSaltPassword(adminUser.password).then(async (hash) => {
+  helper.genSaltPassword(adminUser.password).then(async hash => {
     adminUser.password = hash;
     const oldUser = await AdminModel.find({ userName: adminUser.userName });
     if (oldUser.length === 0) {

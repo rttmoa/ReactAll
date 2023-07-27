@@ -1,5 +1,8 @@
-const moment = require("moment");
-const bcrypt = require("bcrypt");
+/* eslint-disable jsdoc/require-returns-type */
+/* eslint-disable jsdoc/require-param-description */
+/* eslint-disable strict */
+const moment = require('moment');
+const bcrypt = require('bcrypt');
 
 module.exports = {
   moment,
@@ -42,15 +45,15 @@ module.exports = {
       ...res,
       data: res.data ? res.data : null,
       code: res.code ? res.code : 0, // 0代表成功，其他代表失败
-      msg: res.msg ? res.msg : "请求成功",
+      msg: res.msg ? res.msg : '请求成功',
     };
   },
 
   filterEmptyField(params) {
-    let pam = {};
-    for (let i in params) {
+    const pam = {};
+    for (const i in params) {
       if (params[i]) {
-        if (i !== "page" && i !== "pageSize") {
+        if (i !== 'page' && i !== 'pageSize') {
           pam[i] = params[i];
         }
       }
@@ -59,7 +62,7 @@ module.exports = {
   },
 
   getTimeQueryCon(params) {
-    let timeQuery = {};
+    const timeQuery = {};
 
     //     createStartTime		否	number	10位时间戳  2022-1-26 2022-1-27
     // createEndTime		否	number	10位时间戳   2022-1-27

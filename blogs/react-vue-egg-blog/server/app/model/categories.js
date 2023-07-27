@@ -1,4 +1,5 @@
-module.exports = (app) => {
+/* eslint-disable strict */
+module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
 
@@ -11,22 +12,22 @@ module.exports = (app) => {
         match: /^[\u4e00-\u9fa5A-Za-z0-9_]{2,20}$/,
       },
       createTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       updateTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
-      articleNum:{
-        type: "number",
+      articleNum: {
+        type: 'number',
         default: 0,
       },
     },
     {
-      collection: "categories",
+      collection: 'categories',
       versionKey: false,
     }
   );
-  return mongoose.model("Categories", CategoriesSchema);
+  return mongoose.model('Categories', CategoriesSchema);
 };

@@ -1,4 +1,5 @@
-const Service = require("egg").Service;
+/* eslint-disable strict */
+const Service = require('egg').Service;
 
 class UserService extends Service {
   async index(params) {
@@ -7,15 +8,15 @@ class UserService extends Service {
     const pageSize = params.pageSize * 1;
 
     params = ctx.helper.filterEmptyField(params);
-    console.log("params", params);
+    console.log('params', params);
 
     // nickName 是模糊匹配
     const queryCon = params.nickName
       ? {
-          nickName: {
-            $regex: new RegExp(params.nickName, "i"),
-          },
-        }
+        nickName: {
+          $regex: new RegExp(params.nickName, 'i'),
+        },
+      }
       : {};
 
     const totalCount = await ctx.model.User.find(queryCon).countDocuments();
@@ -41,12 +42,12 @@ class UserService extends Service {
     const oldUser = await ctx.model.User.findOne({ _id: id });
     if (!oldUser) {
       return {
-        msg: "用户不存在",
+        msg: '用户不存在',
       };
     }
     await ctx.model.User.deleteOne({ _id: id });
     return {
-      msg: "用户删除成功",
+      msg: '用户删除成功',
     };
   }
 }

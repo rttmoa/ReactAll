@@ -1,4 +1,5 @@
-const Service = require("egg").Service;
+/* eslint-disable strict */
+const Service = require('egg').Service;
 
 class CategoriesService extends Service {
   async index(params) {
@@ -7,15 +8,15 @@ class CategoriesService extends Service {
     const pageSize = params.pageSize * 1;
 
     params = ctx.helper.filterEmptyField(params);
-    console.log("params", params);
+    console.log('params', params);
 
     // name 是模糊匹配
     const queryCon = params.name
       ? {
-          name: {
-            $regex: new RegExp(params.name, "i"),
-          },
-        }
+        name: {
+          $regex: new RegExp(params.name, 'i'),
+        },
+      }
       : {};
 
     const totalCount = await ctx.model.Categories.find(
@@ -44,7 +45,7 @@ class CategoriesService extends Service {
     });
     if (oldTags) {
       return {
-        msg: "该分类已存在",
+        msg: '该分类已存在',
       };
     }
 
@@ -55,7 +56,7 @@ class CategoriesService extends Service {
 
     const res = await ctx.model.Categories.create(data);
     return {
-      msg: "分类添加成功",
+      msg: '分类添加成功',
       data: res,
     };
   }
@@ -70,7 +71,7 @@ class CategoriesService extends Service {
       });
       if (oldNameTags) {
         return {
-          msg: "分类已存在，请重新修改",
+          msg: '分类已存在，请重新修改',
         };
       }
     }
@@ -87,7 +88,7 @@ class CategoriesService extends Service {
       updateData
     );
     return {
-      msg: "分类修改成功",
+      msg: '分类修改成功',
     };
   }
 
@@ -96,12 +97,12 @@ class CategoriesService extends Service {
     const oldTags = await ctx.model.Categories.findOne({ _id: id });
     if (!oldTags) {
       return {
-        msg: "分类不存在",
+        msg: '分类不存在',
       };
     }
     await ctx.model.Categories.deleteOne({ _id: id });
     return {
-      msg: "分类删除成功",
+      msg: '分类删除成功',
     };
   }
 }

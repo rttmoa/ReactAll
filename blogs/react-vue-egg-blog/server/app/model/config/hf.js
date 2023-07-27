@@ -1,4 +1,5 @@
-module.exports = (app) => {
+/* eslint-disable strict */
+module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
 
@@ -13,15 +14,15 @@ module.exports = (app) => {
       max: 20,
     },
     openSearch: {
-      type: "boolean",
+      type: 'boolean',
       default: true,
     },
     login: {
-      type: "boolean",
+      type: 'boolean',
       default: false,
     },
     register: {
-      type: "boolean",
+      type: 'boolean',
       default: false,
     },
   });
@@ -48,18 +49,18 @@ module.exports = (app) => {
         type: FooterSchema,
       },
       createTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       updateTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
     },
     {
-      collection: "hf",
+      collection: 'hf',
       versionKey: false,
     }
   );
-  return mongoose.model("Hf", HfSchema);
+  return mongoose.model('Hf', HfSchema);
 };

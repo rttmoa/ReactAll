@@ -1,4 +1,5 @@
-const Service = require("egg").Service;
+/* eslint-disable strict */
+const Service = require('egg').Service;
 
 class TagsService extends Service {
   async index(params) {
@@ -7,15 +8,15 @@ class TagsService extends Service {
     const pageSize = params.pageSize * 1;
 
     params = ctx.helper.filterEmptyField(params);
-    console.log('params',params)
+    console.log('params', params);
 
     // name 是模糊匹配
     const queryCon = params.name
       ? {
-          name: {
-            $regex: new RegExp(params.name, "i"),
-          },
-        }
+        name: {
+          $regex: new RegExp(params.name, 'i'),
+        },
+      }
       : {};
 
     const totalCount = await ctx.model.Tags.find(queryCon).countDocuments();
@@ -42,7 +43,7 @@ class TagsService extends Service {
     });
     if (oldTags) {
       return {
-        msg: "该标签已存在",
+        msg: '该标签已存在',
       };
     }
 
@@ -53,7 +54,7 @@ class TagsService extends Service {
 
     const res = await ctx.model.Tags.create(data);
     return {
-      msg: "标签添加成功",
+      msg: '标签添加成功',
       data: res,
     };
   }
@@ -66,7 +67,7 @@ class TagsService extends Service {
       const oldNameTags = await ctx.model.Tags.findOne({ name: params.name });
       if (oldNameTags) {
         return {
-          msg: "标签已存在，请重新修改",
+          msg: '标签已存在，请重新修改',
         };
       }
     }
@@ -83,7 +84,7 @@ class TagsService extends Service {
       updateData
     );
     return {
-      msg: "标签修改成功",
+      msg: '标签修改成功',
     };
   }
 
@@ -92,12 +93,12 @@ class TagsService extends Service {
     const oldTags = await ctx.model.Tags.findOne({ _id: id });
     if (!oldTags) {
       return {
-        msg: "标签不存在",
+        msg: '标签不存在',
       };
     }
     await ctx.model.Tags.deleteOne({ _id: id });
     return {
-      msg: "标签删除成功",
+      msg: '标签删除成功',
     };
   }
 
@@ -106,7 +107,7 @@ class TagsService extends Service {
     const oldTags = await ctx.model.Tags.findOne({ _id: params.id });
     if (!oldTags) {
       return {
-        msg: "标签不存在",
+        msg: '标签不存在',
       };
     }
 
@@ -119,7 +120,7 @@ class TagsService extends Service {
       }
     );
     return {
-      msg: `标签${params.status ? "启用" : "停用"}成功`,
+      msg: `标签${params.status ? '启用' : '停用'}成功`,
     };
   }
 }

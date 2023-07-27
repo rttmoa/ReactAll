@@ -1,4 +1,5 @@
-const BAR = Symbol("Application#bar");
+/* eslint-disable strict */
+const BAR = Symbol('Application#bar');
 
 module.exports = {
   log(param) {
@@ -10,7 +11,7 @@ module.exports = {
     if (!this[BAR]) {
       // 实际情况肯定更复杂
       this[BAR] =
-        this.config.news.serverUrl + "?limit=" + this.config.news.limit;
+        this.config.news.serverUrl + '?limit=' + this.config.news.limit;
     }
     return this[BAR];
   },

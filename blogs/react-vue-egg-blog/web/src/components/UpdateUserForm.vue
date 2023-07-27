@@ -11,18 +11,11 @@
     >
       <mu-form ref="form" :model="validateForm">
         <mu-form-item label="Email（用于登录，不可修改）" prop="email">
-          <mu-text-field
-            disabled
-            v-model.trim="validateForm.email"
-            prop="email"
-          ></mu-text-field>
+          <mu-text-field disabled v-model.trim="validateForm.email" prop="email"></mu-text-field>
         </mu-form-item>
 
         <mu-form-item label="昵称" prop="nickName" :rules="nickNameRules">
-          <mu-text-field
-            v-model.trim="validateForm.nickName"
-            prop="nickName"
-          ></mu-text-field>
+          <mu-text-field v-model.trim="validateForm.nickName" prop="nickName"></mu-text-field>
         </mu-form-item>
 
         <mu-form-item label="登录密码" prop="password" :rules="passwordRules">
@@ -40,18 +33,10 @@
           prop="confirmPassword"
           :rules="confirmPasswordRules"
         >
-          <mu-text-field
-            type="password"
-            v-model.trim="validateForm.confirmPassword"
-            prop="confirmPassword"
-          ></mu-text-field>
+          <mu-text-field type="password" v-model.trim="validateForm.confirmPassword" prop="confirmPassword"></mu-text-field>
         </mu-form-item>
 
-        <mu-form-item
-          label="个人简介"
-          prop="introduction"
-          :rules="introductionRules"
-        >
+        <mu-form-item label="个人简介" prop="introduction" :rules="introductionRules">
           <mu-text-field
             v-model="validateForm.introduction"
             prop="introduction"
@@ -63,9 +48,7 @@
       </mu-form>
 
       <mu-button slot="actions" flat small @click="clear">取消</mu-button>
-      <mu-button slot="actions" flat small color="primary" @click="submit"
-        >保存</mu-button
-      >
+      <mu-button slot="actions" flat small color="primary" @click="submit">保存</mu-button >
     </mu-dialog>
   </div>
 </template>

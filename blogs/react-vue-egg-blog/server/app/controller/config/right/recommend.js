@@ -1,44 +1,44 @@
-"use strict";
+'use strict';
 
-const Controller = require("egg").Controller;
+const Controller = require('egg').Controller;
 
 class RightRecommendController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.createRule = {
       project: {
-        type: "string",
+        type: 'string',
       },
       showPosition: {
-        type: "array",
-        itemType: "string",
+        type: 'array',
+        itemType: 'string',
         min: 1,
         max: 10,
       },
       name: {
-        type: "string",
+        type: 'string',
         min: 1,
         max: 50,
       },
       cover: {
-        type: "url",
+        type: 'url',
       },
       link: {
-        type: "url",
+        type: 'url',
       },
       platform: {
-        type: "string",
+        type: 'string',
         min: 1,
         max: 20,
       },
       isVip: {
-        type: "boolean",
+        type: 'boolean',
         default: false,
       },
     };
     this.queryRule = {
       project: {
-        type: "string",
+        type: 'string',
         required: false,
       },
     };

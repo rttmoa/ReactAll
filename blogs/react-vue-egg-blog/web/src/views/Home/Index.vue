@@ -4,13 +4,16 @@
     <Header background="transparent"></Header>
     <Footer fixed></Footer>
     <div class="common">
-      <!-- 绝对固定 -->
+      <!-- 绝对固定 打字内容 -->
       <div class="home">
         <p>{{ info.introduction }}</p>
       </div>
     </div>
   </div>
 </template>
+
+
+<!-- TODO: 首页 -->
 <script>
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -30,8 +33,7 @@ export default {
   data() {
     return {
       info: {
-        introduction: "",
-        // 有一种叫一起吃饭
+        introduction: "", 
         // introductionTarget: "There is a kind of call to eat together.",
         // 男儿不展风云志 空负天生八尺躯
         introductionTarget: "A man who does not show his ambitions is born with an eight-foot body",
@@ -53,7 +55,7 @@ export default {
         this.info.introduction = this.info.introductionTarget.slice(0, i++) + "_";
         timer = setTimeout(this.typing, 100);
       } else {
-        this.info.introduction = this.info.introductionTarget; //结束打字, 移除 _ 光标
+        this.info.introduction = this.info.introductionTarget; // 结束打字, 移除 _ 光标
         clearTimeout(timer);
       }
     },

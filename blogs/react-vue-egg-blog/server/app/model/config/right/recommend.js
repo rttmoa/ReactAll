@@ -1,50 +1,51 @@
-module.exports = (app) => {
+/* eslint-disable strict */
+module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
 
   const RightRecommendSchema = new Schema(
     {
       project: {
-        type: "string",
+        type: 'string',
       },
       showPosition: {
-        type: [String],
+        type: [ String ],
         min: 1,
         max: 10,
       },
       name: {
-        type: "string",
+        type: 'string',
         min: 1,
         max: 50,
       },
       cover: {
-        type: "string",
+        type: 'string',
       },
       link: {
-        type: "string",
+        type: 'string',
       },
       platform: {
-        type: "string",
+        type: 'string',
         min: 1,
         max: 20,
       },
       isVip: {
-        type: "boolean",
+        type: 'boolean',
         default: false,
       },
       createTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       updateTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
     },
     {
-      collection: "right_recommend",
+      collection: 'right_recommend',
       versionKey: false,
     }
   );
-  return mongoose.model("RightRecommend", RightRecommendSchema);
+  return mongoose.model('RightRecommend', RightRecommendSchema);
 };

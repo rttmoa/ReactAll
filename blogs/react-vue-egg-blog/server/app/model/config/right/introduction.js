@@ -1,56 +1,57 @@
-module.exports = (app) => {
+/* eslint-disable strict */
+module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
 
   const FriendLinkSchema = new Schema({
     link: {
-      type: "string",
+      type: 'string',
     },
     icon: {
-      type: "string",
+      type: 'string',
     },
   });
 
   const RightIntroductionSchema = new Schema(
     {
       nickName: {
-        type: "string",
+        type: 'string',
         min: 2,
         max: 20,
       },
       desc: {
-        type: "string",
+        type: 'string',
         min: 2,
         max: 100,
       },
       tags: {
-        type: [String],
+        type: [ String ],
         min: 1,
         max: 10,
       },
       friendLink: {
-        type: [FriendLinkSchema],
+        type: [ FriendLinkSchema ],
         min: 1,
         max: 4,
       },
       showPosition: {
-        type: [String],
+        type: [ String ],
         min: 1,
         max: 10,
       },
       createTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       updateTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
     },
     {
-      collection: "right_introduction",
+      collection: 'right_introduction',
       versionKey: false,
     }
   );
-  return mongoose.model("RightIntroduction", RightIntroductionSchema);
+  return mongoose.model('RightIntroduction', RightIntroductionSchema);
 };

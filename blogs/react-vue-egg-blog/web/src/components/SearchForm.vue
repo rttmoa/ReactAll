@@ -11,7 +11,7 @@
           v-model="keyword"
           open-on-focus
           avatar
-          full-width
+          full-width  
           @change="handleSearch"
           :action-click="handleSearch"
         >
@@ -48,6 +48,9 @@
     </mu-dialog>
   </div>
 </template>
+
+
+
 <script>
 export default {
   props: ["open"],

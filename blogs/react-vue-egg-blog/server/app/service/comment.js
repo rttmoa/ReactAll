@@ -1,4 +1,5 @@
-const Service = require("egg").Service;
+/* eslint-disable strict */
+const Service = require('egg').Service;
 
 class CommentService extends Service {
   async index(params) {
@@ -7,10 +8,10 @@ class CommentService extends Service {
     const pageSize = params.pageSize * 1;
 
     params = ctx.helper.filterEmptyField(params);
-    console.log("params", params);
+    console.log('params', params);
 
     let mustCon = {};
-    if (params.auditStatus != "0") {
+    if (params.auditStatus != '0') {
       mustCon = {
         auditStatus: params.auditStatus,
       };
@@ -22,8 +23,8 @@ class CommentService extends Service {
         {
           articleTitle: {
             $regex: params.articleTitle
-              ? new RegExp(params.articleTitle, "i")
-              : "",
+              ? new RegExp(params.articleTitle, 'i')
+              : '',
           },
         },
       ],
@@ -66,7 +67,7 @@ class CommentService extends Service {
     );
 
     return {
-      msg: "评论添加成功",
+      msg: '评论添加成功',
       data: res,
     };
   }
@@ -83,14 +84,14 @@ class CommentService extends Service {
         }
       );
       return {
-        msg: `评论一键${params.auditStatus === 1 ? "审核通过" : "驳回"}成功`,
+        msg: `评论一键${params.auditStatus === 1 ? '审核通过' : '驳回'}成功`,
       };
     }
 
     const oldComment = await ctx.model.Comment.findOne({ _id: params.id });
     if (!oldComment) {
       return {
-        msg: "评论不存在",
+        msg: '评论不存在',
       };
     }
 
@@ -105,7 +106,7 @@ class CommentService extends Service {
       updateData
     );
     return {
-      msg: `评论${params.auditStatus === 1 ? "审核通过" : "驳回"}成功`,
+      msg: `评论${params.auditStatus === 1 ? '审核通过' : '驳回'}成功`,
     };
   }
 
@@ -114,7 +115,7 @@ class CommentService extends Service {
     const oldComment = await ctx.model.Comment.findOne({ _id: id });
     if (!oldComment) {
       return {
-        msg: "评论不存在",
+        msg: '评论不存在',
       };
     }
     await ctx.model.Comment.deleteOne({ _id: id });
@@ -126,7 +127,7 @@ class CommentService extends Service {
       }
     );
     return {
-      msg: "评论删除成功",
+      msg: '评论删除成功',
     };
   }
 }

@@ -57,6 +57,7 @@
       <mu-popover :open.sync="openUser" :trigger="trigger">
         <mu-list>
           <mu-list-item button>
+            <!-- FIXME: 跳转个人页 -->
             <mu-list-item-title>个人中心</mu-list-item-title>
           </mu-list-item>
           <mu-list-item button>
@@ -216,6 +217,9 @@ export default {
   methods: {
     toggleWapMenu(openWapMenu) {
       this.openWapMenu = openWapMenu;
+    },
+    person(){
+      console.log(123)
     },
     go(item) {
       if (this.$route.name === item.router) return;

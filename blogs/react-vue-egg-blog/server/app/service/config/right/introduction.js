@@ -1,11 +1,12 @@
-const Service = require("egg").Service;
+/* eslint-disable strict */
+const Service = require('egg').Service;
 
 class RightIntroductionService extends Service {
   async index() {
     const { ctx } = this;
     const data = await ctx.model.Config.Right.Introduction.findOne();
     return {
-      msg: "个人简介配置信息获取成功",
+      msg: '个人简介配置信息获取成功',
       data,
     };
   }
@@ -18,17 +19,17 @@ class RightIntroductionService extends Service {
         ...params,
         createTime: ctx.helper.moment().unix(),
       };
-      console.log('data',data)
+      console.log('data', data);
       const res = await ctx.model.Config.Right.Introduction.create(data);
       return {
-        msg: "个人简介配置信息添加成功",
+        msg: '个人简介配置信息添加成功',
         data: res,
       };
-    } else {
-      return {
-        msg: "个人简介配置信息已存在",
-      };
     }
+    return {
+      msg: '个人简介配置信息已存在',
+    };
+
   }
 
   async update(params) {
@@ -55,14 +56,14 @@ class RightIntroductionService extends Service {
         }
       );
       return {
-        msg: "个人简介配置信息修改成功",
+        msg: '个人简介配置信息修改成功',
         data: res,
       };
-    } else {
-      return {
-        msg: "个人简介配置信息不存在",
-      };
     }
+    return {
+      msg: '个人简介配置信息不存在',
+    };
+
   }
 }
 

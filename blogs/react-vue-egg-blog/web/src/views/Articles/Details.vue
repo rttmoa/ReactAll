@@ -1,7 +1,9 @@
 <template>
   <div class="details">
+
     <Header :light-index="1"></Header>
 
+    <!-- 右侧：文章目录 + 图标 -->
     <div v-if="isPC" class="toc-fixed">
       <mu-card class="card">
         <div class="toc">
@@ -16,14 +18,12 @@
           <mu-button fab color="primary">
             <mu-icon value="thumb_up"></mu-icon>
           </mu-button>
-        </mu-tooltip>
-
+        </mu-tooltip> 
         <mu-tooltip placement="top" content="收藏">
           <mu-button fab color="purple500">
             <mu-icon value="grade"></mu-icon>
           </mu-button>
-        </mu-tooltip>
-
+        </mu-tooltip> 
         <mu-tooltip placement="top" content="评论">
           <mu-button @click="scrollToPosition('#comment')"  fab color="red">
             <mu-icon value="chat"></mu-icon>
@@ -32,6 +32,7 @@
       </div>
     </div>
 
+    <!-- 中间内容区域 -->
     <div class="content">
       <div v-if="isPC" class="right">
         <RightConfig showPosition="文章详情"></RightConfig>
@@ -39,32 +40,17 @@
       <div class="left" :style="{ marginTop: isPC ? '16px' : 0 }">
         <div class="left-box" :style="{ width: isPC ? '70%' : '100%' }">
           <mu-card class="card">
-            <mu-card-title
-              :title="info.title"
-              :sub-title="info.introduction"
-            ></mu-card-title>
+            <mu-card-title :title="info.title" :sub-title="info.introduction"></mu-card-title>
             <mu-card-media :style="{ height: isPC ? '400px' : 'auto' }">
               <img v-lazy="info.cover" style="height: 100%" />
             </mu-card-media>
             <mu-card-actions class="sub-title">
-              <mu-button class="cursor-default" flat color="warning"
-                >字数(1000)</mu-button
-              >
-              <mu-button class="cursor-default" flat color="secondary"
-                >阅读大约2分钟</mu-button
-              >
-              <mu-button class="cursor-default" flat color="info"
-                >查看(100)</mu-button
-              >
-              <mu-button class="cursor-default" flat color="error"
-                >评论(100)</mu-button
-              >
-              <mu-button class="cursor-default" flat color="primary"
-                >点赞(100)</mu-button
-              >
-              <mu-button class="cursor-default" flat color="#9e9e9e"
-                >2021-05-20 13:14</mu-button
-              >
+              <mu-button class="cursor-default" flat color="warning">字数(1000)</mu-button>
+              <mu-button class="cursor-default" flat color="secondary">阅读大约2分钟</mu-button>
+              <mu-button class="cursor-default" flat color="info">查看(100)</mu-button>
+              <mu-button class="cursor-default" flat color="error">评论(100)</mu-button>
+              <mu-button class="cursor-default" flat color="primary">点赞(100)</mu-button>
+              <mu-button class="cursor-default" flat color="#9e9e9e">2021-05-20 13:14</mu-button>
             </mu-card-actions>
             <mavonEditor
               v-model="content"
@@ -74,14 +60,12 @@
               defaultOpen="preview"
               codeStyle="tomorrow-night-eighties"
               :navigation="isPC"
-            />
-
+            /> 
             <mu-card-actions>
               <mu-button class="cursor-default" flat color="primary">
                 <mu-icon left value="dns"></mu-icon>
                 分类
-              </mu-button>
-
+              </mu-button> 
               <mu-button class="cursor-default" flat>
                 <mu-icon left value="loyalty"></mu-icon>
                 标签1
@@ -93,13 +77,13 @@
             </mu-card-actions>
           </mu-card>
 
+          <!-- 点赞 + 收藏 图标 -->
           <div class="action-list">
             <mu-tooltip placement="top" content="点赞">
               <mu-button fab color="primary">
                 <mu-icon value="thumb_up"></mu-icon>
               </mu-button>
-            </mu-tooltip>
-
+            </mu-tooltip> 
             <mu-tooltip placement="top" content="收藏">
               <mu-button fab color="purple500">
                 <mu-icon value="grade"></mu-icon>
@@ -107,13 +91,12 @@
             </mu-tooltip>
           </div>
 
+          <!-- 发表评论 （说点什么） -->
           <mu-card id="comment" class="card">
-            <Comment
-              @comment="comment"
-              :comment-success="commentSuccess"
-            ></Comment>
+            <Comment @comment="comment" :comment-success="commentSuccess"></Comment>
           </mu-card>
 
+          <!-- 评论内容数据 -->
           <mu-card class="card" v-if="commentList.length > 0">
             <mu-card-title title="评论（3）"></mu-card-title>
             <mu-divider></mu-divider>
@@ -125,7 +108,9 @@
             ></CommentList>
           </mu-card>
 
+          <!-- 上一篇、下一篇 -->
           <prev-next :prev="prev" :next="next"></prev-next>
+
         </div>
       </div>
     </div>
@@ -133,6 +118,8 @@
     <Footer></Footer>
   </div>
 </template>
+
+<!-- TODO: 方法 -->
 <script>
 import RightConfig from "@/components/RightConfig";
 import Comment from "@/components/Comment";

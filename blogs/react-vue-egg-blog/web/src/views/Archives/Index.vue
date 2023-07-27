@@ -1,82 +1,45 @@
 <template>
-  <div
-    class="common"
-    :style="{
-      background: `url(${archiveBgImg}) center center no-repeat`, 
-      backgroundSize: 'cover',
-    }"
-  >
+  <div class="common" :style="{ background: `url(${archiveBgImg}) center center no-repeat`, backgroundSize: 'cover' }">
     <Header :light-index="2" background="transparent"></Header>
-
     <div class="content">
-      <ul class="timeline timeline-centered">
+      <ul class="timeline timeline-centered" v-for="item in newList" :key="item.year">
         <li class="timeline-item period">
           <div class="timeline-info"></div>
           <div class="timeline-marker"></div>
           <div class="timeline-content">
-            <h2 class="timeline-title">2021</h2>
+            <h2 class="timeline-title">{{item.year}}</h2>
           </div>
         </li>
         <li class="timeline-item">
           <div class="timeline-info">
-            <span>08-15</span>
+            <span>{{item.date1}}</span>
           </div>
           <div class="timeline-marker"></div>
           <div class="timeline-content">
-            <h3 class="timeline-title">如何高效学习Vue</h3>
-            <p>如何高效学习Vue如何高效学习Vue</p>
+            <h3 class="timeline-title">{{item.title1}}</h3>
+            <p>{{item.content1}}</p>
           </div>
-        </li>
-
+        </li> 
         <li class="timeline-item">
           <div class="timeline-info">
             <span>08-14</span>
           </div>
           <div class="timeline-marker"></div>
           <div class="timeline-content">
-            <h3 class="timeline-title">如何高效学习React</h3>
-            <p>如何高效学习React如何高效学习React</p>
+            <h3 class="timeline-title">{{item.title2}}</h3>
+            <p>{{item.title2}}</p>
           </div>
         </li>
-      </ul>
-
-      <ul class="timeline timeline-centered">
-        <li class="timeline-item period">
-          <div class="timeline-info"></div>
-          <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <h2 class="timeline-title">2020</h2>
-          </div>
-        </li>
-        <li class="timeline-item">
-          <div class="timeline-info">
-            <span>05-20</span>
-          </div>
-          <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <h3 class="timeline-title">如何高效学习Node.js</h3>
-            <p>如何高效学习Node.js如何高效学习Node.js</p>
-          </div>
-        </li>
-        <li class="timeline-item">
-          <div class="timeline-info">
-            <span>05-12</span>
-          </div>
-          <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <h3 class="timeline-title">如何高效学习Egg.js</h3>
-            <p>如何高效学习Egg.js如何高效学习Egg.js</p>
-          </div>
-        </li>
-      </ul>
+      </ul>  
       <Footer></Footer>
     </div>
   </div>
 </template>
+
+<!-- TODO: 归档：http://localhost:8081/archives -->
 <script>
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
 export default {
   name: "archive",
   components: {
@@ -85,9 +48,13 @@ export default {
   },
   data() {
     return {
-      list: [], 
+      list: [],
       // https://www.igdcc.com/
-      archiveBgImg: "https://c.53326.com/d/file/lan20200407/n2v3xodgsz1.jpg"
+      archiveBgImg: "https://c.53326.com/d/file/lan20200407/n2v3xodgsz1.jpg",
+      newList: [
+        {year: 2021, date1: "08-15", title1: "如何高效学习Vue", content1: "如何高效学习Vue如何高效学习Vue", date2: "08-14", title2: "如何高效学习React", content2: "如何高效学习React如何高效学习React"},
+        {year: 2020, date1: "05-20", title1: "如何高效学习Node.js", content1: "如何高效学习Node.js如何高效学习Node.js", date2: "05-12", title2: "如何高效学习Egg.js", content2: "如何高效学习Egg.js如何高效学习Egg.js"},
+      ]
     };
   },
   mounted() {},

@@ -1,19 +1,19 @@
-"use strict";
+'use strict';
 
-const Controller = require("egg").Controller;
+const Controller = require('egg').Controller;
 
 class AdminController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.createRule = {
       userName: {
-        type: "string",
+        type: 'string',
         min: 5,
         max: 20,
         format: /^[\u4e00-\u9fa5A-Za-z0-9_]{5,20}$/,
       },
       password: {
-        type: "password",
+        type: 'password',
         // compare: "re-password",
         min: 6,
         max: 20,

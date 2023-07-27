@@ -1,11 +1,12 @@
-const Service = require("egg").Service;
+/* eslint-disable strict */
+const Service = require('egg').Service;
 
 class HomeService extends Service {
   async index() {
     const { ctx } = this;
     const data = await ctx.model.Config.Home.findOne();
     return {
-      msg: "首页配置信息获取成功",
+      msg: '首页配置信息获取成功',
       data,
     };
   }
@@ -19,14 +20,14 @@ class HomeService extends Service {
       };
       const res = await ctx.model.Config.Home.create(data);
       return {
-        msg: "首页配置信息添加成功",
+        msg: '首页配置信息添加成功',
         data: res,
       };
-    } else {
-      return {
-        msg: "首页配置信息已存在",
-      };
     }
+    return {
+      msg: '首页配置信息已存在',
+    };
+
   }
 
   async update(params) {
@@ -51,14 +52,14 @@ class HomeService extends Service {
         }
       );
       return {
-        msg: "首页配置信息修改成功",
+        msg: '首页配置信息修改成功',
         data: res,
       };
-    } else {
-      return {
-        msg: "首页配置信息不存在",
-      };
     }
+    return {
+      msg: '首页配置信息不存在',
+    };
+
   }
 }
 

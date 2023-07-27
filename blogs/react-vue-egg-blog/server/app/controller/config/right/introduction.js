@@ -1,44 +1,44 @@
-"use strict";
+'use strict';
 
-const Controller = require("egg").Controller;
+const Controller = require('egg').Controller;
 
 class RightIntroductionController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.createRule = {
       nickName: {
-        type: "string",
+        type: 'string',
         min: 2,
         max: 20,
       },
       desc: {
-        type: "string",
+        type: 'string',
         min: 2,
         max: 100,
       },
       tags: {
-        type: "array",
-        itemType: "string",
+        type: 'array',
+        itemType: 'string',
         min: 1,
         max: 10,
       },
       friendLink: {
-        type: "array",
-        itemType: "object",
+        type: 'array',
+        itemType: 'object',
         rule: {
           link: {
-            type: "string",
+            type: 'string',
           },
           icon: {
-            type: "string",
+            type: 'string',
           },
         },
         min: 1,
         max: 4,
       },
       showPosition: {
-        type: "array",
-        itemType: "string",
+        type: 'array',
+        itemType: 'string',
         min: 1,
         max: 10,
       },

@@ -1,49 +1,50 @@
-module.exports = (app) => {
+/* eslint-disable strict */
+module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
 
   const HomeSchema = new Schema(
     {
       introduction: {
-        type: "string",
+        type: 'string',
         min: 2,
         max: 100,
       },
       effects: {
-        type: "boolean",
+        type: 'boolean',
         default: false,
       },
       archiveBgImg: {
-        type: "string",
+        type: 'string',
       },
       categoriesBgImg: {
-        type: "string",
+        type: 'string',
       },
       categoriesDetailBgImg: {
-        type: "string",
+        type: 'string',
       },
       tagsBgImg: {
-        type: "string",
+        type: 'string',
       },
       tagsDetailBgImg: {
-        type: "string",
+        type: 'string',
       },
       aboutBgImg: {
-        type: "string",
+        type: 'string',
       },
       createTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       updateTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
     },
     {
-      collection: "home",
+      collection: 'home',
       versionKey: false,
     }
   );
-  return mongoose.model("Home", HomeSchema);
+  return mongoose.model('Home', HomeSchema);
 };

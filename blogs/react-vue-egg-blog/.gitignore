@@ -4,8 +4,7 @@ bin-release/
 [Oo]bj/
 [Bb]in/
 
-server/admin/node_modules
-server/web/node_modules
+/server/node_modules
 /admin/node_modules
 /web/node_modules
 

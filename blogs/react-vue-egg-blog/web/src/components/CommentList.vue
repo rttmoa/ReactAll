@@ -1,16 +1,10 @@
 <template>
   <div>
     <div class="comment-item">
-      <mu-card
-        class="card"
-        :class="[classStyle, isPC ? '' : 'wap-card']"
-        v-for="item in list"
-        :key="item._id"
+      <mu-card class="card" :class="[classStyle, isPC ? '' : 'wap-card']" 
+        v-for="item in list" :key="item._id"
       >
-        <mu-card-header
-          :title="item.nickName"
-          :sub-title="item.commentTime | filterDate"
-        >
+        <mu-card-header :title="item.nickName" :sub-title="item.commentTime | filterDate">
           <mu-avatar slot="avatar">
             <img :src="item.avatar" />
           </mu-avatar>
@@ -18,21 +12,11 @@
         <mu-card-text>
           <span v-if="prevWho" class="who">@{{ prevWho }}</span>
           {{ item.currentReplayContent }}
-          <mu-badge
-            v-if="item.auditStatus == 3"
-            content="未审核"
-            color="#ccc"
-          ></mu-badge>
+          <mu-badge v-if="item.auditStatus == 3" content="未审核" color="#ccc"></mu-badge>
         </mu-card-text>
 
-        <mu-card-actions
-          v-if="
-            user && user.nickName !== item.nickName && user.email !== item.email
-          "
-        >
-          <mu-button @click="replay(item)" small color="primary"
-            >回复</mu-button
-          >
+        <mu-card-actions v-if="user && user.nickName !== item.nickName && user.email !== item.email">
+          <mu-button @click="replay(item)" small color="primary">回复</mu-button>
         </mu-card-actions>
 
         <!-- 递归组件 调用自身，必须指定name属性commentList -->
@@ -64,12 +48,8 @@
         :rows="4"
         full-width
       ></mu-text-field>
-      <mu-button slot="actions" flat color="primary" @click="close"
-        >取消</mu-button
-      >
-      <mu-button slot="actions" flat color="primary" @click="ok"
-        >确定</mu-button
-      >
+      <mu-button slot="actions" flat color="primary" @click="close">取消</mu-button>
+      <mu-button slot="actions" flat color="primary" @click="ok">确定</mu-button>
     </mu-dialog>
   </div>
 </template>

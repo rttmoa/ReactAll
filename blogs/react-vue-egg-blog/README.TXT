@@ -1,6 +1,7 @@
-视频讲解：https://www.bilibili.com/video/BV19Y411x76v?spm_id_from=333.337.search-card.all.click
-Gitee源码地址：https://gitee.com/xuwenliu/class
-接口文档地址：https://www.showdoc.com.cn/1520731920996915/8096512934705650
+Video：https://www.bilibili.com/video/BV19Y411x76v
+gitee：https://gitee.com/xuwenliu/projects
+gitee地址：https://gitee.com/xuwenliu/class
+Document：https://www.showdoc.com.cn/1520731920996915/
  
 
 
@@ -14,8 +15,7 @@ web:
 admin:
 安装：npm install
 启动：npm run dev
-后台访问地址：http://127.0.0.1:8080/
-后台访问地址：http://127.0.0.1:8080/#/welcome
+后台访问地址：http://127.0.0.1:8080/ 
 登录用户名密码: admin 123456
 
 server:
@@ -28,8 +28,8 @@ server:
 
 
 项目概括
-vue：vue2 + vue-router3
-react：react16 + react-router5 + redux4 + typescript3
+vue：vue2 + vue-router3 + muse-ui
+react：react16 + react-router5 + redux4 + typescript3 + arco-design
 egg：egg + egg-mongoose
 
 

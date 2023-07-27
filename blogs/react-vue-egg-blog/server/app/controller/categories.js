@@ -1,25 +1,25 @@
-"use strict";
+'use strict';
 
-const Controller = require("egg").Controller;
+const Controller = require('egg').Controller;
 
 class CategoriesController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.queryListParamsRules = {
       page: {
-        type: "string",
+        type: 'string',
         required: false,
         allowEmpty: true,
         default: 1,
       },
       pageSize: {
-        type: "string",
+        type: 'string',
         required: false,
         allowEmpty: true,
         default: 20,
       },
       name: {
-        type: "string",
+        type: 'string',
         required: false,
         min: 2,
         max: 20,
@@ -29,7 +29,7 @@ class CategoriesController extends Controller {
     };
     this.createRule = {
       name: {
-        type: "string",
+        type: 'string',
         min: 2,
         max: 20,
         format: /^[\u4e00-\u9fa5A-Za-z0-9_]{2,20}$/,

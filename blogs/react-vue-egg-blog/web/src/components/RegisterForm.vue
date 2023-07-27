@@ -11,10 +11,7 @@
     >
       <mu-form ref="form" :model="validateForm">
         <mu-form-item label="Email（必填）" prop="email" :rules="emailRules">
-          <mu-text-field
-            v-model.trim="validateForm.email"
-            prop="email"
-          ></mu-text-field>
+          <mu-text-field v-model.trim="validateForm.email" prop="email"></mu-text-field>
         </mu-form-item>
 
         <mu-form-item label="昵称" prop="nickName" :rules="nickNameRules">

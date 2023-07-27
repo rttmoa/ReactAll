@@ -1,160 +1,160 @@
-"use strict";
+'use strict';
 
-const Controller = require("egg").Controller;
+const Controller = require('egg').Controller;
 
 class ArticlesController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.queryListParamsRules = {
       page: {
-        type: "string",
+        type: 'string',
         required: false,
         allowEmpty: true,
         default: 1,
       },
       pageSize: {
-        type: "string",
+        type: 'string',
         required: false,
         allowEmpty: true,
         default: 20,
       },
       title: {
-        type: "string",
+        type: 'string',
         required: false,
         min: 2,
         max: 200,
         allowEmpty: true,
       },
       categories: {
-        type: "string",
+        type: 'string',
         required: false,
-        default: "",
+        default: '',
       },
       articles: {
-        type: "string", // vue,react
+        type: 'string', // vue,react
         required: false,
-        default: "",
+        default: '',
       },
 
       cover: {
-        type: "string",
+        type: 'string',
         required: false,
       },
       introduction: {
-        type: "string",
+        type: 'string',
         min: 10,
         max: 500,
         required: false,
       },
       status: {
-        type: "string",
-        default: "0",
+        type: 'string',
+        default: '0',
         required: false,
       },
       publishStatus: {
-        type: "string",
-        default: "0",
+        type: 'string',
+        default: '0',
         required: false,
       },
       createStartTime: {
-        type: "string",
+        type: 'string',
         required: false,
         default: 0,
       },
       createEndTime: {
-        type: "string",
+        type: 'string',
         required: false,
         default: 0,
       },
       updateStartTime: {
-        type: "string",
+        type: 'string',
         required: false,
         default: 0,
       },
       updateEndTime: {
-        type: "string",
+        type: 'string',
         required: false,
         default: 0,
       },
     };
     this.createRule = {
       title: {
-        type: "string",
+        type: 'string',
         min: 2,
         max: 200,
         // format: /^[\u4e00-\u9fa5A-Za-z0-9_]{2,20}$/,
       },
       cover: {
-        type: "url",
+        type: 'url',
       },
       introduction: {
-        type: "string",
+        type: 'string',
         min: 10,
         max: 500,
       },
       categories: {
-        type: "string",
+        type: 'string',
         min: 2,
         max: 20,
       },
       tags: {
-        type: "array",
-        itemType: "string",
+        type: 'array',
+        itemType: 'string',
       },
       content: {
-        type: "string",
+        type: 'string',
       },
       views: {
-        type: "number",
+        type: 'number',
         default: 1,
       },
       comment: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       like: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       collect: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       isComment: {
-        type: "boolean",
+        type: 'boolean',
         default: true,
       },
       isLike: {
-        type: "boolean",
+        type: 'boolean',
         default: true,
       },
       isCollect: {
-        type: "boolean",
+        type: 'boolean',
         default: false,
       },
       // 是否开启打赏
       isReward: {
-        type: "boolean",
+        type: 'boolean',
         default: false,
       },
       status: {
-        type: "number",
+        type: 'number',
         default: 1,
       },
       publishStatus: {
-        type: "number",
+        type: 'number',
         default: 2,
       },
     };
     this.changeStatusRule = {
       status: {
-        type: "number",
+        type: 'number',
         default: 1,
       },
     };
     this.changePublishStatusRule = {
       publishStatus: {
-        type: "number",
+        type: 'number',
         default: 2,
       },
     };
@@ -227,7 +227,7 @@ class ArticlesController extends Controller {
     const { ctx, service } = this;
     const data = ctx.request.body;
     const id = ctx.params.id;
-    console.log("data", data);
+    console.log('data', data);
     ctx.validate(this.changePublishStatusRule, data);
     const res = await service.articles.changePublishStatus({
       id,

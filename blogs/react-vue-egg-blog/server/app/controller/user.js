@@ -1,25 +1,25 @@
-"use strict";
+'use strict';
 
-const Controller = require("egg").Controller;
+const Controller = require('egg').Controller;
 
 class UserController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.queryListParamsRules = {
       page: {
-        type: "string",
+        type: 'string',
         required: false,
         allowEmpty: true,
         default: 1,
       },
       pageSize: {
-        type: "string",
+        type: 'string',
         required: false,
         allowEmpty: true,
         default: 20,
       },
       nickName: {
-        type: "string",
+        type: 'string',
         required: false,
         max: 20,
         allowEmpty: true,

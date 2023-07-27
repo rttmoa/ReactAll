@@ -1,46 +1,38 @@
 <template>
   <div class="articles">
+
     <Header :light-index="1"></Header>
+
     <div class="content">
       <div v-if="isPC" class="right">
         <RightConfig showPosition="文章"></RightConfig>
-      </div>
+      </div> 
+      <!-- 右侧内容 （每一项数据） -->
       <div :class="[{ 'wap-left': !isPC }, 'left']">
         <mu-card class="card" @click="goDetail(1)">
           <div v-if="isPC" class="cover">
-            <img
-              class="cover-img"
-              src="http://nevergiveupt.top/canvas/html2canvas.png"
-            />
+            <img class="cover-img" src="http://nevergiveupt.top/canvas/html2canvas.png" />
           </div>
           <div class="card-box">
-            <div class="title">使用jspdf+canvas2html将网页保存为pdf文件</div>
+            <div class="title">使用jspdf + canvas2html将网页保存为pdf文件</div>
             <mu-card-actions class="sub-title">
-              <mu-button class="cursor-default" flat color="info" >查看(10)</mu-button >
-              <mu-button class="cursor-default" flat color="error">评论(0)</mu-button>
+              <mu-button class="cursor-default" flat color="info" >查看(10)</mu-button>
+              <mu-button class="cursor-default" flat color="error">评论(3)</mu-button>
               <mu-button class="cursor-default" flat color="primary">点赞(20)</mu-button>
               <mu-button class="cursor-default" flat color="#9e9e9e">2021-02-04 09:57</mu-button>
             </mu-card-actions>
             <mu-card-text class="text">简介?????????????</mu-card-text>
             <mu-card-actions>
-              <mu-button flat class="chip cursor-default" color="primary">
-                <mu-icon left value="dns"></mu-icon>
-                分类
-              </mu-button> 
-              <mu-button flat class="chip cursor-default">
-                <mu-icon left value="loyalty"></mu-icon>
-                标签1
-              </mu-button>
-              <mu-button flat class="chip cursor-default">
-                <mu-icon left value="loyalty"></mu-icon>
-                标签2
-              </mu-button>
+              <mu-button flat class="chip cursor-default" color="primary"><mu-icon left value="dns"></mu-icon>分类</mu-button> 
+              <mu-button flat class="chip cursor-default"><mu-icon left value="loyalty"></mu-icon>标签1</mu-button>
+              <mu-button flat class="chip cursor-default"><mu-icon left value="loyalty"></mu-icon>标签2</mu-button>
             </mu-card-actions>
           </div>
         </mu-card>
       </div>
     </div>
 
+    <!-- 分页器 -->
     <div v-if="info.totalCount > pageSize" class="pagination">
       <mu-pagination
         raised
@@ -50,12 +42,16 @@
         :pageSize.sync="pageSize"
         :pageCount="5"
         @change="pageChange"
-      ></mu-pagination> 
+      ></mu-pagination>
     </div>
 
+    <!-- Footer -->
     <Footer></Footer>
+
   </div>
 </template>
+
+<!-- script -->
 <script>
 import RightConfig from "@/components/RightConfig";
 import Footer from "@/components/Footer";
@@ -131,10 +127,8 @@ export default {
   mounted() {},
   methods: {
     goDetail(_id) {
-      this.$router.push({
-        name: "articlesDetails",
-        query: { id: _id },
-      });
+      // http://localhost:8081/articles/details?id=1
+      this.$router.push({ name: "articlesDetails", query: { id: _id } });
     },
   },
 };

@@ -1,12 +1,9 @@
 <template>
   <div class="user">
+  
+    <!-- 左侧用户信息 -->
     <mu-card class="slider-card">
-      <mu-button
-        color="grey600"
-        class="edit"
-        @click="openUpdateModal = true"
-        icon
-      >
+      <mu-button color="grey600" class="edit" @click="openUpdateModal = true" icon>
         <mu-icon value="edit" left></mu-icon>
       </mu-button>
       <mu-avatar class="avatar" size="100">
@@ -18,17 +15,16 @@
       <div class="desc">{{ userInfo.introduction }}</div>
     </mu-card>
 
-    <UpdateUserForm
-      :userInfo="userInfo"
-      :open="openUpdateModal"
-      @toggle="toggleUpdateModal"
-    ></UpdateUserForm>
+    <!-- 修改资料 -->
+    <UpdateUserForm :userInfo="userInfo" :open="openUpdateModal" @toggle="toggleUpdateModal"></UpdateUserForm>
 
+    <!-- 右侧：顶部Nav + 内容 -->
     <div class="right">
       <mu-appbar class="title">
         <mu-button @click="$router.go(-1)" icon slot="left">
-          <mu-icon value="arrow_back" left></mu-icon> </mu-button
-        >我的收藏
+          <mu-icon value="arrow_back" left></mu-icon> 
+        </mu-button>  
+        我的收藏
         <mu-menu slot="right" open-on-hover>
           <mu-button icon>
             <mu-icon value="menu"></mu-icon>
@@ -46,9 +42,7 @@
             <mu-card-media @click="goDetail(item)" :title="item.title">
               <img :src="item.cover" />
             </mu-card-media>
-            <mu-card-text @click="goDetail(item)">{{
-              item.introduction
-            }}</mu-card-text>
+            <mu-card-text @click="goDetail(item)">{{item.introduction}}</mu-card-text>
             <mu-card-actions class="action">
               <mu-button @click="cancelCollect(item._id)" flat color="pink500">
                 <mu-icon value="remove_circle" left></mu-icon>取消
@@ -59,26 +53,26 @@
             </mu-card-actions>
           </mu-card>
         </div>
-
-        <NotFound
-          v-else
-          title="暂无收藏内容"
-          desc="卧槽！我太懒了竟然没有收藏文章！"
-        ></NotFound>
+        <NotFound v-else title="暂无收藏内容" desc="卧槽！我太懒了竟然没有收藏文章！"></NotFound>
       </div>
     </div>
+
   </div>
 </template>
 
+<!-- TODO: 用户信息：http://localhost:8081/user -->
 <script>
 import UpdateUserForm from "@/components/UpdateUserForm";
 import NotFound from "@/components/NotFound";
 export default {
   name: "user",
+  components: {
+    UpdateUserForm,
+    NotFound,
+  },
   data() {
     return {
-      email:
-        "1916579055@qq.com" || JSON.parse(localStorage.getItem("user")).email,
+      email: "1916579055@qq.com" || JSON.parse(localStorage.getItem("user")).email,
       openUpdateModal: this.$route.query.id == 1,
       collectList: [
         {
@@ -107,19 +101,13 @@ export default {
         },
       ],
       userInfo: {
-        avatar:
-          "http://img.nevergiveupt.top/78e79747e0658b0d1766c8928d784653.png",
+        avatar: "http://img.nevergiveupt.top/78e79747e0658b0d1766c8928d784653.png",
         nickName: "永不放弃",
         email: "1916579055@qq.com",
-        introduction:
-          "有4年开发经验，熟悉Vue、React、Angular、Taro等前端主流框架。熟悉小程序开发，以及NodeJs、Koa等技术也有深入研究。具有良好的沟通能力、工作协调能力、不断学习新技术、熟练前端技术、热衷于前端开发。",
+        introduction: "有4年开发经验，熟悉Vue、React、Angular、Taro等前端主流框架。熟悉小程序开发，以及NodeJs、Koa等技术也有深入研究。具有良好的沟通能力、工作协调能力、不断学习新技术、熟练前端技术、热衷于前端开发。",
       },
     };
-  },
-  components: {
-    UpdateUserForm,
-    NotFound,
-  },
+  }, 
   mounted() {
     if (!this.email) {
       return this.$router.push("/articles");

@@ -1,11 +1,12 @@
-const Service = require("egg").Service;
+/* eslint-disable strict */
+const Service = require('egg').Service;
 
 class RightAdService extends Service {
   async index() {
     const { ctx } = this;
     const data = await ctx.model.Config.Right.Ad.findOne();
     return {
-      msg: "广告设置配置信息获取成功",
+      msg: '广告设置配置信息获取成功',
       data,
     };
   }
@@ -19,14 +20,14 @@ class RightAdService extends Service {
       };
       const res = await ctx.model.Config.Right.Ad.create(data);
       return {
-        msg: "广告设置配置信息添加成功",
+        msg: '广告设置配置信息添加成功',
         data: res,
       };
-    } else {
-      return {
-        msg: "广告设置配置信息已存在",
-      };
     }
+    return {
+      msg: '广告设置配置信息已存在',
+    };
+
   }
 
   async update(params) {
@@ -53,14 +54,14 @@ class RightAdService extends Service {
         }
       );
       return {
-        msg: "广告设置配置信息修改成功",
+        msg: '广告设置配置信息修改成功',
         data: res,
       };
-    } else {
-      return {
-        msg: "广告设置配置信息不存在",
-      };
     }
+    return {
+      msg: '广告设置配置信息不存在',
+    };
+
   }
 }
 

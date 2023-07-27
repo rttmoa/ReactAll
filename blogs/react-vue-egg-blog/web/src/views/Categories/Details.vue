@@ -1,20 +1,13 @@
 <template>
-  <div
-    class="common"
-    :style="{
-      background: `url(${categoriesDetailBgImg}) 0px center no-repeat`,
-      backgroundSize: 'cover',
-    }"
-  >
+  <div class="common" :style="{ background: `url(${categoriesDetailBgImg}) 0px center no-repeat`, backgroundSize: 'cover' }">
     <Header :light-index="3" background="transparent"></Header>
     <div v-if="isPC">
       <Footer fixed></Footer>
-    </div>
-
+    </div> 
     <div class="content">
       <mu-paper v-if="isPC" :z-depth="5" class="pc-box">
         <mu-list>
-          <div class="sub-title">分类-技术(100)</div>
+          <div class="sub-title">分类-技术（100）</div>
           <mu-list-item button>
             <mu-list-item-title class="item">
               <span class="title">文章标题</span>
@@ -22,7 +15,6 @@
             </mu-list-item-title>
           </mu-list-item>
         </mu-list>
-
         <div class="pagination">
           <mu-pagination
             raised
@@ -33,7 +25,7 @@
           ></mu-pagination>
         </div>
       </mu-paper>
-
+      <!-- 是否是 isPC -->
       <div class="wap-box" v-else>
         <div class="sub-title">分类-技术(100)</div>
         <mu-list>
@@ -45,25 +37,19 @@
           </mu-list-item>
         </mu-list>
         <Footer></Footer>
-      </div>
-
-      <mu-button
-        v-show="!isPC"
-        @click="$router.go(-1)"
-        class="back-fab"
-        small
-        fab
-        color="#fff"
-      >
+      </div> 
+      <mu-button v-show="!isPC" @click="$router.go(-1)" class="back-fab" small fab color="#fff">
         <mu-icon color="#ccc" value="arrow_back"></mu-icon>
       </mu-button>
     </div>
   </div>
 </template>
+
+
+<!-- TODO: 分类详情：http://localhost:8081/categories/details -->
 <script>
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
 export default {
   name: "categoriesDetails",
   components: {
@@ -78,7 +64,7 @@ export default {
       info: {
         list: [],
       },
-      categoriesDetailBgImg: "http://nevergiveupt.top/category.jpg",
+      categoriesDetailBgImg: "https://c.53326.com/d/file/pcbigpic/20200519/5rnqru4r14e.jpg",   // https://www.igdcc.com/4kfengjing/21722.html
     };
   },
   mounted() {},

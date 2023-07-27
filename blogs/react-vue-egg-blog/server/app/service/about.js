@@ -1,11 +1,12 @@
-const Service = require("egg").Service;
+/* eslint-disable strict */
+const Service = require('egg').Service;
 
 class AboutService extends Service {
   async index() {
     const { ctx } = this;
     const data = await ctx.model.About.findOne();
     return {
-      msg: "关于信息获取成功",
+      msg: '关于信息获取成功',
       data,
     };
   }
@@ -20,14 +21,14 @@ class AboutService extends Service {
       };
       const res = await ctx.model.About.create(data);
       return {
-        msg: "关于信息添加成功",
+        msg: '关于信息添加成功',
         data: res,
       };
-    } else {
-      return {
-        msg: "关于信息已存在",
-      };
     }
+    return {
+      msg: '关于信息已存在',
+    };
+
   }
 
   async update(params) {
@@ -52,14 +53,14 @@ class AboutService extends Service {
         }
       );
       return {
-        msg: "关于信息修改成功",
+        msg: '关于信息修改成功',
         data: res,
       };
-    } else {
-      return {
-        msg: "关于信息不存在",
-      };
     }
+    return {
+      msg: '关于信息不存在',
+    };
+
   }
 }
 

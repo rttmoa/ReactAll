@@ -1,47 +1,47 @@
-"use strict";
+'use strict';
 
-const Controller = require("egg").Controller;
+const Controller = require('egg').Controller;
 
 class HfController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.createRule = {
       header: {
-        type: "object",
+        type: 'object',
         rule: {
           logo: {
-            type: "string",
+            type: 'string',
             required: false,
           },
           title: {
-            type: "string",
+            type: 'string',
             required: false,
             max: 20,
           },
           openSearch: {
-            type: "boolean",
+            type: 'boolean',
             default: true,
           },
           login: {
-            type: "boolean",
+            type: 'boolean',
             default: false,
           },
           register: {
-            type: "boolean",
+            type: 'boolean',
             default: false,
           },
         },
       },
       footer: {
-        type: "object",
+        type: 'object',
         rule: {
           copyright: {
-            type: "string",
+            type: 'string',
             min: 1,
             max: 200,
           },
           extra: {
-            type: "string",
+            type: 'string',
             min: 1,
             max: 200,
           },

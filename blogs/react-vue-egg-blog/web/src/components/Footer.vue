@@ -6,7 +6,7 @@
     <div class="copyright">
       <a target="_blank" href="#">Copyright © 2020 NeverGiveUpT・蜀ICP备2020026338号</a>
     </div>
-    <div>本系统由Vue+Muse-UI提供技术支持</div>
+    <div>本系统由Vue2 + Muse-UI提供技术支持</div>
   </div>
 </template>
 

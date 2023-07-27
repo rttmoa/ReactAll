@@ -1,11 +1,12 @@
-const Service = require("egg").Service;
+/* eslint-disable strict */
+const Service = require('egg').Service;
 
 class ArticlesService extends Service {
   async updateCategoriesActicleNum() {
     const { ctx } = this;
     const categories = await ctx.model.Categories.find();
     if (categories && categories.length > 0) {
-      categories.forEach(async (item) => {
+      categories.forEach(async item => {
         const articleNum = await ctx.model.Articles.find({
           categories: item.name,
           status: 1,
@@ -28,7 +29,7 @@ class ArticlesService extends Service {
     const tags = await ctx.model.Tags.find();
 
     if (tags && tags.length > 0) {
-      tags.forEach(async (item) => {
+      tags.forEach(async item => {
         const articleNum = await ctx.model.Articles.find({
           tags: { $elemMatch: { $eq: item.name } },
           status: 1,
@@ -53,7 +54,7 @@ class ArticlesService extends Service {
 
     params = ctx.helper.filterEmptyField(params);
 
-    let mustCon = {};
+    const mustCon = {};
     if (params.categories) {
       mustCon.categories = params.categories;
     }
@@ -61,7 +62,7 @@ class ArticlesService extends Service {
     if (params.tags) {
       // vue,react
       mustCon.tags = {
-        $all: params.tags.split(","), //[vue,react]
+        $all: params.tags.split(','), // [vue,react]
       };
     }
 
@@ -73,7 +74,7 @@ class ArticlesService extends Service {
       mustCon.publishStatus = params.publishStatus;
     }
 
-    let timeQuery = ctx.helper.getTimeQueryCon(params);
+    const timeQuery = ctx.helper.getTimeQueryCon(params);
 
     const queryCon = {
       $and: [
@@ -81,7 +82,7 @@ class ArticlesService extends Service {
         timeQuery,
         {
           title: {
-            $regex: params.title ? new RegExp(params.title, "i") : "",
+            $regex: params.title ? new RegExp(params.title, 'i') : '',
           },
         },
       ],
@@ -112,7 +113,7 @@ class ArticlesService extends Service {
     });
     if (oldArticles) {
       return {
-        msg: "该文章已存在",
+        msg: '该文章已存在',
       };
     }
 
@@ -125,7 +126,7 @@ class ArticlesService extends Service {
     await this.updateCategoriesActicleNum();
     await this.updateTagsActicleNum();
     return {
-      msg: "文章添加成功",
+      msg: '文章添加成功',
       data: res,
     };
   }
@@ -136,7 +137,7 @@ class ArticlesService extends Service {
     const oldArticles = await ctx.model.Articles.findOne({ _id: params.id });
     if (!oldArticles) {
       return {
-        msg: "文章不存在",
+        msg: '文章不存在',
       };
     }
 
@@ -155,7 +156,7 @@ class ArticlesService extends Service {
     await this.updateCategoriesActicleNum();
     await this.updateTagsActicleNum();
     return {
-      msg: "文章修改成功",
+      msg: '文章修改成功',
     };
   }
 
@@ -164,7 +165,7 @@ class ArticlesService extends Service {
     const oldArticles = await ctx.model.Articles.findOne({ _id: id });
     if (!oldArticles) {
       return {
-        msg: "文章不存在",
+        msg: '文章不存在',
       };
     }
     await ctx.model.Articles.deleteOne({ _id: id });
@@ -172,7 +173,7 @@ class ArticlesService extends Service {
     await this.updateCategoriesActicleNum();
     await this.updateTagsActicleNum();
     return {
-      msg: "文章删除成功",
+      msg: '文章删除成功',
     };
   }
 
@@ -181,7 +182,7 @@ class ArticlesService extends Service {
     const oldArticles = await ctx.model.Articles.findOne({ _id: params.id });
     if (!oldArticles) {
       return {
-        msg: "文章不存在",
+        msg: '文章不存在',
       };
     }
 
@@ -194,7 +195,7 @@ class ArticlesService extends Service {
       }
     );
     return {
-      msg: `文章${params.status == 1 ? "启用" : "停用"}成功`,
+      msg: `文章${params.status == 1 ? '启用' : '停用'}成功`,
     };
   }
 
@@ -203,7 +204,7 @@ class ArticlesService extends Service {
     const oldArticles = await ctx.model.Articles.findOne({ _id: params.id });
     if (!oldArticles) {
       return {
-        msg: "文章不存在",
+        msg: '文章不存在',
       };
     }
 
@@ -216,7 +217,7 @@ class ArticlesService extends Service {
       }
     );
     return {
-      msg: `文章${params.publishStatus == 1 ? "发布" : "下线"}成功`,
+      msg: `文章${params.publishStatus == 1 ? '发布' : '下线'}成功`,
     };
   }
 
@@ -230,7 +231,7 @@ class ArticlesService extends Service {
       }
     );
     return {
-      msg: `文章${params.isCollect ? "一键开启" : "一键取消"}成功`,
+      msg: `文章${params.isCollect ? '一键开启' : '一键取消'}成功`,
     };
   }
 
@@ -239,12 +240,12 @@ class ArticlesService extends Service {
     const oldArticles = await ctx.model.Articles.findOne({ _id: id });
     if (!oldArticles) {
       return {
-        msg: "文章不存在",
+        msg: '文章不存在',
       };
     }
     return {
       data: oldArticles,
-      msg: "文章详情获取成功",
+      msg: '文章详情获取成功',
     };
   }
 }

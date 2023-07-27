@@ -1,67 +1,68 @@
-module.exports = (app) => {
+/* eslint-disable strict */
+module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
   const CommentSchema = new Schema(
     {
       nickName: {
-        type: "string",
+        type: 'string',
         required: false,
         max: 20,
       },
       email: {
-        type: "string",
+        type: 'string',
         required: true,
         match: /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/,
       },
       avatar: {
-        type: "string",
+        type: 'string',
         required: false,
       },
       articleId: {
-        type: "ObjectId",
+        type: 'ObjectId',
       },
       articleTitle: {
-        type: "string",
+        type: 'string',
         min: 2,
         max: 200,
       },
       targetReplayId: {
-        type: "string",
+        type: 'string',
         required: false,
-        default: "",
+        default: '',
       },
       targetReplayContent: {
-        type: "string",
+        type: 'string',
         required: false,
         max: 200,
-        default: "",
+        default: '',
       },
       currentReplayContent: {
-        type: "string",
+        type: 'string',
         required: false,
         max: 200,
-        default: "",
+        default: '',
       },
       commentTime: {
         // 评论时间
-        type: "number",
+        type: 'number',
         default: 0,
       },
       auditTime: {
         // 审核时间
-        type: "number",
+        type: 'number',
         default: 0,
       },
       auditStatus: {
-        type: "string", // 0=全部 1=通过 2=驳回 3=未审核
-        default: "3",
+        type: 'string', // 0=全部 1=通过 2=驳回 3=未审核
+        default: '3',
       },
     },
     {
-      collection: "comment",
+      collection: 'comment',
       versionKey: false,
     }
   );
 
-  return mongoose.model("Comment", CommentSchema);
+  return mongoose.model('Comment', CommentSchema);
 };

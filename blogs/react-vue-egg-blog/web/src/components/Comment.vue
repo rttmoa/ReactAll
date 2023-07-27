@@ -9,9 +9,7 @@
       full-width
       v-model="content"
     ></mu-text-field>
-    <mu-button @click="submit" class="comment-btn" color="primary"
-      >评论</mu-button
-    >
+    <mu-button @click="submit" class="comment-btn" color="primary">评论</mu-button>
 
     <mu-dialog
       title="提示"
@@ -22,15 +20,13 @@
       :open.sync="openAlert"
     >
       评论内容需要审核，大约需要24小时。您确定需要继续操作吗？
-      <mu-button slot="actions" flat color="primary" @click="ok(false)"
-        >取消</mu-button
-      >
-      <mu-button slot="actions" flat color="primary" @click="ok(true)"
-        >确定</mu-button
-      >
+      <mu-button slot="actions" flat color="primary" @click="ok(false)">取消</mu-button>
+      <mu-button slot="actions" flat color="primary" @click="ok(true)">确定</mu-button>
     </mu-dialog>
   </div>
 </template>
+
+
 <script>
 export default {
   props: {
@@ -75,6 +71,7 @@ export default {
   },
 };
 </script>
+
 <style lang="less" scoped>
 .comment-input {
   padding: 0 0.42667rem;

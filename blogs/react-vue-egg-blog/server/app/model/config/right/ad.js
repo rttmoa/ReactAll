@@ -1,41 +1,42 @@
-module.exports = (app) => {
+/* eslint-disable strict */
+module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
 
   const ImgsSchema = new Schema({
     imgUrl: {
-      type: "string",
+      type: 'string',
     },
     link: {
-      type: "string",
+      type: 'string',
     },
   });
 
   const RightAdSchema = new Schema(
     {
       imgs: {
-        type: [ImgsSchema],
+        type: [ ImgsSchema ],
         min: 1,
         max: 3,
       },
       showPosition: {
-        type: [String],
+        type: [ String ],
         min: 1,
         max: 10,
       },
       createTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
       updateTime: {
-        type: "number",
+        type: 'number',
         default: 0,
       },
     },
     {
-      collection: "right_ad",
+      collection: 'right_ad',
       versionKey: false,
     }
   );
-  return mongoose.model("RightAd", RightAdSchema);
+  return mongoose.model('RightAd', RightAdSchema);
 };

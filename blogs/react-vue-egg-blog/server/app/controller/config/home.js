@@ -1,37 +1,37 @@
-"use strict";
+'use strict';
 
-const Controller = require("egg").Controller;
+const Controller = require('egg').Controller;
 
 class HomeController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.createRule = {
       introduction: {
-        type: "string",
+        type: 'string',
         min: 2,
         max: 100,
       },
       effects: {
-        type: "boolean",
+        type: 'boolean',
         default: false,
       },
       archiveBgImg: {
-        type: "string",
+        type: 'string',
       },
       categoriesBgImg: {
-        type: "string",
+        type: 'string',
       },
       categoriesDetailBgImg: {
-        type: "string",
+        type: 'string',
       },
       tagsBgImg: {
-        type: "string",
+        type: 'string',
       },
       tagsDetailBgImg: {
-        type: "string",
+        type: 'string',
       },
       aboutBgImg: {
-        type: "string",
+        type: 'string',
       },
     };
   }

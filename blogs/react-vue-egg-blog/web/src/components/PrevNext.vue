@@ -4,6 +4,8 @@
     <mu-button v-if="next" flat color="info" @click="goDetails(next)">下一篇： {{next.title}}</mu-button>
   </div>
 </template>
+
+
 <script>
 export default {
   props: {

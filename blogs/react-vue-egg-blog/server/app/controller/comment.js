@@ -1,36 +1,36 @@
-"use strict";
+'use strict';
 
-const Controller = require("egg").Controller;
+const Controller = require('egg').Controller;
 
 class CommentController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.queryListParamsRules = {
       page: {
-        type: "string",
+        type: 'string',
         required: false,
         allowEmpty: true,
         default: 1,
       },
       pageSize: {
-        type: "string",
+        type: 'string',
         required: false,
         allowEmpty: true,
         default: 20,
       },
       articleTitle: {
-        type: "string",
+        type: 'string',
         required: false,
       },
       auditStatus: {
-        type: "string",
+        type: 'string',
         required: false,
-        default: "0",
+        default: '0',
       },
     };
     this.updateAuditStatusRule = {
       auditStatus: {
-        type: "number",
+        type: 'number',
       },
     };
   }

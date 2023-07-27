@@ -1,11 +1,12 @@
-const Service = require("egg").Service;
+/* eslint-disable strict */
+const Service = require('egg').Service;
 
 class HfService extends Service {
   async index() {
     const { ctx } = this;
     const data = await ctx.model.Config.Hf.findOne();
     return {
-      msg: "Header/Footer配置信息获取成功",
+      msg: 'Header/Footer配置信息获取成功',
       data,
     };
   }
@@ -19,14 +20,14 @@ class HfService extends Service {
       };
       const res = await ctx.model.Config.Hf.create(data);
       return {
-        msg: "Header/Footer配置信息添加成功",
+        msg: 'Header/Footer配置信息添加成功',
         data: res,
       };
-    } else {
-      return {
-        msg: "Header/Footer配置信息已存在",
-      };
     }
+    return {
+      msg: 'Header/Footer配置信息已存在',
+    };
+
   }
 
   async update(params) {
@@ -51,14 +52,14 @@ class HfService extends Service {
         }
       );
       return {
-        msg: "Header/Footer配置信息修改成功",
+        msg: 'Header/Footer配置信息修改成功',
         data: res,
       };
-    } else {
-      return {
-        msg: "Header/Footer配置信息不存在",
-      };
     }
+    return {
+      msg: 'Header/Footer配置信息不存在',
+    };
+
   }
 }
 
