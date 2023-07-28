@@ -37,15 +37,30 @@ class AboutController extends Controller {
     };
   }
 
+  // 查询一条数据
   async index() {
-    const { ctx, service } = this;
+    const { ctx, service } = this; // service.about:  AboutService {}
     const res = await service.about.index();
+    // console.log(res);
+    // {
+    //   msg: '关于信息获取成功',
+    //   data: {
+    //     tags: [ '标签1' ],
+    //     createTime: 1660292733,
+    //     updateTime: 1660655702,
+    //     showResume: true,
+    //     _id: 62f60e7da98d7c10accfc01b,
+    //     imgs: [ [Object], [Object], [Object] ],
+    //     desc: '测试aaaa'
+    //   }
+    // }
     ctx.helper.success({
       ctx,
       res,
     });
   }
 
+  // 创建一条数据
   async create() {
     const { ctx, service } = this;
     const data = ctx.request.body;
@@ -57,15 +72,13 @@ class AboutController extends Controller {
     });
   }
 
+  // TODO: 更新关于管理数据 （先校验数据，再调用service层的函数去处理，service层的函数去调用model层的数据处理，返回给这里）
   async update() {
     const { ctx, service } = this;
     const data = ctx.request.body;
     const id = ctx.params.id;
     ctx.validate(this.createRule, data);
-    const res = await service.about.update({
-      id,
-      ...data,
-    });
+    const res = await service.about.update({ id, ...data });
     ctx.helper.success({
       ctx,
       res,

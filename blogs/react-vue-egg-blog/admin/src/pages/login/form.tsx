@@ -8,19 +8,14 @@ import history from '../../history';
 import useLocale from '../../utils/useLocale';
 import { login as adminLogin } from '../../api/login';
 
-
-
-
-
-
-/***
+/** *
  * 登录：表单校验之后登录的逻辑和函数的封装
  * 使用formRef.current.validate().then((v)=> login(v))  校验值是否通过 如果通过开始进行发请求登录
  * 表单受控 使用 ref 属性
  * <Form> 表单：https://arco.design/react/components/Form#api
  * <Space> 间距：https://arco.design/react/components/Space#api
  * <Button> 按钮：https://arco.design/react/components/Button#api
- * <Input> 输入框：https://arco.design/react/components/Input#api 
+ * <Input> 输入框：https://arco.design/react/components/Input#api
  * <Input.Password> 密码框： 基于Input之上使用
  */
 export default function LoginForm() {
@@ -30,7 +25,8 @@ export default function LoginForm() {
   const locale = useLocale();
   const dispatch = useDispatch();
 
-  function afterLoginSuccess(params) {/***--- params: {token:'ag321hs',username:'admin'} ---**/
+  function afterLoginSuccess(params) {
+    /** *--- params: {token:'ag321hs',username:'admin'} ---* */
     // 记录登录状态
     localStorage.setItem('token', params.token);
     dispatch({
@@ -47,7 +43,9 @@ export default function LoginForm() {
     setErrorMessage('');
     setLoading(true);
     try {
-      const res = await adminLogin(params);/***--- res {code:0, data:{token, username}, msg} ---**/
+      const res = await adminLogin(
+        params
+      ); /** *--- res {code:0, data:{token, username}, msg} ---* */
       // console.log(res);
       if (res.data) {
         if ((res as any).code === 0) {
@@ -64,17 +62,16 @@ export default function LoginForm() {
 
   async function onSubmitClick() {
     formRef.current.validate().then((values) => {
-      // console.log(values)/***--- {userName: 'admin', password: '123456'} ---**/
+      // console.log(values) /***--- {userName: 'admin', password: '123456'} ---**/
+      // const newValue = { userName: 'admin', password: '123456' };
       login(values);
     });
   }
 
-  function register(uname?):void {
-    console.log(uname)
-    console.log('注册账号的 Class 类: color: var(--color-text-3) !important;')
+  function register(uname?): void {
+    console.log(uname);
+    console.log('注册账号的 Class 类: color: var(--color-text-3) !important;');
   }
-
-
 
   return (
     <div className={styles['login-form-wrapper']}>
@@ -84,6 +81,7 @@ export default function LoginForm() {
 
       <Form className={styles['login-form']} layout="vertical" ref={formRef}>
         <Form.Item
+          initialValue="admin"
           field="userName"
           rules={[
             { required: true, message: locale['login.p_userName'] },
@@ -100,6 +98,7 @@ export default function LoginForm() {
           />
         </Form.Item>
         <Form.Item
+          initialValue="123456"
           field="password"
           rules={[
             { required: true, message: locale['login.p_password'] },

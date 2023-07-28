@@ -28,8 +28,8 @@ export default function LoginBannber() {
     },
   ];
   return (
-    <Carousel className={styles.carousel} animation="fade" moveSpeed={1500}>  
-      {data.map((item, index) => (  
+    <Carousel className={styles.carousel} animation="fade" moveSpeed={1500}>
+      {data.map((item, index) => (
         <div key={`${index}`}>
           <div className={styles['carousel-item']}>
             <div className={styles['carousel-title']}>{item.slogan}</div>
