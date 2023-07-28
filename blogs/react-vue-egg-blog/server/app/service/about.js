@@ -4,6 +4,7 @@ const Service = require('egg').Service;
 
 class AboutService extends Service {
 
+
   async index() { // 查询
     const { ctx } = this;
     const data = await ctx.model.About.findOne();
@@ -22,6 +23,7 @@ class AboutService extends Service {
       data,
     };
   }
+
 
   async create(params) { // 新建： params：req.body  参数由controller传递过来
     const { ctx } = this;
@@ -43,9 +45,9 @@ class AboutService extends Service {
     };
   }
 
+
   async update(params) { // TODO: 更新关于管理最新数据
     const { ctx } = this;
-
     const oldAbout = await ctx.model.About.findOne({ _id: params.id });
     // console.log('findDocs：', oldAbout); // 查找到的数据
     if (oldAbout) {

@@ -3,7 +3,7 @@ declare module '*.svg' {
   export default content;
 }
 
-declare module '*.less' { 
+declare module '*.less' {
   const classes: { [className: string]: string };
   export default classes;
 }
@@ -17,7 +17,6 @@ declare module '*/settings.json' {
     themeColor: string;
     menuWidth: number;
   };
-
   export default value;
 }
 

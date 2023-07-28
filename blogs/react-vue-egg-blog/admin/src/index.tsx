@@ -17,21 +17,37 @@ import './mock';
 import Login from './pages/login';
 import checkLogin from './utils/checkLogin';
 
-const store = createStore(rootReducer, (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(
+  rootReducer,
+  (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 function Index() {
   const localeName = localStorage.getItem('arco-lang') || 'zh-CN';
- 
   if (!localStorage.getItem('arco-lang')) {
     localStorage.setItem('arco-lang', localeName);
   }
 
   const [locale, setLocale] = useState();
-
   async function fetchLocale(ln?: string) {
     const locale = (await import(`./locale/${ln || localeName}`)).default;
     setLocale(locale);
   }
+  useEffect(() => {
+    fetchLocale();
+  }, []);
+
+  // function fetchUserInfo() {
+  //   axios.get('/api/user/userInfo').then((res) => { store.dispatch({ type: 'update-userInfo', payload: { userInfo: res.data } }); });
+  // }
+
+  useEffect(() => {
+    if (checkLogin()) {
+      // fetchUserInfo();
+    } else {
+      history.push('/admin/login');
+    }
+  }, []);
 
   function getArcoLocale() {
     switch (localeName) {
@@ -43,41 +59,19 @@ function Index() {
         return zhCN;
     }
   }
-
-  // function fetchUserInfo() {
-  //   axios.get('/api/user/userInfo').then((res) => {
-  //     store.dispatch({
-  //       type: 'update-userInfo',
-  //       payload: { userInfo: res.data },
-  //     });
-  //   });
-  // }
-
-  useEffect(() => {
-    fetchLocale();
-  }, []);
-
-  useEffect(() => {
-    if (checkLogin()) {
-      // fetchUserInfo();
-    } else {
-      history.push('/admin/login');
-    }
-  }, []);
-
-  const contextValue = {
-    locale,
-  };
+  const contextValue = { locale };
 
   return locale ? (
     <Router history={history}>
       <ConfigProvider locale={getArcoLocale()}>
         <Provider store={store}>
           <GlobalContext.Provider value={contextValue}>
+            {/* 登陆与后台界面 */}
             <Switch>
               <Route path="/admin/login" component={Login} />
               <Route path="/" component={PageLayout} />
             </Switch>
+            {/* 页面配置：固定按钮 */}
             <Setting />
           </GlobalContext.Provider>
         </Provider>

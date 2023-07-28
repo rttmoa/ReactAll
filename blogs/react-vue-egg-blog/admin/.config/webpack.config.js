@@ -26,6 +26,7 @@ exports.site = (config, env) => {
     })
   );
   config.devServer = {
+    // TODO: 代理服务端地址 
     proxy: {
       '/api/v1': 'http://127.0.0.1:7001',
     },

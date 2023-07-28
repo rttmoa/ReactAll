@@ -1,13 +1,11 @@
-import { Carousel } from '@arco-design/web-react';/***--- 轮播图 https://arco.design/react/components/Carousel#api ---**/
+import { Carousel } from '@arco-design/web-react'; /** *--- 轮播图 https://arco.design/react/components/Carousel#api ---* */
 import React from 'react';
 import bannerImage from '../../assets/login-banner.png';
 import styles from './style/index.module.less';
 
-
-/***
- * 登录页面左侧轮播图 
+/** *
+ * 登录页面左侧轮播图
  * 引入图片在根目录declaration.d.ts文件中做处理
- * 
  */
 export default function LoginBannber() {
   const data = [
@@ -28,7 +26,7 @@ export default function LoginBannber() {
     },
   ];
   return (
-    <Carousel className={styles.carousel} animation="fade" moveSpeed={1500}>
+    <Carousel className={styles.carousel} animation="fade" moveSpeed={1000}>
       {data.map((item, index) => (
         <div key={`${index}`}>
           <div className={styles['carousel-item']}>

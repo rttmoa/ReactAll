@@ -6,10 +6,13 @@ const qiniu = require('qiniu');
 const md5 = require('md5');
 const Service = require('egg').Service;
 
+
 class UtilsService extends Service {
   constructor(ctx) {
     super(ctx);
   }
+
+  // TODO: controller层调用service层，结果需要返回给controller层
   async uploadFiles() {
     const { ctx, app } = this;
 
@@ -19,6 +22,7 @@ class UtilsService extends Service {
     );
     const config = new qiniu.conf.Config();
     config.zone = qiniu.zone.Zone_z2;
+
     // 参数解释： https://developer.qiniu.com/kodo/1206/put-policy
     const options = {
       scope: app.config.bucket,
@@ -39,9 +43,7 @@ class UtilsService extends Service {
       const files = [];
       while ((stream = await parts()) != null) {
         const extname = path.extname(stream.filename).toLocaleLowerCase();
-        const filename =
-         md5(path.basename(stream.filename, extname) + timestamp + randomNum) +
-         extname;
+        const filename = md5(path.basename(stream.filename, extname) + timestamp + randomNum) + extname;
         const formUploader = new qiniu.form_up.FormUploader(config);
         const putExtra = new qiniu.form_up.PutExtra();
         // eslint-disable-next-line no-loop-func

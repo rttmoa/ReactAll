@@ -31,7 +31,7 @@ server:
 vue：vue2 + vue-router3 + muse-ui
 react：react16 + react-router5 + redux4 + typescript3 + arco-design
 egg：egg + egg-mongoose
-
+前台渲染假数据，后台调用服务端
 
 
 

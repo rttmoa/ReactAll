@@ -5,8 +5,7 @@ import LoginBanner from './banner';
 import Logo from '../../assets/logo.svg';
 import styles from './style/index.module.less';
 
-
-/***
+/** *
  * 登录页 -- 页面设计
  * 设置主题属性
  */

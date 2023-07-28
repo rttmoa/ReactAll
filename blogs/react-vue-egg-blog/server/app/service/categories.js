@@ -3,6 +3,7 @@ const Service = require('egg').Service;
 
 class CategoriesService extends Service {
 
+
   async index(params) {
     const { ctx } = this;
     const page = params.page * 1;
@@ -30,6 +31,7 @@ class CategoriesService extends Service {
     };
   }
 
+
   async create(params) {
     const { ctx } = this;
     const oldTags = await ctx.model.Categories.findOne({
@@ -40,12 +42,10 @@ class CategoriesService extends Service {
         msg: '该分类已存在',
       };
     }
-
     const data = {
       ...params,
       createTime: ctx.helper.moment().unix(),
     };
-
     const res = await ctx.model.Categories.create(data);
     return {
       msg: '分类添加成功',
@@ -53,36 +53,29 @@ class CategoriesService extends Service {
     };
   }
 
+
   async update(params) {
     const { ctx } = this;
-
     const oldTags = await ctx.model.Categories.findOne({ _id: params.id });
     if (oldTags) {
-      const oldNameTags = await ctx.model.Categories.findOne({
-        name: params.name,
-      });
+      const oldNameTags = await ctx.model.Categories.findOne({ name: params.name });
       if (oldNameTags) {
         return {
           msg: '分类已存在，请重新修改',
         };
       }
     }
-
     const updateData = {
       // createTime: oldTags.createTime, // 不传是否会改掉？ 1642774039
       updateTime: ctx.helper.moment().unix(),
       name: params.name,
     };
-    await ctx.model.Categories.updateOne(
-      {
-        _id: params.id,
-      },
-      updateData
-    );
+    await ctx.model.Categories.updateOne({ _id: params.id }, updateData);
     return {
       msg: '分类修改成功',
     };
   }
+
 
   async destroy(id) {
     const { ctx } = this;
@@ -97,6 +90,7 @@ class CategoriesService extends Service {
       msg: '分类删除成功',
     };
   }
+
 }
 
 module.exports = CategoriesService;

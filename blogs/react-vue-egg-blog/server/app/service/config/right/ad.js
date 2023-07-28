@@ -2,6 +2,8 @@
 const Service = require('egg').Service;
 
 class RightAdService extends Service {
+
+
   async index() {
     const { ctx } = this;
     const data = await ctx.model.Config.Right.Ad.findOne();
@@ -10,6 +12,8 @@ class RightAdService extends Service {
       data,
     };
   }
+
+
   async create(params) {
     const { ctx } = this;
     const totalCount = await ctx.model.Config.Right.Ad.find().countDocuments();
@@ -27,16 +31,14 @@ class RightAdService extends Service {
     return {
       msg: '广告设置配置信息已存在',
     };
-
   }
+
 
   async update(params) {
     const { ctx } = this;
-
     const oldHf = await ctx.model.Config.Right.Ad.findOne({
       _id: params.id,
     });
-
     if (oldHf) {
       const updateData = {
         ...params,
@@ -61,7 +63,6 @@ class RightAdService extends Service {
     return {
       msg: '广告设置配置信息不存在',
     };
-
   }
 }
 

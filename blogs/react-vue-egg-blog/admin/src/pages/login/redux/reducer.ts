@@ -1,3 +1,4 @@
+/* eslint-disable no-fallthrough */
 // import { PaginationProps } from '@arco-design/web-react/es/Pagination/pagination';
 import { LOGIN } from './actionTypes';
 
@@ -21,9 +22,9 @@ export default function(state = initialState, action) {
         avatar: 'http://nevergiveupt.top:3000/static/mine.d0f112df.jpeg',
         name: action.payload.userName,
       };
-      //原payload属性为 token和userName
-      //userInfo中新加了两个属性是 avatar和name
-      //userInfo: avatar, name, token, userName
+      // 原payload属性为 token和userName
+      // userInfo中新加了两个属性是 avatar和name
+      // userInfo: avatar, name, token, userName
       // console.log('userInfo', userInfo)
       localStorage.setItem('userInfo', JSON.stringify(userInfo));
       state.userInfo = userInfo;

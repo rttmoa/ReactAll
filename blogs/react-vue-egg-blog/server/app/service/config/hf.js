@@ -2,6 +2,8 @@
 const Service = require('egg').Service;
 
 class HfService extends Service {
+
+
   async index() {
     const { ctx } = this;
     const data = await ctx.model.Config.Hf.findOne();
@@ -10,6 +12,8 @@ class HfService extends Service {
       data,
     };
   }
+
+
   async create(params) {
     const { ctx } = this;
     const totalCount = await ctx.model.Config.Hf.find().countDocuments();
@@ -27,14 +31,12 @@ class HfService extends Service {
     return {
       msg: 'Header/Footer配置信息已存在',
     };
-
   }
+
 
   async update(params) {
     const { ctx } = this;
-
     const oldHf = await ctx.model.Config.Hf.findOne({ _id: params.id });
-
     if (oldHf) {
       const updateData = {
         ...params,
@@ -59,8 +61,8 @@ class HfService extends Service {
     return {
       msg: 'Header/Footer配置信息不存在',
     };
-
   }
+
 }
 
 module.exports = HfService;

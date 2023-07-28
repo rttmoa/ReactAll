@@ -2,16 +2,16 @@
 const Service = require('egg').Service;
 
 class RightRecommendService extends Service {
+
+
   async index(params) {
     const { ctx } = this;
     const page = params.page * 1;
     const pageSize = params.pageSize * 1;
-
     params = ctx.helper.filterEmptyField(params);
-    console.log('params', params);
+    // console.log('params', params);
     const queryCon = params.project ? { project: params.project } : {};
     const totalCount = await ctx.model.Tags.find(queryCon).countDocuments();
-
     const data = await ctx.model.Config.Right.Recommend.find(queryCon)
       .sort({
         createTime: -1,
@@ -27,6 +27,8 @@ class RightRecommendService extends Service {
       },
     };
   }
+
+
   async create(params) {
     const { ctx } = this;
     const totalCount = await ctx.model.Config.Right.Recommend.find({
@@ -46,16 +48,14 @@ class RightRecommendService extends Service {
     return {
       msg: '推荐设置配置信息已存在',
     };
-
   }
+
 
   async update(params) {
     const { ctx } = this;
-
     const oldHf = await ctx.model.Config.Right.Recommend.findOne({
       _id: params.id,
     });
-
     if (oldHf) {
       const updateData = {
         ...params,
@@ -80,8 +80,8 @@ class RightRecommendService extends Service {
     return {
       msg: '推荐设置配置信息不存在',
     };
-
   }
+
 
   async destroy(id) {
     const { ctx } = this;

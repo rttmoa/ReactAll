@@ -2,6 +2,8 @@
 const Service = require('egg').Service;
 
 class RightIntroductionService extends Service {
+
+
   async index() {
     const { ctx } = this;
     const data = await ctx.model.Config.Right.Introduction.findOne();
@@ -10,16 +12,18 @@ class RightIntroductionService extends Service {
       data,
     };
   }
+
+
   async create(params) {
     const { ctx } = this;
     const totalCount =
-      await ctx.model.Config.Right.Introduction.find().countDocuments();
+    await ctx.model.Config.Right.Introduction.find().countDocuments();
     if (totalCount === 0) {
       const data = {
         ...params,
         createTime: ctx.helper.moment().unix(),
       };
-      console.log('data', data);
+      // console.log('data', data);
       const res = await ctx.model.Config.Right.Introduction.create(data);
       return {
         msg: '个人简介配置信息添加成功',
@@ -29,16 +33,14 @@ class RightIntroductionService extends Service {
     return {
       msg: '个人简介配置信息已存在',
     };
-
   }
+
 
   async update(params) {
     const { ctx } = this;
-
     const oldHf = await ctx.model.Config.Right.Introduction.findOne({
       _id: params.id,
     });
-
     if (oldHf) {
       const updateData = {
         ...params,

@@ -3,6 +3,7 @@ const Service = require('egg').Service;
 
 class ArticlesService extends Service {
 
+
   async updateCategoriesActicleNum() { // 更新分类文章数量
     const { ctx } = this;
     const categories = await ctx.model.Categories.find();
@@ -17,6 +18,7 @@ class ArticlesService extends Service {
       });
     }
   }
+
 
   async updateTagsActicleNum() { // 更新标签文章数量
     const { ctx } = this;
@@ -33,6 +35,7 @@ class ArticlesService extends Service {
       });
     }
   }
+
 
   async index(params) { // ------------------------->  查询文章
     const { ctx } = this;
@@ -99,6 +102,7 @@ class ArticlesService extends Service {
     };
   }
 
+
   async update(params) { // ------------------------->  保存文章
     const { ctx } = this;
     const oldArticles = await ctx.model.Articles.findOne({ _id: params.id });
@@ -121,6 +125,7 @@ class ArticlesService extends Service {
     };
   }
 
+
   async destroy(id) { // ------------------------->  操作：删除文章
     const { ctx } = this;
     const oldArticles = await ctx.model.Articles.findOne({ _id: id });
@@ -138,6 +143,7 @@ class ArticlesService extends Service {
     };
   }
 
+
   async changeStatus(params) { // ------------------------->  文章状态 （开关）
     const { ctx } = this;
     const oldArticles = await ctx.model.Articles.findOne({ _id: params.id });
@@ -147,6 +153,7 @@ class ArticlesService extends Service {
       msg: `文章${params.status === 1 ? '启用' : '停用'}成功`,
     };
   }
+
 
   async changePublishStatus(params) { // ------------------------->  操作：发布 / 下线
     const { ctx } = this;
@@ -162,6 +169,7 @@ class ArticlesService extends Service {
     };
   }
 
+
   async changeCollectStatus(params) { // ------------------------->  顶部：一键开启 / 一键关闭收藏 （更新全部收藏的内容）
     const { ctx } = this;
     await ctx.model.Articles.updateMany({}, { isCollect: params.isCollect });
@@ -169,6 +177,7 @@ class ArticlesService extends Service {
       msg: `文章 ${params.isCollect ? '一键开启' : '一键取消'} 收藏成功`,
     };
   }
+
 
   async edit(id) { // ------------------------->  点击编辑按钮：获取此iD数据返回给前台去渲染
     const { ctx } = this;

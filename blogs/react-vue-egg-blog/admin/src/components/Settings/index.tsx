@@ -9,11 +9,6 @@ import ColorPanel from './color';
 import useLocale from '../../utils/useLocale';
 import styles from './style/index.module.less';
 
-
-
-
-
-
 function Setting() {
   const [visible, setVisible] = useState(false);
   const locale = useLocale();

@@ -2,6 +2,8 @@
 const Service = require('egg').Service;
 
 class HomeService extends Service {
+
+
   async index() {
     const { ctx } = this;
     const data = await ctx.model.Config.Home.findOne();
@@ -10,6 +12,8 @@ class HomeService extends Service {
       data,
     };
   }
+
+
   async create(params) {
     const { ctx } = this;
     const totalCount = await ctx.model.Config.Home.find().countDocuments();
@@ -27,14 +31,12 @@ class HomeService extends Service {
     return {
       msg: '首页配置信息已存在',
     };
-
   }
+
 
   async update(params) {
     const { ctx } = this;
-
     const oldHome = await ctx.model.Config.Home.findOne({ _id: params.id });
-
     if (oldHome) {
       const updateData = {
         ...params,
@@ -59,7 +61,6 @@ class HomeService extends Service {
     return {
       msg: '首页配置信息不存在',
     };
-
   }
 }
 

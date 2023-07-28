@@ -1,11 +1,21 @@
 import React from 'react';
-import {  IconGift,  IconStorage,  IconTags,  IconHeart,  IconUser,  IconMessage,  IconSettings,  IconHome,  IconHeartFill,  IconNav,
+import {
+  IconGift,
+  IconStorage,
+  IconTags,
+  IconHeart,
+  IconUser,
+  IconMessage,
+  IconSettings,
+  IconHome,
+  IconHeartFill,
+  IconNav,
   IconBook,
 } from '@arco-design/web-react/icon';
 
 export const defaultRoute = 'welcome';
 
-
+// 路由配置项
 export const routes = [
   {
     name: 'menu.welcome',
@@ -25,7 +35,6 @@ export const routes = [
   //     },
   //   ],
   // },
-  
   {
     name: '文章管理',
     key: 'articles',
@@ -33,7 +42,7 @@ export const routes = [
     componentPath: 'articles',
   },
   {
-    // 文章管理》添加文章》编辑文章
+    // 编辑文章页面
     name: '文章管理',
     key: 'articles/edit',
     icon: <IconBook />,
@@ -46,7 +55,6 @@ export const routes = [
     icon: <IconStorage />,
     componentPath: 'categories',
   },
-
   {
     name: '标签管理',
     key: 'tags',
@@ -77,7 +85,7 @@ export const routes = [
     icon: <IconSettings />,
     children: [
       {
-        name: '首页配置',
+        name: 'Home配置',
         key: 'home',
         icon: <IconHome />,
         componentPath: 'site/home',
@@ -89,7 +97,7 @@ export const routes = [
         componentPath: 'site/headerFooter',
       },
       {
-        name: '侧栏配置',
+        name: 'Aside配置',
         key: 'right',
         icon: <IconNav />,
         componentPath: 'site/right',
