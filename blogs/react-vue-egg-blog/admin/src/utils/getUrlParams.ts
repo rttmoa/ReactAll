@@ -3,8 +3,10 @@ import qs from 'query-string';
 
 export type ParamsType = Record<string, any>;
 
+
+
 export default function getUrlParams(): ParamsType {
-  // console.log('window.location.href', window.location.href)//window.location.href http://localhost:8080/#/articles
+  // console.log('window.location.href', window.location.href) // window.location.href http://localhost:8080/#/articles
   const params = qs.parseUrl(window.location.href).query;
   const returnParams: ParamsType = {};
   Object.keys(params).forEach((p) => {

@@ -8,7 +8,7 @@ interface CodeBlockProps {
   code: string;
 }
 
-/****
+/** **
  * 复制/粘贴功能
  */
 export default function CodeBlock(props: CodeBlockProps) {

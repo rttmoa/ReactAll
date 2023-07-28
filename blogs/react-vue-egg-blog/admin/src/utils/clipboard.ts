@@ -1,7 +1,6 @@
 // https://github.com/feross/clipboard-copy/blob/master/index.js
 
-
-/***
+/** *
  * 复制文本功能  复制到剪切板
  */
 export default function clipboard(text) {

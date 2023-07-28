@@ -22,8 +22,7 @@ const SubMenu = Menu.SubMenu;
 const Sider = Layout.Sider;
 const Content = Layout.Content;
 
-
-/***
+/** *
  * 获取左侧边栏, 名称、key、图标、路径
  */
 function getFlattenRoutes() {
@@ -33,12 +32,13 @@ function getFlattenRoutes() {
       if (route.componentPath) {
         route.component = lazyload(() => import(`../pages/${route.componentPath}`));
         res.push(route);
-      } else if (isArray(route.children) && route.children.length) {/**--- children: 左侧 网站设置中的子路由 ---**/
+      } else if (isArray(route.children) && route.children.length) {
+        /** --- children: 左侧 网站设置中的子路由 ---* */
         travel(route.children);
       }
     });
   }
-  travel(routes); 
+  travel(routes);
   return res;
 }
 
@@ -59,14 +59,14 @@ function renderRoutes(locale) {
         if (level > 1) {
           return <MenuItem key={route.key}>{titleDom}</MenuItem>;
         }
-        if(!route.hide){
+        if (!route.hide) {
           nodes.push(
             <MenuItem key={route.key}>
               <Link to={`/${route.key}`}>{titleDom}</Link>
             </MenuItem>
           );
         }
-      }      
+      }
       // 网站设置子菜单
       if (isArray(route.children) && route.children.length) {
         if (level > 1) {
@@ -88,14 +88,9 @@ function renderRoutes(locale) {
   return nodes;
 }
 
-
-
-
-
-
 function PageLayout() {
-  const urlParams = getUrlParams();//console.log(urlParams ? '存在':'不存在')
-  
+  const urlParams = getUrlParams(); // console.log(urlParams ? '存在':'不存在')
+
   const pathname = history.location.pathname;
   const currentComponent = qs.parseUrl(pathname).url.slice(1);
   const defaultSelectedKeys = [currentComponent || defaultRoute];
@@ -131,8 +126,8 @@ function PageLayout() {
   function toggleCollapse() {
     dispatch({
       type: 'TOGGLE_COLLAPSED',
-      payload: !collapsed
-    })
+      payload: !collapsed,
+    });
   }
 
   const paddingLeft = showMenu ? { paddingLeft: menuWidth } : {};
@@ -140,55 +135,49 @@ function PageLayout() {
   const paddingStyle = { ...paddingLeft, ...paddingTop };
 
   return (
-    
     <Layout className={styles.layout}>
-      
       <LoadingBar ref={loadingBarRef} /> {/* 进度条 */}
-      {
-        showNavbar && (
-          <div className={styles.layoutNavbar}>
-            <Navbar />
-          </div>
-        )
-      }
+      {showNavbar && (
+        <div className={styles.layoutNavbar}>
+          <Navbar />
+        </div>
+      )}
       <Layout>
-        {
-          showMenu && (
-            // Sider：https://arco.design/react/components/layout
-            <Sider
-              className={styles.layoutSider}
-              width={menuWidth}
-              collapsed={collapsed}
-              onCollapse={toggleCollapse}
-              trigger={null}
-              collapsible
-              breakpoint="xl"
-              style={paddingTop}
-            >
-              <div className={styles.menuWrapper}>
-                <Menu
-                  collapse={collapsed}
-                  onClickMenuItem={onClickMenuItem}
-                  selectedKeys={selectedKeys}
-                  autoOpen
-                >
-                  {renderRoutes(locale)}
-                </Menu>
-              </div>
-              <div className={styles.collapseBtn} onClick={toggleCollapse}>
-                {collapsed ? <IconMenuUnfold /> : <IconMenuFold />}
-              </div>
-            </Sider>
-          )
-        }
+        {showMenu && (
+          // Sider：https://arco.design/react/components/layout
+          <Sider
+            className={styles.layoutSider}
+            width={menuWidth}
+            collapsed={collapsed}
+            onCollapse={toggleCollapse}
+            trigger={null}
+            collapsible
+            breakpoint="xl"
+            style={paddingTop}
+          >
+            <div className={styles.menuWrapper}>
+              <Menu
+                collapse={collapsed}
+                onClickMenuItem={onClickMenuItem}
+                selectedKeys={selectedKeys}
+                autoOpen
+              >
+                {renderRoutes(locale)}
+              </Menu>
+            </div>
+            <div className={styles.collapseBtn} onClick={toggleCollapse}>
+              {collapsed ? <IconMenuUnfold /> : <IconMenuFold />}
+            </div>
+          </Sider>
+        )}
         <Layout className={styles.layoutContent} style={paddingStyle}>
           <Content>
             <Switch>
-              {
-                flattenRoutes.map((route, index) => {
-                  return <Route exact key={index} path={`/${route.key}`} component={route.component} />;
-                })
-              }
+              {flattenRoutes.map((route, index) => {
+                return (
+                  <Route exact key={index} path={`/${route.key}`} component={route.component} />
+                );
+              })}
               <Redirect push to={`/${defaultRoute}`} />
             </Switch>
           </Content>
