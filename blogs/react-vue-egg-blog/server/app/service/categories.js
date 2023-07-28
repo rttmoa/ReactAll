@@ -8,7 +8,7 @@ class CategoriesService extends Service {
     const page = params.page * 1;
     const pageSize = params.pageSize * 1;
     params = ctx.helper.filterEmptyField(params); // 过滤掉page&pageSize属性
-    console.log('文章查询参数', params);
+    // console.log('分类查询categories - 查询', params);
 
     // name 是模糊匹配
     const queryCon = params.name ? { name: { $regex: new RegExp(params.name, 'i') } } : {};
@@ -18,6 +18,7 @@ class CategoriesService extends Service {
       .sort({ createTime: -1 })
       .skip((page - 1) * pageSize)
       .limit(pageSize);
+
     // TODO: 返回给控制器
     return {
       data: {

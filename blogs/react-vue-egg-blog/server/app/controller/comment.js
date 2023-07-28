@@ -63,10 +63,7 @@ class CommentController extends Controller {
     const data = ctx.request.body;
     const id = ctx.params.id;
     ctx.validate(this.updateAuditStatusRule, data);
-    const res = await service.comment.update({
-      id,
-      auditStatus: data.auditStatus,
-    });
+    const res = await service.comment.update({ id, auditStatus: data.auditStatus });
     ctx.helper.success({
       ctx,
       res,

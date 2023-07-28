@@ -23,8 +23,7 @@ class AboutService extends Service {
     };
   }
 
-  async create(params) { // 新建
-    // TODO: params：req.body
+  async create(params) { // 新建： params：req.body  参数由controller传递过来
     const { ctx } = this;
     const totalCount = await ctx.model.About.find().countDocuments();
     if (totalCount === 0) {
@@ -42,13 +41,13 @@ class AboutService extends Service {
     return {
       msg: '关于信息已存在',
     };
-
   }
 
   async update(params) { // TODO: 更新关于管理最新数据
     const { ctx } = this;
 
     const oldAbout = await ctx.model.About.findOne({ _id: params.id });
+    // console.log('findDocs：', oldAbout); // 查找到的数据
     if (oldAbout) {
       const updateData = {
         ...params,
@@ -61,7 +60,7 @@ class AboutService extends Service {
           runValidators: true, // 执行Validaton验证
         }
       );
-      console.log('关于管理about -> 更新', res);
+      // console.log('关于管理about -> 更新', res); // 更新成功后的数据
       return {
         msg: '关于信息修改成功',
         data: res,

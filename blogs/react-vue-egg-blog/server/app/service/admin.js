@@ -3,38 +3,21 @@ const Service = require('egg').Service;
 
 class AdminService extends Service {
 
-  async adminLogin(params) {
+
+  async adminLogin(params) { // 登陆
     const { ctx, app } = this;
 
-    const oldUser = await ctx.model.Admin.findOne({
-      userName: params.userName,
-    });
+    const oldUser = await ctx.model.Admin.findOne({ userName: params.userName });
+    if (!oldUser) return { msg: '用户不存在' };
 
-    if (!oldUser) {
-      return {
-        msg: '用户不存在',
-      };
-    }
+    const isMatch = await ctx.helper.comparePassword(params.password, oldUser.password);
+    if (!isMatch) return { msg: '用户名或密码错误' };
 
-    const isMatch = await ctx.helper.comparePassword(
-      params.password,
-      oldUser.password
-    );
-    if (!isMatch) {
-      return {
-        msg: '用户名或密码错误',
-      };
-    }
-
-    const token = app.jwt.sign({ ...oldUser }, app.config.jwt.secret, {
-      expiresIn: '1h',
-    });
-
+    const token = app.jwt.sign({ ...oldUser }, app.config.jwt.secret, { expiresIn: '1h' });
     ctx.cookies.set('token', token, {
       maxAge: 86400000,
       httpOnly: true,
     });
-
     return {
       data: {
         token,
@@ -44,11 +27,10 @@ class AdminService extends Service {
     };
   }
 
-  async adminLogout() {
+
+  async adminLogout() { // 退出
     const { ctx } = this;
-    ctx.cookies.set('token', '', {
-      maxAge: 0,
-    });
+    ctx.cookies.set('token', '', { maxAge: 0 });
     return {
       msg: '退出成功',
     };

@@ -64,10 +64,7 @@ class TagsController extends Controller {
     const data = ctx.request.body;
     const id = ctx.params.id;
     ctx.validate(this.createRule, data);
-    const res = await service.tags.update({
-      id,
-      name: data.name,
-    });
+    const res = await service.tags.update({ id, name: data.name });
     ctx.helper.success({
       ctx,
       res,
@@ -88,10 +85,7 @@ class TagsController extends Controller {
     const { ctx, service } = this;
     const data = ctx.request.body;
     const id = ctx.params.id;
-    const res = await service.tags.updateStatus({
-      id,
-      status: data.status,
-    });
+    const res = await service.tags.updateStatus({ id, status: data.status });
     ctx.helper.success({
       ctx,
       res,

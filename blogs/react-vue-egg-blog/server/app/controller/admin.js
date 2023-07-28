@@ -22,6 +22,7 @@ class AdminController extends Controller {
     };
   }
 
+  // 登陆
   async adminLogin() {
     const { ctx, service } = this;
     const data = ctx.request.body;
@@ -33,6 +34,7 @@ class AdminController extends Controller {
     });
   }
 
+  // 退出
   async adminLogout() {
     const { ctx, service } = this;
     const res = await service.admin.adminLogout();

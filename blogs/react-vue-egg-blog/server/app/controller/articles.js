@@ -5,6 +5,7 @@ const Controller = require('egg').Controller;
 class ArticlesController extends Controller {
   constructor(ctx) {
     super(ctx);
+    // 查询数据参数规则
     this.queryListParamsRules = {
       page: {
         type: 'string',
@@ -77,6 +78,7 @@ class ArticlesController extends Controller {
         default: 0,
       },
     };
+    // 创建规则
     this.createRule = {
       title: {
         type: 'string',
@@ -146,12 +148,14 @@ class ArticlesController extends Controller {
         default: 2,
       },
     };
+    // 改变状态规则
     this.changeStatusRule = {
       status: {
         type: 'number',
         default: 1,
       },
     };
+    // 改变发布状态规则
     this.changePublishStatusRule = {
       publishStatus: {
         type: 'number',
@@ -160,6 +164,7 @@ class ArticlesController extends Controller {
     };
   }
 
+  // 查询：查询规则（queryListParamsRules）
   async index() {
     const { ctx, service } = this;
     const data = ctx.request.query;
@@ -171,6 +176,7 @@ class ArticlesController extends Controller {
     });
   }
 
+  // 创建：创建规则（createRule）
   async create() {
     const { ctx, service } = this;
     const data = ctx.request.body;
@@ -182,6 +188,7 @@ class ArticlesController extends Controller {
     });
   }
 
+  // 更新：更新规则（createRule）
   async update() {
     const { ctx, service } = this;
     const data = ctx.request.body;
@@ -197,6 +204,7 @@ class ArticlesController extends Controller {
     });
   }
 
+  // 删除：删除
   async destroy() {
     const { ctx, service } = this;
     const id = ctx.params.id;
@@ -207,7 +215,7 @@ class ArticlesController extends Controller {
     });
   }
 
-  // 启用，停用
+  // 启用，停用  改变状态规则（changeStatusRule）
   async changeStatus() {
     const { ctx, service } = this;
     const data = ctx.request.body;
@@ -223,11 +231,12 @@ class ArticlesController extends Controller {
     });
   }
 
+  // 改变发布状态：changePublishStatusRule
   async changePublishStatus() {
     const { ctx, service } = this;
     const data = ctx.request.body;
     const id = ctx.params.id;
-    console.log('data', data);
+    // console.log('data', data);
     ctx.validate(this.changePublishStatusRule, data);
     const res = await service.articles.changePublishStatus({
       id,
@@ -239,6 +248,7 @@ class ArticlesController extends Controller {
     });
   }
 
+  // 改变收集状态
   async changeCollectStatus() {
     const { ctx, service } = this;
     const data = ctx.request.body;
@@ -249,6 +259,7 @@ class ArticlesController extends Controller {
     });
   }
 
+  // 编辑
   async edit() {
     const { ctx, service } = this;
     const data = ctx.params;
