@@ -1,5 +1,6 @@
 import Mock from 'mockjs';
 
+// TODO: import mock文件在 /pages下
 import './user';
 import './message-box';
 import '../pages/search-table/mock';

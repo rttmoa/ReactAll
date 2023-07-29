@@ -53,7 +53,7 @@ function Navbar() {
         <Space size={8}>
           <Logo />
           <Typography.Title style={{ margin: 0, fontSize: 18 }} heading={5}> {/* heading：标题级别 */}
-            博客后台管理系统 
+            BlogManagementSystem 
           </Typography.Title>
         </Space>
       </div>

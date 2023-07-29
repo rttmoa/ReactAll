@@ -2,16 +2,19 @@ import defaultSettings from '../settings.json';
 
 const defaultTheme = localStorage.getItem('arco-theme') || 'light';
 
-function changeTheme(newTheme?: 'string') {
-  if ((newTheme || defaultTheme) === 'dark') {
-    document.body.setAttribute('arco-theme', 'dark');
-  } else {
-    document.body.removeAttribute('arco-theme');
-  }
-}
 
-// init page theme
+
+
+
+function changeTheme(newTheme?: 'string') {
+  // 暗黑模式：https://arco.design/react/docs/dark
+  if ((newTheme || defaultTheme) === 'dark') document.body.setAttribute('arco-theme', 'dark'); 
+  else document.body.removeAttribute('arco-theme');
+}
+// 初始化主题 / 切换主题 ( light / dark )
 changeTheme();
+
+
 
 export interface GlobalState {
   theme?: string;
@@ -26,7 +29,6 @@ export interface GlobalState {
     email?: string;
   };
 }
-
 const initialState: GlobalState = {
   theme: defaultTheme,
   settings: defaultSettings,
@@ -36,9 +38,9 @@ const initialState: GlobalState = {
     avatar: 'http://nevergiveupt.top:3000/static/mine.d0f112df.jpeg',
   },
 };
-
 export default function(state = initialState, action) {
   switch (action.type) {
+    // 切换主题
     case 'toggle-theme': {
       const { theme } = action.payload;
       if (theme === 'light' || theme === 'dark') {
@@ -50,17 +52,19 @@ export default function(state = initialState, action) {
         theme,
       };
     }
+    // 页面配置
     case 'update-settings': {
-      const { settings } = action.payload;
+      const { settings } = action.payload; // settings: {colorWeek: false, navbar: true, menu: true, footer: true, themeColor: '#165DFF', …}
       return {
         ...state,
         settings,
       };
     }
-    case 'TOGGLE_COLLAPSED': {
+    // 展开关闭折叠
+    case 'TOGGLE_COLLAPSED': { 
       return {
         ...state,
-        collapsed: action.payload,
+        collapsed: action.payload, // true / false
       };
     }
     default:

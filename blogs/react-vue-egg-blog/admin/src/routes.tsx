@@ -85,19 +85,19 @@ export const routes = [
     icon: <IconSettings />,
     children: [
       {
-        name: 'Home配置',
+        name: '主页配置',
         key: 'home',
         icon: <IconHome />,
         componentPath: 'site/home',
       },
       {
-        name: 'Header/Footer配置',
+        name: '顶部配置',
         key: 'hf',
         icon: <IconHeartFill />,
         componentPath: 'site/headerFooter',
       },
       {
-        name: 'Aside配置',
+        name: '侧边配置',
         key: 'right',
         icon: <IconNav />,
         componentPath: 'site/right',

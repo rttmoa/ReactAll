@@ -5,7 +5,7 @@ setupMock({
   setup() {
     Mock.XHR.prototype.withCredentials = true;
 
-    // 用户信息
+    // TODO: 用户信息
     Mock.mock(new RegExp('/api/user/userInfo'), () => {
       return {
         name: '王立群',
@@ -23,7 +23,7 @@ setupMock({
       };
     });
 
-    // 登录
+    // TODO: 登录
     Mock.mock(new RegExp('/api/v1/admin/login'), (params) => {
       const { userName, password } = JSON.parse(params.body);
       if (!userName) {

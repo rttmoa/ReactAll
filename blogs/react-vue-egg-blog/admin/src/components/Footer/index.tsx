@@ -5,6 +5,9 @@ import cs from '../../utils/classnames';
 import styles from './style/index.module.less';
 
 const Footer = Layout.Footer;
+
+
+
 /** *
  * 底部布局组件：https://arco.design/react/components/Layout
  */
@@ -13,7 +16,7 @@ export default (props: FooterProps = {}) => {
   const { className, ...restProps } = props;
   return (
     <Footer className={cs(styles.footer, className)} {...restProps}>
-      博客后台管理系统
+      BlogManagementSystem
     </Footer>
   );
 };

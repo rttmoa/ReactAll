@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import global, { GlobalState } from './global';
+import global, { GlobalState } from './global'; // 全局Global
 import searchTable, { SearchTableState } from '../pages/search-table/redux/reducer';
 import login, { UserLoginState } from '../pages/login/redux/reducer';
 import categories, { CategoriesState } from '../pages/categories/redux/reducer';
@@ -23,6 +23,7 @@ export interface ReducerState {
 
 export default combineReducers({
   global,
+
   searchTable,
   login,
   categories,
@@ -30,5 +31,5 @@ export default combineReducers({
   user,
   comment,
   recommend,
-  articles
+  articles,
 });

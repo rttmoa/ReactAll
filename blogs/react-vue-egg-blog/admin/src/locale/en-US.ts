@@ -5,9 +5,19 @@ import localeWelcome from '../pages/welcome/locale/en-US';
 import login from '../pages/login/locale/en-US';
 
 export default {
+  'menu.welcome': 'Welcome',
   'menu.list': 'List',
+  '文章管理': 'Articles',
+  'menu.categories': 'Categories',
+  '标签管理': 'Tags',
+  '关于管理': 'About',
+  '用户管理': 'User',
+  '评论管理': 'Comment',
+  '网页配置': 'PagesConfig',
+  '主页配置': 'HomeConfig',
+  "顶部配置": "NavConfig",
+  "侧边配置": "AsideConfig",
   'navbar.docs': 'Docs',
-  'menu.categories': 'categories',
   ...localeSettings,
   ...localeMessageBox,
   ...localeSearchTable,

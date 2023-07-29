@@ -25,8 +25,14 @@ exports.site = (config, env) => {
       },
     })
   );
+  // TODO: devserver配置：https://blog.csdn.net/Ripe_L/article/details/126185028
   config.devServer = {
-    // TODO: 代理服务端地址 
+    open: true,
+    hot: true,
+    // contentBase: path.join(__dirname, "./dist"),
+    host: "0.0.0.0", // 可以使用手机访问
+    port: 8080,
+    // historyApiFallback: true, // 该选项的作用所有的404都连接到index.html 
     proxy: {
       '/api/v1': 'http://127.0.0.1:7001',
     },
