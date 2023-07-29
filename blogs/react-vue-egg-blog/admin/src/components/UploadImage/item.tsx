@@ -159,9 +159,7 @@ const Item = (props) => {
 				onOk={onOk}
 				onCancel={onCancel}
 			>
-				<Form
-					form={form}
-				>
+				<Form form={form}>
 					<Form.Item label='图片链接' field='imgUrl' rules={[{ required: true, message: '请输入图片链接' }]}>
 						<Input placeholder='请输入图片链接' />
 					</Form.Item>

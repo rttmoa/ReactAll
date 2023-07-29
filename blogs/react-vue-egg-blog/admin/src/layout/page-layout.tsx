@@ -96,6 +96,7 @@ function renderRoutes(locale) {
   return nodes;
 }
 
+/** #### TODO: 界面布局  */
 function PageLayout() {
 
   const locale = useLocale(); // 一套中文，一套英文    GlobalContext：全局Text解构出locale
@@ -120,7 +121,7 @@ function PageLayout() {
 
   /** #### 处理后的路由，根据路由匹配内容  */
   const flattenRoutes = useMemo(() => getFlattenRoutes() || [], []);
-  
+
   const loadingBarRef = useRef(null); // 进度条Ref
 
   /** #### 点击菜单MenuItem后处理  */
@@ -163,7 +164,7 @@ function PageLayout() {
             breakpoint="xl"
             style={paddingTop}
           >
-            <div className={styles.menuWrapper}>   
+            <div className={styles.menuWrapper}>
               {/* TODO: 展开关闭菜单（有属性children） */}
               <Menu collapse={collapsed} onClickMenuItem={onClickMenuItem} selectedKeys={selectedKeys} autoOpen={false}>
                 {renderRoutes(locale)}

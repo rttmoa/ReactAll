@@ -8,9 +8,9 @@ interface CodeBlockProps {
   code: string;
 }
 
-/** **
- * 复制/粘贴功能
- */
+
+
+/** #### TODO: 复制文本内容功能  */
 export default function CodeBlock(props: CodeBlockProps) {
   const { code } = props;
   return (
@@ -24,7 +24,7 @@ export default function CodeBlock(props: CodeBlockProps) {
           icon={<IconCopy />}
           onClick={() => {
             clipboard(code);
-            Message.success('复制成功');
+            Message.success(`复制 ${code} 成功`);
           }}
         />
       </Tooltip>

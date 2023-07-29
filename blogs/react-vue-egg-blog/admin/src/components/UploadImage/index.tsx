@@ -5,9 +5,7 @@ import Item from './item';
 
 
 
-/***
- * 图片上传组件
- */
+/** #### TODO: 公共组件：图片上传组件  */
 const UploadImage = (props) => {
   const {
     value,
@@ -27,18 +25,10 @@ const UploadImage = (props) => {
     showReduce?: boolean;
   }
 
-  const initImgs: Array<IImage> = [
-    {
-      _id: '',
-      imgUrl: '',
-      link: '',
-      icon: '',
-    },
-  ];
+  const initImgs: Array<IImage> = [{_id: '', imgUrl: '', link: '', icon: '' }];
 
   const [imgsArr, setImgsArr] = useState(() => {
     console.log('value', value);
-
     return value ? value : initImgs;
   });
 
@@ -83,12 +73,16 @@ const UploadImage = (props) => {
       onChange(imgsArr);
     }
   };
+
   const onRemove = (index) => {
     if (imgsArr.length > 1) {
       imgsArr.splice(index, 1);
       onChange(imgsArr);
     }
   };
+
+
+  
   return (
     <>
       {imgsArr?.map((item, index) => {

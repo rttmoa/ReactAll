@@ -12,31 +12,24 @@ import dayjs from 'dayjs';
 
 
 
-/****
- * 公共组件：保存方式
- */
+/** #### TODO: 公共组件：保存方式  */
 const Save = (props) => {
+
   const { time, showBack, onRefresh, onSave, onBack, onPublish } = props;
-  const message = time
-    ? `上次保存时间：${dayjs(time * 1000).format('YYYY-MM-DD HH:mm:ss')}`
-    : '暂无操作'; 
+  const message = time ? `上次保存时间：${dayjs(time * 1000).format('YYYY-MM-DD HH:mm:ss')}` : '暂无操作'; 
   const goBack = () => {
     history.goBack();
   };
+  
+  // TODO: 计算宽度width
   const { collapsed, settings } = useSelector((state: ReducerState) => state.global);
-
   const width = collapsed ? `calc(100% - 48px)` : `calc(100% - ${settings.menuWidth}px)`;
   return (
     <Card bordered={false} className={styles.card} style={{ width }}>
       <div className={styles.box}>
         <Link icon={<IconClockCircle />}>{message}</Link>
         {showBack && (
-          <Button
-            onClick={onBack || goBack}
-            className={styles.btn}
-            type="outline"
-            icon={<IconArrowLeft />}
-          >
+          <Button onClick={onBack || goBack} className={styles.btn} type="outline" icon={<IconArrowLeft />}>
             返回
           </Button>
         )}

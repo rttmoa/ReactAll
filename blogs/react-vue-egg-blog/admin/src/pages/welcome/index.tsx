@@ -4,9 +4,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { ReducerState } from '../../redux';
 import useLocale from '../../utils/useLocale';
-import imgWorkplace from '../../assets/workplace.png';/**--- declare module '*.png' {} ---**/
+import imgWorkplace from '../../assets/workplace.png';  /**--- declare module '*.png' {} ---**/
 import CodeBlock from './code-block';
 import styles from './style/index.module.less';
+
 
 
 
@@ -14,7 +15,6 @@ import styles from './style/index.module.less';
  * 1.欢迎页面
  * 中/英文切换 locale
  * 欢迎首页结构：卡片组件、排版标题、排版文本、警告提示、Tag标签、Link路由组件、CodeBlock组件复制粘贴文本内容、Tooltip提示动作、Image
- * 
  */
 export default function Welcome() {
   const locale = useLocale();
@@ -25,18 +25,21 @@ export default function Welcome() {
 
   return (
     <div className={styles.container}>
+
       <div className={styles.header}>
         <Typography.Title heading={5} style={{ marginTop: 0 }}>
           {locale['welcome.title.welcome']}
         </Typography.Title>
         <Typography.Text type="secondary">
-          {userInfo.name}, 908240440@qq.com {/*{userInfo.email} */}
+          {userInfo.name}, {userInfo.email || "908240440@qq.com"}
         </Typography.Text>
       </div>
+
       <div className={styles.content}>
+
         {/* 绿色成功条 */}
         <Alert type="success" content={locale['welcome.invite']} />
-        {/* 卡片组件：卡片标题， 排版标题， 排版内容 */}
+
         <Card style={{ marginTop: 20 }} bordered={false} title={locale['welcome.usage']}>
           <Typography.Title heading={6} style={{ marginTop: 0 }}>
             1. {locale['welcome.step.title.pickup']}
@@ -51,7 +54,7 @@ export default function Welcome() {
           </Typography.Title>
           <Typography.Text>{locale['welcome.step.content.install']}</Typography.Text>
           
-          {/* 封装组件：CodeBlock */}
+          {/* TODO: 封装组件复制文本组件： CodeBlock */}
           <CodeBlock code="arco block use @arco-design/pro-pages-workplace" />
 
           <Typography.Title heading={6} style={{ marginTop: 0 }}>
@@ -63,12 +66,12 @@ export default function Welcome() {
           </div>
         </Card>
 
-        {/* 卡片组件 */}
+
         <Card style={{ marginTop: 20 }}>
           <Typography.Text>{locale['welcome.title.material']}</Typography.Text>
           <div style={{ marginTop: 8 }}>
             <Link target="_blank" href="https://arco.design/material?category=arco-design-pro">
-              {locale['welcome.link.material-pro']} <IconDoubleRight /> {/* IconDoubleRight：大于号 */}
+              {locale['welcome.link.material-pro']} <IconDoubleRight />  
             </Link>
           </div>
           <div style={{ marginTop: 8 }}>
@@ -77,6 +80,7 @@ export default function Welcome() {
             </Link>
           </div>
         </Card>
+
       </div>
     </div>
   );
