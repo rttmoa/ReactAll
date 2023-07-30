@@ -34,6 +34,12 @@ export default function Welcome() {
           {userInfo.name}, {userInfo.email || "908240440@qq.com"}
         </Typography.Text>
       </div>
+      <hr />
+      <div className={styles.header}>
+        <Typography.Title heading={5} style={{ marginTop: 0 }}>
+          使用国际化中英文 + 复制文本功能 + 图片组件可预览
+        </Typography.Title> 
+      </div>
 
       <div className={styles.content}>
 
@@ -52,8 +58,8 @@ export default function Welcome() {
           <Typography.Title heading={6}>
             2. {locale['welcome.step.title.install']}
           </Typography.Title>
-          <Typography.Text>{locale['welcome.step.content.install']}</Typography.Text>
-          
+          <Typography.Text>{locale['welcome.step.content.install']}</Typography.Text> 
+
           {/* TODO: 封装组件复制文本组件： CodeBlock */}
           <CodeBlock code="arco block use @arco-design/pro-pages-workplace" />
 

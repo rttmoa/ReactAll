@@ -15,6 +15,7 @@ export const colors = [
   'gray',
 ];
 
+/** #### 上传图片类型：jpeg、jpg、png、gif  */
 export const imagesType = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
 
 export const auditStatusOptions = [

@@ -1,26 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Table,
-  Button,
-  Input,
-  Breadcrumb,
-  Card,
-  Message,
-  Popconfirm,
-  Select,
-  Badge,
-  Modal,
-  Form,
-  Radio,
-} from '@arco-design/web-react';
+import {  Table,  Button,  Input,  Breadcrumb,  Card,  Message,  Popconfirm,  Select,  Badge,  Modal,  Form,  Radio,} from '@arco-design/web-react';
 import { useSelector, useDispatch } from 'react-redux';
-
-import {
-  UPDATE_FORM_PARAMS,
-  UPDATE_LIST,
-  UPDATE_LOADING,
-  UPDATE_PAGINATION,
-} from './redux/actionTypes';
+import {  UPDATE_FORM_PARAMS,  UPDATE_LIST,  UPDATE_LOADING,  UPDATE_PAGINATION, } from './redux/actionTypes';
 import useLocale from '../../utils/useLocale';
 import { ReducerState } from '../../redux';
 import styles from './style/index.module.less';
@@ -31,26 +12,20 @@ import dayjs from 'dayjs';
 
 
 
-
-
 /***
  * 7.评论管理
- * dispatch：操作是：列表数据、分页页码、加载状态、表单数据 
- * 
+ * dispatch：操作是：列表数据、分页页码、加载状态、表单数据  
  */
 function Categories() {
   const locale = useLocale();
   const dispatch = useDispatch();
-  const [query, setQuery] = useState({
-    articleTitle: '',
-    auditStatus: 0,
-  });
+  const [query, setQuery] = useState({ articleTitle: '', auditStatus: 0 });
   const [form] = Form.useForm();
   const [visible, setVisible] = useState(false);/***--- 控制弹窗的显示与隐藏 ---**/
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [id, setId] = useState('');
 
-  /***--- 一键审核 ---**/
+  // 一键审核
   const handleAudit = (record) => {
     setVisible(true);
     setId(record._id);
@@ -108,8 +83,7 @@ function Categories() {
       render: (text) => {
         return dayjs(text * 1000).format('YYYY-MM-DD HH:mm:ss');
       },
-    },
-
+    }, 
     {
       title: locale['searchTable.columns.operations'],
       dataIndex: 'operations',
@@ -121,8 +95,7 @@ function Categories() {
             <Button type="text" status="danger" size="small">
               {locale['searchTable.columns.operations.delete']}
             </Button>
-          </Popconfirm>
-
+          </Popconfirm> 
           <Button onClick={() => handleAudit(record)} type="text" status="success" size="small">
             审核
           </Button>
@@ -132,9 +105,7 @@ function Categories() {
   ];
 
   const commentState = useSelector((state: ReducerState) => state.comment);
-
   const { data, pagination, loading, formParams } = commentState;
-
   useEffect(() => {
     fetchData(1, pagination.pageSize, query);
   }, [query]);
@@ -146,12 +117,10 @@ function Categories() {
         page: current,
         pageSize,
         ...params,
-      };
-      // console.log(postData);
+      }; 
       const res: any = await getList(postData);
       // console.log(res);
       if (res) {
-        /***--- 操作是：列表数据、分页页码、加载状态、表单数据 ---**/
         dispatch({ type: UPDATE_LIST, payload: { data: res.data.list } });
         dispatch({
           type: UPDATE_PAGINATION,
@@ -163,7 +132,7 @@ function Categories() {
     } catch (error) {}
   }
 
-  function onChangeTable(pagination) {/***--- 当页码改变 ---**/
+  function onChangeTable(pagination) {
     const { current, pageSize } = pagination;
     fetchData(current, pageSize, formParams);
   }
@@ -187,9 +156,7 @@ function Categories() {
     if (res.code === 0) {
       Message.success(res.msg);
       fetchData();
-    } else {
-      Message.error('删除失败，请重试！');
-    }
+    } else Message.error('删除失败，请重试！');
   };
 
   const onCancel = () => {
@@ -204,21 +171,17 @@ function Categories() {
     await form.validate();
     setConfirmLoading(true);
     const values = await form.getFields();
-    // console.log(values);
     const postData = {
       id,
       ...values,
     };
     // console.log('postData', postData);
-
     const res: any = await updateCommentStatus(postData);
     if (res.code === 0) {
       Message.success(res.msg);
       fetchData();
       onCancel();
-    } else {
-      Message.error('审核失败，请重试！');
-    }
+    } else Message.error('审核失败，请重试！');
   };
 
 

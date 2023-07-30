@@ -12,8 +12,8 @@ const Col = Grid.Col;
 
 /***
  * 5.关于管理
- * 封装标签云组件：BlogTags
- * 使用公共组件：Save、UploadImage 
+ * 封装标签云组件： <BlogTags />
+ * 使用公共组件： <Save />  <UploadImage />
  */
 const About = () => {
   const [form] = Form.useForm();
@@ -38,7 +38,7 @@ const About = () => {
 
   const onRefresh = () => {
     loadData(true);
-  }
+  } 
 
   const onSave = async () => {
     await form.validate();
@@ -58,12 +58,14 @@ const About = () => {
     } else Message.error('修改失败，请重试');
   }
 
-  const onChangeDesc = (value) => {
+  const onChangeDesc = (value: string) => {
     setResetLength(800 - value.length);
   }
 
 
   // TODO: 封装组件： <Save />  <BlogTags />  <UploadImage />
+  let tagLabel = <span style={{color: 'red', fontWeight: 'bold'}}>标签云:（1-20个）</span>
+  let imgLabel = <span style={{color: 'red', fontWeight: 'bold'}}>介绍图片:（1-3张）</span>
   return <>
     <Save time={time} onRefresh={onRefresh} onSave={onSave} />
 
@@ -75,7 +77,7 @@ const About = () => {
         <Form layout="vertical" form={form}>
           <Row>
             <Col span={10}>
-              <Form.Item label="标签云:(1-20个)" field="tags" rules={[{ required: true, message: '请添加标签' }]}>
+              <Form.Item label={tagLabel} field="tags" rules={[{ required: true, message: '请添加标签' }]}>
                 <BlogTags max={20} />  
               </Form.Item>
               <Form.Item label="详细介绍" field="desc" rules={[{ required: true, message: '请输入详细介绍' }, {maxLength: 800, message: '不能超过800个字符'}]}>
@@ -91,7 +93,7 @@ const About = () => {
               </Form.Item>
             </Col>
             <Col span={12} offset={2}>
-              <Form.Item label="介绍图片:(1-3张)" field="imgs" rules={[{ required: true, message: '请添加介绍图片' }]}>
+              <Form.Item label={imgLabel} field="imgs" rules={[{ required: true, message: '请添加介绍图片' }]}>
                 <UploadImage max={3} />
               </Form.Item>
             </Col>
@@ -99,6 +101,7 @@ const About = () => {
         </Form>
       </Card>
     </div>
+
   </>
 }
 

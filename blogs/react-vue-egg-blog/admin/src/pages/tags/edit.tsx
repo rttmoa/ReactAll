@@ -31,8 +31,7 @@ export const EditableCell = (props) => {
   const { getForm } = useContext(EditableContext);
   const [editing, setEditing] = useState(false);
 
-  const handleClick = useCallback(
-    (e) => {
+  const handleClick = useCallback((e) => {
       if (
         editing &&
         column.editable &&

@@ -1,25 +1,7 @@
 import React, { useEffect } from 'react';
-import {
-  Table,
-  Button,
-  Input,
-  Breadcrumb,
-  Card,
-  Modal,
-  Form,
-  Message,
-  Popconfirm,
-} from '@arco-design/web-react';
+import {  Table,  Button,  Input,  Breadcrumb,  Card,  Modal,  Form,  Message,  Popconfirm,} from '@arco-design/web-react';
 import { useSelector, useDispatch } from 'react-redux';
-
-import {
-  TOGGLE_CONFIRM_LOADING,
-  TOGGLE_VISIBLE,
-  UPDATE_FORM_PARAMS,
-  UPDATE_LIST,
-  UPDATE_LOADING,
-  UPDATE_PAGINATION,
-} from './redux/actionTypes';
+import {  TOGGLE_CONFIRM_LOADING,  TOGGLE_VISIBLE,  UPDATE_FORM_PARAMS,  UPDATE_LIST,  UPDATE_LOADING,  UPDATE_PAGINATION,} from './redux/actionTypes';
 import useLocale from '../../utils/useLocale';
 import { ReducerState } from '../../redux';
 import styles from './style/index.module.less';
@@ -39,9 +21,7 @@ const formItemLayout = {
 };
 
 
-
-
-
+ 
 /****
  * 3.分类管理
  * onAdd：添加分类的按钮点击时间   这里REDUX做的事情是 控制弹出框的显示与隐藏
@@ -69,21 +49,16 @@ function Categories() {
       dataIndex: 'createTime',
       render: (_, record) => {
         // console.log(record) /***--- record：createTime: 1660292316 ---**/
-        return record.createTime
-          ? dayjs(record.createTime * 1000).format('YYYY-MM-DD HH:mm:ss')
-          : '-';
+        return record.createTime ? dayjs(record.createTime * 1000).format('YYYY-MM-DD HH:mm:ss') : '-';
       },
     },
     {
       title: '修改时间',
       dataIndex: 'updateTime',
       render: (_, record) => {
-        return record.updateTime
-          ? dayjs(record.updateTime * 1000).format('YYYY-MM-DD HH:mm:ss')
-          : '-';
+        return record.updateTime ? dayjs(record.updateTime * 1000).format('YYYY-MM-DD HH:mm:ss') : '-';
       },
-    },
-
+    }, 
     {
       title: locale['searchTable.columns.operations'],
       dataIndex: 'operations',

@@ -1,41 +1,18 @@
 import React, { useEffect } from 'react';
-import {
-  Table,
-  Button,
-  Input,
-  Breadcrumb,
-  Card,
-  Message,
-  Popconfirm,
-  Image,
-  Tag,
-  Tooltip,
-} from '@arco-design/web-react';
+import {  Table,  Button,  Input,  Breadcrumb,  Card,  Message,  Popconfirm,  Image,  Tag,  Tooltip,} from '@arco-design/web-react';
 import { useSelector, useDispatch } from 'react-redux';
-
-import {
-  UPDATE_FORM_PARAMS,
-  UPDATE_LIST,
-  UPDATE_LOADING,
-  UPDATE_PAGINATION,
-} from './redux/actionTypes';
+import {  UPDATE_FORM_PARAMS,  UPDATE_LIST,  UPDATE_LOADING,  UPDATE_PAGINATION,} from './redux/actionTypes';
 import useLocale from '../../utils/useLocale';
 import { ReducerState } from '../../redux';
 import styles from './style/index.module.less';
 import { getList, remove } from '../../api/user';
 
 
-
-
-
-
-
-
+ 
 
 
 /***
- * 6.用户管理：管理前台的注册的用户信息
- * 
+ * 6.用户管理：管理前台的注册的用户信息 
  */
 function Categories() {
   const locale = useLocale();
@@ -63,8 +40,7 @@ function Categories() {
     {
       title: 'Email',
       dataIndex: 'email',
-    },
-
+    }, 
     {
       title: '收藏数量',
       dataIndex: 'articleIds',
@@ -87,8 +63,7 @@ function Categories() {
     {
       title: '注册时间',
       dataIndex: 'registerTime',
-    },
-
+    }, 
     {
       title: locale['searchTable.columns.operations'],
       dataIndex: 'operations',
@@ -105,13 +80,7 @@ function Categories() {
   ];
 
   const userState = useSelector((state: ReducerState) => state.user);
-
   const { data, pagination, loading, formParams } = userState;
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   async function fetchData(current = 1, pageSize = 20, params = {}) {
     dispatch({ type: UPDATE_LOADING, payload: { loading: true } });
     try {
@@ -135,11 +104,17 @@ function Categories() {
     } catch (error) {}
   }
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+
   /***--- 分页/下一页数据 ---**/
   function onChangeTable(pagination) {
     const { current, pageSize } = pagination;
     fetchData(current, pageSize, formParams);
   } 
+
   /***--- 根据搜索内容 搜索数据 ---**/
   function onSearch(nickName) {
     fetchData(1, pagination.pageSize, { nickName });
@@ -150,9 +125,7 @@ function Categories() {
     if (res.code === 0) {
       Message.success(res.msg);
       fetchData();
-    } else {
-      Message.error('删除失败，请重试！');
-    }
+    } else Message.error('删除失败，请重试！');
   };
 
 
@@ -165,7 +138,6 @@ function Categories() {
       <Breadcrumb style={{ marginBottom: 20 }}>
         <Breadcrumb.Item>用户管理</Breadcrumb.Item>
       </Breadcrumb>
-
       <Card bordered={false}>
         <div className={styles.toolbar}>
           <div>
@@ -181,7 +153,7 @@ function Categories() {
           rowKey="_id"
           loading={loading}
           onChange={onChangeTable}/***--- 选择页码：fetchData(current, pageSize, formParams) ---**/
-          pagination={pagination}/***--- 页码 ---**/
+          pagination={pagination} 
           columns={columns}
           data={data}
         />

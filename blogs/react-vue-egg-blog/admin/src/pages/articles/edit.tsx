@@ -1,15 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Input,
-  Breadcrumb,
-  Card,
-  Form,
-  Grid,
-  Switch,
-  Message,
-  Select,
-  InputNumber,
-} from '@arco-design/web-react';
+import { Input,  Breadcrumb,  Card,  Form,  Grid,  Switch,  Message,  Select,  InputNumber, } from '@arco-design/web-react';
 import styles from './style/index.module.less';
 import Save from '../../components/Save';
 import UploadImage from '../../components/UploadImage';
@@ -17,11 +7,12 @@ import { queryArticles, create, update } from '../../api/articles';
 import { getList as getCategoriesList } from '../../api/categories';
 import { getList as getTagsList } from '../../api/tags';
 import Editor from 'for-editor';
-const Row = Grid.Row;
-const Col = Grid.Col;
 import { upload } from '../../api/common';
 import history from '../../history';
 import { useLocation } from 'react-router-dom';
+
+const Row = Grid.Row;
+const Col = Grid.Col;
 const layout = {
   labelCol: {
     span: 2,
@@ -30,7 +21,6 @@ const layout = {
     span: 22,
   },
 };
-
 const formItemLayout = {
   labelCol: {
     span: 4,
@@ -39,7 +29,6 @@ const formItemLayout = {
     span: 20,
   },
 };
-
 const formItemLayout2 = {
   labelCol: {
     span: 10,
@@ -48,11 +37,7 @@ const formItemLayout2 = {
     span: 14,
   },
 };
-
-
-
-
-
+ 
 
 
 
