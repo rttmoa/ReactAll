@@ -6,9 +6,7 @@
 export default function clipboard(text) {
   if (navigator.clipboard) {
     return navigator.clipboard.writeText(text).catch(function(err) {
-      throw err !== undefined
-        ? err
-        : new DOMException('The request is not allowed', 'NotAllowedError');
+      throw err !== undefined ? err : new DOMException('The request is not allowed', 'NotAllowedError');
     });
   }
 
@@ -36,7 +34,5 @@ export default function clipboard(text) {
   selection.removeAllRanges();
   window.document.body.removeChild(span);
 
-  return success
-    ? Promise.resolve()
-    : Promise.reject(new DOMException('The request is not allowed', 'NotAllowedError'));
+  return success ? Promise.resolve() : Promise.reject(new DOMException('The request is not allowed', 'NotAllowedError'));
 }

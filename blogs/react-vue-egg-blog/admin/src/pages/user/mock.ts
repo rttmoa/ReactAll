@@ -52,10 +52,7 @@ setupMock({
             list: data.list.slice((p - 1) * ps, p * ps),
             totalCount: 55,
           };
-      }
-
-
-
+      } 
     });
   },
 });

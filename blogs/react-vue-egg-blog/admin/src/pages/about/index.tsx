@@ -32,6 +32,7 @@ const About = () => {
     onChangeDesc(data.desc)
     setTime(data.updateTime);
   }
+  
   useEffect(() => {
     loadData();
   }, [])

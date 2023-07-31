@@ -1,26 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Table,
-  Button,
-  Input,
-  Breadcrumb,
-  Card,
-  Modal,
-  Form,
-  Message,
-  Popconfirm,
-  Switch,
-} from '@arco-design/web-react';
+import {  Table,  Button,  Input,  Breadcrumb,  Card,  Modal,  Form,  Message,  Popconfirm,  Switch,} from '@arco-design/web-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconCheck, IconClose } from '@arco-design/web-react/icon';
-import {
-  TOGGLE_CONFIRM_LOADING,
-  TOGGLE_VISIBLE,
-  UPDATE_FORM_PARAMS,
-  UPDATE_LIST,
-  UPDATE_LOADING,
-  UPDATE_PAGINATION,
-} from './redux/actionTypes';
+import {  TOGGLE_CONFIRM_LOADING,  TOGGLE_VISIBLE,  UPDATE_FORM_PARAMS,  UPDATE_LIST,  UPDATE_LOADING,  UPDATE_PAGINATION, } from './redux/actionTypes';
 import useLocale from '../../utils/useLocale';
 import { ReducerState } from '../../redux';
 import styles from './style/index.module.less';
@@ -29,7 +11,6 @@ import { EditableCell, EditableRow } from './edit';
 import dayjs from 'dayjs';
 
 const FormItem = Form.Item;
-
 const formItemLayout = {
   labelCol: {
     span: 5,
@@ -37,92 +18,18 @@ const formItemLayout = {
   wrapperCol: {
     span: 19,
   },
-};
-
-
-
+}
 
 
 
 /***
- * 4.标签管理
- * 使用组件：Switch、Table、Popconfirm、Form
+ * TODO: 标签管理: 封装 <EditableRow />  <EditableCell />
  */
 function Tags() {
   const locale = useLocale();
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [title, setTitle] = useState('添加标签');
-
-
-  const columns = [
-    {
-      title: '标签名称',
-      dataIndex: 'name',
-      editable: true,
-    },
-    {
-      title: '文章数量',
-      dataIndex: 'articleNum',
-    },
-    {
-      title: '状态',
-      dataIndex: 'status',
-      render: (_, record: any) => {
-        return (
-          <Switch
-            checkedIcon={<IconCheck />}
-            uncheckedIcon={<IconClose />}
-            checked={record.status}
-            onChange={(checked) => onStatusChange(checked, record)}
-          />
-        );
-      },
-    },
-    {
-      title: '创建时间',
-      dataIndex: 'createTime',
-      render: (_, record) => {
-        return record.createTime
-          ? dayjs(record.createTime * 1000).format('YYYY-MM-DD HH:mm:ss')
-          : '-';
-      },
-    },
-    {
-      title: '修改时间',
-      dataIndex: 'updateTime',
-      render: (_, record) => {
-        return record.updateTime
-          ? dayjs(record.updateTime * 1000).format('YYYY-MM-DD HH:mm:ss')
-          : '-';
-      },
-    }, 
-    {
-      title: locale['searchTable.columns.operations'],
-      dataIndex: 'operations',
-      render: (_, record) => (
-        <div className={styles.operations}>
-          <Button
-            disabled={record.status}/***--- status: true/false ---**/
-            onClick={() => onUpdate(record)}
-            type="text"
-            size="small"
-          >
-            {locale['searchTable.columns.operations.update']}
-          </Button>
-          <Popconfirm
-            disabled={record.status}
-            title="Are you sure you want to delete?"
-            onOk={() => onDelete(record)}
-          >
-            <Button disabled={record.status} type="text" status="danger" size="small">
-              {locale['searchTable.columns.operations.delete']}
-            </Button>
-          </Popconfirm>
-        </div>
-      ),
-    },
-  ];
 
   const categoriesState = useSelector((state: ReducerState) => state.categories);
 
@@ -155,104 +62,128 @@ function Tags() {
     } catch (error) {}
   }
 
-  function onChangeTable(pagination) {
+  function onChangeTable(pagination) { // fetch: 切换分页发请求
     const { current, pageSize } = pagination;
     fetchData(current, pageSize, formParams);
   }
 
-  function onSearch(name) {
+  function onSearch(name) { // fetch: 搜索按钮发请求
     fetchData(1, pagination.pageSize, { name });
   }
 
-  const onStatusChange = async (status: boolean, row) => {
+  const onStatusChange = async (status: boolean, row: any) => { // 行数据：状态开关
     const res: any = await updateStatus({ id: row._id, status });
     if (res.code === 0) {
       Message.success(res.msg);
       fetchData();
-    } else {
-      Message.error('修改失败，请重试！');
-    }
+    } else Message.error('修改失败，请重试！');
   };
-  /***--- 添加标签-开启弹窗、REDUX控制Model组件开启 ---**/
-  const onAdd = () => {
-    dispatch({
-      type: TOGGLE_VISIBLE,
-      payload: {
-        visible: true,
-      },
-    });
+  
+
+
+  const onAdd = () => { // 打开弹窗
+    dispatch({ type: TOGGLE_VISIBLE, payload: { visible: true } });
   };
-  /***--- 添加标签-关闭弹窗、表单值重置 ---**/
-  const onCancel = () => {
-    dispatch({
-      type: TOGGLE_VISIBLE,
-      payload: {
-        visible: false,
-      },
-    });
+  
+  const onCancel = () => { // 关闭弹窗
+    dispatch({ type: TOGGLE_VISIBLE, payload: { visible: false } });
     form.resetFields();
   };
-  /***--- 添加标签-弹窗确定按钮 ---**/
-  const onOk = async () => {
+  
+  const onOk = async () => { // 弹窗确定保存按钮：是新增还是更新
     await form.validate();
-    const data = form.getFields(); // {name:'123'}
-    // console.log('data', data);
+    const data = form.getFields();   
     let func = create;
     if (data._id) {
       func = update;
     }
-    dispatch({
-      type: TOGGLE_CONFIRM_LOADING,
-      payload: {
-        confirmLoading: true,
-      },
-    });
+    dispatch({ type: TOGGLE_CONFIRM_LOADING, payload: {confirmLoading: true} });
     const res: any = await func(data);
     if (res.code === 0) {
-      dispatch({
-        type: TOGGLE_CONFIRM_LOADING,
-        payload: {
-          confirmLoading: false,
-        },
-      });
+      dispatch({ type: TOGGLE_CONFIRM_LOADING, payload: { confirmLoading: false } });
       onCancel();
       fetchData();
       Message.success(res.msg);
-    } else {
-      Message.success('添加失败，请重试！');
-    }
+    } else Message.success('添加失败，请重试！');
   };
 
-  const onHandleSave = async (row) => {
+  const onHandleSave = async (row) => { // 直接编辑行数据保存
     const res: any = await update(row);
     if (res.code === 0) {
       Message.success(res.msg);
       fetchData();
-    } else {
-      Message.error('修改失败，请重试！');
-    }
+    } else Message.error('修改失败，请重试！');
   };
-  const onUpdate = (row) => {
-    dispatch({
-      type: TOGGLE_VISIBLE,
-      payload: {
-        visible: true,
-      },
-    });
+
+  const onUpdate = (row) => { // 点击Update修改标签内容：设置表单值
+    dispatch({ type: TOGGLE_VISIBLE, payload: { visible: true } });
     form.setFieldsValue(row);
     setTitle('修改标签');
   };
 
-  const onDelete = async (row) => {
+  const onDelete = async (row) => { // 删除单个标签
     const res: any = await remove(row);
     if (res.code === 0) {
       Message.success(res.msg);
       fetchData();
-    } else {
-      Message.error('删除失败，请重试！');
-    }
+    } else Message.error('删除失败，请重试！');
   };
 
+  const columns = [
+    {
+      title: <span style={{fontWeight: 'bold', color: 'red'}}>标签名称(可编辑)</span>,
+      dataIndex: 'name',
+      editable: true,
+    },
+    {
+      title: '文章数量',
+      dataIndex: 'articleNum',
+    },
+    {
+      title: '状态',
+      dataIndex: 'status',
+      render: (_, record: any) => {
+        return (
+          <Switch
+            checkedIcon={<IconCheck />}
+            uncheckedIcon={<IconClose />}
+            checked={record.status}
+            onChange={(checked) => onStatusChange(checked, record)}
+          />
+        );
+      },
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'createTime',
+      render: (_, record) => {
+        return record.createTime ? dayjs(record.createTime * 1000).format('YYYY-MM-DD HH:mm:ss') : '-';
+      },
+    },
+    {
+      title: '修改时间',
+      dataIndex: 'updateTime',
+      render: (_, record) => {
+        return record.updateTime ? dayjs(record.updateTime * 1000).format('YYYY-MM-DD HH:mm:ss') : '-';
+      },
+    },
+    {
+      title: locale['searchTable.columns.operations'],
+      dataIndex: 'operations',
+      render: (_, record) => (
+        <div className={styles.operations}>
+          <Button disabled={record.status} onClick={() => onUpdate(record)} type="text" size="small">
+            {locale['searchTable.columns.operations.update']}
+          </Button>
+          <Popconfirm disabled={record.status} title="Are you sure you want to delete?" onOk={() => onDelete(record)}>
+            <Button disabled={record.status} type="text" status="danger" size="small">
+              {locale['searchTable.columns.operations.delete']}
+            </Button>
+          </Popconfirm>
+        </div>
+      ),
+    },
+  ];
 
 
 
@@ -264,61 +195,32 @@ function Tags() {
       <Breadcrumb style={{ marginBottom: 20 }}>
         <Breadcrumb.Item>标签管理</Breadcrumb.Item>
       </Breadcrumb>
+
       <Card bordered={false}>
         <div className={styles.toolbar}>
           <div>
-            <Button onClick={onAdd} type="primary">
-              添加标签
-            </Button>
+            <Button onClick={onAdd} type="primary">添加标签</Button>
           </div>
           <div>
             {/* <DatePicker.RangePicker style={{ marginRight: 8 }} onChange={onDateChange} /> */}
-            <Input.Search
-              style={{ width: 300 }}
-              searchButton
-              placeholder="请输入标签名称"
-              onSearch={onSearch}
-            />
+            <Input.Search style={{ width: 300 }} searchButton placeholder="请输入标签名称" onSearch={onSearch}/>
           </div>
         </div>
+
         <Table
           rowKey="_id"
           loading={loading}
           onChange={onChangeTable}
           pagination={pagination}
-          columns={columns.map((column) =>
-            column.editable
-              ? {
-                  ...column,
-                  onCell: () => ({
-                    onHandleSave,
-                  }),
-                }
-              : column
-          )}
+          columns={columns.map((column) => column.editable ? { ...column, onCell: () => ({ onHandleSave })} : column)}
           data={data}
-          components={{
-            body: {
-              row: EditableRow,
-              cell: EditableCell,
-            },
-          }}
+          components={{ body: { row: EditableRow, cell: EditableCell } }}
           className={styles['table-demo-editable-cell']}
         />
 
-        <Modal
-          title={<div style={{ textAlign: 'left' }}> {title} </div>}
-          visible={visible}
-          onOk={onOk}
-          confirmLoading={confirmLoading}
-          onCancel={onCancel}
-        >
+        <Modal title={<div>{title}</div>} visible={visible} onOk={onOk} confirmLoading={confirmLoading} onCancel={onCancel}>
           <Form {...formItemLayout} form={form}>
-            <FormItem
-              label="标签名称"
-              field="name"
-              rules={[{ required: true, message: '请输入标签名称' }]}
-            >
+            <FormItem label="标签名称" field="name" rules={[{ required: true, message: '请输入标签名称' }]}>
               <Input placeholder="请输入标签名称" />
             </FormItem>
           </Form>

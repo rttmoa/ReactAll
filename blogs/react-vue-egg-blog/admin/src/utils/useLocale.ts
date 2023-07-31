@@ -11,5 +11,4 @@ function useLocale() {
   const { locale } = useContext(GlobalContext);
   return locale;
 }
-
 export default useLocale;

@@ -32,8 +32,7 @@ export interface TagsState {
 export default function (state = initialState, action) {
   switch (action.type) {
     case UPDATE_LIST: {
-      const { data } = action.payload;
-
+      const { data } = action.payload; 
       return {
         ...state,
         data,
@@ -66,17 +65,14 @@ export default function (state = initialState, action) {
         ...state,
         visible
       }
-    }
-
+    } 
     case TOGGLE_CONFIRM_LOADING: {
       const { confirmLoading } = action.payload;
       return {
         ...state,
         confirmLoading
       }
-    }
-
-
+    } 
     default:
       return state;
   }

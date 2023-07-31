@@ -1,5 +1,8 @@
 import { colors } from '../const';
 
+
+
+
 /** #### 生成随机数  */
 export const randomNum = (m: number, n: number) => {
   return Math.floor(Math.random() * (m - n) + n);

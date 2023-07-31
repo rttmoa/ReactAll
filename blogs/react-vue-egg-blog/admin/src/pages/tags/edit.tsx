@@ -1,13 +1,18 @@
 import React, { useRef, useContext, useState, useCallback, useEffect } from 'react';
 import { Form, Input, Message } from '@arco-design/web-react';
 import styles from './style/index.module.less';
+
 const EditableContext = React.createContext({ getForm: null });
 
+
+
+
+/** #### 编辑表格行  */
 export const EditableRow = (props) => {
   const { children, record, className, ...rest } = props;
   const refForm = useRef(null);
   const getForm = () => refForm.current;
-
+  let cont = <span>表格行</span>
   return (
     <EditableContext.Provider value={{ getForm }}>
       <Form
@@ -23,6 +28,7 @@ export const EditableRow = (props) => {
 }
 
 
+/** #### 编辑表格单元  */
 export const EditableCell = (props) => {
   const { children, className, rowData, column, onHandleSave } = props;
 
@@ -32,18 +38,10 @@ export const EditableCell = (props) => {
   const [editing, setEditing] = useState(false);
 
   const handleClick = useCallback((e) => {
-      if (
-        editing &&
-        column.editable &&
-        ref.current &&
-        !ref.current.contains(e.target) &&
-        !e.target.classList.contains('js-demo-select-option')
-      ) {
-        cellValueChangeHandler();
-      }
-    },
-    [editing, rowData, column]
-  );
+    if (editing && column.editable && ref.current && !ref.current.contains(e.target) && !e.target.classList.contains('js-demo-select-option')) {
+      cellValueChangeHandler();
+    }
+  }, [editing, rowData, column]);
 
   useEffect(() => {
     editing && refInput.current && refInput.current.focus();
@@ -71,20 +69,11 @@ export const EditableCell = (props) => {
       <div ref={ref}>
         <Form.Item
           style={{ marginBottom: 0 }}
-          labelCol={{
-            span: 0,
-          }}
-          wrapperCol={{
-            span: 24,
-          }}
+          labelCol={{ span: 0 }}
+          wrapperCol={{ span: 24 }}
           initialValue={rowData[column.dataIndex]}
           field={column.dataIndex}
-          rules={[
-            {
-              required: true,
-              message:'请输入分类名称'
-            },
-          ]}
+          rules={[{ required: true, message:'请输入分类名称' }]}
         >
           <Input ref={refInput} onPressEnter={cellValueChangeHandler} />
         </Form.Item>
@@ -98,15 +87,11 @@ export const EditableCell = (props) => {
         return Message.warning('该分类下有文章不能修改！');
       }
       setEditing(!editing)
-    }
-    
+    } 
   }
 
   return (
-    <div
-      className={column.editable ? `${styles['editable-cell']} ${className}` : className}
-      onClick={toggleEdit}
-    >
+    <div onClick={toggleEdit} className={column.editable ? `${styles['editable-cell']} ${className}` : className}>
       {children}
     </div>
   );

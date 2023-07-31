@@ -12,7 +12,7 @@ import styles from './style/index.module.less';
 
 
 /***
- * 1.欢迎页面
+ * TODO: 欢迎页面
  * 中/英文切换 locale
  * 欢迎首页结构：卡片组件、排版标题、排版文本、警告提示、Tag标签、Link路由组件、CodeBlock组件复制粘贴文本内容、Tooltip提示动作、Image
  */
