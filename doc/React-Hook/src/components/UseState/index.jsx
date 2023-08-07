@@ -28,7 +28,7 @@ import React, { useState } from "react";
 // }
 // export default UseState
 
-//箭头函数的函数写法,改变状态
+// 箭头函数的函数写法,改变状态
 const UseState = props => {
   const [hook, sethook] = useState("react hook 是真的好用啊");
   return (
@@ -43,8 +43,7 @@ const UseState = props => {
 };
 export default UseState;
 
-//函数式写法,改变状态
-
+// 函数式写法,改变状态
 // function UseState() {
 //   const [hook, sethook] = useState("react hook 是真的好用啊");
 //    return (

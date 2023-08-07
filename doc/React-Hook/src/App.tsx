@@ -2,13 +2,13 @@ import React from "react";
 import "./App.less";
 import { BrowserRouter, Route, Link, Redirect } from "react-router-dom";
 import {
+  WaterMark,
   UseState,
   UseEffect,
-  UseContext,
-  UseReducer,
   UseMemo,
   UseRef,
-  WaterMark
+  UseContext,
+  UseReducer,
 } from "./components";
 
 const App = () => {
@@ -18,7 +18,7 @@ const App = () => {
     <BrowserRouter>
       {/**此处无关紧要 */}
       <div className="title">
-        baby张的React Hook,10种hook Demo实例
+        baby张的React Hook, 10种hook Demo实例
         <p>
           Github地址：
           <a href="https://github.com/babybrotherzb" target="_blank">

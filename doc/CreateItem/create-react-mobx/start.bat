@@ -1,1 +1,0 @@
-cmd /k "cd /d E:\Project\reactpro\react-mobx\ && npm start" 
