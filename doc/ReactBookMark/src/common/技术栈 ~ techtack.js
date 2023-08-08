@@ -17,7 +17,7 @@ import defaultImage from 'assets/error.png'
 // geek-pc-func
 // react函数组件和mobx管理
 import { useState, useEffect, useRef, lazy, Suspense, useContext, createContext } from 'react'
-import { Link,Navigate, useLocation, useNavigate, Outlet,useSearchParams,Routes, Route,unstable_HistoryRouter as HistoryRouter  } from 'react-router-dom'
+import {Navigate, useLocation, useNavigate, Outlet,useSearchParams,Routes, unstable_HistoryRouter as HistoryRouter  } from 'react-router-dom'
 import { makeAutoObservable, configure, action, computed, makeObservable, observable,  makeAutoObservable, autorun, reaction, runInAction} from "mobx"
 import { observer } from 'mobx-react'
 import { observer } from 'mobx-react-lite'

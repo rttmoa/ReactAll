@@ -1,18 +1,16 @@
 /* eslint-disable import/no-anonymous-default-export */
-
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { updateTel, updateName } from './action'
+
+import { updateTel, updateName } from './action'  // TODO: action中引入module
 
 
 
-// TODO: 有的没有在全局引入所有action，可以单独引入不同action并派发
+// 有的没有在全局引入所有action，可以单独引入不同action并派发
 export default () => {
-  const formData = useSelector(state => {
-    	return state
-  })
+  const formData = useSelector(state => state)
   const dispatch = useDispatch()
-  console.log({formData});
+  console.log(formData);
 
   return <div>
       form: <br/>

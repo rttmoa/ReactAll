@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions/actions';
+
+import * as actions from '../actions/actions'; // actions对象中可直接传参
 
 const mapStateToProps = store => ({
   count: store.count
 });
 
 const mapDispatchToProps = dispatch => ({
-  increment: count => dispatch(actions.increment(count)),
+  increment: count => dispatch(actions.increment(count)), // TODO: 直接调用对象即可，封装对象方法
   decrement: count => dispatch(actions.decrement(count))
 });
 
