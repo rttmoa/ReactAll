@@ -12,7 +12,7 @@
     "react-scripts": "3.1.2"
   },
   "scripts": {
-    "dev": "react-scripts start"
+    "start": "react-scripts start"
   },
   "eslintConfig": {
     "extends": "react-app"

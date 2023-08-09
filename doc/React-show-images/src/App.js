@@ -20,8 +20,8 @@ export default class App extends Component {
         "http://img.s.youfenba.com/material_thumb/8nzxJwpsPX.jpg",
       ],
       _html: "",
-      showimgs: false, //必须字段控制弹框显示隐藏
-      firstIndex: 0 //点击时默认下标
+      showimgs: false,  // 必须字段控制弹框显示隐藏
+      firstIndex: 0     // 点击时默认下标
     };
   }
 
