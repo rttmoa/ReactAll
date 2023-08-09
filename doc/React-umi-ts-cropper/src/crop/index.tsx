@@ -5,12 +5,13 @@ import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import './index.less';
 
-const aspectRatioMap = [
+const aspectRatioMap: number[] = [
   0, 1, 2, 4 / 3, 16 / 9
 ];
-const aspectRatioLabel = [
+const aspectRatioLabel: string[] = [
   '自由裁切', '1 : 1', '2 : 1', '4 / 3', '16 / 9'
 ];
+/** #### 图片质量：低、中、高、不压缩  */
 const imgLevelMap = {
   1: '低',
   2: '中',
@@ -24,45 +25,18 @@ const imgLevelValueMap = {
   4: 'high'
 }
 
-
-
 // http://localhost:8000/react-cropper-pro/
-const CropperPro: React.FC<IProp> = ({
-  defaultImg = '',
-  imgData = '',
-  defaultLevel = 4,
-  onChange,
-  onDel
-}) => {
-  const [image, setImage] = useState(defaultImg);
-  const [cropData, setCropData] = useState(imgData || defaultImg);
-  const [cropper, setCropper] = useState<any>();
-  const [visable, setVisable] = useState(0);
-  const [imgLevel, setImgLevel] = useState(defaultLevel);
+let imgURL = "https://img1.baidu.com/it/u=3485269656,617316610&fm=253&fmt=auto&app=138&f=JPEG?w=660&h=440"
+
+
+const CropperPro: React.FC<IProp> = ({ defaultImg = "", imgData = imgURL, defaultLevel = 4, onChange, onDel }) => {
+  const [image, setImage] = useState(defaultImg);                   // <Cropper /> 组件src属性
+  const [cropData, setCropData] = useState(imgData || defaultImg);  // 裁剪图片
+  const [cropper, setCropper] = useState<any>();                    //
+  const [visable, setVisable] = useState(0);                        // Modal是否显示
+  const [imgLevel, setImgLevel] = useState(defaultLevel);           // 图片质量：低、中、高、不压缩
   const fileRef = useRef<any>(null);
-  const handleChange = (e: any) => {
-    e.preventDefault();
-    let files;
-    if (e.dataTransfer) {
-      files = e.dataTransfer.files;
-    } else if (e.target) {
-      files = e.target.files;
-    }
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImage(reader.result as any);
-    };
-    const file = files[0];
-    file.uid = Date.now();
-    reader.readAsDataURL(file);
-    setVisable(2);
-    e.target.value = '';
-    fileRef.current = {
-      type: file.type,
-      name: file.name,
-      file: file
-    }
-  };
+
 
   const getCropData = () => {
     if(+imgLevel === 4) {
@@ -99,32 +73,59 @@ const CropperPro: React.FC<IProp> = ({
       }, fileRef.current.type, rate)
     }
   };
-
+  // Modal：旋转 rotate
   const handleRotate = (type: number) => {
     cropper.rotate(type ? 90 : -90);
   }
-
+  // Modal：自由裁切：比率
   const handleAspectRatio = (v: number) => {
     cropper.setAspectRatio(v);
   }
-
+  // Modal：图片质量 是否压缩
   const handleLevelChange = (e: any) => {
     setImgLevel(e.target.value)
   }
-
+  // Modal：右上角 ×
   const handleClose = () => {
     setVisable(1);
   }
-
+  // Modal：确定
   const handleOk = () => {
     getCropData();
     setVisable(1);
   }
-
+  // Modal：取消
   const handleCancel = () => {
     setVisable(1);
   }
 
+
+  // 上传图片：<input type="file" onChange={handleChange} />
+  const handleChange = (e: any) => {
+    e.preventDefault();
+    let files;
+    if (e.dataTransfer) {
+      files = e.dataTransfer.files;
+    } else if (e.target) {
+      files = e.target.files;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImage(reader.result as any);
+    };
+    const file = files[0];
+    file.uid = Date.now();
+    reader.readAsDataURL(file);
+    setVisable(2);
+    e.target.value = '';
+    fileRef.current = {
+      type: file.type,
+      name: file.name,
+      file: file
+    }
+  };
+
+  // 删除图片
   const handleDel = () => {
     setCropData('');
     onDel && onDel(cropData)
@@ -135,7 +136,7 @@ const CropperPro: React.FC<IProp> = ({
   }, [imgData])
 
   const cropModal = useMemo(() => {
-    return visable !== 0 &&
+    return visable !== 0 && (
       <div className="xi-cropper-modal" style={{display: visable !== 1 ? 'flex' : 'none'}}>
         <div className="cropper-modal-content">
           <div className="cropper-modal-header">
@@ -156,19 +157,21 @@ const CropperPro: React.FC<IProp> = ({
             autoCropArea={1}
             checkOrientation={false}
             onInitialized={(instance) => {
+              console.log("Cropper -> instance", instance);
               setCropper(instance);
             }}
             guides={true}
           />
           <div className="crop-controlWrap">
             <div className="crop-control">
-              {
-                aspectRatioMap.map((v,i) => {
-                  return <span key={i} className="crop-control-item" onClick={() => handleAspectRatio(v)}>
+              {aspectRatioMap.map((v,i) => {
+                // 自由裁切
+                return (
+                  <span key={i} className="crop-control-item" onClick={() => handleAspectRatio(v)}>
                     { aspectRatioLabel[i] }
                   </span>
-                })
-              }
+                )
+              })}
             </div>
             <div className="crop-control">
               <span className="crop-control-item" onClick={() => handleRotate(1)}>⟳</span>
@@ -189,22 +192,24 @@ const CropperPro: React.FC<IProp> = ({
         </div>
         <div className="xi-cropper-modalMask"></div>
       </div>
+    )
   }, [visable, image, imgLevel])
+
+  // console.log(cropData);
+
+
+
 
   return (
     <div className="xi-cropper-wrap">
+        {/* 盒子的 +上传 和 x删除 */}
         <div className="xi-cropper-upload">
           <input type="file" onChange={handleChange} accept="image/gif,image/jpeg,image/jpg,image/png" />
           <div className="xi-cropper-file">
-            {
-              cropData ? <img src={cropData} /> : '+'
-            }
-            {
-              !!cropData && <span className="xi-cropper-del" onClick={handleDel}>✕</span>
-            }
+            { cropData ? <img src={cropData} /> : "+" }
+            { cropData && (<span className="xi-cropper-del" onClick={handleDel}>✕</span>) }
           </div>
         </div>
-
         { createPortal(cropModal, document.body) }
     </div>
   );

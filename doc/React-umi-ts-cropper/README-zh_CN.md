@@ -7,6 +7,7 @@
 ```bash
 yarn add react-cropper-pro
 ```
+npm run build 生成 build文件夹
 
 ### Use | 使用
 

@@ -7,9 +7,12 @@ import Cropper from './';
 
 export default () => {
   return (
-    <Cropper defaultImg="http://h5.dooring.cn/uploads/image_176b751adef.png" onChange={(file) => console.log(file)} />
+    <Cropper 
+	defaultImg="http://h5.dooring.cn/uploads/image_176b751adef.png"
+	onChange={(file) => console.log(file)} 
+     />
   );
 };
 ```
 
-<API></API>
+`<API></API>`
