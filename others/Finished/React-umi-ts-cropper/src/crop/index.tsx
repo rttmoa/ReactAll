@@ -12,13 +12,13 @@ const aspectRatioLabel: string[] = [
   '自由裁切', '1 : 1', '2 : 1', '4 / 3', '16 / 9'
 ];
 /** #### 图片质量：低、中、高、不压缩  */
-const imgLevelMap = {
+const imgLevelMap: Object = {
   1: '低',
   2: '中',
   3: '高',
   4: '不压缩'
 };
-const imgLevelValueMap = {
+const imgLevelValueMap: Object = {
   1: 'low',
   2: 'medium',
   3: 'high',
