@@ -1,0 +1,82 @@
+.cart {
+  background-color: #f4f4f4;
+  height: 100%;
+}
+.cart .cartList .cartItem {
+  position: relative;
+  height: 172rpx;
+  width: 100%;
+  margin-top: 20rpx;
+  background-color: #fff;
+  padding: 20rpx;
+  display: flex;
+}
+.cart .cartList .cartItem .iconfont {
+  font-size: 40rpx;
+  line-height: 172rpx;
+}
+.cart .cartList .cartItem .iconfont.selected {
+  color: #dd1a21;
+}
+.cart .cartList .cartItem .goodsItem {
+  display: flex;
+}
+.cart .cartList .cartItem .goodsItem image {
+  width: 172rpx;
+  height: 172rpx;
+  background-color: #ccc;
+  margin: 0 40rpx;
+}
+.cart .cartList .cartItem .goodsItem .goodsInfo .name {
+  font-size: 26rpx;
+  margin: 10rpx;
+}
+.cart .cartList .cartItem .goodsItem .goodsInfo .price {
+  color: #f00;
+}
+.cart .cartList .cartItem .countCtrl {
+  position: absolute;
+  right: 60rpx;
+  bottom: 30rpx;
+}
+.cart .cartList .cartItem .countCtrl text {
+  border: 1px solid #ddd;
+  padding: 8rpx 28rpx;
+}
+.cart .cartList .cartItem .countCtrl text:nth-child(2) {
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+.cart .footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100rpx;
+  line-height: 100rpx;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1rpx solid #ccc;
+}
+.cart .footer .iconfont {
+  margin: 0 20rpx;
+}
+.cart .footer .iconfont.selected {
+  color: #dd1a21;
+}
+.cart .footer .right {
+  display: flex;
+}
+.cart .footer .right .btn {
+  flex: 1;
+  width: 200rpx;
+  display: inline-block;
+}
+.cart .footer .right .btn.order {
+  background: #dd1a21;
+  text-align: center;
+  color: #fff;
+}
+

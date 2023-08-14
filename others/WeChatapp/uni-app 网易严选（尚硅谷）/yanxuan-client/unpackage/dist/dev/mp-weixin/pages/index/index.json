@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "首 页",
+  "usingComponents": {
+    "recommend": "/components/Recommend/Recommend",
+    "cate-list": "/components/CateList/CateList"
+  }
+}

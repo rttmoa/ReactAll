@@ -1,0 +1,79 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首 页"
+			}
+		}, {
+			"path": "pages/category/category",
+			"style": {
+				"navigationBarTitleText": "分 类",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/cart/cart",
+			"style": {
+				"navigationBarTitleText": "购物车",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/personal/personal",
+			"style": {
+				"navigationBarTitleText": "我 的",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登 录",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/detail/detail",
+			"style": {
+				"navigationBarTitleText": "详 情",
+				"enablePullDownRefresh": false
+			}
+
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "网易严选",
+		"navigationBarBackgroundColor": "#BB2C08",
+		"backgroundColor": "#F8F8F8"
+	},
+	"uniIdRouter": {},
+	"tabBar": {
+		"color": "#666",
+		"selectedColor": "#BB2C08",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/index/index",
+			"iconPath": "static/images/tabBar/tab-home.png",
+			"selectedIconPath": "static/images/tabBar/tab-home-current.png",
+			"text": "首页"
+		}, {
+			"pagePath": "pages/category/category",
+			"iconPath": "static/images/tabBar/tab-cate.png",
+			"selectedIconPath": "static/images/tabBar/tab-cate-current.png",
+			"text": "分类"
+		}, {
+			"pagePath": "pages/cart/cart",
+			"iconPath": "static/images/tabBar/tab-cart.png",
+			"selectedIconPath": "static/images/tabBar/tab-cart-current.png",
+			"text": "购物车"
+		}, {
+			"pagePath": "pages/personal/personal",
+			"iconPath": "static/images/tabBar/tab-my.png",
+			"selectedIconPath": "static/images/tabBar/tab-my-current.png",
+			"text": "我的"
+		}]
+	}
+}
