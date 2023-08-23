@@ -1,6 +1,0 @@
-{
-  "name": "egg-allowHosts",
-  "eggPlugin": {
-    "name": "allowHosts"
-  }
-}

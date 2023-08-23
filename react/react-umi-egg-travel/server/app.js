@@ -1,29 +1,30 @@
-
+/* eslint-disable strict */
+/* eslint-disable no-unused-vars */
 
 
 module.exports = app => {
-  
+
   const store = {};
   app.sessionStore = {
-    async get(key){
-      console.log("--store--", store)
+    async get(key) {
+      console.log('--store--', store);
       return store[key];
     },
-    async set(key, value, maxAge){
+    async set(key, value, maxAge) {
       store[key] = value;
     },
-    async destroy(key){
+    async destroy(key) {
       store[key] = null;
-    }
+    },
   };
-  
+
   const mids = app.config.coreMiddleware;
-  app.config.coreMiddleware = [...mids, ...[
+  app.config.coreMiddleware = [ ...mids, ...[
     'interfaceLimit',
     'allowHosts',
     'notFound',
     'auth',
-    'interfaceCache'
-  ]];
+    'interfaceCache',
+  ] ];
   // console.log(app.config.coreMiddleware)
-}
+};
