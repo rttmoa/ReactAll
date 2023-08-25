@@ -16,16 +16,16 @@ class Menu extends React.Component {
 
 
     /***--- 渲染右侧商品列表数据 ---**/
-    // renderRightList(rightArray) { // @params: currentItem.spus
-    //     let _rightArray = rightArray || [];
-    //     return _rightArray.map((item, index)=>{
-    //         if (!item.chooseCount) { // 如果没有chooseCount属性，就默认一个初始值为0
-    //             item.chooseCount = 0;
-    //         }
-    //         return <MenuItem key={index} data={item} _index={index}></MenuItem>
-    //     });
-    // } 
-    // itemClick(index) {this.props.dispatch(itemClick({currentLeftIndex: index}));}
+    renderRightList(rightArray) { // @params: currentItem.spus
+        let _rightArray = rightArray || [];
+        return _rightArray.map((item, index)=>{
+            if (!item.chooseCount) { // 如果没有chooseCount属性，就默认一个初始值为0
+                item.chooseCount = 0;
+            }
+            return <MenuItem key={index} data={item} _index={index}></MenuItem>
+        });
+    } 
+    itemClick(index) {this.props.dispatch(itemClick({currentLeftIndex: index}));}
 
     
     /** #### TODO: 渲染右边的列表 ---*/
@@ -33,20 +33,24 @@ class Menu extends React.Component {
         if(this.props){   
             let arrayList = this.props.listData.food_spu_tags; // 左侧13个菜单
             let currentItem = arrayList[this.props.currentLeftIndex];  // 当前选中的菜单项
-            // 右侧的数据列表
-            let rightList = [
-                <p key={1} className="right-title">{currentItem.name}</p>,
-                <div key={2} className="right-list">
-                    <div className="right-list-inner"> 
-                        {currentItem.spus.map((item, index) => {
-                            if(!item.chooseCount) item.chooseCount = 0;
-                            return <MenuItem key={index} data={item} _index={index}></MenuItem>
-                        })}
+            if(currentItem){
+                // 右侧的数据列表
+                let rightList = [
+                    <p key={1} className="right-title">{currentItem.name}</p>,
+                    <div key={2} className="right-list">
+                        <div className="right-list-inner"> 
+                            {currentItem.spus.map((item, index) => {
+                                if(!item.chooseCount) item.chooseCount = 0;
+                                return <MenuItem key={index} data={item} _index={index}></MenuItem>
+                            })}
+                        </div>
                     </div>
-                </div>
-            ];
-            // 判断点击的当前索引是否存在
-            return currentItem ? rightList : null;
+                ];
+                return rightList
+            }
+            else{
+                return null
+            } 
         }
     }
     

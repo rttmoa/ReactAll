@@ -13,7 +13,7 @@ class Comment extends React.Component {
     constructor(props) {
         super(props);
         this.fetchData();
-    } 
+    }
     async fetchData() { await this.props.dispatch(getListData()) }
     render(){
         let data = this.props.commentData;

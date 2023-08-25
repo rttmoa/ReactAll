@@ -1,1 +1,0 @@
-cmd /k "cd /d E:\Project\ReactAll\react-typescript-todomvc\ && npm start" 
