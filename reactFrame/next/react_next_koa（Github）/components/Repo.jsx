@@ -1,13 +1,15 @@
 import Link from 'next/link'
 import { Icon } from 'antd'
+
 import { getLastUpdated } from '../lib/utils';
+
 function getLicense(license) {
   return license ? `${license.spdx_id} license` : "";
 }
 
 
 
-
+/** #### TODO: 首页：你的仓库，你关注的仓库 ---*/
 export default ({ repo }) => {
   // console.log("repo.updated_at", repo.updated_at) // 2023-03-19T08:00:22Z   处理为   2 minutes age
   // 详情页
@@ -29,9 +31,7 @@ export default ({ repo }) => {
         <p className="repo-desc">{repo.description}</p>
         <p className="other-info">
           {repo.license ? (<span className="license">{getLicense(repo.license)}</span>) : null}
-          <span className="last-updated">
-            {getLastUpdated(repo.updated_at)}
-          </span>
+          <span className="last-updated">{getLastUpdated(repo.updated_at)}</span>{"  "}
           <span className="open-issues" style={{color: "red"}}>{repo.open_issues_count} open issues</span>
         </p>
       </div>
@@ -39,9 +39,7 @@ export default ({ repo }) => {
       {/* 语言 Star数 */}
       <div className="lang-star">
         <span className="lang">{repo.language}</span>
-        <span className="stars">
-          {repo.stargazers_count}<Icon type="star" theme="filled" />
-        </span>
+        <span className="stars">{repo.stargazers_count} <Icon type="star" theme="filled" /></span>
       </div>
 
       <style jsx>{`

@@ -1,6 +1,8 @@
 
 
 启动项目：npm run dev  &&  npm start
+http://localhost:3000/
+
 Next.js强大的功能： 我们建议是把数据请求都放到getInitialProps里面，而不是放到React生命周期中去加载，有了这个规范之后，它会做更好的处理数据同步的问题(Nextjs最核心的功能)
 注：修改服务需要重启项目
 注：需要替换owner和scrent_id
@@ -17,6 +19,11 @@ Next.js强大的功能： 我们建议是把数据请求都放到getInitialProps
 
 SSR服务端渲染Github全栈项目
 
+    TODO: 实现功能：
+        首页头部：输入框搜索Github仓库，头部显示头像，可退出
+        首页内容；显示左侧个人信息，右侧我的仓库，我关注的仓库
+        搜索页：显示搜索关键词后的所有Github仓库，可翻页查看，左侧根据语言类型筛选，左侧根据xxx排序
+        详情页；Markdown展示项目描述信息，Readme页和Issues页，Issue页中显示xxx发表的问题
 
 一、课程导学：
     同构项目 服务端渲染    对TO C
@@ -108,7 +115,7 @@ SSR服务端渲染Github全栈项目
     5、使用缓存数据： let cachedUserRepos, cachedUserStaredRepos
     6、使用缓存更新策略： 包lru-cache
 
-九、搜索页面的开发?节流
+九、搜索页面的开发? 节流
     1、搜索功能概述：搜索页的请求参数：https://docs.github.com/en/rest/search?apiVersion=2022-11-28#search-repositories
     2、搜索接口联调以及搜索条件展示
     3、搜索条件筛选功能实现：查看URL地址和控制台中href

@@ -2,7 +2,8 @@ import App, { Container } from 'next/app'
 import { Provider } from 'react-redux'
 import Router from 'next/router'
 // import Link from 'next/link'
-import axios from 'axios'
+// import axios from 'axios'
+
 import Layout from '../components/Layout'
 import PageLoading from '../components/PageLoading'
 import testHoc from '../lib/with-redux';   /* TODO: 可以将 export default Comp => {} 函数中传递到 此组件中this.props使用 */
@@ -18,11 +19,10 @@ class MyApp extends App { // 覆盖_app.js文件
   }
 
   startLoading = () => {this.setState({ loading: true })}
-    
   stopLoading = () => {this.setState({ loading: false })}
-
+  // 组件挂载：当页面开始时，加载进度条从开始到结束
   componentDidMount() {
-    Router.events.on('routeChangeStart', this.startLoading)     // 切换：路由开始的时候 Loading：true
+    Router.events.on('routeChangeStart', this.startLoading)    // 切换：路由开始的时候 Loading：true
     Router.events.on('routeChangeComplete', this.stopLoading)
     Router.events.on('routeChangeError', this.stopLoading)
 
@@ -30,9 +30,9 @@ class MyApp extends App { // 覆盖_app.js文件
     // axios.get("https://api.github.com/search/repositories?q=react").then(resp => console.log("react data", resp))
     // axios.get("github/search/repositories?q=react").then(resp => console.log(resp))
   }
-
+  // 组件卸载：当页面卸载时，加载进度条从开始到结束
   componentWillUnmount() {
-    Router.events.off('routeChangeStart', this.startLoading) // 取消监听：
+    Router.events.off('routeChangeStart', this.startLoading)  
     Router.events.off('routeChangeComplete', this.stopLoading)
     Router.events.off('routeChangeError', this.stopLoading)
   }
@@ -51,27 +51,31 @@ class MyApp extends App { // 覆盖_app.js文件
     }
   }
 
-
-
-
+ 
 
   render() {
     // reduxStore是with-redux中传递过来的
     const { Component, pageProps, reduxStore } = this.props;
-    // console.log("pageProps", pageProps)
+    const { loading } = this.props;
+    // console.log("_appjs", this.props)
     
     return (
       <Container>
         <Provider store={reduxStore}>
-          {this.state.loading ? <PageLoading /> : null}
+          {loading ? <PageLoading /> : null}
+
+          {/* TODO: Layout布局：头，体，足 */}
           <Layout>
             {/*  把 pageProps 传递给实际渲染的页面   实际上是Index.getInitialProps函数中的数据渲染到要渲染的Component组件中去   */}
             <Component {...pageProps} />
           </Layout>
+          
         </Provider>
       </Container>
     )
   }
 }
-/** TODO: 使用 testHoc 组件包裹 MyApp 组件   */
-export default testHoc(MyApp)
+/** TODO: 高阶组件   */
+export default testHoc(
+  MyApp
+)

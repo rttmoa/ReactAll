@@ -5,13 +5,12 @@ import { Spin } from 'antd'
 
 
 
-/***--- 加载Loading效果 ---**/
+/** #### TODO: 加载Loading效果 ---*/
 export default () => (
 
-  <div className="root">
 
+  <div className="root">
     <Spin />
-    
     {/* 样式：全屏遮罩层，图标水平垂直居中 */}
     <style jsx>{`
       .root {
@@ -28,4 +27,5 @@ export default () => (
       }
     `}</style>
   </div>
+  
 )

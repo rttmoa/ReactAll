@@ -11,9 +11,8 @@ import { logout } from '../store/store'
 const { Header, Content, Footer } = Layout;
 const { publicRuntimeConfig } = getCofnig()
 
-
 // 这个style是永远不会变的
-const githubIconStyle = {
+const githubIconStyleProps = {
   color: 'white',
   fontSize: 40,
   display: 'block',
@@ -21,7 +20,7 @@ const githubIconStyle = {
   marginRight: 20,
 }
 
-const footerStyle = {
+const footerStyleProps = {
   textAlign: 'center',
 }
 // 1、父组件要传入子组件的Comp
@@ -36,18 +35,20 @@ const footerStyle = {
 
 // 页面间传递数据方式
 // children： _app.js中相同部分的结构通过 children
+/** #### TODO: 布局：头部，内容区域，底部 ---*/
 function MyLayout({ children, user, logout, router }) { // 使用Redux获取user用户信息
   // console.log("user", user)
   // console.log("router", router)
+
   const urlQuery = router.query && router.query.query
-  /***--- 输入框事件监听 ---**/
-  const [search, setSearch] = useState(urlQuery || '')
-  /***--- 输入关键词 ---**/
-  const handleSearchChange = useCallback(event => { setSearch(event.target.value) }, [setSearch])
-  /***--- 搜索关键词 ---**/
-  const handleOnSearch = useCallback(() => {router.push(`/search?query=${search}`)}, [search])
-  /***--- 退出登陆 ---**/
-  const handleLogout = useCallback(() => {logout()}, [logout])
+
+  const [search, setSearch] = useState(urlQuery || '') // 输入框内的Value
+
+  const handleSearchChange = useCallback(event => { setSearch(event.target.value) }, [setSearch]) // 输入框关键词Change
+  
+  const handleOnSearch = useCallback(() => {router.push(`/search?query=${search}`)}, [search]) // 搜索关键词
+
+  const handleLogout = useCallback(() => {logout()}, [logout]) // 退出登陆
 
   const handleGotoOAuth = useCallback(e => {
     e.preventDefault();
@@ -73,6 +74,9 @@ function MyLayout({ children, user, logout, router }) { // 使用Redux获取user
     </Menu>
   )
 
+
+  // TODO: 渲染页面布局：组件传递过来的值去渲染
+    // <Container /> 组件复用
   return (
     <Layout>
 
@@ -82,7 +86,7 @@ function MyLayout({ children, user, logout, router }) { // 使用Redux获取user
           <div className="header-left">
             <div className="logo">
               <Link href="/">
-                <Icon type="github" style={githubIconStyle} />
+                <Icon type="github" style={githubIconStyleProps} />
               </Link>
             </div>
             <div>
@@ -98,7 +102,7 @@ function MyLayout({ children, user, logout, router }) { // 使用Redux获取user
               ) : (
                 <Tooltip title="点击进行登录">
                   <a href={`/prepare-auth?url=${router.asPath}`}><Avatar size={40} icon="user" /></a>
-                </Tooltip>  
+                </Tooltip>
               )}
             </div>
           </div>
@@ -117,7 +121,7 @@ function MyLayout({ children, user, logout, router }) { // 使用Redux获取user
         {/* <Container comp="p"><div className='content'>{children}</div></Container>  */}
         {/* <Container comp={Comp}>{children}</Container> */}
       </Content>
-      <Footer style={footerStyle}>
+      <Footer style={footerStyleProps}>
         Develop by Jokcy @<a href="mailto:jokcy@hotmail.com">jokcy@hotmail.com</a>
       </Footer>
       <style jsx>{`
@@ -153,13 +157,9 @@ function MyLayout({ children, user, logout, router }) { // 使用Redux获取user
   )
 }
 function mapState(state) {
-  return {
-    user: state.user,
-  }
+  return { user: state.user }
 }
 function mapReducer(dispatch) {
-  return {
-    logout: () => dispatch(logout())
-  }
+  return { logout: () => dispatch(logout())}
 }
-export default connect(state => {return {user: state.user}}, mapReducer)(withRouter(MyLayout))  
+export default connect(mapState, mapReducer)(withRouter(MyLayout))  

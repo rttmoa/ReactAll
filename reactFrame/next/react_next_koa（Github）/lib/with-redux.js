@@ -35,7 +35,7 @@ export default Comp => {
 
       const { Component, pageProps, ...rest } = this.props;
 
-      console.log(Component, pageProps)
+      // console.log(Component, pageProps)
 
       if (pageProps) {
         // 表示不是每个页面都有 pageProps 
