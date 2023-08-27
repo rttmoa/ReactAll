@@ -8,47 +8,38 @@ import { cacheArray } from '../lib/repo-basic-cache'
 const api = require('../lib/api')
 
 
-/***--- 语言类型 ---**/
-const LANGUAGES = ['JavaScript', 'HTML', 'CSS', 'TypeScript', 'Java', 'Rust'];
-/***--- 排序类型 ---**/
-const SORT_TYPES = [{
-    name: 'Best Match'
+// 筛选条件：语言类型
+const LANGUAGES = ['JavaScript', 'HTML', 'CSS', 'TypeScript', 'Java', 'Rust']
+// 筛选条件：排序类型
+const SORT_TYPES = [
+  { name: 'Best Match' },
+  {
+    name: 'Most Stars', value: 'stars', order: 'desc',
   },
   {
-    name: 'Most Stars',
-    value: 'stars',
-    order: 'desc',
+    name: 'Fewest Stars', value: 'stars', order: 'asc',
   },
   {
-    name: 'Fewest Stars',
-    value: 'stars',
-    order: 'asc',
+    name: 'Most Forks', value: 'forks', order: 'desc',
   },
   {
-    name: 'Most Forks',
-    value: 'forks',
-    order: 'desc',
+    name: 'Fewest Forks', value: 'forks', order: 'asc',
   },
-  {
-    name: 'Fewest Forks',
-    value: 'forks',
-    order: 'asc',
-  },
-];
+]
 
 const selectedItemStyle = {
   borderLeft: '2px solid #e36209',
   fontWeight: 100,
-};
+}
 
-function noop() {}
 
-const per_page = 5;
 
 // 判断是服务端渲染还是客户端渲染
-const isServer = typeof window === 'undefined';
+const isServer = typeof window === 'undefined'
 
 
+function noop () { console.log("分页 Change") }
+const per_page = 5
 const FilterLink = memo(({ name, query, lang, sort, order, page }) => { // 不依赖任何的state，可以放外部，没有任何副作用
   let queryString = `?query=${query}`
   if (lang) queryString += `&lang=${lang}`
@@ -71,35 +62,33 @@ const FilterLink = memo(({ name, query, lang, sort, order, page }) => { // 不�
  * page：分页页面
  * 封装组件：<Repo />
  */
-function Search({ router, repos }) {/**--- withRouter包裹组件 ---**/
-  const { ...querys } = router.query;
-  const { lang, sort, order, page } = router.query;
-  // console.log("querts", querys) // {query: 'react', lang: 'JavaScript', sort: 'forks', order: 'desc', page: '1', per_page: "20"}
-  // console.log("搜索 仓库 repos", repos)
+function Search ({ router, repos }) { // withRouter包裹组件
+  const { ...querys } = router.query
+  const { lang, sort, order, page } = router.query
+  // console.log("querys", querys) // {query: 'react', lang: 'JavaScript', sort: 'forks', order: 'desc', page: '1', per_page: "20"}
+  // console.log("repos", repos)
 
-  
   useEffect(() => {
     // cache缓存页面数据 && 对于cacheArray，服务端是没有必要去执行的 && 这个是用户去搜索有关的
-    if (!isServer) cacheArray(repos.items)  
+    if (!isServer) cacheArray(repos.items)
   })
 
   return (
     <div className="root">
       {/* gutter是Row中的每一个Col之前的空格 */}
-      <Row gutter={20}>
+      <Row gutter={30}>
 
-        {/* 渲染语言列表 */}
-        <Col span={5}>
+        <Col span={6}>
           <List
             bordered
             header={<span className="list-header">语言</span>}
             style={{ marginBottom: 20 }}
             dataSource={LANGUAGES}
             renderItem={item => { // 每一项
-              const selected = lang === item;
+              const selected = lang === item
               return (
-                <List.Item style={selected ? selectedItemStyle : null}> 
-                  {selected ? ( <span>{item}</span> ) : (
+                <List.Item style={selected ? selectedItemStyle : null}>
+                  {selected ? (<span>{item}</span>) : (
                     // http://localhost:3000/search?query=react&lang=JavaScript&page=3&per_page=20
                     <FilterLink {...querys} lang={item} name={item} />
                   )}
@@ -112,16 +101,16 @@ function Search({ router, repos }) {/**--- withRouter包裹组件 ---**/
             header={<span className="list-header">排序</span>}
             dataSource={SORT_TYPES}
             renderItem={item => {
-              let selected = false;
+              let selected = false
               if (item.name === 'Best Match' && !sort) {
-                selected = true;
+                selected = true
               } else if (item.value === sort && item.order === order) {
-                selected = true;
+                selected = true
               }
               return (
                 <List.Item style={selected ? selectedItemStyle : null}>
-                  {/* <a onClick={() => doSearch({lang, query, sort:item.value||"", order:item.order||""})}>{item.name}</a> */}
-                  {selected ? ( <span>{item.name}</span> ) : (
+                  {/* <a onClick={() => doSearch({lang, query, sort: item.value||"", order: item.order||""})}>{item.name}</a> */}
+                  {selected ? (<span>{item.name}</span>) : (
                     // http://localhost:3000/search?query=react&lang=JavaScript&sort=forks&order=desc&page=3&per_page=20
                     <FilterLink {...querys} sort={item.value} order={item.order} name={item.name} />
                   )}
@@ -131,25 +120,27 @@ function Search({ router, repos }) {/**--- withRouter包裹组件 ---**/
           />
         </Col>
 
-        {/* 渲染仓库 */}
-        <Col span={18}>
-          <h3 className="repos-title">{repos.total_count} 个仓库</h3>
-          {repos.items.map(repo => (<Repo repo={repo} key={repo.id} />))}
-          <div className="pagination">
-            <Pagination
-              pageSize={per_page}
-              current={Number(page) || 1}
-              total={repos.total_count}
-              onChange={noop}
-              // 参数： 页码，按钮类型，Icon
-              itemRender={(page, type, ol) => {
-                const p = type === 'page' ? page : type === 'prev' ? page - 1 : page + 1;
-                const name = type === 'page' ? page : ol;
-                return <FilterLink {...querys} page={p} name={name} />
-              }}
-            />
-          </div>
-        </Col>
+        {/* 渲染仓库 + 分页 */}
+        {repos && (
+          <Col span={18}>
+            <h3 className="repos-title">{repos.total_count} 个仓库</h3>
+            {repos.items && repos.items.map(repo => (<Repo repo={repo} key={repo.id} />))}
+            <div className="pagination">
+              <Pagination
+                pageSize={per_page}
+                current={Number(page) || 1}
+                total={repos.total_count}
+                onChange={noop}
+                // 参数： 页码，按钮类型，Icon
+                itemRender={(page, type, ol) => {
+                  const p = type === 'page' ? page : type === 'prev' ? page - 1 : page + 1
+                  const name = type === 'page' ? page : ol
+                  return <FilterLink {...querys} page={p} name={name} />
+                }}
+              />
+            </div>
+          </Col>
+        )}
 
       </Row>
       <style jsx>{`
@@ -177,14 +168,10 @@ function Search({ router, repos }) {/**--- withRouter包裹组件 ---**/
 
 
 Search.getInitialProps = async ({ ctx }) => {
-  // console.log("Search.getInitialProps", ctx)
-  const { query, sort, lang, order, page } = ctx.query;
+  // console.log("Search.getInitialProps>ctx", ctx)
 
-  if (!query) {
-    return {
-      repos: {total_count: 0}
-    }
-  }
+  const { query, sort, lang, order, page } = ctx.query
+  if (!query) return { repos: { total_count: 0 } }
 
   // 拼接字符串发请求 = 仓库排列层生成字符串
   // ?q=react+language:javascript&sort=stars&order=desc&page=2
@@ -195,12 +182,12 @@ Search.getInitialProps = async ({ ctx }) => {
   queryString += `&per_page=${per_page}`
 
   // 传入 req, res 这是API约定
-  const result = await api.request({ url: `/search/repositories${queryString}`}, ctx.req, ctx.res)
+  const result = await api.request({ url: `/search/repositories${queryString}` }, ctx.req, ctx.res)
   // console.log("result", result.data.total_count, result.data.incomplete_results) // result 3897706 true
 
   /**
    * TODO: 返回的参数在 Search页面中可以拿到
-   */ 
+   */
   return {
     repos: result.data,
   }

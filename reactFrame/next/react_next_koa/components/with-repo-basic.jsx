@@ -17,7 +17,7 @@ const isServer = typeof window === 'undefined';
 
 
 
-/***--- 封装 Comp 组件 ---**/
+/** #### TODO: 高阶组件 返回组件 ---*/
 export default function(Comp, type = 'index') {   // type: index / issue
 
   function WithDetail({repoBasic, router, ...rest}) {
@@ -55,8 +55,8 @@ export default function(Comp, type = 'index') {   // type: index / issue
         </div>
 
         {/* 渲染 Detail | Issue 组件 */}
-        <div>
-          <Comp {...rest}/>
+        <div> 
+          <Comp {...rest} />
         </div>
 
         <style jsx>{`

@@ -13,14 +13,14 @@ const CACHE = {}
 
 
 
-/***--- 隐藏的md文档的内容 issue ---**/
+/** #### TODO: 查看 Issue 详情  显示与隐藏  */
 function IssueDetail({ issue }) {
   // console.log("IssueDetail-issue", issue)
   return (
     <div className="root">
       <MdRenderer content={issue.body} />
       <div className="actions">
-        <Button href={issue.html_url} target="_blank">打开Issue讨论页面</Button>
+        <Button href={issue.html_url} target="_blank">打开Issue讨论页面（github Issue）</Button>
       </div>
       <style jsx>{`
         .root {
@@ -38,10 +38,10 @@ function IssueDetail({ issue }) {
 
 
 
-/***--- 问题 列表每一项 ---**/
+/** #### TODO: 每一项Issue外壳  */
 function IssueItem({ issue }) {
 
-  /***--- 使用按钮控制Detail的显示与隐藏 ---**/
+  // 使用按钮控制Detail的显示与隐藏
   const [showDetail, setShowDetail] = useState(false);
   const toggleShowDetail = useCallback(() => {setShowDetail(detail => !detail)}, [])
 
@@ -98,23 +98,10 @@ function IssueItem({ issue }) {
     </div>
   )
 }
-/***--- 处理搜索框内 搜索内容的 url ---**/
-function makeQuery(creator, state, labels) {
-  let creatorStr = creator ? `creator=${creator}` : "";
-  let stateStr = state ? `state=${state}` : ''
-  let labelStr = ''
-  if (labels && labels.length > 0) {
-    labelStr = `labels=${labels.join(',')}`; // 以 ， 分割的字符串
-  } 
-  const arr = [] 
-  if (creatorStr) arr.push(creatorStr)
-  if (stateStr) arr.push(stateStr)
-  if (labelStr) arr.push(labelStr)
 
-  return `?${arr.join('&')}`;
-}
 
-/***--- 渲染 标签(灰色，紫色，红色，绿色) ---**/
+
+/** #### TODO: 渲染 标签(灰色，紫色，红色，绿色)  */
 function Label({ label }) {
   // console.log("label", label)
   return (
@@ -134,29 +121,41 @@ function Label({ label }) {
   )
 }
 
+
 const isServer = typeof window === 'undefined';
 const Option = Select.Option;
+/** 搜索框内Url  */
+function makeQuery(creator, state, labels) {
+  let creatorStr = creator ? `creator=${creator}` : "";
+  let stateStr = state ? `state=${state}` : ''
+  let labelStr = ''
+  if (labels && labels.length > 0) {
+    labelStr = `labels=${labels.join(',')}`; // 以 ， 分割的字符串
+  } 
+  const arr = [] 
+  if (creatorStr) arr.push(creatorStr)
+  if (stateStr) arr.push(stateStr)
+  if (labelStr) arr.push(labelStr)
 
+  return `?${arr.join('&')}`;
+}
 
-
-
-
-
+ 
 
 /**
  * TODO: 在标题上显示label！！！！！
  */
 function Issues({ initialIssues, labels, owner, name }) {    // 在服务端渲染的时候，将labels返回，在Issues页面当中使用
-  /***--- 搜索框：创建者 ---**/
-  const [creator, setCreator] = useState();
-  /***--- 搜索框：状态 ---**/
-  const [state, setState] = useState();
-  /***--- 搜索框：Label ---**/
-  const [label, setLabel] = useState([]);
-  /***--- 问题列表 ---**/
-  const [issues, setIssues] = useState(initialIssues);
-  /***--- 设置 加载状态(按钮，页面的加载图标) ---**/
-  const [fetching, setFetching] = useState(false);
+
+  const [creator, setCreator] = useState(); // 搜索框：创建者
+
+  const [state, setState] = useState(); // 搜索框：状态
+
+  const [label, setLabel] = useState([]); // 搜索框：Label
+
+  const [issues, setIssues] = useState(initialIssues); // 问题列表
+
+  const [fetching, setFetching] = useState(false); // 设置 加载状态(按钮，页面的加载图标) 
 
   useEffect(() => {
     // 在服务端渲染的时候跳过
