@@ -23,11 +23,9 @@ function getHtmlArray(entryMap){
             htmlArray.push(new HtmlWebpackPlugin({
                 filename: key + '.html',
                 template: fileName,
-                chunks: [ 'common', key]
+                chunks: ['common', key]
             }));
         }
-
-
     });
     return htmlArray;
 }

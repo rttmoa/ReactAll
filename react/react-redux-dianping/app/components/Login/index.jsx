@@ -10,7 +10,7 @@ class Login extends React.Component {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.state = {
-            username: ''
+            username: 'zhangsan'
         }
     }
     render() {
