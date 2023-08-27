@@ -1,0 +1,40 @@
+---
+title: 本地开发环境
+sidebar_position: 2
+---
+
+部署本地开发环境最简单的方法是使用`create-steedos-app`。这个CLI工具使您能够快速开始构建一个新的华炎魔方项目，并为您设置好一切。
+
+## 创建空项目
+
+```shell
+npx create-steedos-app my-project
+```
+
+## 导入模版项目
+
+可以用`-e, --example`参数导入模版项目。
+
+例如：https://github.com/steedos/steedos-examples
+
+```shell
+npx create-steedos-app my-project -e https://github.com/steedos/steedos-examples/tree/main/with-amis
+```
+
+## 项目目录结构
+
+华炎魔方模版项目支持多包开发模式。
+
+```bash
+my-project
+├── steedos-packages
+│   ├── package1
+│   │   ├── main/default
+│   │   ├── package.json
+│   │   └── package.service.js
+│   ├── package2
+│   └── package3
+├── docker-compose.yml
+├── package.json
+└── steedos.config.js
+```

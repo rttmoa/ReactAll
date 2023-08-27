@@ -1,0 +1,1057 @@
+openapi: 3.0.0
+servers:
+  - url: http://127.0.0.1:5100/
+    description: Default server
+info:
+  description: |
+
+  version: 1.0.0
+  title: API 向导
+  termsOfService: "https://www.steedos.com/"
+  contact:
+    name: API Support
+    email: support@steedos.com
+    url: https://www.steedos.com/
+  x-logo:
+    url: "/img/logo_platform.png"
+    altText: Steedos platform logo
+  x-dark-logo:
+    url: "/img/logo_platform.png"
+    altText: Steedos platform logo
+  license:
+    name: MIT
+    url: "https://www.steedos.com/"
+# externalDocs:
+#   description: Find out how to create Github repo for your OpenAPI spec.
+#   url: "https://github.com/Rebilly/generator-openapi-repo"
+tags:
+  - name: service_rest
+    description: 记录的增删改查接口
+    x-displayName: REST API
+# x-tagGroups:
+#   - name: REST API
+#     tags:
+#       - service_rest
+paths:
+  "/api/v1/{objectName}":
+    get:
+      summary: 获取记录列表
+      x-apifox-folder: service_rest
+      x-apifox-status: developing
+      deprecated: false
+      description: ""
+      operationId: getList
+      tags:
+        - service_rest
+      parameters:
+        - name: objectName
+          in: path
+          description: 对象API名称
+          required: true
+          example: contracts
+          schema:
+            type: string
+        - name: filters
+          in: query
+          description: 过滤条件
+          required: false
+          example: '[["amount", ">", 100000]]'
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: 字段名
+          required: false
+          example: '["name",  "amount",  "created"]'
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: 排序，多个用逗号隔开
+          required: false
+          example: created desc
+          schema:
+            type: string
+        - name: top
+          in: query
+          description: 获取条数，最多5000
+          required: false
+          example: "10"
+          schema:
+            type: integer
+        - name: skip
+          in: query
+          description: 跳过条数
+          required: false
+          example: "1"
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    description: 返回 0，表示当前接口正确返回，否则按错误请求处理
+                    type: integer
+                  msg:
+                    description: 返回接口处理信息
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                            name:
+                              type: string
+                          x-apifox-orders:
+                            - _id
+                            - name
+                          x-apifox-ignore-properties: []
+                      total:
+                        description: 注意！！！这里不是当前请求返回的 items 的长度，而是数据库中一共有多少条数据
+                        type: integer
+                    required:
+                      - items
+                      - total
+                    x-apifox-orders:
+                      - items
+                      - total
+                    x-apifox-ignore-properties: []
+                required:
+                  - status
+                  - msg
+                  - data
+                x-apifox-orders:
+                  - status
+                  - msg
+                  - data
+                x-apifox-ignore-properties: []
+              examples:
+                "1":
+                  summary: 成功示例
+                  value:
+                    status: 0
+                    msg: ""
+                    data:
+                      items:
+                        - _id: 63884b0e7afcfb99c989be03_626240ac87e5c50032d9bdc1
+                          amount: 132467
+                          name: 弱电系统工程合同
+                          created: 2022-12-01T06:34:56.658Z
+                        - _id: 63884b0e7afcfb99c989be03_6262424787e5c50032d9bdc6
+                          amount: 690700
+                          name: 变电站工程和电力线路工程进场勘察测量
+                          created: 2022-12-01T06:34:56.658Z
+                      total: 28
+        "500":
+          description: 异常
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponseError"
+      x-run-in-apifox: https://apifox.com/web/project/1580216/apis/api-88207663-run
+    post:
+      summary: 新增一条记录
+      x-apifox-folder: service_rest
+      x-apifox-status: developing
+      deprecated: false
+      description: ""
+      operationId: createRecord
+      tags:
+        - service_rest
+      parameters:
+        - name: objectName
+          in: path
+          description: 对象API名称
+          required: true
+          example: contracts
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                doc:
+                  type: object
+                  properties: {}
+                  x-apifox-orders: []
+                  description: 记录内容
+                  x-apifox-ignore-properties: []
+              x-apifox-orders:
+                - doc
+              required:
+                - doc
+              x-apifox-ignore-properties: []
+            example:
+              is_bidding: 已询价比价
+              amount: 500000
+              amount_type: immobilization
+              collection: true
+              company_id: ziAGMt53otTKj4iRt
+              contract_fulfillment_state: toperformthe
+              contract_object: |
+                超能城市广场灯光工程设计、调试、安装等。
+              currency_type: 63884b0e7afcfb99c989be03_6261092232cc250032e1a973
+              end_date: 2022-08-16T00:00:00.000Z
+              name: test
+              othercompany:
+                - 63884b0e7afcfb99c989be03_o2sunJ3vuz3uSKN4z
+              payment: false
+              receive_payment_type: single_use
+              signed_date: 2022-07-18T00:00:00.000Z
+              start_date: 2022-03-18T00:00:00.000Z
+              subject: 就超能城市广场灯光工程设计、指定设备、型号及数量相关事宜签订的合同约定。
+              space: 63884b0e7afcfb99c989be03
+              created: 2022-12-01T06:34:56.658Z
+              modified: 2022-12-01T06:34:56.658Z
+              created_by: 63884b0e7afcfb99c989be04
+              modified_by: 63884b0e7afcfb99c989be04
+              no: HT-2021-0005
+              contract_type: 63884b0e7afcfb99c989be03_62623e9d87e5c50032d9bdbb
+              contract_action_type: 新增
+              applicant_organization: 63884b0e7afcfb99c989be03_6jJafbSSHxnCuvhEM
+              cash_flow_type: receive
+              approving_invoice_amount: 0
+              approving_paid_amount: 0
+              project: 62620e5787e5c50032d9bd39
+              locked: true
+              amount_capital: 伍拾万元整
+              amount_description: ""
+              remark: ""
+              is_valid: valid
+      responses:
+        "200":
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    description: 返回 0，表示当前接口正确返回，否则按错误请求处理
+                    type: integer
+                  msg:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      name:
+                        type: string
+                    required:
+                      - _id
+                      - name
+                    x-apifox-orders:
+                      - _id
+                      - name
+                    x-apifox-ignore-properties: []
+                required:
+                  - status
+                  - msg
+                  - data
+                x-apifox-orders:
+                  - status
+                  - msg
+                  - data
+                x-apifox-ignore-properties: []
+              examples:
+                "1":
+                  summary: 成功示例
+                  value:
+                    status: 0
+                    msg: ""
+                    data:
+                      is_bidding: 已询价比价
+                      amount: 500000
+                      amount_type: immobilization
+                      collection: true
+                      company_id: ziAGMt53otTKj4iRt
+                      contract_fulfillment_state: toperformthe
+                      contract_object: |
+                        超能城市广场灯光工程设计、调试、安装等。
+                      currency_type: 63884b0e7afcfb99c989be03_6261092232cc250032e1a973
+                      end_date: 2022-08-16T00:00:00.000Z
+                      name: test
+                      othercompany:
+                        - 63884b0e7afcfb99c989be03_o2sunJ3vuz3uSKN4z
+                      owner: 63884b0e7afcfb99c989be04
+                      payment: false
+                      receive_payment_type: single_use
+                      signed_date: 2022-07-18T00:00:00.000Z
+                      start_date: 2022-03-18T00:00:00.000Z
+                      subject: 就超能城市广场灯光工程设计、指定设备、型号及数量相关事宜签订的合同约定。
+                      space: 63884b0e7afcfb99c989be03
+                      created: 2023-07-14T06:59:54.952Z
+                      modified: 2023-07-14T06:59:54.952Z
+                      created_by: 63884b0e7afcfb99c989be04
+                      modified_by: 63884b0e7afcfb99c989be04
+                      company_ids:
+                        - ziAGMt53otTKj4iRt
+                      no: HT-2021-0005
+                      unmade_invoice_amount: 100000
+                      unpaid_amount: 0
+                      unreceived_amount: 0
+                      unreceived_invoice_amount: 500000
+                      all_proceeds: 500000
+                      await_amount: 0
+                      await_proceeds: 0
+                      complete_amount: 0
+                      invoice_amount: 400000
+                      made_invoice_amount: 400000
+                      paid_amount: 0
+                      received_amount: 500000
+                      received_invoice_amount: 0
+                      total_collection: 0
+                      contract_type: 63884b0e7afcfb99c989be03_62623e9d87e5c50032d9bdbb
+                      contract_action_type: 新增
+                      applicant_organization: 63884b0e7afcfb99c989be03_6jJafbSSHxnCuvhEM
+                      waiting_invoice_amount: 100000
+                      waiting_paid_amount: 500000
+                      cash_flow_type: receive
+                      approving_invoice_amount: 0
+                      approving_paid_amount: 0
+                      project: 62620e5787e5c50032d9bd39
+                      locked: true
+                      amount_capital: 伍拾万元整
+                      amount_description: ""
+                      remark: ""
+                      is_valid: valid
+                      _id: 64b0f26b6cbbfea4b1942435
+        "500":
+          description: 异常
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponseError"
+      x-run-in-apifox: https://apifox.com/web/project/1580216/apis/api-88867475-run
+  "/api/v1/{objectName}/search":
+    post:
+      summary: 查询记录列表
+      x-apifox-folder: service_rest
+      x-apifox-status: developing
+      deprecated: false
+      description: ""
+      operationId: searchRecords
+      tags:
+        - service_rest
+      parameters:
+        - name: objectName
+          in: path
+          description: 对象API名称
+          required: true
+          example: contracts
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filters:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: string
+                  title: 过滤条件
+                  description: 如：[["amount", ">", 100000]]
+                fields:
+                  type: array
+                  items:
+                    type: string
+                  title: 字段名
+                  description: 如：["name",  "amount",  "created"]
+                sort:
+                  type: string
+                  title: 排序
+                  description: 如：created desc，多个用逗号隔开
+                top:
+                  type: integer
+                  title: 获取条数
+                  description: 最多5000
+                skip:
+                  type: integer
+                  title: 跳过条数
+              x-apifox-orders:
+                - filters
+                - fields
+                - sort
+                - top
+                - skip
+              x-apifox-ignore-properties: []
+            example:
+              filters:
+                - - amount
+                  - ">"
+                  - 100000
+              fields:
+                - name
+                - amount
+                - created
+              sort: created desc
+              top: 10
+              skip: 1
+      responses:
+        "200":
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 返回 0，表示当前接口正确返回，否则按错误请求处理
+                  msg:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                            amount:
+                              type: integer
+                            name:
+                              type: string
+                            created:
+                              type: string
+                          required:
+                            - _id
+                            - amount
+                            - name
+                            - created
+                          x-apifox-orders:
+                            - _id
+                            - amount
+                            - name
+                            - created
+                          x-apifox-ignore-properties: []
+                      total:
+                        type: integer
+                    required:
+                      - items
+                      - total
+                    x-apifox-orders:
+                      - items
+                      - total
+                    x-apifox-ignore-properties: []
+                required:
+                  - status
+                  - msg
+                  - data
+                x-apifox-orders:
+                  - status
+                  - msg
+                  - data
+                x-apifox-ignore-properties: []
+              examples:
+                "1":
+                  summary: 成功示例
+                  value:
+                    status: 0
+                    msg: ""
+                    data:
+                      items:
+                        - _id: 63884b0e7afcfb99c989be03_626240ac87e5c50032d9bdc1
+                          amount: 132467
+                          name: 弱电系统工程合同
+                          created: 2022-12-01T06:34:56.658Z
+                        - _id: 63884b0e7afcfb99c989be03_6262424787e5c50032d9bdc6
+                          amount: 690700
+                          name: 变电站工程和电力线路工程进场勘察测量
+                          created: 2022-12-01T06:34:56.658Z
+                      total: 28
+        "500":
+          description: 异常
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponseError"
+      x-run-in-apifox: https://apifox.com/web/project/1580216/apis/api-88708024-run
+  "/api/v1/{objectName}/{id}":
+    get:
+      summary: 获取单条记录
+      x-apifox-folder: service_rest
+      x-apifox-status: developing
+      deprecated: false
+      description: ""
+      operationId: getRecord
+      tags:
+        - service_rest
+      parameters:
+        - name: objectName
+          in: path
+          description: 对象API名称
+          required: true
+          example: contracts
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: 记录id
+          required: true
+          example: 626240ac87e5c50032d9bdc1
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: 字段名
+          required: false
+          example: '["name",  "amount",  "created"]'
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 返回 0，表示当前接口正确返回，否则按错误请求处理
+                  msg:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      amount:
+                        type: integer
+                      name:
+                        type: string
+                      created:
+                        type: string
+                    required:
+                      - _id
+                      - amount
+                      - name
+                      - created
+                    x-apifox-orders:
+                      - _id
+                      - amount
+                      - name
+                      - created
+                    x-apifox-ignore-properties: []
+                required:
+                  - status
+                  - msg
+                  - data
+                x-apifox-orders:
+                  - status
+                  - msg
+                  - data
+                x-apifox-ignore-properties: []
+              examples:
+                "1":
+                  summary: 成功示例
+                  value:
+                    status: 0
+                    msg: ""
+                    data:
+                      _id: 63884b0e7afcfb99c989be03_626240ac87e5c50032d9bdc1
+                      amount: 132467
+                      name: 弱电系统工程合同
+                      created: 2022-12-01T06:34:56.658Z
+        "500":
+          description: 异常
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponseError"
+      x-run-in-apifox: https://apifox.com/web/project/1580216/apis/api-88800233-run
+    put:
+      summary: 更新一条记录
+      x-apifox-folder: service_rest
+      x-apifox-status: developing
+      deprecated: false
+      description: ""
+      operationId: updateRecord
+      tags:
+        - service_rest
+      parameters:
+        - name: objectName
+          in: path
+          description: 对象API名称
+          required: true
+          example: contracts
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: 记录id
+          required: true
+          example: 63884b0e7afcfb99c989be03_6262243287e5c50032d9bda5
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                doc:
+                  type: object
+                  properties: {}
+                  x-apifox-orders: []
+                  description: 更新的内容
+                  x-apifox-ignore-properties: []
+              x-apifox-orders:
+                - doc
+              required:
+                - doc
+              x-apifox-ignore-properties: []
+            example:
+              doc:
+                name: test
+                amount: 800000
+      responses:
+        "200":
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 返回 0，表示当前接口正确返回，否则按错误请求处理
+                  msg:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      is_bidding:
+                        type: string
+                      amount:
+                        type: integer
+                      amount_type:
+                        type: string
+                      collection:
+                        type: boolean
+                      company_id:
+                        type: string
+                      contract_fulfillment_state:
+                        type: string
+                      contract_object:
+                        type: string
+                      currency_type:
+                        type: string
+                      end_date:
+                        type: string
+                      name:
+                        type: string
+                      othercompany:
+                        type: array
+                        items:
+                          type: string
+                      owner:
+                        type: string
+                      payment:
+                        type: boolean
+                      receive_payment_type:
+                        type: string
+                      signed_date:
+                        type: string
+                      start_date:
+                        type: string
+                      subject:
+                        type: string
+                      space:
+                        type: string
+                      created:
+                        type: string
+                      modified:
+                        type: string
+                      created_by:
+                        type: string
+                      modified_by:
+                        type: string
+                      company_ids:
+                        type: array
+                        items:
+                          type: string
+                      no:
+                        type: string
+                      unmade_invoice_amount:
+                        type: integer
+                      unpaid_amount:
+                        type: integer
+                      unreceived_amount:
+                        type: integer
+                      unreceived_invoice_amount:
+                        type: integer
+                      all_proceeds:
+                        type: integer
+                      await_amount:
+                        type: integer
+                      await_proceeds:
+                        type: integer
+                      complete_amount:
+                        type: integer
+                      invoice_amount:
+                        type: integer
+                      made_invoice_amount:
+                        type: integer
+                      paid_amount:
+                        type: integer
+                      received_amount:
+                        type: integer
+                      received_invoice_amount:
+                        type: integer
+                      total_collection:
+                        type: integer
+                      contract_type:
+                        type: string
+                      contract_action_type:
+                        type: string
+                      applicant_organization:
+                        type: string
+                      waiting_invoice_amount:
+                        type: integer
+                      waiting_paid_amount:
+                        type: integer
+                      cash_flow_type:
+                        type: string
+                      approving_invoice_amount:
+                        type: integer
+                      approving_paid_amount:
+                        type: integer
+                      project:
+                        type: string
+                      instance_state:
+                        type: string
+                      instances:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                            state:
+                              type: string
+                          x-apifox-orders:
+                            - _id
+                            - state
+                          x-apifox-ignore-properties: []
+                      locked:
+                        type: boolean
+                      amount_capital:
+                        type: string
+                      amount_description:
+                        type: string
+                      remark:
+                        type: string
+                      is_valid:
+                        type: string
+                    required:
+                      - _id
+                      - is_bidding
+                      - amount
+                      - amount_type
+                      - collection
+                      - company_id
+                      - contract_fulfillment_state
+                      - contract_object
+                      - currency_type
+                      - end_date
+                      - name
+                      - othercompany
+                      - owner
+                      - payment
+                      - receive_payment_type
+                      - signed_date
+                      - start_date
+                      - subject
+                      - space
+                      - created
+                      - modified
+                      - created_by
+                      - modified_by
+                      - company_ids
+                      - no
+                      - unmade_invoice_amount
+                      - unpaid_amount
+                      - unreceived_amount
+                      - unreceived_invoice_amount
+                      - all_proceeds
+                      - await_amount
+                      - await_proceeds
+                      - complete_amount
+                      - invoice_amount
+                      - made_invoice_amount
+                      - paid_amount
+                      - received_amount
+                      - received_invoice_amount
+                      - total_collection
+                      - contract_type
+                      - contract_action_type
+                      - applicant_organization
+                      - waiting_invoice_amount
+                      - waiting_paid_amount
+                      - cash_flow_type
+                      - approving_invoice_amount
+                      - approving_paid_amount
+                      - project
+                      - instance_state
+                      - instances
+                      - locked
+                      - amount_capital
+                      - amount_description
+                      - remark
+                      - is_valid
+                    x-apifox-orders:
+                      - _id
+                      - is_bidding
+                      - amount
+                      - amount_type
+                      - collection
+                      - company_id
+                      - contract_fulfillment_state
+                      - contract_object
+                      - currency_type
+                      - end_date
+                      - name
+                      - othercompany
+                      - owner
+                      - payment
+                      - receive_payment_type
+                      - signed_date
+                      - start_date
+                      - subject
+                      - space
+                      - created
+                      - modified
+                      - created_by
+                      - modified_by
+                      - company_ids
+                      - no
+                      - unmade_invoice_amount
+                      - unpaid_amount
+                      - unreceived_amount
+                      - unreceived_invoice_amount
+                      - all_proceeds
+                      - await_amount
+                      - await_proceeds
+                      - complete_amount
+                      - invoice_amount
+                      - made_invoice_amount
+                      - paid_amount
+                      - received_amount
+                      - received_invoice_amount
+                      - total_collection
+                      - contract_type
+                      - contract_action_type
+                      - applicant_organization
+                      - waiting_invoice_amount
+                      - waiting_paid_amount
+                      - cash_flow_type
+                      - approving_invoice_amount
+                      - approving_paid_amount
+                      - project
+                      - instance_state
+                      - instances
+                      - locked
+                      - amount_capital
+                      - amount_description
+                      - remark
+                      - is_valid
+                    x-apifox-ignore-properties: []
+                required:
+                  - status
+                  - msg
+                  - data
+                x-apifox-orders:
+                  - status
+                  - msg
+                  - data
+                x-apifox-ignore-properties: []
+              examples:
+                "1":
+                  summary: 成功示例
+                  value:
+                    status: 0
+                    msg: ""
+                    data:
+                      _id: 63884b0e7afcfb99c989be03_6262243287e5c50032d9bda5
+                      is_bidding: 已询价比价
+                      amount: 800000
+                      amount_type: immobilization
+                      collection: true
+                      company_id: ziAGMt53otTKj4iRt
+                      contract_fulfillment_state: toperformthe
+                      contract_object: |
+                        超能城市广场灯光工程设计、调试、安装等。
+                      currency_type: 63884b0e7afcfb99c989be03_6261092232cc250032e1a973
+                      end_date: 2022-08-16T00:00:00.000Z
+                      name: test
+                      othercompany:
+                        - 63884b0e7afcfb99c989be03_o2sunJ3vuz3uSKN4z
+                      owner: 63884b0e7afcfb99c989be04
+                      payment: false
+                      receive_payment_type: single_use
+                      signed_date: 2022-07-18T00:00:00.000Z
+                      start_date: 2022-03-18T00:00:00.000Z
+                      subject: 就超能城市广场灯光工程设计、指定设备、型号及数量相关事宜签订的合同约定。
+                      space: 63884b0e7afcfb99c989be03
+                      created: 2022-12-01T06:34:56.658Z
+                      modified: 2023-07-14T07:07:03.775Z
+                      created_by: 63884b0e7afcfb99c989be04
+                      modified_by: 63884b0e7afcfb99c989be04
+                      company_ids:
+                        - ziAGMt53otTKj4iRt
+                      no: HT-2021-0005
+                      unmade_invoice_amount: 100000
+                      unpaid_amount: 0
+                      unreceived_amount: 0
+                      unreceived_invoice_amount: 500000
+                      all_proceeds: 500000
+                      await_amount: 0
+                      await_proceeds: 0
+                      complete_amount: 0
+                      invoice_amount: 400000
+                      made_invoice_amount: 400000
+                      paid_amount: 0
+                      received_amount: 500000
+                      received_invoice_amount: 0
+                      total_collection: 0
+                      contract_type: 63884b0e7afcfb99c989be03_62623e9d87e5c50032d9bdbb
+                      contract_action_type: 新增
+                      applicant_organization: 63884b0e7afcfb99c989be03_6jJafbSSHxnCuvhEM
+                      waiting_invoice_amount: 100000
+                      waiting_paid_amount: 500000
+                      cash_flow_type: receive
+                      approving_invoice_amount: 0
+                      approving_paid_amount: 0
+                      project: 62620e5787e5c50032d9bd39
+                      instance_state: pending
+                      instances:
+                        - _id: 63884b0e7afcfb99c989be03_SHZST3MNNE9EEbvG3
+                          state: pending
+                      locked: true
+                      amount_capital: 伍拾万元整
+                      amount_description: ""
+                      remark: ""
+                      is_valid: valid
+        "500":
+          description: 异常
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponseError"
+      x-run-in-apifox: https://apifox.com/web/project/1580216/apis/api-88867878-run
+    delete:
+      summary: 删除一条记录
+      x-apifox-folder: service_rest
+      x-apifox-status: developing
+      deprecated: false
+      description: ""
+      operationId: deleteRecord
+      tags:
+        - service_rest
+      parameters:
+        - name: objectName
+          in: path
+          description: 对象API名称
+          required: true
+          example: contracts
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: 记录id
+          required: true
+          example: 5e7d1b9b9c9d4400001d1b9b
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: 返回 0，表示当前接口正确返回，否则按错误请求处理
+                  msg:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                    required:
+                      - _id
+                    x-apifox-orders:
+                      - _id
+                    x-apifox-ignore-properties: []
+                required:
+                  - status
+                  - msg
+                  - data
+                x-apifox-orders:
+                  - status
+                  - msg
+                  - data
+                x-apifox-ignore-properties: []
+              examples:
+                "1":
+                  summary: 成功示例
+                  value:
+                    status: 0
+                    msg: ""
+                    data:
+                      _id: 5e7d1b9b9c9d4400001d1b9b
+        "500":
+          description: 异常
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponseError"
+      x-run-in-apifox: https://apifox.com/web/project/1580216/apis/api-88867977-run
+components:
+  schemas:
+    ApiResponseError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: 值为-1，表示报错
+        msg:
+          type: string
+        data:
+          type: object
+          properties: {}
+          x-apifox-orders: []
+      required:
+        - status
+        - msg
+        - data
+      x-apifox-orders:
+        - status
+        - msg
+        - data

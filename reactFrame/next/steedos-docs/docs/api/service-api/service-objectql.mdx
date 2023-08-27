@@ -1,0 +1,480 @@
+---
+title: ObjectQL 
+---
+
+By invoking the ObjectQL microservice, it's possible to perform CRUD operations on a database.
+
+## broker.call
+
+The broker.call method can be used to invoke a service. The service manager searches for the service (and node) with the specified action and calls that action, returning a Promise after the call is made.[Learn more](https://moleculer.services/zh/docs/0.14/actions.html)。
+- **Usage:** `const res = await broker.call(actionName, params, opts);`
+- **Arguments:**
+  - actionName: String. A dot-separated string with the service name before the dot and the action name after it. If you pass 'objectql.find', it means you're calling the find action of the objectql service.
+  - params: Object - The parameter object you want to pass. Services can access it via ctx.params. If undefined, {} is used. Optional.
+  - opt: Object - An object that sets/overrides certain request parameters such as meta, timeout, and so on. Optional. Check the aforementioned link for more arguments.
+
+
+
+## CRUD
+
+The ObjectQL microservice supports the following microservice actions that implement data manipulation (create, read, update, delete) and fire the corresponding triggers.
+
+### find
+
+Finds multiple records. This action triggers the configured trigger functions: beforeFind and afterFind.
+
+- **Usage**： `broker.call('objectql.find', params, opt?)`
+- **Arguments**：
+  - actionName: String - The name of the action to be executed, in this case, the action is to find multiple records, thus the value should be 'objectql.find'.
+  - params: 
+    - objectName: String - The object name.
+    - query: JSON - The query parameters [JSON], optional.
+      - fields: Array - The selected fields to be returned, for example: ['field1', 'field2'].
+      - filters: SteedosQueryFilters - An array of query filters.
+      - sort: String - The sorting rule, for example: 'name desc'.
+      - top: Number - The number of records to be returned.
+      - skip: Number - The number of records to skip, typically used for pagination display.
+  - opt: Optional.
+    - meta:
+       - user: SteedosUser - Current user information, which can be used to query the current user's permissions.
+- **Returns**： An array of records. Returns an empty array [] if none are found.
+
+```js
+const res = await this.broker.call(
+'objectql.find', 
+{
+  objectName: 'accounts',
+  query: {
+    fields: ['name', 'owner'],                      
+    filters: ['owner', '=', ctx.meta.user.userId],  
+    sort: 'name desc'                               
+  },
+},
+{
+  meta:{
+    user: ctx.meta.user
+  }
+}
+);
+
+```
+
+
+### findOne
+
+The findOne function retrieves a single record. It triggers the configured trigger functions beforeFind and afterFindOne.
+
+- **Usage**： `broker.call('objectql.findOne', params, opt?)`
+- **Arguments**：
+  - actionName: String - The name of the action to be executed, in this case, the action is to find a single record, thus the value should be 'objectql.findOne'.
+  - params: 
+    - objectName: String - The name of the object.
+    - id: Number | String - The ID of the data you wish to query.
+    - query: JSON - The query parameters [JSON]. Optional.
+      - fields: Array - An array of field names. Optional. For example: ['field1', 'field2'].
+  - opt: 
+    - meta:
+       - user: SteedosUser - Current user information, which can be used to query the current user's permissions.
+- **Returns**： A single record [JSON].
+
+
+```js
+const res = await this.broker.call(
+'objectql.findOne', 
+{
+  objectName: 'accounts',
+  id: 'CChCmkiHrNeTM9jgA',     
+  query: {
+    fields: ['name', 'owner'],  
+  }    
+},
+{
+  meta:{
+    user: ctx.meta.user
+  }
+}
+);
+```
+
+
+### insert
+
+This function inserts a single record. It triggers the configured trigger functions beforeInsert and afterInsert. After inserting special records like "tasks", notifications will be sent to designated personnel.
+
+- **Usage：** `broker.call('objectql.insert', params, opt?)`
+- **Arguments：**
+  - actionName: String. The name of the action being executed, in this case it is 'objectql.insert'.
+  - params: 
+    - objectName: String. The name of the object.
+    - doc: `Dictionary<any>` The data you wish to insert. It must include all required fields for the object.
+
+  - opt: 
+    - meta:
+      - user: SteedosUser. Information about the current user, which can be used to check the user's permissions. Optional.
+- **Returns：** The data that was successfully inserted.
+
+```js
+
+const res = await this.broker.call(
+'objectql.insert', 
+{
+  objectName: 'accounts', 
+  doc: {
+    name: 'Here is the name of the inserted data.'
+  }
+},
+{
+  meta:{
+    user: ctx.me ta.user
+  }
+}
+);
+
+```
+
+The name field is a required field for the accounts object, and there may be differences between objects. Below is a table containing individual fields for this object (including required fields and system fields).
+  
+|Basic Properties  |Required or Not      |Description   |
+| ----        | ----        | ---- |
+| name 	      | &#x2714;    | Required when adding a record to accounts object. There may be differences in required fields among different objects. |
+| id 	        | &#x2716;    | If not provided, the system will automatically maintain it. |
+| space 	    | &#x2716;    | 	Automatically maintained by the system. |
+| owner 	    | &#x2716;    | 	Automatically maintained by the system. |
+| created_by  | &#x2716;    | 	Automatically maintained by the system. |
+| modified_by | &#x2716;    | 	Automatically maintained by the system. |
+| created	    | &#x2716;    | 	Automatically maintained by the system. |
+| modified	  | &#x2716;    | 	Automatically maintained by the system. |
+
+
+### delete
+
+This function is used to delete a single record. The beforeDelete and afterDelete trigger functions configured for this operation will be triggered.
+
+- **Usage**： `broker.call('objectql.delete', params, opt?)`
+- **Arguments**：
+  - actionName: String The name of the action. In this case, the action is to delete a record, so the value should be 'objectql.delete'.
+  - params: 
+    - id: number | string The ID of the data you want to change.
+    - objectName: String The name of the object.
+  - opt: 
+    - meta:
+       - user: SteedosUser Information about the current user, which can be used to check the user's permissions. Optional.
+- **Returns**：
+  - Success: 1.
+  - Failure: An error message is thrown.
+
+```js
+const res = await this.broker.call(
+'objectql.delete', 
+{
+  objectName: 'accounts',
+  id: "Xgf3NxXJWAXJff9FQ" 
+},
+{
+  meta:{
+    user: ctx.meta.user
+  }
+}
+);
+```
+
+
+### update
+
+This function is used to update a single record. The beforeUpdate and afterUpdate trigger functions configured for this operation will be triggered. After updating specific records, such as "tasks", notifications will be sent to designated personnel.
+
+- **Usage**： `broker.call('objectql.update', params, opt?)`
+- **Arguments**：
+  - actionName: String The name of the action. In this case, the action is to update a record, so the value should be 'objectql.update'.
+  - params: 
+    - id: number | string The ID of the data you want to change.
+    - objectName: String The name of the object.
+    - doc:`Dictionary<any>` The data you want to update.
+  - opt: 
+    - meta:
+       - user: SteedosUser Information about the current user, which can be used to check the user's permissions. Optional.
+- **Returns**： The data after a successful update.
+
+```js
+const res = await this.broker.call(
+'objectql.update', 
+{
+  objectName: 'accounts',
+  doc: {
+    name: 'The name of the data after it has been updated.'
+  },
+  id: "CChCmkiHrNeTM9jgA"
+},
+{
+  meta:{
+    user: ctx.meta.user
+  }
+}
+);
+
+```
+
+
+### aggregate
+
+Find aggregated records. This action triggers the configured trigger functions: beforeAggregate and afterAggregate.
+
+Aggregation: Aggregation operations process data records and return calculated results. Aggregation operations combine values from multiple documents, and various operations can be performed on grouped data to return single results.
+
+- **Usage**： `broker.call('objectql.aggregate', params, opt?)`
+- **Arguments**：
+  - actionName: String The name of the action, which is used to perform the aggregation operation. Its value is 'objectql.aggregate'.
+  - params: 
+    - objectName: String The object name.
+    - query: The parameters related to querying the data in JSON format.
+      - filters: Array An optional array of query conditions.
+    - externalPipeline: An array of MongoDB aggregation pipelines.See [MongoDB Aggregation Documentation](https://www.mongodb.com/docs/manual/reference/aggregation/)。
+  - opt: 
+    - meta:
+       - user: SteedosUser The current user information, which can be used to check the permission of the current user. Optional.
+- **Returns**: An array of aggregated records.
+
+
+```js
+const res = await this.broker.call(
+'objectql.aggregate', 
+{
+  objectName: 'accounts',
+  query: {
+    filters: ['owner', '=', ctx.meta.user.userId],  
+  },
+  externalPipeline: [{ $count: 'users_count'}]      
+},
+{
+  meta:{
+    user: ctx.meta.user
+  }
+}
+);
+```
+
+
+
+
+## direct
+
+ObjectQL microservices support microservice actions with the direct prefix, which implements CRUD operations on data. These actions will not trigger corresponding triggers.
+
+### directFind
+
+This action is used to find multiple records. It does not trigger the corresponding triggers.
+
+- **Usage**： `broker.call('objectql.directFind', params, opt?)`
+- **Arguments**：
+  - actionName: String The name of the action, which is used to perform the direct find operation. Its value is 'objectql.directFind'.
+  - params: 
+    - objectName: String The name of the object.
+    - query: The parameters related to querying the data in JSON format. This is optional.
+        - fields: Array An optional array that specifies the fields to return. For example: ['Field1', 'Field2'].
+        - filters: SteedosQueryFilters An optional array of query conditions.
+        - sort: String An optional string defining the sorting order. For example: 'name desc'.
+        - top: Number An optional number specifying the maximum number of records to return.
+        - skip: Number An optional number specifying the number of records to skip. This is typically used for paging.
+  - opt: 
+    - meta:
+       - user: SteedosUser The current user information, which can be used to check the permission of the current user. This is optional.
+- **Returns**： An array of records. Returns an empty array [] if no records are found.
+
+
+```js
+const res = await this.broker.call(
+'objectql.directFind', 
+{
+  objectName: 'accounts',
+  query: {
+    fields: ['name', 'owner'],                      
+    filters: ['owner', '=', ctx.meta.user.userId],  
+    sort: 'name desc'                               
+  }
+},
+{
+  meta:{
+    user: ctx.meta.user
+  }
+}
+);
+
+```
+
+
+### directInsert
+
+You may add a single record using the objectql.directInsert action, which does not trigger any corresponding triggers.
+
+- **Usage：** `broker.call('objectql.directInsert', params, opt?)`
+- **Arguments：**
+  - actionName: String The name of the action, which is used to perform the direct insert operation. Its value is 'objectql.directInsert'.
+  - params: 
+    - objectName: `String`对象的name。
+    - doc: `Dictionary<any>` The data you want to insert, including the required fields of the object.
+  - opt: 
+    - meta:
+       - user: SteedosUser The current user information, which can be used to check the permission of the current user. This is optional.
+- **Returns：** The inserted data after a successful operation.
+
+```js
+const res = await this.broker.call(
+'objectql.directInsert', 
+{
+  objectName: 'accounts',
+  doc: {
+    name: 'The name of the inserted data (direct insert).'
+  }
+},
+{
+  meta:{
+    user: ctx.meta.user
+  }
+}
+);
+```
+
+
+### directDelete
+
+You may update a single record using the objectql.directUpdate action, which does not trigger any corresponding triggers.
+
+- **Usage**： `broker.call('objectql.directDelete', params, opt?)`
+- **Arguments**：
+  - actionName: String The name of the action, which is used to perform the direct update operation. Its value is 'objectql.directUpdate'.
+  - params: 
+    - id: number | string The id of the data you want to modify.
+    - objectName: String The name of the object.
+  - opt: 
+    - meta:
+       - user: SteedosUser The current user information, which can be used to check the permission of the current user. This is optional.
+- **Returns**： 
+  - Success: 1. 
+  - Failure: Throws an error message.
+
+```js
+const res = await this.broker.call(
+'objectql.directDelete', 
+{
+  objectName: 'accounts',
+  id: "Xgf3NxXJWAXJff9FQ" 
+},
+{
+  meta:{
+    user: ctx.meta.user
+  }
+}
+);
+```
+
+
+### directUpdate
+
+To update a single record without triggering any corresponding triggers, you may use the objectql.directUpdate action.
+
+- **Usage**： `broker.call('objectql.directUpdate', params, opt?)`
+- **Arguments**：
+  - actionName: String The name of the action to be executed. For direct update operation, its value should be 'objectql.directUpdate'.
+  - params: 
+    - id: number | string The id of the data you want to modify.
+    - objectName: String The name of the object.
+    - doc: `Dictionary<any>` The data you want to update.
+  - opt: 
+    - meta:
+       - user: SteedosUser The current user information, which can be used to check the permission of the current user. This is optional.
+- **Returns**： The updated data upon success.
+
+
+```js
+const res = await this.broker.call(
+'objectql.directUpdate', 
+{
+  objectName: 'accounts',
+  doc: {
+    name: 'The name of the inserted data（directUpdate）'
+  },
+  id: "9RKrpkvm8Q9Bw7mYc"
+},
+{
+  meta:{
+    user: ctx.meta.user
+  }
+}
+);
+```
+
+
+### directAggregate
+
+To find aggregated records without triggering any corresponding triggers, you may use the objectql.directAggregate action.
+
+Aggregation: Aggregation operations process data records and return computed results. Aggregation operations combine values from multiple documents and can perform various operations on grouped data to return a single result.
+
+- **Usage**： `broker.call('objectql.directAggregate', params, opt?)`
+- **Arguments**：
+  - actionName: String The name of the action to be executed. For aggregate operation, its value should be 'objectql.directAggregate'.
+  - params: 
+    - objectName:  String The name of the object.
+    - query: Parameters related to querying data [JSON]:
+      - filters: Array An array of query conditions. Optional.
+    - externalPipeline: Array MongoDB aggregation Pipeline. For more information, please refer to the[ MongoDB Aggregation Documentation](https://www.mongodb.com/docs/manual/reference/aggregation/)。
+  - opt: 
+    - meta:
+       - user: SteedosUser The current user information, which can be used to check the permission of the current user. This is optional.
+- **Returns**: An array of aggregated records.
+
+
+```js
+const res = await this.broker.call(
+'objectql.directAggregate', 
+{
+  objectName: 'accounts',
+  query: {
+    filters: ['owner', '=', ctx.meta.user.userId],  
+  },
+  externalPipeline: [{ $count: 'users_count'}]
+},
+{
+  meta:{
+    user: ctx.meta.user
+  }
+}
+);
+```
+
+
+
+## Example
+
+In microservices, the "findAccounts" operation is defined, which calls the ObjectQL microservice to perform data retrieval.
+
+```js
+module.exports = {
+  name: "example-service",      
+
+  actions: {
+    findAccounts: {
+      rest: { method: 'GET', path: '/objectql/find' },
+      async handler(ctx) {
+        return await this.broker.call(
+        'objectql.find',                                    
+        {
+          objectName: 'accounts',
+          query: {
+            fields: ['name', 'owner'],                     
+            filters: ['owner', '=', ctx.meta.user.userId], 
+            sort: 'name desc'                               
+          }
+        },
+        {
+          meta:{
+            user: ctx.meta.user
+          }
+        }
+        );
+      }
+    }
+  }
+}
+```
+

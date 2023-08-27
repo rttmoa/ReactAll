@@ -40,7 +40,7 @@ class MyApp extends App { // 覆盖_app.js文件
   /* TODO: 使用static获取全局数据  &&  打印是在 服务端打印CMD */
   static async getInitialProps(ctx) {
     const { Component } = ctx;
-    // console.log("getInitialProps ctx", ctx)
+    // console.log("getInitialProps ctx")
     // console.error('getInitialProps app init')
     let pageProps = {};
     if (Component.getInitialProps) {

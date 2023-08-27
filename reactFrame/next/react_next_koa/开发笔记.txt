@@ -1,7 +1,7 @@
 
 
 启动项目：npm run dev  &&  npm start
-http://localhost:3000/
+Url: http://localhost:3000/
 
 Next.js强大的功能： 我们建议是把数据请求都放到getInitialProps里面，而不是放到React生命周期中去加载，有了这个规范之后，它会做更好的处理数据同步的问题(Nextjs最核心的功能)
 注：修改服务需要重启项目

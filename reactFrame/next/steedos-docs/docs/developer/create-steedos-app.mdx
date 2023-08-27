@@ -1,0 +1,40 @@
+---
+title: Local Development Environment
+sidebar_position: 2
+---
+
+The easiest way to deploy a local development environment is to use create-steedos-app. This CLI tool allows you to quickly start building a new Steedos project and sets everything up for you.
+
+## Creating an empty project
+
+```shell
+npx create-steedos-app my-project
+```
+
+## Importing template projects
+
+You can use the -e or --example parameter to import template projects.
+
+For example: https://github.com/steedos/steedos-examples
+
+```shell
+npx create-steedos-app my-project -e https://github.com/steedos/steedos-examples/tree/main/with-amis
+```
+
+## Project directory structure
+
+Steedos template projects support a multi-package development mode.
+
+```bash
+my-project
+├── steedos-packages
+│   ├── package1
+│   │   ├── main/default
+│   │   ├── package.json
+│   │   └── package.service.js
+│   ├── package2
+│   └── package3
+├── docker-compose.yml
+├── package.json
+└── steedos.config.js
+```

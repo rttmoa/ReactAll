@@ -25,7 +25,7 @@ module.exports = server => {
         ctx.request.body || {}, // 因为使用了koa-body模块
         headers,
       )
-
+      console.log("server>apijs")
       ctx.status = result.status
       ctx.body = result.data
     } else {

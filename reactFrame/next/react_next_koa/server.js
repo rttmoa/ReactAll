@@ -12,8 +12,8 @@ const api = require('./server/api')
 const RedisSessionStore = require('./server/session-store')   // Redis 操作 session
 
 const dev = process.env.NODE_ENV !== 'production';
-const app = next({ dev });    /* 是否处于开发状态 */
-const handle = app.getRequestHandler() /* 处理Http请求的响应 */
+const app = next({ dev });              /* 是否处于开发状态 */
+const handle = app.getRequestHandler()  /* 处理Http请求的响应 */
 
  
 const redis = new Redis({ port: 6379, db:3 }) 
@@ -113,6 +113,7 @@ app.prepare().then(() => {
   })
 
   server.listen(3000, () => {
+    console.log(123)
     console.log('koa server listening on 3000')
   })
 

@@ -1,0 +1,121 @@
+---
+title: Filter Criteria
+description: 筛选条件，用于向数据库查询数据。
+---
+
+Steedos uses an array format to define one or more filter criteria. For example, the following filter is used to query data that was created this month and assigned to the current user.
+
+```javascript
+filters: [["priority", "=", "high"],["owner","=","{userId}"],["created", "=", this_month]]
+filters: [["status", "=", ["closed","open"]]]
+filters: [["age", "between", [20,30]]]
+```
+
+
+## operation
+
+* "=": equals
+* "!=":  not equals
+* ">": greater than
+* ">=": greater than or equal to
+* "<": less than
+* "<=": less than or equal to
+* "startswith": starts with...
+* "contains": contains...
+* "notcontains": does not contain...
+* "between": within a range
+
+## Combining Filters
+
+### “and”、“or”
+
+Multiple filters can be combined using "and" and "or" operations. For example:
+
+* \[ \[ "value", ">", 3 \], "and", \[ "value", "<", 7 \] \]
+* \[ \[ "value", ">", 7 \], "or", \[ "value", "<", 3 \] \]
+
+If no "and" or "or" operation is specified, the system will default to executing filters using the "and" operation. Therefore, the following two writing formats will yield the same result.
+
+* \[ \[ "value", ">", 3 \], "and", \[ "value", "<", 7 \] \]
+* \[ \[ "value", ">", 3 \], \[ "value", "<", 7 \] \]
+
+## Enhanced functionality for filtering when the condition value is an array.
+
+When the operator is "=", the condition will automatically be split into multiple filtering conditions using the "or" operator, similar to implementing the "in" operation function. Therefore, the following two writing formats will yield the same result.
+
+* \[\["status", "in", \["closed","open"\]\]\]
+* \[ \[ "status", "=", "closed" \], "or", \[ "status", "=", "open" \] \]
+
+When the operator is "!=", the condition will automatically be split into multiple filtering conditions using the "and" operator, so the following two writing formats will yield the same results:
+
+* \[\["status", "not in", \["closed","open"\]\]\]
+* \[ \[ "status", "!=", "closed" \], "and", \[ "status", "!=", "open" \] \]
+
+When the operator is "between", the condition will automatically be transformed into filtering conditions corresponding to the ">=" and "<=" operators. Therefore, the following sets of conditions will yield the same results:
+
+* \[\["age", "between", \[20,30\]\]\] equivalent to \[ \[ "age", ">=", 20 \], "and", \[ "age", "<=", 30 \] \]
+* \[\["age", "between", \[null,30\]\]\] equivalent to \[ \[ "age", "<=", 30 \] \]
+* \[\["age", "between", \[20,null\]\]\] equivalent to \[ \[ "age", ">=", 20 \] \]
+
+
+
+:::info
+The "between" operator only supports numerical and datetime types, and the filtering values must be in an array format consisting of two elements.
+
+:::
+
+In all other cases, the conditions will be automatically split and connected by "OR" to form multiple filtering conditions.
+
+* \[\["tag", "contains", \["start","end"\]\]\] equivalent to \[ \[ "tag", "contains", "start" \], "or", \[ "tag", "contains", "end" \] \]
+
+## Support for formula fields
+
+Formula fields are supported in filtering conditions, and the current state-related attribute values can be specified as "value".
+
+* "{userId}"：the ID of the currently logged-in user
+* "{spaceId}"：the current workspace
+* "{user.xxx}"：the information of the currently logged-in user, such as user.name, user.mobile, user.email, user.company_id, etc.
+* All other variable values that can be retrieved from the Steedos.USER_CONTEXT.
+
+Example
+
+* \[\["assignees", "=", "{userId}"\]\]
+
+## Function Support
+
+There are two ways to use functions:
+
+1. The entire filters is a function, for example:
+
+```javascript
+filters: ()->    return [[["object_name","=","project_issues"],'or',["object_name","=","tasks"]]]
+```
+
+\
+2\. The filter.value within filters is a function, for example:
+
+```javascript
+filters: [["object_name", "=", ()->    return "project_issues"]]
+```
+
+\
+或
+
+```javascript
+filters: [{    "field": "object_name"    "operation": "="    "value": ()->        return "project_issues"}]
+```
+
+
+## Date, Time Fields and Timezone
+
+For fields of date and time types, the database saves them in UTC time. For date type fields, the time saved is 00:00:00.
+
+When querying date and time type fields, you need to convert the time to UTC format before executing the query.
+
+For example, if you want to search for documents with a creation date before 1:00 PM Beijing time, you need to convert Beijing time to GMT time before executing the query.
+
+```javascript
+[["created","<=","2019-08-06T07:00:00Z"]]
+```
+
+

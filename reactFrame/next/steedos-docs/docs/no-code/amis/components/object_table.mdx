@@ -1,0 +1,27 @@
+---
+title: objectTable
+description: 华炎魔方微页面引擎，内置对象列表组件 ObjectTable，借助amis渲染器，可以帮助开发人员快速生成一个功能完善的对象表格组件。
+---
+
+This is an object table component based on the Steedos object, which displays object records as a table while including functionalities for CRUD and other operation buttons. The main difference with the Object List component is that this component allows for configuration of the table's displayed columns, filtering conditions, and other basic properties.
+
+## Basic Usage
+
+The most basic usage is to configure the "Object" and "View" properties of the component, which can then display a table page for the specified object.
+
+As shown below, we configure the "Object" property of the object table to be the current object and the "View" property to be the "Effective Personnel" view of the current object.
+
+```json
+{
+    type: 'page',
+    title: 'object_table',
+    body: {
+        "type": "steedos-object-table",
+        "objectApiName": "${objectName}",
+        "fields": [
+          "name"
+        ],
+    },
+  }
+```
+

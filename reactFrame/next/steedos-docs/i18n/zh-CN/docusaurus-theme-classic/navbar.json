@@ -1,0 +1,10 @@
+{
+  "title": {
+    "message": "华炎魔方",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "华炎魔方",
+    "description": "The alt text of navbar logo"
+  }
+}

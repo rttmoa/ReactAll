@@ -1,5 +1,8 @@
 import Head from 'next/head'
 
+
+
+
 const boxStyles = { padding: '12px', border: '1px solid #eaeaea', borderRadius: '10px' };
 export default function Home() {
     return (

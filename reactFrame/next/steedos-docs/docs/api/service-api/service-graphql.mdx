@@ -1,0 +1,34 @@
+---
+title: GraphQL 
+---
+
+You can call the GraphQL microservice to execute GraphQL queries on the server-side. 
+
+If the GraphQL query needs to include the current user's permissions, the "user" attribute must be passed in.
+
+```js
+actions: {
+    graphqlQuery: {
+        rest: { method: 'GET', path: '/graphql' },
+        // query a database in a microservice
+        async handler(ctx) {
+            return await this.broker.call('api.graphql', {
+                query: `
+                    query {
+                    space_users(filters: ["user", "=", "${ctx.meta.user.userId}"]) {
+                        name
+                        organization__expand {
+                        name
+                        }
+                    }
+                    }
+                `},
+                // If the GraphQL query requires the current user's permissions to be included, the "user" attribute needs to be passed in.
+                {
+                    user: ctx.meta.user
+                }
+            );
+        },
+    }
+}
+```

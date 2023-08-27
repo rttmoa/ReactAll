@@ -1,0 +1,27 @@
+---
+title: ObjectForm
+description: 华炎魔方微页面引擎，内置对象表单组件 ObjectForm，借助amis渲染器，可以帮助开发人员快速生成一个功能完善的对象表单组件。
+---
+
+This is a component for displaying, creating, or editing object records in a form format.
+
+## Basic Usage
+
+The most basic usage is to configure the "Object" and "Record ID" properties of the component, which can then display a read-only form page for a certain object record.
+
+As shown below, we configure the "Object" property of the object form to be the current object and the "Record ID" property to be the current record:
+
+```json
+{
+    "type": "page",
+    "title": "Welcome to Steedos",
+    "body": [
+        {
+            "type": "steedos-object-form",
+            "label": "ObjectForm",
+            "objectApiName": "${objectName}",
+            "recordId": "${recordId}",
+            "className": "sm:border sm:shadow sm:rounded sm:border-gray-300 bg-white p-4"
+        }
+    ]
+}

@@ -1,0 +1,292 @@
+---
+title: Process API
+description: 根据流程的元数据定义，自动生成审批相关API。
+---
+
+Specifications for Low-code platform's workflow engine related API interfaces, including rules for request parameters and return values, are stipulated in this agreement.
+
+## Interface Validation
+
+To call the API interfaces, user authentication information must be added to the request headers. For details, please refer to  [Interface Validation](./api-validate).
+
+## API List
+
+| Name | Request Operation
+|----|----|
+| Start Approval | POST |
+| Save Approval as Draft | POST |
+| Submit Draft Application | POST |
+| Submit Approval Request | POST |
+
+## API Specifications
+
+Below are the detailed specifications for each workflow API.
+
+### Start Approval
+
+Create a new approval request in draft status.
+
+#### URI
+
+```text
+/api/workflow/v2/draft
+```
+
+#### Method
+
+POST
+
+#### Request Parameters
+
+The following parameters are required when requesting this interface.
+
+| Name | Type| Description |
+|----|----|----|
+| instance | object | Approval Form Field Values |
+
+The 'instance' attribute is described as follows:
+
+| Name | Type| Description |
+|----|----|----|
+| space | string | Workspace ID |
+| flow | string | Process ID |
+| applicant | string | Applicant ID |
+
+```json
+{
+    "instance": {
+        "space": "hKdnwE55WcnWveYxS",
+        "flow": "BayiYu3sk2hv3M2HW",
+        "applicant": "62ede4f62161e377e35de58c"
+    }
+}
+```
+
+#### Response
+
+- The format of the return value when the API interface request is successful is as follows:
+
+| Name | Type| Description |
+|----|----|----|
+| instance | object | Approval form field value |
+
+Where the instance property is described as follows:
+
+| Name | Type| Description |
+|----|----|----|
+| _id | string | The successfully created application form ID |
+| space | string | Workspace ID |
+| flow | string | Workflow ID |
+| flow_version | string | Workflow version ID |
+| form | string | Form  ID |
+| form_version | string | Form version ID |
+
+```json
+{
+    "instance": {
+        "_id": "zMiGNe2sJm9KuruvM",
+        "space": "hKdnwE55WcnWveYxS",
+        "flow": "BayiYu3sk2hv3M2HW",
+        "flow_version": "Nvc5wjsgHYkXnNHhk",
+        "form": "Pdq8neQvT7fv5aTyd",
+        "form_version": "thX4kKBAx6iCgciWD"
+    }
+}
+```
+
+The instance returned in the response contains information about the successfully created approval record.
+
+### Save Draft Approval Form
+
+#### URI
+
+```text
+/api/workflow/v2/instance/save
+```
+
+#### Method
+
+POST
+
+#### Request parameters.
+
+The following parameters need to be passed when requesting this API.
+
+| Name | Type| Description |
+|----|----|----|
+| instance | object | Approval Form Field Values  |
+
+```json
+{
+    "instance": {
+        "_id": "zMiGNe2sJm9KuruvM",
+        "space": "hKdnwE55WcnWveYxS",
+        "flow": "BayiYu3sk2hv3M2HW",
+        "flow_version": "Nvc5wjsgHYkXnNHhk",
+        "form": "Pdq8neQvT7fv5aTyd",
+        "form_version": "thX4kKBAx6iCgciWD",
+        "applicant": "62ede4f62161e377e35de58c",
+        "applicant_name": "xxx",
+        "applicant_organization": "XypyNbzGCJbHMNyWv",
+        "applicant_organization_name": "xxx",
+        "applicant_organization_fullname": "xxx",
+        "code": "",
+        "traces": [
+            {
+                "_id": "7f316cb404fddf2098c8fd2d",
+                "approves": [
+                    {
+                        "_id": "97628d0b9a33b541816caeeb",
+                        "description": "",
+                        "values": {
+                            "field1": "xx",
+                            "field2": "xx",
+                            "field3": "xx"
+                        },
+                        "next_steps": [
+                            {
+                                "step": "e28faf97-a1c4-4bdd-90e5-1b43d42aa10b",
+                                "users": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "submit_date": xxx
+    }
+}
+```
+
+#### Response
+
+
+- The format of the successful API interface request response is as follows:
+
+| Name | Type| Description |
+|----|----|----|
+| instance | boolean | Was the operation successful? |
+
+```json
+{
+    "instance": true
+}
+```
+
+### Submitting a Draft Application
+
+Submit an application in draft status to the next step
+
+#### URI
+
+```text
+/api/workflow/submit
+```
+
+#### Method
+
+POST
+
+#### Request Parameters
+
+The following parameters need to be passed when requesting this API.
+
+| Name | Type| Description |
+|----|----|----|
+| Instances | object[] | The content of the application form. |
+
+
+
+```json
+{
+    "Instances": [{
+        "_id": "e6viWhvARgo4xSxBC",
+        "inbox_users": [],
+        "name": "Test",
+        "submitter": "62ede4f62161e377e35de58c",
+        "flow": "BayiYu3sk2hv3M2HW",
+        "applicant": "62ede4f62161e377e35de58c",
+        "traces": [{
+            "_id": "0aed02a8113d7e1a22d5a245",
+            "step": "Ryu58zkQKrFLdvWpw",
+            "approves": [{
+                "_id": "5865e212c0e80024005090f9",
+                "description": "",
+                "values": {
+                    "field1": "xxx",
+                    "field2": "xxx",
+                    "field3": "xxx"
+                },
+                "next_steps": [{
+                    "step": "e28faf97-a1c4-4bdd-90e5-1b43d42aa10b",
+                    "users": [
+                        "62ede4f62161e377e35de58c"
+                    ]
+                }]
+            }]
+        }]
+    }]
+}
+```
+
+> The traces contains the signature history for each step, while approves contains the approval process within each signature history, which records detailed information about the approval form.
+
+#### Response
+
+- When this API interface is requested successfully, the format of the return value is as follows:
+
+```json
+{
+    "result": [...]
+}
+```
+
+The result returns an array of objects. The key-value information contained in this array is shown as follows:
+
+| Name | Type| Description |
+|----|----|----|
+| alerts | string | Prompt messages |
+
+The alerts mainly prompts whether the process version has been upgraded.
+
+- When this API interface fails to request, the format of the return value is as follows:
+
+```json
+{
+    errors: [{ errorMessage: "..." }]
+}
+```
+
+### Submitting an Approval Application
+
+Submit an application in approval status to the next step.
+
+#### URI
+
+```text
+/api/workflow/engine
+```
+
+#### Method
+
+POST
+
+#### Request Parameters
+
+The following parameters need to be passed when requesting this API.
+
+| Name | Type| Description |
+|----|----|----|
+| Approvals | object[] | The content of the approval |
+
+#### Response
+
+- When this API interface is requested successfully, an empty object is returned.
+
+- When this API interface fails to request, the format of the return value is as follows:
+
+```json
+{
+    errors: [{ errorMessage: "..." }]
+}
+```

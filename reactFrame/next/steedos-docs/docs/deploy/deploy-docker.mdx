@@ -1,0 +1,60 @@
+---
+title: Docker
+sidebar_position: 1
+---
+
+The deployment mode of Docker is relatively straightforward, allowing for the simultaneous deployment of services such as Node.js, MongoDB, Redis, and NATS. 
+
+## Pre-installation requirements
+
+- install[docker](https://docs.docker.com/get-docker/)
+- install[docker-compose](https://docs.docker.com/compose/install/)
+
+## Private deployment
+
+Access the project repository [Steedos Docker](https://github.com/steedos/docker)，and download the docker-compose.yml template file.
+
+- [Github](https://github.com/steedos/docker/blob/main/steedos-community/docker-compose.yml)
+
+### Choose the Steedos version.
+
+- [docker hub](https://hub.docker.com/r/steedos/steedos-community/tags?page=1&ordering=last_updated)
+
+### Set the environment variables.
+
+- [Environment Variables](./steedos-config)
+
+```yaml
+environment:
+  - PORT=3000
+  - ROOT_URL=http://192.168.0.200:3000
+```
+
+### Start the service
+
+Start the service by using Docker:
+
+```yaml
+docker-compose up -d
+```
+
+Check the status of the service:
+
+```yaml
+docker ps
+```
+
+
+Stop the service:
+
+```yaml
+docker-compose stop
+```
+
+
+Stop and remove the service:
+
+```yaml
+docker-compose down
+```
+

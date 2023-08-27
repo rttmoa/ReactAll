@@ -24,7 +24,8 @@ export default class MyDocument extends Document {
           className={clsx('antialiased text-slate-500 dark:text-slate-400', {
             'bg-white dark:bg-slate-900': !this.props.dangerousAsPath.startsWith('/examples/'),
             'login': this.props.dangerousAsPath.startsWith('/login')
-          })}>
+          })}
+        >
           <Main />
           <NextScript/>
         </body>

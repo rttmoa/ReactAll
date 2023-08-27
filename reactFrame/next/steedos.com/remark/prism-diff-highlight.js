@@ -1,4 +1,6 @@
 // https://github.com/PrismJS/prism/blob/master/plugins/diff-highlight/prism-diff-highlight.js
+
+/** #### TODO: Prism & highlight.js高亮代码 & 手动添加行号 & 一键复制: https://blog.csdn.net/qq_16992475/article/details/129978432 */
 module.exports = (Prism) => {
   var LANGUAGE_REGEX = /diff-([\w-]+)/i
   var HTML_TAG = /<\/?(?!\d)[^\s>\/=$<%]+(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?=[\s/>])))+)?\s*\/?>/gi

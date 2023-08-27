@@ -25,7 +25,6 @@ const configs = {
     if (process.env.YOUR_BUILD_ID) {
       return process.env.YOUR_BUILD_ID
     }
-
     // 返回null使用默认的unique id
     return null
   },

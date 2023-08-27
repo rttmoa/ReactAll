@@ -1,0 +1,49 @@
+---
+title: API authentication
+---
+
+Before calling an api, api authentication must be performed first. Steedos supports multiple ways to authenticate apis, making api calls easy and flexible. Moreover, it can also achieve functions such as single sign-on, validating login status, and logging out, making interface calls even more flexible and convenient.
+
+## Call the login api to obtain user identity
+
+
+POST /accounts/password/login
+
+```json
+{
+  "user": { "email": "test@example.com"},
+  "password-unencrypted": "xxx"
+}
+```
+
+This interface returns the token.
+
+Use ${spaceId} and ${token} to verify
+
+```javascript
+Authorization : Bearer ${spaceId},${token}
+```
+
+## Use current browser user identity verification
+
+The current browser has user login information stored in the localStorage, which includes:
+
+- steedos:userId
+- steedos:token
+- steedos:spaceId
+
+Use ${spaceId} and ${token} to verify
+
+```javascript
+Authorization : Bearer ${spaceId},${token}
+```
+
+## Use administrator API key verification
+
+If you need to call the interface uniformly as an administrator, you can log in to the system as an administrator, and on the Settings-Advanced Settings-API Key menu, get the administrator's API Key.
+
+```javascript
+Authorization : Bearer apikey,${apikey}
+```
+
+The administrator API Key needs to be properly kept and this method can only be used for server-side calls.

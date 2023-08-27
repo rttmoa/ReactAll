@@ -1,0 +1,21 @@
+---
+title: 华炎魔方软件包
+sidebar_position: 2
+---
+
+华炎魔方基于标准的 npm 规范定义软件包。
+
+软件包文件目录结构为：
+
+```bash
+package1
+│   ├── main/default
+│   ├── package.json
+│   └── package.service.js
+```
+
+每个软件包至少包含以下内容：
+
+* `package.json`：基于 npmjs 标准规范，定义软件包的信息， 用于描述软件包名称、版本、依赖的软件包信息。具体参考 <https://docs.npmjs.com/cli/v7/configuring-npm/package-json>
+* `package.service.js`：软件包微服务，是一个遵循 Moleculer 规范的微服务定义文件，可以编写代码，控制软件包加载时、启动、停止时执行的操作。具体参考： <https://moleculer.services/docs/0.14/services.html>
+* `main/default`文件夹：保存从服务端同步的元数据，例如对象、字段、列表视图、权限等。

@@ -1,0 +1,24 @@
+---
+title: ObjectListView
+description: 华炎魔方微页面引擎，内置列表视图组件 ObjectListView，借助amis渲染器，可以帮助开发人员快速生成一个功能完善的列表视图组件。
+---
+
+This is a list view component based on the Steedos object, which displays object records as a table while including functionalities for CRUD and other operation buttons.
+
+## Basic Usage
+
+The most basic usage is to configure the "Object" and "View" properties of the component, which can then display a list page for the specified object.
+
+As shown below, we configure the "Object" property of the list view to be the current object and the "View" property to be the "Effective Personnel" view of the current object.
+
+```json
+{
+    type: 'page',
+    title: 'ObjectListView',
+    body: {
+        "type": "steedos-object-listview",
+        "objectApiName": "${objectName}",
+        "listName": "all"
+    },
+  }
+```

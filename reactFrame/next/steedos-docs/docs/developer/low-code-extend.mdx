@@ -1,0 +1,344 @@
+---
+title: Extend Standard Objects
+---
+
+> You can add new fields or hide system fields for built-in standard objects in steedos. There are various requirements for adjusting object fields in practical use, and here are the suggested approaches:
+
+| Requirements | Allowed/Recommended | Implementation/Alternative Methods |
+|----|----|----|
+|Add new fields|	Allowed	|Customize objects with steedos, or use third-party tools such as steedos Object Manager|
+|Hide system fields|	Allowed but not recommended|	Modify field permissions for certain roles in steedos system settings, or use custom tables instead of standard objects to store related data|
+|Rename fields|	Not allowed	|Create custom fields with desired names and use them instead|
+|Change field type|	Not allowed|	Create new fields with desired types and map them to corresponding existing fields|
+|Restrict field values	|Allowed	|Define options for picklist fields or set validation rules for input fields|
+|Adjust field layout	|Allowed|	Customize screens and forms with K3 Designer or use KDS Wizard to adjust built-in layouts|
+
+Example：
+
+ ![](https://console.steedos.cn/api/files/images/sXvXXFCk2RTnxTbnw)
+
+
+
+Expanding standard objects can be achieved by creating relevant folders within the default "steedos-app" and "steedos-packages" directories.
+
+```yaml
+├── steedos-app
+    ├── main
+        ├── default
+          ├── layouts
+          ├── objects
+              ├── 对象名
+                  ├── buttons
+                  ├── fields
+                  ├── listviews
+                  ├── permissions
+                  ├── 对象名.object.yml
+          ├── objectTranslations
+              ├── 对象名.en
+                  ├──对象名.en.objectTranslation.yml
+              ├── 对象名.zh-CN
+                  ├──对象名.zh-CN.objectTranslation.yml
+├── steedos-packages
+    ├── my-package
+        ├── main
+            ├── default
+```
+
+## Extending objects 
+
+Example:`steedos-app/main/default/objects/space_users/space_users.object.yml`
+
+```yaml
+name: space_users
+extend: space_users
+```
+
+Add `extend: space_users`  property means that this object inherits from the space_users standard object. This step is crucial and cannot be skipped!
+
+## Extending Fields
+
+### Adding Fields
+
+To add a new field, first create a fields folder in the object metadata folder and then create a field_name.field.yml file, filling in the necessary properties.
+
+The following example describes adding a married field to the standard object "Person".
+
+文件相对路径：`steedos-app/main/default/objects/space_users/fields/married.field.yml`
+
+```yaml
+name: married
+label: 已婚
+required: true
+sort_no: 15
+type: boolean
+```
+
+### Modifying Fields
+
+To modify an existing field, create a field_name.field.yml file in the fields folder and update the necessary properties.
+
+The following example describes modifying the email field of the standard "Person" object by changing its display name and sort number.
+
+File path: steedos-app/main/default/objects/space_users/fields/email.field.yml
+
+```yaml
+name: email
+label: 邮箱
+required: false
+sort_no: 10
+type: text
+hidden: false
+```
+
+\
+
+:::info
+You cannot modify the type property of a field.
+
+:::
+
+## Extending List Views
+
+### Add a new list view
+
+To add a new list view, first create a listviews folder in the object's metadata folder. Then, create a list_view_name.listview.yml file and update the necessary properties.
+
+The following example describes creating a new all_people list view for the standard "Person" object.
+
+File path: steedos-app/main/default/objects/space_users/listviews/all_people.listview.yml
+
+```yaml
+name: all_people
+columns:
+  - field: name
+    wrap: false
+  - field: married
+    wrap: false
+  - field: profile
+    width: '280'
+filter_scope: space
+label: 所有人员
+shared: true
+show_count: false
+# filters: [["important_tasks","=",true]]
+# filters: !<tag:yaml.org,2002:js/function> |-
+#   function (){
+#       return [["important","=",true]];
+#   }
+sort:
+  - field_name: 'due_date'
+    order: desc
+```
+
+### Modifying Listviews
+
+To modify a list view, create a list_view_name.listview.yml file in the listviews folder with the updated properties.
+
+The following example describes modifying the all list view for the standard "Person" object.
+
+File path: steedos-app/main/default/objects/space_users/listviews/all.listview.yml
+
+```yaml
+name: all
+columns:
+  - field: name
+    wrap: false
+  - field: married
+    wrap: false
+  - field: phone
+    wrap: false
+  - field: address
+    wrap: false
+    width: '280'
+filter_scope: space
+label: 有效人员
+shared: true
+show_count: false
+```
+
+## Extending Buttons
+
+* **When the button is displayed on a record detail page**：You can use this.record or Creator.getObjectRecord() to get information about the current record.
+* **When the button is displayed on a list**：You can use gridRef.current.api.getSelectedRows() to get information about the currently selected record.
+
+### Adding Buttons 
+
+To add a button, first create a buttons folder in the object's metadata folder. Then, create a button_name.button.yml and button_name.button.js file, and update the necessary properties.
+
+The following example describes adding a tasks button to the record detail page for the standard "Person" object.
+
+File paths:`steedos-app/main/default/objects/space_users/buttons/tasks.button.yml`
+
+```yaml
+name: tasks
+is_enable: true
+label: 相关任务
+'on': record_only
+visible: true
+```
+
+The relative path for the JavaScript file：`steedos-app/main/default/objects/space_users/buttons/tasks.button.js`
+
+```yaml
+module.exports = {
+    tasks: function(object_name, record_id) {
+    },
+    tasksVisible: function(object_name, record_id, permissions, record) {
+        return true;
+    }
+}
+```
+
+* object_name  : Name of the object
+* record_id    : ID of the record
+* permissions  : Permissions for the current object
+* record       : Information for the current record
+
+### Modifying Button
+
+To modify a button, create a file named button_name.button.yml and button_name.button.js in the buttons folder, and then fill in the necessary attributes.
+
+The following example describes how to hide a standard_new button on the record detail page for the standard object space_users.
+
+Relative path for the yml file: steedos-app/main/default/objects/space_users/buttons/standard_new.button.yml
+
+```yaml
+name: standard_new
+is_enable: true
+label: 新建
+'on': list
+visible: true
+```
+
+The relative path for the JavaScript file：`steedos-app/main/default/objects/space_users/buttons/standard_new.button.js`
+
+```yaml
+module.exports = {
+    standard_new: function() {
+    },
+    standard_newVisible: function() {
+        return false;
+    }
+}
+```
+
+## Extending Permissions
+
+### Adding Permissions
+
+To add a new permission, first create a folder named permissions in the object metadata folder, then create a file named permission_name.permission.yml, and finally fill in the necessary attributes.
+
+The following example describes how to add a master_admin permission to the standard object space_users.
+
+Relative path for the yml file：`steedos-app/main/default/objects/space_users/permissions/master_admin.permission.yml`
+
+```yaml
+name: master_admin
+allowCreate: true
+allowCreateFiles: true
+allowDelete: true
+allowDeleteFiles: true
+allowEdit: true
+allowEditFiles: true
+allowRead: true
+allowReadFiles: true
+modifyAllFiles: true
+modifyAllRecords: true
+permission_set_id: master_admin
+viewAllFiles: true
+viewAllRecords: true
+```
+
+### Modifying Permissions
+
+The steps to modify a permission are the same as adding a permission.
+
+## Modifying Object Translation Content
+
+To modify the translation content for an object, go to the /node_modules/@steedos/standard-objects/objectTranslations folder in your project and search for the object's translation content.
+
+Create the following folders and files in the steedos-app/main/default/objectTranslations folder. The files in the space_users.en folder are for English translation, while the files in the space_users.zh-CN folder are for Chinese translation.
+
+```yaml
+├── objectTranslations
+    ├── space_users.en
+        ├──space_users.en.objectTranslation.yml
+    ├── space_users.zh-CN
+        ├──space_users.zh-CN.objectTranslation.yml
+```
+
+To change the Chinese translation of the "name" field from "name" to "fullname", make the following modifications to your code:
+
+```yaml
+name: space_users
+label: name
+fields:
+  name:
+    label: fullname
+```
+
+## Modifying Global Variable Translation Content
+
+To modify the translation content for global variables, go to the /node_modules/@steedos/i18n/translations folder in your project and search for the global variable's translation content.
+
+Create the following files in the steedos-app/main/default/translations folder: en.translation.yml and zh-CN.translation.yml. The former is for English translation, while the latter is for Chinese translation.
+
+```yaml
+├── translations
+    ├── en.translation.yml
+    ├── zh-CN.translation.yml
+```
+
+To change the title of the dialog box for the application launcher that pops up after clicking on a grid in the following specific example from "应用程序启动器" to "应用程序启动页面", make the following modifications to your code:
+
+```yaml
+CustomLabels:
+  # creator_app_launcher: 应用程序启动器
+  creator_app_launcher: 应用程序启动页面
+```
+
+## Expansion Trigger
+
+To create the space_users trigger file, navigate to the steedos-app/main/default/triggers directory and create a new file named space_users.trigger.js.
+
+```yaml
+const objectql = require('@steedos/objectql');
+module.exports = {
+    listenTo: 'space_users',
+    beforeInsert: async function () {
+        //console.log('beforeInsert==>',this)
+    },
+    beforeUpdate: async function(){
+        console.log('beforeUpdate==>',this)
+    },
+    ....
+}
+```
+
+\
+## Extending Page Layout
+
+Create a layouts folder under the steedos-app/main/default directory, then create a object_name.page_layout_name.layout.yml file, and finally complete the attribute content.
+
+The following example describes the addition of an admin page layout for the standard User object.
+
+Relative path of the YAML file: steedos-app/main/default/layouts/space_users.admin.layout.yml.
+
+```yaml
+name: admin
+buttons:
+  - button_name: standard_new
+  - button_name: standard_edit
+  - button_name: standard_delete
+fields:
+  - field_name: name
+    is_required: true
+  - field_name: married
+label: admin page layout
+object_name: space_users
+profiles:
+  - admin
+type: record
+```
+
+\

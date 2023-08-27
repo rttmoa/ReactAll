@@ -1,0 +1,730 @@
+---
+title: Internationalization
+---
+
+Steedos is a low-code platform that supports multiple languages. We can override the default translated content of the system by writing internationalization resource files in the software package, which enables internationalization.
+
+We encourage users to directly modify internationalization resource files in the Steedos [GitHub](https://github.com/steedos/steedos-platform) open source code and submit pull requests.
+
+For those who want to implement internationalization in their H3C MagiCube project, we recommend creating a dedicated software package for all internationalization-related content. This makes it easier to maintain, upgrade, and deploy internationalization by module. For example, you could create a software package called "locale," and all internationalization-related tutorials could be developed in this package.
+
+## Resource Files
+
+Below are the corresponding locations for the internationalization resource files of Steedos source code in China, where the files or file names containing zh-CN are for the Chinese resource files and en represents English resource files.
+
+### Objects
+
+The internationalization resource files for object metadata like objects, object fields, list views, action buttons, etc. are in the following source codes：
+
+- Git repository source code：[standard-objects/objectTranslations](https://github.com/steedos/steedos-platform/blob/master/packages/standard-objects/objectTranslations)
+- Local NPM package source code： `node_modules/@steedos/standard-objects/objectTranslations`
+
+The latest version of Steedos has already split some of the built-in objects from the standard-objects software package into the following packages.
+
+#### standard-cms
+
+- Git repository source code：[standard-cms/objectTranslations](https://github.com/steedos/steedos-platform/blob/master/services/standard-cms/main/default/objectTranslations)
+- Local NPM package source code： `node_modules/@steedos/standard-cms/main/default/objectTranslations`
+
+#### standard-collaboration
+
+- Git repository source code：[standard-collaboration/objectTranslations](https://github.com/steedos/steedos-platform/blob/master/services/standard-collaboration/main/default/objectTranslations)
+- Local NPM package source code： `node_modules/@steedos/standard-collaboration/main/default/objectTranslations`
+
+#### standard-object-database
+
+- Git repository source code：[standard-object-database/objectTranslations](https://github.com/steedos/steedos-platform/blob/master/services/standard-object-database/main/default/objectTranslations)
+- Local NPM package source code： `node_modules/@steedos/standard-object-database/main/default/objectTranslations`
+
+#### standard-permission
+
+- Git repository source code：[standard-permission/objectTranslations](https://github.com/steedos/steedos-platform/blob/master/services/standard-permission/main/default/objectTranslations)
+- Local NPM package source code： `node_modules/@steedos/standard-permission/main/default/objectTranslations`
+
+#### standard-process-approval
+
+- Git repository source code：[standard-process-approval/objectTranslations](https://github.com/steedos/steedos-platform/blob/master/services/standard-process-approval/main/default/objectTranslations)
+- Local NPM package source code： `node_modules/@steedos/standard-process-approval/main/default/objectTranslations`
+
+#### standard-ui
+
+- Git repository source code：[standard-ui/objectTranslations](https://github.com/steedos/steedos-platform/blob/master/services/standard-ui/main/default/objectTranslations)
+- Local NPM package source code： `node_modules/@steedos/standard-ui/main/default/objectTranslations`
+
+### Setting Application Menu
+
+The internationalization resource files for the menu item of the Setting Application's left-hand menu are in the following source code：
+
+- Git repository source code：[standard-objects/translations](https://github.com/steedos/steedos-platform/blob/master/packages/standard-objects/translations)
+- Local NPM package source code： `node_modules/@steedos/standard-objects/translations`
+
+### Other
+
+Other internationalization variables are in the following source code：
+
+- Git repository source code：[i18n/translations](https://github.com/steedos/steedos-platform/tree/master/packages/i18n/translations)
+- Local NPM package source code： `node_modules/@steedos/i18n/translations`
+
+## Metadata
+
+Steedos achieves internationalization by adding translation resource files to various types of metadata. Below are the details for internationalization implementation for each metadata type.
+
+
+
+### Object
+In metadata for objects and object fields, it's possible to define relevant display names. For example, in Steedos, there is an object named "company," and by defining its label attribute, the display name for this object can be configured. In the Chinese environment, this object is displayed as "分部," while in English it is displayed as "Company." The following steps can be taken to change the translation of this object to "分公司" and "Sub Corporation," as well as change the name of the field named "分部代码" to "分公司代码."
+
+#### Deploy
+
+If internationalization translation content is added for a newly created object on the visual interface, it's recommended to synchronize the metadata for this object with the code to implement source code version control. Please refer to the tutorial for details on how to synchronize metdata. However, this is not mandatory, as objects that have not been synchronized with code also support internationalization implementation through the following steps.
+
+#### Add Translation Files
+
+Create an "objectTranslations" folder under the "default" folder in the package, under which create two sibling folders named "company.en" and "company.zh-CN," corresponding to the two languages of Chinese and English, and finally create YML configuration files for the translations of both languages respectively.
+
+The directory structure is as follows:
+
+```bash
+locale
+├── main / default
+└───├── objectTranslations
+    └───├── company.en
+        |   └── company.en.objectTranslation.yml
+        └── company.zh-CN
+            └── company.zh-CN.objectTranslation.yml
+```
+
+<alert type="info">
+Important note to keep in mind while adding internationalization files: Please add files as needed. If Chinese translation is needed, add the Chinese translation file; if English translation is needed, add the English translation file. It's not permissible to add a file with empty content, as this could cause the server program to throw an exception error message.
+</alert>
+
+#### Revise translation content
+
+"To add translation content in a newly created YAML file, the following two files provide rewritten Chinese and English display names for the company object and its fields."
+
+```yaml
+// locale/main/default/objectTranslations/company.zh-CN/company.zh-CN.objectTranslation.yml
+name: company
+label: 分公司
+fields:
+  code: 
+    label: '分公司代码'
+```
+
+```yaml
+// locale/main/default/objectTranslations/company.en/company.en.objectTranslation.yml
+name: company
+label: Sub Corporation
+fields:
+  code: 
+    label: 'Sub Corporation Code'
+```
+
+#### Translation of the Base object
+
+Steedos Base object is used to configure common properties of all objects, including common internationalization for all objects. This allows default internationalization content to be set for common fields, standard action buttons, and other common features on all objects, without having to manually set them on each object."
+
+For reference to the internationalization content of the built-in Base object, please consult the source code：
+
+- Git repository source code：[base.zh-CN.objectTranslation.yml](https://github.com/steedos/steedos-platform/blob/master/packages/standard-objects/objectTranslations/base.zh-CN/base.zh-CN.objectTranslation.yml)
+- Local NPM package source code： `node_modules/@steedos/standard-objects/objectTranslations/base.zh-CN/base.zh-CN.objectTranslation.yml`
+
+Similar to implementing internationalization for a specific object, the first step in implementing internationalization for the Base object is to add internationalization translation files.
+
+```bash
+locale
+├── main / default
+└───├── objectTranslations
+    └───├── base.en
+        |   └── base.en.objectTranslation.yml
+        └── base.zh-CN
+            └── base.zh-CN.objectTranslation.yml
+```
+
+Next, the corresponding translation content needs to be set to achieve internationalization for the Base object. We only need to add the same-named internationalization variables from the aforementioned Base internationalization source code and define their translation content to modify the default internationalization content.
+
+The following translation content changes the display name of the '分部' field to '单位' in the Chinese environment, and modifies the display names of the '新建' and '编辑' standard operation buttons. After adding them, all default related internationalization configurations for objects will correspondingly change. After restarting the service, the effect can be seen
+
+```yaml
+// locale/main/default/objectTranslations/base.zh-CN/base.zh-CN.objectTranslation.yml
+name: base
+label: base
+fields:
+  company_id: 
+    label: '单位'
+  company_ids: 
+    label: '所属单位'
+actions:
+  standard_new:
+    label: 创建
+  standard_edit:
+    label: 修改
+```
+
+#### Translation of Built-in Objects
+
+The following is the source code for the internationalization translation file of some built-in objects:
+
+- Git repository source code：[standard-objects/objectTranslations](https://github.com/steedos/steedos-platform/blob/master/packages/standard-objects/objectTranslations)
+- Local NPM package source code： `node_modules/@steedos/standard-objects/objectTranslations`
+
+To modify the internationalization content of these built-in objects, follow the above-mentioned operation steps, add translation files first, and then modify the translation content. As long as different translation content values are configured for the same-named internationalization variables on the object, the modified effect can be seen after restarting the service.
+
+### Field
+
+As part of the object, the internationalization translation of fields is done in conjunction with objects. Please refer to the above-mentioned steps of "Object Internationalization" to achieve field internationalization. Add the translation files first and then modify the translation content.
+
+
+#### Field groups
+
+However, "groups" can be configured on the fields. If we need to internationalize the translation of groups, we also need to modify the object translation file. The following translation content describes how to modify the Chinese display name of the "华炎云" field group under the built-in object "公司" in the Steedos.
+
+```yaml
+// locale/main/default/objectTranslations/spaces.zh-CN/spaces.zh-CN.objectTranslation.yml
+name: spaces
+label: 总公司
+fields:
+  api_key: 
+    label: '密钥'
+groups:
+  Developer: 华炎魔方
+```
+
+The translation content changes the Chinese display name of the "公司" object to "总公司", changes the Chinese display name of the api_key field to "密钥", and changes the display name of the field group to which this field belongs from "华炎云" to "华炎魔方".
+
+The way to internationalize the fields created in the visual interface is the same as that of the built-in objects mentioned above. Simply add the relevant fields or field groups to the object translation file and set their translation text.
+
+#### The dropdown options
+
+The dropdown options for select box type fields can also be customized for internationalized translation. The following internationalized translation accomplishes the display of Chinese names of dropdown options for the "优先级" field configuration under an object named "项目任务".
+
+```yml
+// locale/main/default/objectTranslations/project_tasks__c.zh-CN/project_tasks__c.zh-CN.objectTranslation.yml
+name: project_tasks__c
+label: 项目任务
+fields:
+  priority__c:
+    label: 优先级
+    options:
+      - label: 高
+        value: high
+      - label: 中
+        value: normal
+      - label: 低
+        value: low
+```
+
+#### Other properties of fields
+
+Other properties of fields, such as "提示文本" and "描述", can also be configured with internationalized content. The following example describes how to configure them in internationalization files.
+
+```yml
+// locale/main/default/objectTranslations/project_tasks__c.zh-CN/project_tasks__c.zh-CN.objectTranslation.yml
+name: project_tasks__c
+label: 项目任务
+fields:
+  priority__c:
+    label: 优先级
+    options: ...
+    help: 本周任务请选择“高”，下周任务请选择“中”，否则请选择“低”
+    description: 描述项目任务的紧急程度。
+```
+
+### Listview
+Like fields, list views are also a component of an object and their internationalized translation is done together with the object. Please refer to the steps mentioned above in "Object Internationalization" to achieve list view internationalization. First, add the translation file and then modify the translation content.
+
+The following translation content describes how to customize the Chinese and English names of the "所有" view of a newly created custom object named "项目任务 on the visual interface.
+
+
+```yaml
+// locale/main/default/objectTranslations/project_tasks__c.zh-CN/project_tasks__c.zh-CN.objectTranslation.yml
+name: project_tasks__c
+label: 项目任务
+listviews: 
+  all:
+    label: 所有任务
+```
+
+
+```yaml
+// locale/main/default/objectTranslations/project_tasks__c.en/project_tasks__c.en.objectTranslation.yml
+name: project_tasks__c
+label: Project Tasks
+listviews: 
+  all:
+    label: All Tasks
+```
+
+<alert type="info">
+Please note that when internationalizing list views, the key used in the translation file is "listviews", which is one word, while in object definitions it is "list_views" with an underscore.
+</alert>
+
+### Button
+
+Similar to fields and list views, action buttons are also a component of an object and their internationalized translation is done together with the object. Please refer to the steps mentioned above in "Object Internationalization" to achieve action button internationalization. First, add the translation file and then modify the translation content.
+
+The following translation content describes how to customize the Chinese and English names of the "打印" button of a newly created custom object named "项目任务" on the visual interface.
+
+
+```yaml
+// locale/main/default/objectTranslations/project_tasks__c.zh-CN/project_tasks__c.zh-CN.objectTranslation.yml
+name: project_tasks__c
+label: 项目任务
+actions:
+  print:
+    label: 打印当天任务
+```
+
+```yaml
+// locale/main/default/objectTranslations/project_tasks__c.en/project_tasks__c.en.objectTranslation.yml
+name: project_tasks__c
+label: Project Tasks
+actions:
+  print:
+    label: Print Tasks for today
+```
+
+Steedos provides many built-in standard action buttons, such as "New", "Edit", and "Delete". The internationalization process for these standard buttons is the same as that for custom buttons. For example, the following translation content can modify the Chinese name of the "New" button of the "Project Task" object mentioned above to "Create Project Task".
+
+```yaml
+// locale/main/default/objectTranslations/project_tasks__c.zh-CN/project_tasks__c.zh-CN.objectTranslation.yml
+name: project_tasks__c
+label: Project Task
+actions:
+  standard_new:
+    label: Create Project Task
+```
+
+To modify the display name of a certain standard action button for all objects, please refer to the above.
+
+Please refer to the source code for a list of built-in standard action buttons:
+
+- Git repository source code：[base.zh-CN.objectTranslation.yml#L137](https://github.com/steedos/steedos-platform/blob/master/packages/standard-objects/objectTranslations/base.zh-CN/base.zh-CN.objectTranslation.yml#L137)
+- Local NPM package source code： `node_modules/@steedos/standard-objects/objectTranslations/base.zh-CN/base.zh-CN.objectTranslation.yml`
+
+<alert type="info">
+Please note that when internationalizing action buttons, the key word used in the translation file is "actions", while the button metadata defined within the object uses "buttons".
+</alert>
+
+### Custom variables
+
+Custom internationalization variables refer to defining a global internationalization key and writing internationalization translation content in different languages for that key.
+
+The object-level metadata mentioned above, including objects, fields, list views, action buttons, etc., have their translation resource files stored in the "objectTranslations" folder. On the other hand, the translation resource files for other metadata are stored in a folder named "translations," which is used to store custom internationalization variables. For instance, applications, settings menus, system messages, and approval workflows are all internationalized using custom variables.
+
+#### add custom variables
+
+To add custom translation variables, you first need to add a global custom translation file within the software package.
+
+```bash
+locale
+├── main / default
+└───├── translations
+    ├── └── en.translation.yml
+    └── └── zh-CN.translation.yml
+```
+
+The following translation content adds a custom translation variable named "base_error_start_end_date" for both the Chinese and English resources.
+
+```yml
+// locale/main/default/translations/zh-CN.translation.yml
+CustomLabels:
+  base_error_start_end_date: '结束时间不能早于开始时间'
+```
+
+```yml
+// locale/main/default/translations/en.translation.yml
+CustomLabels:
+  base_error_start_end_date: 'The end time cannot be earlier than the start time'
+```
+
+Before adding a custom internationalization variable, it is important to first confirm whether the variable name has already been taken up by built-in custom variables or other software packages. Generally, you can call the t function in the browser console after starting the project to check whether the current key has been taken up. If the returned content is not the key itself, it means that the variable has already been taken up.
+
+```js
+t('base_error_start_end_date') 
+```
+
+For example, if you enter the above code in the browser console and run it, the output will be "The start time must be before the end time". This means that the variable has already been taken up, so base_error_start_end_date should not be used.
+
+Let's try removing base from the variable name and see if it is available.
+
+```js
+t('error_start_end_date') 
+```
+
+<alert type="info">
+If you forcefully add a custom internationalization variable that has already been taken up by a software package, the internationalized content in the places where the variable was originally referenced will also be modified at the same time.
+</alert>
+
+
+#### Using custom variables
+
+After adding custom translation variables, we can use them in the source code of the program.
+
+###### Error message in trigger
+
+The following example demonstrates how to use the newly added custom translation variables when throwing error messages in a trigger.
+
+```js
+// locale/main/default/triggers/project_tasks__c.trigger.js
+const validateStartEndDate = function (start, end) {
+    if(start && end){
+        const startTime = start.getTime ? start.getTime() : (new Date(start)).getTime();
+        const endTime = end.getTime ? end.getTime() : (new Date(end)).getTime();
+        if(endTime - startTime < 1000){
+            throw new Error("base_error_start_end_date");
+        }
+    }
+}
+
+module.exports = {
+    listenTo: 'project_tasks__c',
+    beforeInsert: async function () {
+        const { doc, object_name} = this;
+        validateStartEndDate(doc['start'], doc['end']);
+    },
+    beforeUpdate: async function () {
+        const { doc, object_name} = this;
+        validateStartEndDate(doc['start'], doc['end']);
+    }
+}
+```
+
+As can be seen from the example code above, in a trigger, as long as you directly refer to the key of the custom translation variable when throwing error messages, internationalization of error messages can be automatically implemented. The system will return the correct internationalized content based on the language set by the currently logged-in user.
+
+<alert type="info">
+Since the error message returned by the trigger will be internationalized and displayed to the end user through front-end components, there is no need to manually execute the server-side internationalization function in the trigger.
+</alert>
+
+###### Displaying Variable Values in Front-End Scripts
+
+To display the internationalized content corresponding to the language set by the currently logged in user in a front-end script, simply call the function 't'. For example, the following script will display an error message with the internationalized content we defined earlier.
+
+```js
+toastr.error(t('base_error_start_end_date'));
+```
+
+###### translation in a custom API interface
+
+The following example demonstrates how to use the newly added custom translation variables when returning business messages in a custom API interface.
+
+```js
+// locale/main/default/routes/lbs_distance.router.js
+const express = require("express");
+const router = express.Router();
+const core = require('@steedos/core');
+
+router.get('/api/lbs_distance', core.requireAuthentication, async function (req, res) {
+    try {
+        let long1 = req.query.long1;
+        let lat1 = req.query.lat1;
+        let long2 = req.query.long2;
+        let lat2 = req.query.lat2;
+        if (!long1 || !lat1 || !long2 || !lat2) {
+            throw new Error("lbs_distance_error_params_required");
+        }
+        let result;
+        res.status(200).send({ result, success: true });
+    } catch (error) {
+        console.error(error);
+        res.status(200).send({ success: false, error: error.message });
+    }
+});
+exports.default = router;
+```
+
+We need to define the variable 'lbs_distance_error_params_required' in the internationalization file. Here is the relevant content in the Chinese internationalization file:
+
+```yml
+// locale/main/default/translations/zh-CN.translation.yml
+CustomLabels:
+  lbs_distance_error_params_required: '缺少经度或纬度参数！'
+```
+
+In the above example, we can see that the error message returned by the '/api/lbs_distance' interface is not translated into the configured Chinese message.
+
+To obtain the translated message content, we need to call the conversion function in the front-end when retrieving the interface return message.
+
+Here is an example code for the front-end button:
+
+```js
+module.exports = {
+  lbs_distance: function (object_name, record_id) {
+    let result = Steedos.authRequest("/api/lbs_distance",{type: 'get', async: false});
+    if(!result.success){
+      toastr.error(t(result.error));
+    }
+    //...
+  },
+
+  disableVisible: function (object_name, record_id, record_permissions, record) {
+    return true;
+  }
+}
+```
+
+#### built-in custom variables
+
+The list of built-in custom variables can be found in the source code:
+
+- Git repository source code：[i18n/translations](https://github.com/steedos/steedos-platform/tree/master/packages/i18n/translations)
+- Local NPM package source code： `node_modules/@steedos/i18n/translations`
+
+#### Modifying Custom Variables
+
+To easily modify these built-in variables, we just need to add same-named variables for internationalization in the package.
+
+The following example code will change the title of the application launcher in the pop-up window of the clicked grid from "Application Launcher" to "所有应用".
+
+```
+// locale/main/default/translations/zh-CN.translation.yml
+CustomLabels:
+  creator_app_launcher: 所有应用
+```
+
+The following example code will modify the URL of the "Help" link in the top right corner when filling out forms in the "Approval King" application to a new address.
+
+```yaml
+// locale/main/default/translations/zh-CN.translation.yml
+CustomLabels:
+  new_help: 'https://www.xxx.cn/docs'
+```
+
+### Application
+
+Generally, I will need to configure the internationalization settings for the application name and description. Similar to the section on "Adding Custom Variables for Internationalization," we need to first add a global custom translation file in the package to achieve application internationalization.
+
+```bash
+locale
+├── main / default
+└───├── translations
+    ├── └── en.translation.yml
+    └── └── zh-CN.translation.yml
+```
+
+However, instead of defining the translation content under the CustomLabels node, it is placed under a node called CustomApplications.
+
+The following translation content has configured custom translation variables for the Chinese and English resources of the "Office" application with the API name of oa. After adding them and restarting the service, the effects will be visible.
+
+```yml
+// locale/main/default/translations/zh-CN.translation.yml
+CustomApplications:
+  oa:
+    name: 办公自动化
+    description: 协同办公系统，包含审批、文档、公告、任务、日程等模块。
+```
+
+```yml
+// locale/main/default/translations/en.translation.yml
+CustomApplications:
+  oa:
+    name: OA
+    description: Collaborative office system
+```
+
+### Setting up Application Menu
+
+When setting up the application in the backend, there is a left-side menu. The default internationalization content for this menu item can be found in the source code:
+
+- Git repository source code：[standard-objects/translations/zh-CN.translation.yml](https://github.com/steedos/steedos-platform/blob/master/packages/standard-objects/translations/zh-CN.translation.yml)
+- Local NPM package source code： `node_modules/@steedos/standard-objects/translations/zh-CN.translation.yml`
+The following translation content modifies the name and description of the "Setting" application in the Chinese environment, and changes the left-side menu item from "Permission Set" to "Permission Group". After adding them and restarting the service, the effects will be visible.
+
+```yml
+// locale/main/default/translations/zh-CN.translation.yml
+CustomApplications:
+  admin:
+    name: system setting
+    description: system setting.
+CustomLabels:
+  menu_permission_set: Permission Group
+```
+
+### System Message
+
+For example, the following translation content reconfigures the prompt messages related to some operation buttons in the Chinese environment.
+
+```yml
+// locale/main/default/translations/zh-CN.translation.yml
+CustomLabels:
+  space_users_method_disable_success: The user has been successfully disabled.
+space_users_method_disable_error: Failed to disable user. 
+space_users_method_enable_success: The user has been successfully enabled.
+space_users_method_enable_error: Failed to enable user. 
+```
+
+## Command Line Interface
+
+teedos provides a command-line interface for batch generating object translation files, enabling users to quickly edit the internationalized content of relevant languages
+
+The syntax used in the command line is as follows: steedos i18n ${lng} [-s]. Running this command will generate an internationalization file for the objects in the project. The usage rules are as follows:
+
+- lng: Specifies the language in which internationalization is to be generated. Required field. (en | zh-CN)
+- -s: Specifies the path of the project. Default value is the current directory. Optional parameter.
+- -p: Specifies the project folder to be internationalized. By default, all objects in the current project will be internationalized. Optional parameter.
+- Example: steedos i18n zh-CN -s D:\GitHub\steedos-project-saas
+- Example: steedos i18n zh-CN -s . -p ./steedos-app
+
+## Supported Languages
+
+The currently supported languages are listed below. If you need to add a new language, you can refer to the example below.
+
+We encourage everyone to join us in building the Steedos community, submitting international resources as PRs to Steedos [GitHub](https://github.com/steedos/steedos-platform), or contacting us.
+
+| Code | Language |
+|----|----|
+| zh-CN | Chinese |
+| en | English |
+
+Steedos platform uses  [i18next](https://www.i18next.com) to implement internationalization, and each language code needs to follow a specific format. Please refer to  [how-should-the-language-codes-be-formatted](https://www.i18next.com/how-to/faq#how-should-the-language-codes-be-formatted) for details. For example, the code for Japanese is ja.
+
+## Example
+
+Below we use Japanese as an example to illustrate how to implement internationalization for a new language in Steedos.
+
+First, let's create a new [package](./package) named locale-ja for Japanese internationalization in the Steedos project. Suppose the package is empty and the directory structure is as follows:
+
+```bash
+locale-ja
+├── main / default
+└───package.json
+```
+
+### Project Internationalization
+
+Assuming the Steedos project directory is /workspace/project-demo, and there is a software package named "project-management" inside it, the directory structure would look something like this:
+
+```bash
+steedos-demo
+├───steedos-packages
+├───├───project
+├───├───├───main / default
+├───├───├───├───applications
+├───├───├───├───objects
+├───├───├───├───├───project
+├───├───├───├───├───project_task
+├───├───├───├───├───...
+├───├───├───├───...
+├───├───└───package.json
+├───├───locale-ja
+├───├───├───main / default
+├───├───└───package.json
+└───package.json
+```
+
+Next, we open the command line in the project root directory, i.e. steedos-demo, and execute the following command to generate translation files for various types of metadata under the package folder named project:
+
+```bash
+steedos i18n ja -s . -p /workspace/steedos-demo/steedos-packages/project/main
+```
+
+After the successful execution of the command, a new internationalization resource folder will be generated at the same level as /steedos-packages/project/main/default/objects, with a directory structure that looks something like this:
+
+```bash
+steedos-demo
+├───steedos-packages
+├───├───project
+├───├───├───main / default
+├───├───├───├───applications
+├───├───├───├───objects
+├───├───├───├───├───project
+├───├───├───├───├───project_task
+├───├───├───├───├───...
+├───├───├───├───objectTranslations
+├───├───├───├───├───project.ja
+├───├───├───├───├───├───project.ja.objectTranslation.yml
+├───├───├───├───├───project_task.j
+├───├───├───├───├───├───project_task.ja.objectTranslation.yml
+├───├───├───├───├───...
+├───├───├───├───translations
+├───├───├───├───├───ja.translation.yml
+├───├───├───├───...
+├───├───└───package.json
+├───├───locale-ja
+├───├───├───main / default
+├───├───└───package.json
+└───package.json
+```
+
+From the directory changes above, we can see that two Japanese translation resource files corresponding to the objects were added to the objectTranslations folder, and an additional Japanese translation resource file was added to the translations folder to store the translation content of other custom variables.
+
+We can further migrate the Japanese internationalization related content to a dedicated package named locale-ja. After migration, the directory structure will look something like the following:
+
+```bash
+steedos-demo
+├───steedos-packages
+├───├───project
+├───├───├───main / default
+├───├───├───├───applications
+├───├───├───├───objects
+├───├───├───├───├───project
+├───├───├───├───├───project_task
+├───├───├───├───├───...
+├───├───└───package.json
+├───├───locale-ja
+├───├───├───main / default
+├───├───├───├───objectTranslations
+├───├───├───├───├───project.ja
+├───├───├───├───├───├───project.ja.objectTranslation.yml
+├───├───├───├───├───project_task.j
+├───├───├───├───├───├───project_task.ja.objectTranslation.yml
+├───├───├───├───├───...
+├───├───├───├───translations
+├───├───├───├───├───ja.translation.yml
+├───├───├───├───...
+├───├───└───package.json
+└───package.json
+```
+
+Of course, migrating the Japanese translation resource files to a unified Japanese internationalization package is not a necessary step, but rather a recommended approach. Doing so allows for the newly added language internationalization content to be maintained in a single package.
+
+### Platform Internationalization
+
+Above, we described how to quickly add Japanese internationalization resource files for metadata in a project using the steedos i18n command. However, when we decide to add a new language for the entire Steedos platform, we need to first implement the internationalization for the platform itself.
+
+Similarly, let's take the addition of Japanese internationalization resource files for the platform package standard-object-database as an example.
+
+To add internationalization resource files for built-in metadata in the platform using the steedos i18n command, you first need to clone the platform source code.
+
+Assuming we've cloned the platform source code into a folder at the same level as the project, open the command line at the project root directory (i.e., steedos-demo folder), and run the following command to generate translation files for various types of metadata under the standard-object-database package folder in the platform:
+
+```bash
+steedos i18n ja -s . -p /workspace/steedos-platform/services/standard-object-database/main
+```
+After the command has been successfully executed, a new internationalization resource folder will be generated at the same level as the steedos-platform/services/standard-object-database/main/default/objects directory.
+
+Once we've copied the newly generated folder from the platform source code into our internationalization package, the directory structure will be similar to the following:
+
+```bash
+steedos-demo
+├───steedos-packages
+├───├───project
+├───├───├───main / default
+├───├───├───├───applications
+├───├───├───├───objects
+├───├───├───├───├───project
+├───├───├───├───├───project_task
+├───├───├───├───├───...
+├───├───├───├───...
+├───├───└───package.json
+├───├───locale-ja
+├───├───├───main / default
+├───├───├───├───objectTranslations
+├───├───├───├───├───project.ja
+├───├───├───├───├───├───project.ja.objectTranslation.yml
+├───├───├───├───├───project_task.j
+├───├───├───├───├───├───project_task.ja.objectTranslation.yml
+├───├───├───├───├───...
+├───├───├───├───├───objects.ja
+├───├───├───├───├───├───objects.ja.objectTranslation.yml
+├───├───├───├───├───object_fields.ja
+├───├───├───├───├───├───object_fields.ja.objectTranslation.yml
+├───├───├───├───├───...
+├───├───├───├───translations
+├───├───├───├───├───ja.translation.yml
+├───├───└───package.json
+└───package.json
+```
+
+The process of adding Japanese internationalization resource files for metadata in other packages in the platform is the same as the method used for implementing Japanese internationalization for the standard-object-database package in the platform.
+

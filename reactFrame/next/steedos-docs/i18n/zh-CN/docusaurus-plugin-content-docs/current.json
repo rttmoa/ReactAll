@@ -1,0 +1,86 @@
+{
+    "version.label": {
+        "message": "2.5",
+        "description": "The label for version current"
+    },
+    "sidebar.platform.category.Setup": {
+        "message": "安装部署",
+        "description": "The label for category Setup in sidebar platform"
+    },
+    "sidebar.platform.category.Getting Started": {
+        "message": "用户向导",
+        "description": "The label for category Getting Started in sidebar platform"
+    },
+    "sidebar.platform.category.Setup Your Organization": {
+        "message": "组织设置",
+        "description": "The label for category Setup Your Organization in sidebar platform"
+    },
+    "sidebar.platform.category.Manage Data Access": {
+        "message": "管理数据访问权限",
+        "description": "The label for category Manage Data Access in sidebar platform"
+    },
+    "sidebar.platform.category.Extend with Clicks": {
+        "message": "无代码开发",
+        "description": "The label for category Extend with Clicks in sidebar platform"
+    },
+    "sidebar.platform.category.Customize Your Org": {
+        "message": "自定义你的组织",
+        "description": "The label for category Customize Your Org in sidebar platform"
+    },
+    "sidebar.platform.category.Set Up Your Data": {
+        "message": "设定你的数据",
+        "description": "The label for category Set Up Your Data in sidebar platform"
+    },
+    "sidebar.platform.category.Customize Fields": {
+        "message": "自定义字段",
+        "description": "The label for category Customize Fields in sidebar platform"
+    },
+    "sidebar.platform.category.Formula Overview": {
+        "message": "公式字段",
+        "description": "The label for category Calculate Field Values with Formulas in sidebar platform"
+    },
+    "sidebar.platform.category.Micro Page Builder": {
+        "message": "微页面设计器",
+        "description": "The label for category Micro Page Builder in sidebar platform"
+    },
+    "sidebar.platform.category.Amis Components": {
+        "message": "Amis 组件",
+        "description": "The label for category Amis Components in sidebar platform"
+    },
+    "sidebar.platform.category.Extend the Reach of Your Organization": {
+        "message": "应用集成",
+        "description": "The label for category Extend the Reach of Your Organization in sidebar platform"
+    },
+    "sidebar.platform.category.Automate Your Processes": {
+        "message": "自动化工作流程",
+        "description": "The label for category Automate Your Processes in sidebar platform"
+    },
+    "sidebar.platform.category.Approval King": {
+        "message": "审批王",
+        "description": "The label for category Approval King in sidebar platform"
+    },
+    "sidebar.platform.category.Plugins": {
+        "message": "插件",
+        "description": "The label for category Plugins in sidebar platform"
+    },
+    "sidebar.platform.category.API Guide": {
+        "message": "API 向导",
+        "description": "The label for category API Guide in sidebar platform"
+    },
+    "sidebar.platform.category.REST API": {
+        "message": "REST API",
+        "description": "The label for category REST API in sidebar platform"
+    },
+    "sidebar.platform.category.Moleculer API": {
+        "message": "Moleculer API",
+        "description": "The label for category Moleculer API in sidebar platform"
+    },
+    "sidebar.platform.category.Developer Guide": {
+        "message": "开发人员向导",
+        "description": "The label for category Developer Guide in sidebar platform"
+    },
+    "sidebar.platform.category.Set Up Your APP": {
+        "message": "创建企业应用",
+        "description": "The label for Set Up Your APP in sidebar platform"
+    }
+}

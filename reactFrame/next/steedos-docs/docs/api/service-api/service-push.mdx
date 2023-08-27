@@ -1,0 +1,35 @@
+---
+title: Push Notification
+description: 华炎魔方支持在第三方应用中调用接口来发推送通知
+---
+
+Sending Push Notification can be achieved by simply calling the Steedos GraphQL API to insert notification data into the push_notifications object, which will then send the notification to Steedos mobile client, PC client, and browser client.
+
+## Calling GraphQL API
+
+By calling the GraphQL API to insert a record into the push_notifications object, the system will automatically send a push notification.
+
+Here's a reference for the data that needs to be sent in the GraphQL API:
+
+```js
+mutation {
+  push_notifications__insert(doc:{ 
+    name : "xxxxxxxxxxx",
+    body : "xxxxxxxxxxx",
+    owner_mobile : "xxxxxxxxxxx", 
+    app_id : "xxxxxxxxxxxx", 
+    badge: 1 
+  }){
+    name
+    _id
+  }
+}
+```
+
+- Name: The title displayed in the notification.
+- Body: The body text of the notification message.
+- Owner_mobile: The mobile number of the user in the Steedos system to whom the notification should be sent.
+- App_id: Optional. This is the Id value of the third-party application created within Steedos project that is associated with the notification.
+- Badge: Optional. The numerical value to display in the badge on the associated application, which is the value displayed on the top-right corner of the application icon.
+
+Assuming the access address of Steedos project is https://huayan-test.steedos.cn, the GraphQL API endpoint would be https://huayan-test.steedos.cn/graphql. By calling this endpoint from a third-party system and sending the reference data mentioned above, the Steedos will automatically send the push notification.

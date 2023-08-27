@@ -5,7 +5,8 @@ const { client_id, client_secret, request_token_url } = config.github
 
 
 module.exports = server => {  // 接收 server
-
+  console.log(123)
+  console.log("server")
   server.use(async (ctx, next) => {
     // 如果 /auth 做处理
     // 此代码去Github上OAuth获取code，换取Token，最后获取到用户信息的过程

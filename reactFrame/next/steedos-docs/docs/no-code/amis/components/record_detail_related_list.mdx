@@ -1,0 +1,25 @@
+---
+title: RecordDetailRelatedList
+description: 华炎魔方微页面引擎，内置相关表组件 RecordDetailRelatedList，借助amis渲染器，可以帮助开发人员快速生成一个功能完善的相关表视图组件。
+---
+
+This is steedos related table view component, which is generally used to display a related child table list on the record details page. It displays the object-related table records as a table, and includes functionality for CRUD and other operation buttons.
+
+## Basic Usage
+
+The most basic usage is to configure the "Parent Object", "Parent Record", and "Related Object" properties of the component, which can then display a related table interface for a specific object record.
+
+As shown below, we configure the "Parent Object" property of the related table to be the current object, the "Parent Record" property to be the current record, and the "Related Object" property to be "Contacts":
+
+```json
+{
+    type: 'page',
+    title: 'RecordDetailRelatedList',
+    body: {
+        "type": "steedos-object-related-listview",
+        "objectApiName": "${objectName}",
+        "recordId": "${recordId}",
+        "relatedObjectApiName": "contacts"
+    },
+  }
+```

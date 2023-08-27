@@ -1,5 +1,7 @@
 const { addImport, addExport } = require('./utils')
-const slugify = (title) => title; //require('@sindresorhus/slugify')
+const slugify = (title) => title; // require('@sindresorhus/slugify')
+
+
 
 module.exports.withTableOfContents = () => {
   return (tree) => {
@@ -86,6 +88,7 @@ module.exports.withTableOfContents = () => {
     addExport(tree, 'tableOfContents', contents)
   }
 }
+
 
 function stringifyProps(props) {
   return Object.entries(props)

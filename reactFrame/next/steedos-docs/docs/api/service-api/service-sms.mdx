@@ -1,0 +1,75 @@
+---
+title: SMS Notification
+---
+
+## Applying for SMS Service
+
+1. Register an account: Sign up for Tencent Cloud at https://cloud.tencent.com/
+
+2. Access the SMS service: Visit Tencent Cloud-Enterprise Application and Cloud Communication-Cloud Communication-SMS at https://cloud.tencent.com/product/sms
+
+3. Create a signature: Go to "Signature Management" under "Domestic SMS" and create a signature. Follow the instructions and provide the required information. For example, create the signature "Steedos". Once the signature is approved, you can see it in the signature management list.
+
+4. Create a content template: Go to "Content Template Management" under "Domestic SMS" and create a content template. For Steedos service, the following content templates need to be created:
+
+| Template Name | Template Name |
+| ---- | ---- | 
+|Verification Code-Login|Your verification code is: {1}. This code is valid for {2} minutes. Please do not share it with anyone else!| 
+|System Notification-Password Modification|System Notification: Your login password has been modified.| 
+|Address Book Mobile Phone Modification|Your mobile phone number in the address book has been changed to {1}.|
+
+5. Create an application: In "Application Management-Application List", click on "Create Application" and create an application, for example, "Steedos".
+
+
+## SMS Sending Configuration
+
+Edit .env or .env.local and add the following three environment variables:
+
+```yaml
+STEEDOS_SMS_QCLOUD_SDKAPPID=xxxxxxxxxxx 
+STEEDOS_SMS_QCLOUD_APPKEY=xxxxxxxxxxx
+STEEDOS_SMS_QCLOUD_SIGNNAME=xxxxxxxxxxx   
+```
+
+- STEEDOS_SMS_QCLOUD_SDKAPPID: Tencent Cloud SMS-Application Management-Application Steedos-SDK AppID
+- STEEDOS_SMS_QCLOUD_APPKEY: Tencent Cloud SMS-Application Management-Application List-Steedos-App Key
+- STEEDOS_SMS_QCLOUD_SIGNNAME: Tencent Cloud SMS-Signature Management-Steedos (Signature Content)
+
+For service version 2.1 and older versions, you need to modify the configuration file steedos-config.yml and add the following configuration:
+
+```yaml
+sms:
+  qcloud:
+    smsqueue_interval: 1000 
+    sdkappid: ${STEEDOS_SMS_QCLOUD_SDKAPPID}
+    appkey: ${STEEDOS_SMS_QCLOUD_APPKEY}
+    signname: ${STEEDOS_SMS_QCLOUD_SIGNNAME}
+```
+
+For service versions 2.2 and newer, adjustments need to be made to the configuration file, steedos.config.js. Please modify the file to reflect this:
+
+```js
+require('dotenv-flow').config({
+    path: process.cwd(),
+    silent: true
+});
+module.exports = {
+    ......
+    started(broker) {
+        broker.createService(require("@steedos/service-enterprise"));
+    },
+    settings: {
+        sms: {
+            qcloud: {
+                smsqueue_interval: 1000
+                sdkappid: process.env.STEEDOS_SMS_QCLOUD_SDKAPPID
+                appkey: process.env.STEEDOS_SMS_QCLOUD_APPKEY
+                signname: process.env.STEEDOS_SMS_QCLOUD_SIGNNAME
+            }
+        }
+    }
+};
+```
+
+
+

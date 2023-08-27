@@ -3,8 +3,8 @@ const loadLanguages = require('prismjs/components/')
 const redent = require('redent')
 loadLanguages()
 
-const HTML_TAG =
-  /<\/?(?!\d)[^\s>\/=$<%]+(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?=[\s/>])))+)?\s*\/?>/gi
+const HTML_TAG = /<\/?(?!\d)[^\s>\/=$<%]+(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?=[\s/>])))+)?\s*\/?>/gi
+
 const PSEUDO_CLASSES = [
   'active',
   'any-link',
@@ -134,6 +134,7 @@ function hasLineHighlights(code) {
   return code.split('\n').every((line) => line === '' || /^[> ] /.test(line))
 }
 
+// 高亮代码
 module.exports.highlightCode = function highlightCode(code, prismLanguage) {
   const isDiff = prismLanguage.startsWith('diff-')
   const language = isDiff ? prismLanguage.substr(5) : prismLanguage
@@ -353,6 +354,7 @@ function normalizeTokens(tokens) {
   return acc
 }
 
+// 简化Token
 module.exports.simplifyToken = function simplifyToken(token) {
   if (typeof token === 'string') return token
   return [

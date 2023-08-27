@@ -1,0 +1,423 @@
+---
+title: GraphQL API
+description: 基于华炎魔方创建的自定义对象，会自动生成 GraphQL API 接口，接口自带身份验证和权限控制，确保业务数据的安全。
+---
+
+## GraphQL Console
+
+The GraphQL console can be accessed on the browser to query and manipulate data in the system. The website address is: ${server_address}/graphql.
+
+GraphQL interface has built-in access control. Before executing a query, you must first log in to the system. The query's access permission is based on the current logged-in account.
+
+ ![](https://console.steedos.cn/api/files/images/BTmifmnQCm98HdZ7L)
+
+## 接口验证
+
+Before calling an interface, interface authentication must first be performed. Please refer to [Interface Verification.](./api-validate)。
+
+## Querying Data
+
+When using GraphQL to query data, you can set the object, field, pagination, sorting, and filtering conditions to be queried. All queries are based on the range of data authorized for viewing by the currently logged-in user.
+
+### Querying Objects and Fields
+
+By inputting the object and field names, you can query all records in the object. For example, the following query can query information about branches.
+
+```javascript
+{
+  company{
+    _id,
+    name,
+    admins
+  } 
+}
+```
+
+
+and return
+
+```javascript
+{
+  "data": {
+    "company": [
+      {
+        "_id": "CqY8Dy4MCFgXCbMjT",
+        "name": "华炎软件",
+        "admins": [
+          "60f6a630d5d0f30031bba318"
+        ]
+      },
+      {
+        "_id": "EX4Ro64TjLaMnves8",
+        "name": "华炎网络",
+        "admins": [
+          "60f6a630d5d0f30031bba318"
+        ]
+      }
+    ]
+  }
+}
+```
+
+
+### Query parameter: Pagination
+
+You can define a skip parameter to specify how many records to skip, and a top parameter to specify how many records to return in a query.
+
+The following query will only return the second record:
+
+```javascript
+query{
+  space_users(top:1, skip:1){
+    name,
+    mobile
+  }
+}
+```
+
+
+### Query parameter: Sorting
+
+You can define how to sort the results using the sort parameter.
+
+The keyword desc indicates descending order, and the keyword asc indicates ascending order.
+
+Example: Sorting in descending order by the field name.
+
+```javascript
+query{
+  space_users(sort:"name asc"){
+    name,
+    mobile
+  }
+}
+```
+
+### Query parameter: Filtering
+
+You can add filters to query for specific records.
+
+Example: Query records where the branch name contains 'steedos'.
+
+```javascript
+query{
+  company(filters: ["name","contains","steedos"]){
+    _id,
+    name,
+  } 
+}
+```
+
+### Expanding Related Tables in Query
+
+For lookup and master/detail type fields, you can use the ${field_api_name}__expand syntax to expand the query to include data from related tables. If the related table field is a multi-select type, the returned data will also be an array.
+
+```javascript
+{
+  company{
+    _id,
+    name,
+    admins__expand{
+      name
+      mobile
+    }
+  } 
+}
+```
+
+
+and return
+
+```javascript
+{
+  "data": {
+    "company": [
+      {
+        "_id": "CqY8Dy4MCFgXCbMjT",
+        "name": "华炎软件",
+        "admins__expand": [
+          {
+            "_id": "60f6a630d5d0f30031bba318",
+            "name": "管理员",
+            "mobile": "18600000000"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+
+### Returning formatted data
+
+For boolean, select, date, datetime, and lookup type fields, you can use the _display{field_api_name} syntax to format the queried data.
+
+In the formatted result, the values of 0, null, and false will be replaced with an empty string.
+
+```javascript
+query{
+  space_users(top:1, skip:1){
+    name,
+    # boolean null
+    email_verified
+    # boolean false
+    mobile_verified
+    # boolean true
+    is_supplier
+    # lookup  单选
+    organization
+    # lookup  多选
+    organizations_parents
+    # select
+    locale
+    # number
+    sort_no
+    # date
+    last_logon
+    # datetime
+	created
+    
+    _display{
+      email_verified
+      mobile_verified
+      is_supplier
+      organization
+      organizations_parents
+      locale
+      sort_no
+      last_logon
+      created
+    },
+    _ui{
+      organization
+      organizations_parents
+    }
+  }
+}
+```
+
+
+and return
+
+```javascript
+{
+  "data": {
+    "space_users": [
+      {
+        "name": "王小明",
+        "email_verified": null,
+        "mobile_verified": false,
+        "is_supplier": null,
+        "organization": "n7Yv6i5fg3acnmm5d",
+        "organizations_parents": [
+          "n7Yv6i5fg3acnmm5d",
+          "XypyNbzGCJbHMNyWv"
+        ],
+        "locale": "zh-cn",
+        "sort_no": null,
+        "last_logon": null,
+        "created": "2022-08-09T04:08:28.313Z",
+        "_display": {
+          "email_verified": "",
+          "mobile_verified": "",
+          "is_supplier": "",
+          "organization": "上海分公司",
+          "organizations_parents": "上海分公司,爱多邦",
+          "locale": "简体中文",
+          "sort_no": "",
+          "last_logon": "",
+          "created": "2022-08-09 12:08"
+        },
+        "_ui": {
+          "organization": {
+            "objectName": "organizations",
+            "value": "n7Yv6i5fg3acnmm5d",
+            "label": "上海分公司"
+          },
+          "organizations_parents": [
+            {
+              "objectName": "organizations",
+              "value": "n7Yv6i5fg3acnmm5d",
+              "label": "上海分公司"
+            },
+            {
+              "objectName": "organizations",
+              "value": "XypyNbzGCJbHMNyWv",
+              "label": "爱多邦"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+
+### Querying Related Subtables
+
+When other tables are related to the current table, you can query the related subtable information at the same time.
+
+
+Query Syntax:
+
+```javascript
+_related_${object_api_name}_${field_api_name}
+```
+
+
+For example, the following query can retrieve a list of personnel within the current division, i.e. the records in the "space_users" object where the "company_ids" field is associated with the "company":
+
+```javascript
+{
+  company{
+    _id,
+    name,
+    admins__expand{
+      _id
+      name
+      mobile
+    }
+    space_users: _related_space_users_company_ids(filters: ["job_number","=","10"]) {
+      name
+      mobile
+    }
+  } 
+}
+```
+
+Note: For the purpose of enhancing the readability of the returned results, an alias named "space_users" is used for the returned results.
+
+
+and return
+
+```javascript
+{
+  "data": {
+    "company": [
+      {
+        "_id": "CqY8Dy4MCFgXCbMjT",
+        "name": "华炎软件",
+        "admins__expand": [
+          {
+            "_id": "60f6a630d5d0f30031bba318",
+            "name": "管理员",
+            "mobile": "18600000000"
+          }
+        ],
+        "space_users": [
+          {
+            "name": "小明",
+            "mobile": "18600000000"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+
+## Working with Data
+
+GraphQL can be utilized to perform CRUD (Create, Retrieve, Update, Delete) operations on data. All data-related operations are executed based on the current user's authorized data scope.
+
+### Creating Data
+
+When calling the GraphQL API to create new data, the system first verifies whether the current user has the permission to perform the corresponding create action.
+
+#### Creating a Single Record
+
+To create a single record, use the syntax mutation.{object_api_name}__insert and provide the value for the doc parameter.
+
+```javascript
+mutation {
+  tasks__insert(doc:{name:"Task One", assignees: []}) {
+    name
+    _id
+  }
+}
+```
+
+In this case, tasks represents the object name of the record you want to insert, and {name:"Task One", assignees: []} represents the JSON data to be inserted.
+
+The keyword __insert indicates that a record will be added to the system via the GraphQL API.
+
+and return
+
+```javascript
+{
+  "data": {
+    "tasks__insert": {
+      "name": "Task One",
+      "_id": "5cb98489d09a343e14daae95"
+    }
+  }
+}
+```
+
+### Modifying record
+
+When calling the GraphQL API to modify data, the system first verifies whether the current user has the corresponding edit permissions.
+
+#### Modifying a single record
+
+To modify a single record, use the syntax mutation.{object_api_name}__update and provide the values for the id and doc parameters.
+
+```javascript
+mutation {
+  tasks__update(id:"5cb98489d09a343e14daae95", doc:{name:"Task Important"}) {
+    name
+    _id
+  }
+}
+```
+
+In this case, tasks represents the object name of the record you want to modify, the value 5cb98489d09a343e14daae95 for id represents the _id of the record you want to modify, and {name:"Task Important"} represents the JSON data to be updated.
+
+The keyword __update indicates that a record will be updated in the system via the GraphQL API.
+
+and return
+
+```javascript
+{
+  "data": {
+    "tasks__update": {
+      "name": "Task Important",
+      "_id": "5cb98489d09a343e14daae95"
+    }
+  }
+}
+```
+
+### Deleting record
+
+When calling the GraphQL API to delete data, the system will first verify if the current user has the corresponding deletion permissions.
+
+#### Deleting a single record
+
+To delete a single piece of data, use the mutation.{object_api_name}__delete syntax and provide the id parameter value.
+
+```javascript
+mutation {
+  tasks__delete(id:"5cb98489d09a343e14daae95")
+}
+```
+
+In which tasks represents the name of the object to delete a record from, and the value 5cb98489d09a343e14daae95 of id represents the _id of the record to be deleted.
+
+The keyword __delete represents deleting a record in the system through the GraphQL API.
+
+and return
+
+```javascript
+{
+  "data": {
+    "tasks__delete": 1
+  }
+}
+```
+
+
+Reference to：[GraphQL](https://graphql.org/)

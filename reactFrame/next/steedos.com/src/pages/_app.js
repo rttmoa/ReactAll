@@ -21,7 +21,7 @@ import { Footer } from '../components/Footer';
 // import { getSite } from '@/lib/site';
 
 
-
+// 判断是服务端时还是客户端时
 if (typeof window !== 'undefined' && !('ResizeObserver' in window)) window.ResizeObserver = ResizeObserver;
 
 const progress = new ProgressBar({
@@ -39,18 +39,16 @@ if (typeof window !== 'undefined') {
 }
 
 Router.events.on('routeChangeStart', progress.start)
-Router.events.on('routeChangeComplete', () => {
-  progress.finish()
-  window.scrollTo(0, 0);
-})
+Router.events.on('routeChangeComplete', () => { progress.finish();  window.scrollTo(0, 0); })
 Router.events.on('routeChangeError', progress.finish)
 
 
 
 
 
-export default function App({Component, pageProps: { session, ...pageProps }, router}) {
+export default function App({ Component, pageProps: { session, ...pageProps }, router }) {
 
+  // posthog.js: https://github.com/PostHog/posthog
   usePostHog('phc_Hs5rJpeE5JK3GdR3NWOf75TvjEcnYShmBxNU2Y942HB', {
     api_host: 'https://posthog.steedos.cn',
     loaded: (posthog) => {
@@ -95,7 +93,9 @@ export default function App({Component, pageProps: { session, ...pageProps }, ro
   return (
     // TODO: 项目总结构：next-auth && SearchProvider && Header && Layout && Component
     <SessionProvider session={session}>
+
       <SearchProvider>
+
         {showHeader && (
           <Header
             hasNav={Boolean(Component.layoutProps?.Layout?.nav)}
@@ -108,24 +108,21 @@ export default function App({Component, pageProps: { session, ...pageProps }, ro
           <Layout {...layoutProps}>
             <Component section={section} {...pageProps} />
           </Layout>
+
         {showFooter && <Footer/>}
       </SearchProvider>
+
     </SessionProvider>
   )
 }
 
 // App.getInitialProps = async ({ctx}) => {
-//   const { req } = ctx;
 //   let site = null;
-//   if(req){
+//   if(ctx.req){
 //     try {
 //       let parsedSrc = new URL(req.headers.referer);
 //       site = await getSite(parsedSrc.hostname)
-//     } catch (err) {
-//       console.error(err);
-//     }
+//     } catch (err) { }
 //   }
-//   return {
-//     site: site
-//   }
+//   return { site }
 // }

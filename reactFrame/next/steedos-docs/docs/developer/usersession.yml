@@ -1,0 +1,31 @@
+
+# userSession详解
+
+userSession中包含了当前登录用户信息，下面列出了其主要变量清单：
+
+| 属性名 | 值类型 | 属性含义 |
+|----|----|----|
+| authToken | string | 登录信息 |
+| companies | array | 所属分部 |
+| company | object | 主分部 |
+| company_id | string | 主分部id |
+| company_ids | array | 所属分部id |
+| email | string | 邮箱 |
+| is_space_admin | boolean | 是否是工作区管理员 |
+| language | string | 语言 |
+| locale | string | 本地语言 |
+| mobile | string | 手机号 |
+| name | string | 用户名 |
+| organization | object | 主部门 |
+| organizations | array | 所属部门 |
+| password_expired | boolean | 登录密码过期 |
+| permission_shares | array | 共享规则 |
+| profile | string | 简档 |
+| roles | array | 用户角色 |
+| space | object | 当前工作区 |
+| spaceId | string | 当前工作区id |
+| spaces | array | 用户所属工作区集合 |
+| userId | string | 用户id |
+| utcOffset | number | 国际化UTC时间偏差；北京时间时该值为 8。 |
+
+

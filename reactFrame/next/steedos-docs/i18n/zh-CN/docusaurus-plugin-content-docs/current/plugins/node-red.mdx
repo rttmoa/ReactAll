@@ -1,0 +1,318 @@
+---
+title: Node-Red
+---
+
+Node-RED是一个基于流程的编程工具，可以让您轻松地将物联网设备、API和在线服务连接在一起。它使用一种基于浏览器的编辑器让用户可以将不同的节点拖放到画布上，并连接它们来创建流程。Node-RED还提供了大量的节点，使用户可以轻松地与各种设备和服务进行交互。
+
+详情请查阅其官网 [https://Node-Red.org/](https://node-red.org/)。
+
+:::tip
+此功能需要企业版授权才能使用。
+:::
+
+## 整合Node-Red项目
+
+想要在华炎魔方项目中使用Node-Red来实现具体业务，首先需要把它集成到华炎魔方项目中。
+
+### 创建应用
+
+具体创建应用详情可以参考华炎魔方template项目：[https://gitlab.steedos.cn/steedos/steedos-project-template.git](https://gitlab.steedos.cn/steedos/steedos-project-template.git)
+
+### 运行
+
+我们可以在刚创建的`node-red-app`文件夹内看到`package.json`文件，这是一个独立的NPM项目，我们接下来`cd`到该文件夹，执行`yarn`安装该项目依赖包，最后执行`yarn start`即可运行该`Node-Red`项目。
+
+运行成功后，可以通过1880端口地址来访问服务。
+
+### 静态资源存储
+
+如需存放静态资源，可以在`node-red-app`文件夹下创建一个静态资源目录，文件名自拟，这里以public为例。同时在`node-red-app` 文件夹下的 setting.js 中添加以下代码：
+
+```jsx
+httpStatic: path.join(__dirname, 'public'),
+    httpAdminRoot: "/admin"
+
+```
+
+其案例图如下：
+
+其访问资源url只需以/访问。其node-red控制页面url改为[http://127.0.0.1:1880/admin](http://127.0.0.1:1880/admin)
+
+![](/../static/img/zh-CN/node_red_run.png)
+
+### 初始化配置
+
+Node-Red服务跑起来后，我们可以在浏览器中输入控制台中提示的地址访问Node-Red，第一次访问服务的话，会看到初始化配置向导界面，比如设置访问Node-Red服务的账户和密码等，我们只要按向导提示来配置即可。
+
+初始化配置设置完成后，会自动跳转到名为“Node-RED on Steedos”的首页，在该界面可以看到如何定制Node-Red的简易教程。
+
+## 流程设计器
+
+在跑起的Node-Red服务首页，我们看到右侧有一个名为“Go to your Node-RED flow editor”的按钮，点击它即可打开一个名为“Flow Builder”的编辑器，可以访问Node-Red的官网教程 [https://Node-Red.org/docs/user-guide/](https://node-red.org/docs/user-guide/) 来学习如何在该编辑器中配置、调式和部署流程。
+
+![](/../static/img/zh-CN/node_red_ini.png)
+
+## 华炎魔方节点
+
+我们可以使用上面提到的流程设计器来配置整合现有业务系统，如果需要让华炎魔方连接SAP、用友、金蝶等主流业务系统，以整合集成相关业务到华炎魔方，请使用我们特意开发的各种Node节点，可以很方便的实现各种集成业务需求。
+
+### steedos-event节点
+
+Steedos Event 是指在华炎魔方平台中，使用 Steedos Event 服务来进行事件订阅和发布的功能。通过 Steedos Event，我们可以订阅特定的事件，例如记录创建、记录更新或记录删除等事件，以便在事件发生时执行自定义操作。在 Steedos Event 中，我们需要指定以下参数：
+
+- `Broker` 是在 `Node-RED` 中用来指定使用的消息代理的参数。在 `Node-RED` 中，我们可以通过配置 `Broker` 来连接 `Steedos` 项目。通常情况下，我们使用 `NATS` 作为消息代理。为了配置 `Broker`，我们需要在 `Node-RED-app` 文件夹下的 `.env` 文件中进行相应的配置，并在 `Node-RED` 中进行引用。更多关于 `NATS` 作为消息代理的详细内容，可以参考以下链接：[https://moleculer.services/zh/docs/0.14/networking.html#NATS-Transporter。](https://moleculer.services/zh/docs/0.14/networking.html#NATS-Transporter%E3%80%82)
+- Service：指定使用的服务名称。
+- Name：指定节点的名称，例如订阅事件的节点名称。
+- Topic：指定订阅的主题或事件名称，例如创建记录事件或更新记录事件。
+- Group：指定订阅事件的组，可以是一个或多个组，以逗号分隔。
+
+通过配置这些参数，我们可以在华炎魔方平台中使用 Steedos Event 来实现事件订阅和发布的功能，以便在事件发生时执行自定义操作。例如，我们可以订阅创建记录事件，并在事件发生时向 Slack 或微信发送通知，或者在事件发生时执行自定义的 JavaScript 代码来实现更复杂的操作。
+
+![](/../static/img/zh-CN/node_red_event.png)
+
+### steedos-emit节点
+
+`Steedos Emit` 是 `Node-RED` 中的一个节点，用于向 `Steedos` 项目发送事件消息。该节点需要配置以下参数：
+
+- `Broker`：指定使用的消息代理的名称；
+- `Name`：指定节点的名称；
+- `Topic`：指定事件主题/名称。可以被 `msg.topic` 覆盖；
+- `Broadcast`：指定是否广播事件。可以被 `msg.broadcast` 覆盖；
+- `Group`：指定事件所属的组，多个组名之间用逗号分隔。可以被 `msg.group` 覆盖。
+
+通过配置这些参数，我们可以在 `Node-RED` 中使用 `Steedos Emit` 节点向 `Steedos` 项目发送事件消息，实现不同组件之间的通信。
+
+### steedos-call节点
+
+Steedos Call 是一个 Node-RED 的节点，用于调用 Steedos 平台提供的 API。它可以通过配置 `Broker` 和 `Action` 来调用 Steedos 平台的 API，也可以通过 `msg.action` 属性来覆盖 `Action` 的值。此外，你还可以在 `Options` 中设置一些 JSON 格式的选项，以便更好地控制 API 的调用行为。如果你想了解更多关于 Steedos 平台的 API，请参考 Steedos 平台的 API 文档。具体详情可参考steedos- template模版项目
+
+![](/../static/img/zh-CN/node_red_emit.png)
+
+### steedos-request节点
+
+Steedos Request 是一个 Node-RED 中的节点，用于发送 HTTP 请求到 Steedos 平台的 ObjectQL 微服务和 GraphQL 微服务。这个节点需要配置以下参数：
+
+- Broker: 消息代理。
+- Service: 这是要调用的微服务的名称。
+- Name: 这是节点的名称，用于在 Node-RED 中标识该节点。
+- Action: 这是要执行的操作的名称，例如查询、创建、更新或删除对象。如果消息中包含 `msg.action` 属性，则会覆盖该参数。
+- REST：可以根据该属性，自定义api。其内容为json值。“method”为请求方式，"path"为路由url地址。
+- Trigger：可以根据该属性，自定义触发器。其内容为json值。“listenTo”为监听对象 ，“when”为触发时机。其具体的值可以参考华炎魔方官网文档-触发器部分：[https://beta.steedos.cn/docs/developer/action-trigger](https://beta.steedos.cn/docs/developer/action-trigger)
+
+当节点接收到输入消息时，它会将消息中的数据作为请求的参数发送到 Steedos 平台，并将响应数据作为输出消息发送到下一个节点。具体详情可参考steedos- template模版项目。
+
+如案例node-red自定义api：
+
+调用api地址：[http://127.0.0.1:5000/service/api/example-service/](http://127.0.0.1:5000/service/api/example-service/hello/jack)+path
+
+![](/../static/img/zh-CN/node_red_request.png) 
+
+如案例node-red触发器：
+
+![](/../static/img/zh-CN/node_red_request_ex.png) 
+
+### steedos-response节点
+
+Steedos Response 是一个 Node-RED 中的节点，用于发送响应消息到 HTTP 请求的发起者。这个         节点需要配置以下参数：
+
+- `Name`: 这是节点的名称，用于在 Node-RED 中标识该节点。
+
+当节点接收到输入消息时，它会将消息中的数据作为响应的正文发送回 HTTP 请求的发起者。可以通过配置节点的选项来设置响应的状态码、HTTP 头和正文内容类型等。这个节点通常与 Steedos Request 节点一起使用，用于响应 Steedos 平台的 ObjectQL 微服务和 GraphQL 微服务的请求。具体详情可参考steedos- template模版项目。
+
+### steedos-api-gw节点
+
+Steedos API Gateway（APIGW）是一个开源的 API 网关，它可以帮助企业将多个微服务整合成一个统一的 API。
+
+`Broker` 是指消息代理。
+
+`Name`：指定节点的名称。
+
+`Action`: 这是要执行的操作的名称。
+
+它提供了一系列功能，如 API 管理、安全认证、流量控制、日志记录和监控等。在 Steedos 中，APIGW 是一个独立的服务，可以通过配置文件进行配置，并且可以与其他服务一起使用。这个节点需要配置以下参数。具体详情可参考steedos- template模版项目。
+
+### steedos-instance节点
+
+Steedos Instance 是 Node-RED 中的一个节点，它可以将 Steedos 实例注入到流或全局上下文中。它允许您使用 Steedos 平台的 API 来执行各种操作，例如查询、创建、更新和删除数据等。
+
+在使用 Steedos Instance 节点之前，您需要先在 Steedos 平台上创建一个应用程序并配置好它的数据模型。然后，您需要在 Steedos Instance 节点的配置中指定应用程序的名称和访问令牌。这样，当您在流或全局上下文中调用 Steedos 实例时，它将自动使用您提供的凭据进行身份验证，并允许您执行与应用程序相关的操作。具体详情可参考steedos- template模版项目。
+
+ ![](/../static/img/zh-CN/node_red_gw.png) 
+
+## 调用GraphQL
+
+用msg.call进行调用
+
+```jsx
+msg.call('api.graphql', 
+    {
+        query: `query {
+            space_users(filters: ["user", "=", "${msg.meta.user.userId}"]) {
+                name
+                organization
+            }
+        }`
+    }, 
+    { meta: { } }
+).then((data) => {
+    msg.payload = data
+    node.send(msg)
+}).catch((err) => {
+    node.error(err, msg)
+})        
+```
+
+## 调用ObjectQL
+
+node-red 调用ObjectQL拥有两种方法。
+
+### 用msg.call进行调用
+
+```jsx
+msg.call('objectql.find',
+    {
+        "objectName": "space_users",
+        "query": {
+            // "fields": ["name", "orgranizations"],
+            "filters": ["user", "=", msg.meta.user.userId]
+        }
+    },
+    { meta: {} }
+).then((data) => {
+    msg.payload = data
+    node.send(msg)
+}).catch((err) => {
+    node.error(err, msg)
+})
+```
+
+### 用broker进行调用
+
+```
+const broker = global.get('broker');
+
+msg.payload = await broker.call('objectql.find', 
+    {
+        "objectName": "space_users",
+        "query": {
+            "fields": ["name", "organizations"]
+        }
+    },
+    { meta: {} }
+)
+```
+
+## 触发器
+
+详细内容请参考steedos- template项目中的触发器。
+
+ ![](/../static/img/zh-CN/node_red_objectql.png) 
+
+```json
+[
+{
+"id": "7350d7b42b233ab6",
+"type": "steedos-request-action",
+"z": "c10017b236a162fd",
+"broker": "ce147b46c731d342",
+"service": "5ab5acead56ffaea",
+"name": "用户触发器",
+"topic": "space_users_triggers",
+"rest": "{}",
+"restType": "json",
+"trigger": "{\"listenTo\":\"space_users\",\"when\":[\"beforeInsert\",\"beforeUpdate\"]}",
+"triggerType": "json",
+"params": "{}",
+"paramsType": "json",
+"x": 100,
+"y": 120,
+"wires": [
+[
+"0441d3a1237dcd50",
+"6f988203ee0b8323"
+]
+]
+},
+{
+"id": "0441d3a1237dcd50",
+"type": "function",
+"z": "c10017b236a162fd",
+"name": "触发器函数",
+"func": "const doc = msg.payload.doc;\nif ([doc.name](http://doc.name/) && doc.name.length < 2) {\n   msg.error = { message: \"姓名最少两位.\" };\n}\n\nreturn msg;",
+"outputs": 1,
+"noerr": 0,
+"initialize": "",
+"finalize": "",
+"libs": [],
+"x": 350,
+"y": 160,
+"wires": [
+[
+"dd4a70227645def5",
+"1a4631e22fdbdc5d"
+]
+]
+},
+{
+"id": "dd4a70227645def5",
+"type": "debug",
+"z": "c10017b236a162fd",
+"name": "debug 5",
+"active": true,
+"tosidebar": true,
+"console": false,
+"tostatus": false,
+"complete": "error",
+"targetType": "msg",
+"statusVal": "",
+"statusType": "auto",
+"x": 680,
+"y": 80,
+"wires": []
+},
+{
+"id": "1a4631e22fdbdc5d",
+"type": "steedos-response-action",
+"z": "c10017b236a162fd",
+"name": "",
+"x": 700,
+"y": 220,
+"wires": []
+},
+{
+"id": "6f988203ee0b8323",
+"type": "debug",
+"z": "c10017b236a162fd",
+"name": "debug 6",
+"active": true,
+"tosidebar": true,
+"console": false,
+"tostatus": false,
+"complete": "payload",
+"targetType": "msg",
+"statusVal": "",
+"statusType": "auto",
+"x": 340,
+"y": 60,
+"wires": []
+},
+{
+"id": "ce147b46c731d342",
+"type": "steedos-config",
+"name": "steedos",
+"transporter": "${TRANSPORTER}",
+"namespace": "steedos",
+"options": "{}",
+"optionsType": "json"
+},
+{
+"id": "5ab5acead56ffaea",
+"type": "steedos-service-config",
+"name": "example-nodered",
+"version": "",
+"settings": "{}",
+"rest": "",
+"settingsType": "json"
+}
+]
+```

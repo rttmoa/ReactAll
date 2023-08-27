@@ -1,0 +1,31 @@
+---
+title: Amis Components
+description: 组件是微页面的基本元素，微页面中不但有非常丰富的组件可以直接使用，同时还支持自定义组件。
+---
+
+## Amis native components
+
+Amis has a variety of native components [Amis components](https://aisuda.bce.baidu.com/amis/zh-CN/components)。
+
+## steedos components
+
+We have extended the following components for Amis to quickly implement various interface capabilities of steedos:
+
+- [ObjectForm](./object_form)
+- [ObjectListView](./object_listview)
+- [ObjectTable](./object_table)
+- [RecordDetailHeader](./record_detail_header)
+- [RecordDetailRelatedList](./record_detail_related_list)
+
+
+## Custom components
+
+[Amis](https://aisuda.bce.baidu.com/amis/zh-CN/docs) Amis provides a robust set of component functionality that can meet the UI interface needs of most business scenarios. 
+
+However, if there are specific scenarios where custom components are more appropriate, they can be developed and integrated into the Amis designer using customized asset packages. This allows for the creation of any UI effect desired.
+
+To configure the asset package address, simply set the environment variable `STEEDOS_PUBLIC_PAGE_ASSETURLS` to the desired package address. Steedos will automatically load and integrate the relevant custom components into the Amis engine based on the resource package address specified in the asset package. These packages can be hosted anywhere that is accessible, including npm, unpkg.com, or other remote development environments.
+
+```bash
+STEEDOS_PUBLIC_PAGE_ASSETURLS=https://unpkg.com/@steedos-widgets/example@0.0.6/dist/assets.json
+```
