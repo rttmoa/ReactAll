@@ -5,3 +5,7 @@
 ```
 前端：npm start    后端：npm start
 ```
+
+只启动客户端就可以
+
+客户端使用Mock

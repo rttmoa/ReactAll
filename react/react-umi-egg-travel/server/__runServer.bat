@@ -1,1 +1,1 @@
-cmd /k "cd /d E:\Project\ReactAll\react-umi-egg-travel\server && npm run dev"
+cmd /k "cd /d    E:\Project\ReactAll\react\react-umi-egg-travel\ && npm run dev"

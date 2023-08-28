@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable strict */
 const Controller = require('egg').Controller;
 const BaseController = require('./base');
@@ -21,7 +22,7 @@ class HouseController extends BaseController {
 
     this.success({
       info: result,
-      banner: result.imgs
+      banner: result.imgs,
     });
   }
 }

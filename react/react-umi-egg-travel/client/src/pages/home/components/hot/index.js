@@ -4,7 +4,7 @@ import Img from './360-202.png'
 
 
 
-/***--- 最热民宿 ---**/
+/** #### TODO: 最热民宿  */
 function Hot(props) {
   // console.log("最热民宿 props", props)
 
@@ -25,10 +25,10 @@ function Hot(props) {
           <div className='hot-lists-item' key={item.id} onClick={() => handleClick(item.id)}>
             {/* <img className='img' alt='img' src={item?.imgs[0]?.url} onError={e => e.target.onerror = null}/> */}
             <img className='img' alt='img' src={Img} onError={e => e.target.onerror = null}/>
-            <div className='title'>{item.title}</div>
-            <div className='info'>{item.info}</div>
+            <div className='title'><b>{item.title}</b></div>
+            <div className='info'><b>{item.info}</b></div>
             <div className='price'>￥{item.price}</div>
-          </div>  
+          </div>
         ))}
       </div>
     </div>

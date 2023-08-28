@@ -12,17 +12,16 @@ export default function (props) {
 
   /**去支付 按钮 */
   const handlePay = async () => {
-    alert("先不弄")
-    window.location.reload()
+    // alert("先不弄")
 
-    // const result = await Http({ // 默认是 post
-    //   url: '/orders/pay',
-    //   body: { id: props.id }
-    // });
-    // if(result){
-    //   Toast.success('支付成功')
-    //   window.location.reload();
-    // }
+    const result = await Http({ // 默认是 post
+      url: '/orders/pay',
+      body: { id: props.id }
+    });
+    if(result){
+      Toast.success('支付成功')
+      window.location.reload();
+    } 
   }
 
   useEffect(() => {}, [])

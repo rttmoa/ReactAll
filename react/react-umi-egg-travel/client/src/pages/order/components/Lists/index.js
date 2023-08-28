@@ -7,17 +7,18 @@ import { OrderSkeletons } from '@/skeletons';
 
 
 
-/***--- 未支付 / 已支付 Item ---**/
+/** #### TODO: 未支付 / 已支付 Item  */
 export default function (props) {
   const [state, setState] = useState(false)
 
   useEffect(() => {
     setTimeout(() => {
-      // console.log(props)
+      console.log(props)
       if(isEmpty(props?.orders)){
         setState(true)
       }
-    }, 1500);
+    }, 1000);
+
   }, [])
 
   // 这个 orders 是根据 type 去发的请求  是请求已完成还是未完成的数据

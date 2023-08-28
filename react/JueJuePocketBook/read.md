@@ -4,7 +4,7 @@
 
 *启动项目*：`npm run dev`
 
-**知识点==>**
+**技术栈==>**
 
 1. 构架工具 Vite。
 2. 前端框架 React 和路由 react-router-dom。

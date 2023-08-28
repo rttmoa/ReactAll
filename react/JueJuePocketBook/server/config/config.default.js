@@ -20,7 +20,7 @@ module.exports = appInfo => {
   config.jwt = {
     secret: 'Nick',
   };
-  // egg 提供两种文件接收模式，1 是 file 直接读取，2 是 stream 流的方式 
+  // egg 提供两种文件接收模式，1 是 file 直接读取，2 是 stream 流的方式
   config.multipart = {
     // multipart 配置项有很多选项，文档中有配置说明Eggjs
     mode: 'file',
@@ -72,7 +72,7 @@ module.exports = appInfo => {
       port: 7009,
       hostname: '0.0.0.0',
     },
-  }
+  };
 
   return {
     ...config,

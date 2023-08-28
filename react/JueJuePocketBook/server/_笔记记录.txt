@@ -5,3 +5,7 @@ token 已过期，请重新登录:
 
 
 启动：npm run dev
+
+
+"start": "egg-scripts start --daemon --title=egg-server-jue-diary-server",
+"start": "egg-scripts start --sticky --title=egg-server-jue-diary-server",

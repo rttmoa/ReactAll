@@ -10,7 +10,6 @@ export default {
   // 同步
   reducers: {
     getLists(state, action){
-
       return {
         ...state,
         // lists: Array(10).fill(action.payload)
