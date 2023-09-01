@@ -12,14 +12,14 @@ module.exports = {
     return new Date(data).getTime();
   },
   unPick(source, arr) {
-    if(Array.isArray(arr)) {
-      let obj = {};
-      for(let i in source) {
-        if(!arr.includes(i)) {
+    if (Array.isArray(arr)) {
+      const obj = {};
+      for (const i in source) {
+        if (!arr.includes(i)) {
           obj[i] = source[i];
         }
       }
       return obj;
     }
-  }
+  },
 };

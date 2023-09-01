@@ -1,3 +1,4 @@
+/* eslint-disable strict */
 module.exports = options => {
   return async (ctx, next) => {
     // console.log(ctx.app.router)
@@ -5,13 +6,13 @@ module.exports = options => {
       return item.regexp.test(ctx.request.url);
     });
 
-    if(flag.length){
+    if (flag.length) {
       await next();
-    }else {
+    } else {
       ctx.body = {
         status: 404,
-        errMsg: '接口 ' + ctx.request.url + ' 不存在'
+        errMsg: '接口 ' + ctx.request.url + ' 不存在',
       };
     }
-  }
-}
+  };
+};

@@ -46,7 +46,7 @@ class OrdersController extends BaseController {
   async invokePay(params) {
     return {
       orderNumber: params.id + new Date().getTime(),
-    }
+    };
   }
 
   async pay() {

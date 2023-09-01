@@ -6,32 +6,32 @@ module.exports = app => {
     id: {
       type: INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     orderNumber: STRING(20),
     userId: INTEGER,
     houseId: INTEGER,
     isPayed: {
       type: INTEGER,
-      defaultValue: 0
+      defaultValue: 0,
     },
     createTime: {
       type: DATE,
-      get(){
-        return new Date(this.getDataValue('createTime')).getTime()
-      }
+      get() {
+        return new Date(this.getDataValue('createTime')).getTime();
+      },
     },
     updateTime: {
       type: DATE,
-      get(){
-        return new Date(this.getDataValue('updateTime')).getTime()
-      }
-    }
+      get() {
+        return new Date(this.getDataValue('updateTime')).getTime();
+      },
+    },
   });
 
   Orders.associate = () => {
     app.model.Orders.belongsTo(app.model.House, { foreignKey: 'houseId', as: 'house' });
-  }
+  };
 
   return Orders;
-}
+};

@@ -6,17 +6,17 @@ module.exports = app => {
     id: {
       type: INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     userId: INTEGER,
     houseId: INTEGER,
     msg: STRING(500),
-    createTime: DATE
+    createTime: DATE,
   });
 
   Comment.associate = () => {
     app.model.Comment.belongsTo(app.model.User, { foreignKey: 'userId' });
-  }
+  };
 
   return Comment;
-}
+};

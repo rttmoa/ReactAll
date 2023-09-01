@@ -6,11 +6,12 @@
 module.exports = app => {
   const { router, controller } = app;
   const userExist = app.middleware.userExist();
-  router.post('/api/user/register', controller.user.register);
-  router.post('/api/user/login', controller.user.login);
-  router.post('/api/user/detail', userExist, controller.user.detail);
-  router.post('/api/user/logout', controller.user.logout);
+  router.post('/api/user/register', controller.user.register); // 用户注册
+  router.post('/api/user/login', controller.user.login); // 用户登陆
+  router.post('/api/user/detail', userExist, controller.user.detail); // 用户详情
+  router.post('/api/user/logout', controller.user.logout); // 用户退出
   router.post('/api/user/edit', controller.user.edit);
+
   router.post('/api/commons/citys', controller.commons.citys);
   router.post('/api/house/hot', controller.house.hot);
   router.post('/api/house/search', controller.house.search);
@@ -23,3 +24,4 @@ module.exports = app => {
   router.post('/api/orders/lists', userExist, controller.orders.lists);
   router.post('/api/orders/pay', userExist, controller.orders.pay);
 };
+

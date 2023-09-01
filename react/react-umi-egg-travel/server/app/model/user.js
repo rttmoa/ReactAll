@@ -10,8 +10,8 @@ module.exports = app => {
     phone: STRING(20),
     sign: STRING(300),
     createTime: DATE,
-    updateTime: DATE
+    updateTime: DATE,
   });
 
   return User;
-}
+};

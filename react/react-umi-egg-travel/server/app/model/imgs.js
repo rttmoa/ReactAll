@@ -1,6 +1,6 @@
 /* eslint-disable strict */
 module.exports = app => {
-  const { STRING, INTEGER, DATE } = app.Sequelize
+  const { STRING, INTEGER, DATE } = app.Sequelize;
 
   const Imgs = app.model.define('imgs', {
     id: {
@@ -11,7 +11,7 @@ module.exports = app => {
     url: STRING(500),
     houseId: INTEGER,
     createTime: DATE,
-  })
+  });
 
-  return Imgs
-}
+  return Imgs;
+};
