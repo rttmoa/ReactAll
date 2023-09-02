@@ -17,7 +17,7 @@ module.exports = (options) => {
         ctx.body = {
           msg: 'token已过期, 请重新登录',
           code: 401,
-        }
+        };
         return;
       }
     } else {
@@ -28,5 +28,5 @@ module.exports = (options) => {
       };
       return;
     }
-  }
-}
+  };
+};

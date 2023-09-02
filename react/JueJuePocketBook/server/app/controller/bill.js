@@ -1,23 +1,23 @@
-'use strict';
+'use strict'
 
 const moment = require('moment')
 
-const Controller = require('egg').Controller;
+const Controller = require('egg').Controller
 
 
 
 class BillController extends Controller {
-  
+
   // 账单数据列表
-  async list() {
-    const { ctx, app } = this;
+  async list () {
+    const { ctx, app } = this
     // 获取，日期 date，分页数据，类型 type_id，这些都是我们在前端传给后端的数据
     const { date, page, page_size = 5, type_id = 'all' } = ctx.query
     try {
       let user_id
       // 通过 token 解析，拿到 user_id
-      const token = ctx.request.header.authorization;
-      const decode = await app.jwt.verify(token, app.config.jwt.secret);
+      const token = ctx.request.header.authorization
+      const decode = await app.jwt.verify(token, app.config.jwt.secret)
       if (!decode) return
       user_id = decode.id
       // 拿到当前用户的账单列表
@@ -80,7 +80,7 @@ class BillController extends Controller {
         return curr
       }, 0)
 
-      
+
       // 返回给前台的信息 = res.send({ message: 'router ok'})
       ctx.body = {
         code: 200,
@@ -100,11 +100,11 @@ class BillController extends Controller {
       }
     }
   }
-  
-  async add() {
-    const { ctx, app } = this;
+
+  async add () {
+    const { ctx, app } = this
     // 获取请求中携带的参数
-    const { amount, type_id, type_name, date, pay_type, remark = '' } = ctx.request.body;
+    const { amount, type_id, type_name, date, pay_type, remark = '' } = ctx.request.body
 
     // 判空处理，这里前端也可以做，但是后端也需要做一层判断
     if (!amount || !type_id || !type_name || !date || !pay_type) {
@@ -117,9 +117,9 @@ class BillController extends Controller {
 
     try {
       let user_id
-      const token = ctx.request.header.authorization;
+      const token = ctx.request.header.authorization
       // 拿到 token 获取用户信息
-      const decode = await app.jwt.verify(token, app.config.jwt.secret);
+      const decode = await app.jwt.verify(token, app.config.jwt.secret)
       if (!decode) return
       user_id = decode.id
       // user_id 默认添加到每个账单项，作为后续获取指定用户账单的标示。
@@ -132,7 +132,7 @@ class BillController extends Controller {
         pay_type,
         remark,
         user_id
-      });
+      })
       ctx.body = {
         code: 200,
         msg: '请求成功',
@@ -148,18 +148,18 @@ class BillController extends Controller {
   }
 
   // 获取账单详情
-  async detail() {
-    const { ctx, app } = this;
+  async detail () {
+    const { ctx, app } = this
     // 获取账单 id 参数
     const { id = '' } = ctx.query
     // 获取用户 user_id
     let user_id
-    const token = ctx.request.header.authorization;
+    const token = ctx.request.header.authorization
     // 获取当前用户信息
-    const decode = await app.jwt.verify(token, app.config.jwt.secret);
+    const decode = await app.jwt.verify(token, app.config.jwt.secret)
     if (!decode) return
     user_id = decode.id
-    
+
     // 判断是否传入账单 id
     if (!id) {
       ctx.body = {
@@ -188,10 +188,10 @@ class BillController extends Controller {
   }
 
   // 编辑账单
-  async update() {
-    const { ctx, app } = this;
+  async update () {
+    const { ctx, app } = this
     // 账单的相关参数，这里注意要把账单的 id 也传进来
-    const { id, amount, type_id, type_name, date, pay_type, remark = '' } = ctx.request.body;
+    const { id, amount, type_id, type_name, date, pay_type, remark = '' } = ctx.request.body
 
     // 判空处理
     if (!amount || !type_id || !type_name || !date || !pay_type) {
@@ -204,8 +204,8 @@ class BillController extends Controller {
 
     try {
       let user_id
-      const token = ctx.request.header.authorization;
-      const decode = await app.jwt.verify(token, app.config.jwt.secret);
+      const token = ctx.request.header.authorization
+      const decode = await app.jwt.verify(token, app.config.jwt.secret)
       if (!decode) return
       user_id = decode.id
       // 根据账单 id 和 user_id，修改账单数据
@@ -218,7 +218,7 @@ class BillController extends Controller {
         pay_type, // 消费类型
         remark, // 备注
         user_id // 用户 id
-      });
+      })
       ctx.body = {
         code: 200,
         msg: '请求成功',
@@ -233,9 +233,9 @@ class BillController extends Controller {
     }
   }
 
-  async delete() {
-    const { ctx, app } = this;
-    const { id } = ctx.request.body;
+  async delete () {
+    const { ctx, app } = this
+    const { id } = ctx.request.body
 
     if (!id) {
       ctx.body = {
@@ -247,11 +247,11 @@ class BillController extends Controller {
 
     try {
       let user_id
-      const token = ctx.request.header.authorization;
-      const decode = await app.jwt.verify(token, app.config.jwt.secret);
+      const token = ctx.request.header.authorization
+      const decode = await app.jwt.verify(token, app.config.jwt.secret)
       if (!decode) return
       user_id = decode.id
-      const result = await ctx.service.bill.delete(id, user_id);
+      const result = await ctx.service.bill.delete(id, user_id)
       ctx.body = {
         code: 200,
         msg: '请求成功',
@@ -267,18 +267,18 @@ class BillController extends Controller {
   }
 
   // 首先根据用户信息，获取到账单表的相关数据
-  async data() {
-    const { ctx, app } = this;
+  async data () {
+    const { ctx, app } = this
     const { date = '' } = ctx.query
     // 获取用户 user_id
     // 。。。
     // 省略鉴权获取用户信息的代码
     let user_id
-    const token = ctx.request.header.authorization;
-    const decode = await app.jwt.verify(token, app.config.jwt.secret);
+    const token = ctx.request.header.authorization
+    const decode = await app.jwt.verify(token, app.config.jwt.secret)
     if (!decode) return
     user_id = decode.id
-    
+
     if (!date) {
       ctx.body = {
         code: 400,
@@ -391,4 +391,4 @@ class BillController extends Controller {
   }
 }
 
-module.exports = BillController;
+module.exports = BillController

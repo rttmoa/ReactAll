@@ -20,16 +20,18 @@ class HouseService extends BaseService {
       }],
     };
   }
+
+
   async hot() {
     return this.run(async (ctx, app) => {
       const result = await ctx.model.House.findAll({
         ...this.commonAttr(app),
         limit: 4,
       });
-
       return result;
     });
   }
+
 
   async search(params) {
     // params: {code: ['10001', '10002', '10003'], startTime: '2022-02-12', endTime: '1998-02-12', pageNum: 1, pageSize: 10}
@@ -60,6 +62,7 @@ class HouseService extends BaseService {
       return result;
     });
   }
+
 
   async detail(id) {
     return this.run(async (ctx, app) => {
