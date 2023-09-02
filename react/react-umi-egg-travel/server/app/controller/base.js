@@ -3,6 +3,7 @@ const Controller = require('egg').Controller;
 
 
 class BaseController extends Controller {
+
   success(data = {}) {
     const { ctx } = this;
     ctx.body = {
@@ -10,6 +11,7 @@ class BaseController extends Controller {
       data,
     };
   }
+
   error(errMsg = '') {
     const { ctx } = this;
     ctx.body = {

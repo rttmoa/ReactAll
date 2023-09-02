@@ -3518,3 +3518,35 @@
 2023-09-01 23:12:05 [httpLog] {"method":"POST","url":"/api/user/detail","data":{"username":"zs","password":"Wenc1101","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJ6cyIsImlhdCI6MTY5MzU4MDUxMX0.MPYWKw-UnTzkM_gOXjNKK9ICCAEjWlosJfVIcs-9ccU"},"startTime":"2023-09-01 23:12:05","endTime":"2023-09-01 23:12:05","timeLength":17}
 2023-09-01 23:12:09 [httpLog] {"method":"POST","url":"/api/user/logout","data":{"username":"zs"},"startTime":"2023-09-01 23:12:09","endTime":"2023-09-01 23:12:09","timeLength":0}
 2023-09-01 23:12:53 [httpLog] {"method":"POST","url":"/api/user/edit","data":{},"startTime":"2023-09-01 23:12:53","endTime":"2023-09-01 23:12:53","timeLength":6}
+2023-09-02 08:52:14 [httpLog] {"method":"POST","url":"/api/commons/citys","data":{},"startTime":"2023-09-02 08:52:13","endTime":"2023-09-02 08:52:14","timeLength":409}
+2023-09-02 08:52:29 [httpLog] {"method":"POST","url":"/api/commons/citys","data":{},"startTime":"2023-09-02 08:52:28","endTime":"2023-09-02 08:52:29","timeLength":276}
+2023-09-02 08:52:39 [httpLog] {"method":"POST","url":"/api/commons/citys","data":{},"startTime":"2023-09-02 08:52:39","endTime":"2023-09-02 08:52:39","timeLength":260}
+2023-09-02 08:52:54 [httpLog] {"method":"POST","url":"/api/commons/citys","data":{},"startTime":"2023-09-02 08:52:53","endTime":"2023-09-02 08:52:54","timeLength":252}
+2023-09-02 08:52:57 [httpLog] {"method":"POST","url":"/api/commons/citys","data":{},"startTime":"2023-09-02 08:52:57","endTime":"2023-09-02 08:52:57","timeLength":276}
+2023-09-02 08:53:16 [httpLog] {"method":"POST","url":"/api/commons/citys","data":{},"startTime":"2023-09-02 08:53:16","endTime":"2023-09-02 08:53:16","timeLength":361}
+2023-09-02 09:15:07 [httpLog] {"method":"POST","url":"/api/house/hot","data":{},"startTime":"2023-09-02 09:15:07","endTime":"2023-09-02 09:15:07","timeLength":66}
+2023-09-02 09:27:30 [httpLog] {"method":"POST","url":"/api/house/hot","data":{},"startTime":"2023-09-02 09:27:30","endTime":"2023-09-02 09:27:30","timeLength":49}
+2023-09-02 09:51:17 [httpLog] {"method":"POST","url":"/api/house/hot","data":{},"startTime":"2023-09-02 09:51:17","endTime":"2023-09-02 09:51:17","timeLength":22}
+2023-09-02 09:54:58 [httpLog] {"method":"POST","url":"/api/house/detail","data":{"id":"1"},"startTime":"2023-09-02 09:54:58","endTime":"2023-09-02 09:54:58","timeLength":32}
+2023-09-02 09:55:04 [httpLog] {"method":"POST","url":"/api/house/detail","data":{"id":"14"},"startTime":"2023-09-02 09:55:04","endTime":"2023-09-02 09:55:04","timeLength":21}
+2023-09-02 09:55:11 [httpLog] {"method":"POST","url":"/api/house/detail","data":{"id":"13"},"startTime":"2023-09-02 09:55:11","endTime":"2023-09-02 09:55:11","timeLength":9}
+2023-09-02 10:10:49 [httpLog] {"method":"POST","url":"/api/house/detail","data":{"id":"13"},"startTime":"2023-09-02 10:10:49","endTime":"2023-09-02 10:10:49","timeLength":42}
+2023-09-02 10:11:12 [httpLog] {"method":"POST","url":"/api/house/detail","data":{"id":"12"},"startTime":"2023-09-02 10:11:12","endTime":"2023-09-02 10:11:12","timeLength":13}
+2023-09-02 10:11:19 [httpLog] {"method":"POST","url":"/api/house/hot","data":{},"startTime":"2023-09-02 10:11:19","endTime":"2023-09-02 10:11:19","timeLength":13}
+2023-09-02 10:13:27 [httpLog] {"method":"POST","url":"/api/house/search","data":{"code":"['10001', '10002', '10003']","startTime":"1998-02-12","endTime":"2022-02-12","pageNum":"1","pageSize":"10"},"startTime":"2023-09-02 10:13:27","endTime":"2023-09-02 10:13:27","timeLength":11}
+2023-09-02 10:14:43 [httpLog] {"method":"POST","url":"/api/house/search","data":{"code":"['10001', '10002', '10003']","endTime":"1998-02-12","startTime":"2022-02-12","pageNum":"1","pageSize":"10"},"startTime":"2023-09-02 10:14:43","endTime":"2023-09-02 10:14:43","timeLength":21}
+2023-09-02 10:15:30 [httpLog] {"method":"POST","url":"/api/house/search","data":{"code":"['10001', '10002', '10003']","endTime":"1998-02-12","startTime":"2022-02-12","pageNum":"1","pageSize":"10"},"startTime":"2023-09-02 10:15:30","endTime":"2023-09-02 10:15:30","timeLength":8}
+2023-09-02 10:15:34 [httpLog] {"method":"POST","url":"/api/house/detail","data":{"id":"12"},"startTime":"2023-09-02 10:15:34","endTime":"2023-09-02 10:15:34","timeLength":19}
+2023-09-02 10:15:37 [httpLog] {"method":"POST","url":"/api/house/hot","data":{},"startTime":"2023-09-02 10:15:37","endTime":"2023-09-02 10:15:37","timeLength":12}
+2023-09-02 11:31:05 [httpLog] {"method":"POST","url":"/api/user/edit","data":{"sign":"测试"},"startTime":"2023-09-02 11:31:05","endTime":"2023-09-02 11:31:05","timeLength":7}
+2023-09-02 11:31:53 [httpLog] {"method":"POST","url":"/api/user/edit","data":{"sign":"测试"},"startTime":"2023-09-02 11:31:53","endTime":"2023-09-02 11:31:53","timeLength":7}
+2023-09-02 11:45:48 [httpLog] {"method":"POST","url":"/api/user/edit","data":{"sign":"测试"},"startTime":"2023-09-02 11:45:48","endTime":"2023-09-02 11:45:48","timeLength":6}
+2023-09-02 11:46:23 [httpLog] {"method":"POST","url":"/api/user/logout","data":{"username":"zs"},"startTime":"2023-09-02 11:46:23","endTime":"2023-09-02 11:46:23","timeLength":1}
+2023-09-02 11:47:07 [httpLog] {"method":"POST","url":"/api/user/edit","data":{"sign":"测试"},"startTime":"2023-09-02 11:47:07","endTime":"2023-09-02 11:47:07","timeLength":1}
+2023-09-02 11:47:31 [httpLog] {"method":"POST","url":"/api/user/edit","data":{"sign":"测试"},"startTime":"2023-09-02 11:47:31","endTime":"2023-09-02 11:47:31","timeLength":7}
+2023-09-02 11:47:35 [httpLog] {"method":"POST","url":"/api/user/edit","data":{"sign":"测试"},"startTime":"2023-09-02 11:47:35","endTime":"2023-09-02 11:47:35","timeLength":5}
+2023-09-02 11:47:53 [httpLog] {"method":"POST","url":"/api/user/edit","data":{"sign":"测试"},"startTime":"2023-09-02 11:47:53","endTime":"2023-09-02 11:47:53","timeLength":1}
+2023-09-02 11:48:13 [httpLog] {"method":"POST","url":"/api/user/edit","data":{"sign":"测试"},"startTime":"2023-09-02 11:48:13","endTime":"2023-09-02 11:48:13","timeLength":6}
+2023-09-02 11:48:22 [httpLog] {"method":"POST","url":"/api/user/edit","data":{"sign":"测试"},"startTime":"2023-09-02 11:48:22","endTime":"2023-09-02 11:48:22","timeLength":7}
+2023-09-02 11:48:35 [httpLog] {"method":"POST","url":"/api/user/edit","data":{"sign":"测试"},"startTime":"2023-09-02 11:48:35","endTime":"2023-09-02 11:48:35","timeLength":1}
+2023-09-02 11:48:39 [httpLog] {"method":"POST","url":"/api/user/edit","data":{"sign":"测试"},"startTime":"2023-09-02 11:48:39","endTime":"2023-09-02 11:48:39","timeLength":5}

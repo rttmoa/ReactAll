@@ -23,10 +23,13 @@ class UserController extends BaseController {
       createTime: ctx.helper.timestamp(result.createTime),
     };
   }
-  async register() { // 注册用户： 查询、添加 SQL  +   ctx.helper  +   Token
+
+
+  // ---->  注册用户： 查询、添加 SQL  +   ctx.helper  +   Token
+  async register() {
     try {
       const { ctx, app } = this;
-      const parmas = ctx.params();
+      const parmas = ctx.params(); // TODO: 获取参数介绍 （Resource Parameters）
       // console.log(parmas); // { username: 'zs', password: 'Wenc1101' }
       if (!parmas) return;
 
@@ -41,7 +44,7 @@ class UserController extends BaseController {
       };
       const result = await ctx.service.user.add(doc);
       if (result) {
-        const token = await this.jwtSign({
+        const token = await this.jwtSign({ // jwtSign 挂在全局ctx
           id: result.id,
           username: result.username,
         });
@@ -65,7 +68,9 @@ class UserController extends BaseController {
     } catch (error) { }
   }
 
-  async login() { // 用户登陆：查询 SQL  +  新Token
+
+  // ---->  用户登陆：查询 SQL  +  新Token
+  async login() {
     try {
       const { ctx, app } = this;
       const { username, password } = ctx.params();
@@ -87,7 +92,9 @@ class UserController extends BaseController {
     } catch (error) { }
   }
 
-  async detail() { // 用户详情： 查询 SQL
+
+  // ---->  用户详情： 查询 SQL
+  async detail() {
     const { ctx } = this;
     const user = await ctx.service.user.getUser(ctx.username);
     // console.log(user);
@@ -100,7 +107,9 @@ class UserController extends BaseController {
     }
   }
 
-  async logout() { // 用户退出： redis清空
+
+  // ---->  用户退出： redis清空
+  async logout() {
     const { ctx, app } = this;
     try {
       await app.redis.del(ctx.username);
@@ -110,7 +119,9 @@ class UserController extends BaseController {
     }
   }
 
-  async edit() { // 用户编辑： 更新 SQL
+
+  // ---->  用户编辑： 更新 SQL
+  async edit() {
     const { ctx } = this;
     const result = ctx.service.user.edit({
       ...ctx.params(),

@@ -3,6 +3,8 @@ const Service = require('egg').Service;
 const BaseService = require('./base');
 
 class HouseService extends BaseService {
+
+
   commonAttr(app) {
     return {
       order: [
@@ -15,8 +17,7 @@ class HouseService extends BaseService {
         model: app.model.Imgs,
         limit: 1,
         attributes: [ 'url' ],
-      },
-      ],
+      }],
     };
   }
   async hot() {
@@ -31,6 +32,7 @@ class HouseService extends BaseService {
   }
 
   async search(params) {
+    // params: {code: ['10001', '10002', '10003'], startTime: '2022-02-12', endTime: '1998-02-12', pageNum: 1, pageSize: 10}
     return this.run(async (ctx, app) => {
       const { lte, gte, like } = app.Sequelize.Op;
       const where = {
@@ -62,9 +64,7 @@ class HouseService extends BaseService {
   async detail(id) {
     return this.run(async (ctx, app) => {
       const result = await ctx.model.House.findOne({
-        where: {
-          id,
-        },
+        where: { id },
         include: [
           {
             model: app.model.Imgs,
@@ -73,9 +73,7 @@ class HouseService extends BaseService {
         ],
       });
 
-      await ctx.model.House.update({
-        showCount: result.showCount + 1,
-      }, {
+      await ctx.model.House.update({ showCount: result.showCount + 1 }, {
         where: {
           id,
         },

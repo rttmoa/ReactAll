@@ -1,5 +1,6 @@
 /* eslint-disable strict */
 module.exports = {
+
   params(key) {
     const method = this.request.method;
     if (method === 'GET') {

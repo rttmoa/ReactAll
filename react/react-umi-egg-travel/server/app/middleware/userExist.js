@@ -2,7 +2,6 @@
 module.exports = options => {
 
   return async (ctx, next) => {
-    console.log(23);
     const user = await ctx.service.user.getUser(ctx.username);
     // console.log(user);
 

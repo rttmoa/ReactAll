@@ -12,7 +12,7 @@ class getInfo extends Subscription {
 
   async subscribe() {
     const info = this.ctx.info;
-    // console.log(Date.now(), info)
+    // console.log(Date.now(), info);
   }
 }
 

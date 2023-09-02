@@ -2,10 +2,11 @@
 const dayjs = require('dayjs');
 const fs = require('fs');
 
+// TODO: 请求的Http日志相关
 module.exports = options => {
   return async (ctx, next) => {
     // console.log(ctx)
-    console.log(options, ctx.request.url);
+    console.log('request==> ', options, ctx.request.url);
     const sTime = Date.now();
     const startTime = dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss');
     const req = ctx.request;
@@ -24,3 +25,4 @@ module.exports = options => {
     fs.appendFileSync(ctx.app.baseDir + '/httpLog.log', data);
   };
 };
+

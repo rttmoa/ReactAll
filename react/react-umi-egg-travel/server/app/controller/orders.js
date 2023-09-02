@@ -3,6 +3,7 @@ const Controller = require('egg').Controller;
 const BaseController = require('./base');
 
 class OrdersController extends BaseController {
+
   async hasOrder() {
     const { ctx, app } = this;
     const result = await ctx.service.orders.hasOrder({

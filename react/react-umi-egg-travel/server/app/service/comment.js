@@ -3,6 +3,8 @@ const Service = require('egg').Service;
 const BaseService = require('./base');
 
 class CommentService extends BaseService {
+
+
   async add(params) {
     return this.run(async ctx => {
       const result = await ctx.model.Comment.create(params);
@@ -10,15 +12,18 @@ class CommentService extends BaseService {
     });
   }
 
+
   async lists(params, userId) {
+
     return this.run(async (ctx, app) => {
+      const { id, pageSize, pageNum } = params;
       const result = await ctx.model.Comment.findAll({
         where: {
-          houseId: params.id,
+          houseId: id,
           userId,
         },
-        limit: params.pageSize,
-        offset: (params.pageNum - 1) * params.pageSize,
+        limit: pageSize,
+        offset: (pageNum - 1) * pageSize,
         include: [
           {
             model: app.model.User,
