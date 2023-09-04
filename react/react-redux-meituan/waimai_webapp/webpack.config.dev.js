@@ -10,7 +10,7 @@ const mainFile = 'index.js';
 
 
 
-/**--- TODO: 配置px2rem 全局scss中使用 ---**/
+/**--- TODO: 配置px2rem 全局scss中使用 （sass loader配置） ---**/
 function getHtmlArray(entryMap){
     let htmlArray = [];
     Object.keys(entryMap).forEach((key)=>{
