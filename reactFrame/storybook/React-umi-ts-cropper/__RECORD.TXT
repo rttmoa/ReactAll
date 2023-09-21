@@ -1,0 +1,37 @@
+
+
+address: https://github.com/MrXujiang/react-cropper-pro
+
+
+package.json 文件下 
+yarn start
+  生成 /src/.umi/ 文件夹
+
+yarn docs:build
+  生成 /src/.umi-production/ 文件夹
+
+yarn build
+  生成 /dist + /es + /lib 文件夹
+
+yarn prettier
+  校验 /src 下所有的文件格式
+
+
+参考：https://segmentfault.com/a/1190000023075167
+发布包过程：
+  + npm login
+  + rttmoa
+  + password
+  + rttmoa@gmail.com
+  + 两步验证
+  + yarn release
+
+success： https://www.npmjs.com/package/react-ropper-com
+
+参考：https://juejin.cn/post/7039140144250617887
+查看版本：
+  npm version 
+更新小版本
+  npm version patch
+重新发布
+  npm publish

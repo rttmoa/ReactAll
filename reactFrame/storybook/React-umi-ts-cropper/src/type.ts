@@ -1,13 +1,10 @@
 import { ReactNode } from 'react';
 
-
-
-
 export interface IProp {
   /**
    * @description   默认图片
    */
-   defaultImg?: string;
+  defaultImg?: string;
   /**
    * @description   图片数据
    */
@@ -16,7 +13,7 @@ export interface IProp {
    * @description   默认的图片质量等级
    * @default       4 (1: 低, 2: 中, 3: 高, 4: 不压缩)
    */
-   defaultLevel?: number;
+  defaultLevel?: number;
   /**
    * @description   裁切成功回调
    * @default       -
@@ -26,5 +23,5 @@ export interface IProp {
    * @description   图片删除的回调
    * @default       -
    */
-   onDel?: (url: string) => void;
+  onDel?: (url: string) => void;
 }

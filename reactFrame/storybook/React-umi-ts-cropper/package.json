@@ -1,23 +1,9 @@
 {
-  "name": "react-cropper-pro",
-  "version": "1.0.5",
-  "author": "alex_xu",
-  "description": "Load animation component library based on react",
-  "keywords": [
-    "image-crop",
-    "react-crop",
-    "upload",
-    "react-cropper",
-    "component",
-    "components",
-    "design",
-    "framework",
-    "frontend",
-    "react",
-    "react-component",
-    "ui",
-    "徐小夕"
-  ],
+  "name": "react-ropper-com",
+  "version": "1.0.2",
+  "author": "wenc",
+  "description": "基于react加载动画组件库",
+  "keywords": [],
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",
@@ -29,9 +15,7 @@
     "test": "umi-test",
     "test:coverage": "umi-test --coverage"
   },
-  "contributors": [
-    "alex_xu"
-  ],
+  "contributors": [],
   "files": [
     "dist",
     "lib",
@@ -57,17 +41,18 @@
       "prettier --parser=typescript --write"
     ]
   },
-  "homepage": "https://github.com/MrXujiang/react-cropper-pro",
+  "homepage": "",
   "bugs": {
     "url": "https://github.com/MrXujiang/react-cropper-pro/issues"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com:MrXujiang/react-cropper-pro.git"
+    "type": "",
+    "url": ""
   },
   "dependencies": {
     "@babel/runtime": "^7.15.4",
-    "react-cropper": "^2.1.8"
+    "react-cropper": "^2.1.8",
+    "react-ropper-com": "^1.0.2"
   },
   "peerDependencies": {
     "antd": "^4.16.13",
