@@ -1,3 +1,4 @@
+
 class Animal {
   name: string;
   static categoies: string[] = ['mammal', 'bird']
@@ -16,13 +17,14 @@ console.log(Animal.categoies)
 const snake = new Animal('lily')
 console.log(Animal.isAnimal(snake))
 
+
 class Dog extends Animal {
   bark() {
     return `${this.name} is barking`
   }
 }
-
 const xiaobao = new Dog('xiaobao')
+
 
 class Cat extends Animal {
   constructor(name) {
@@ -36,19 +38,24 @@ class Cat extends Animal {
 
 const maomao = new Cat('maomao')
 
-interface Radio {
-  switchRadio(): void;
-}
+
+
+// interface
+// implements
 
 interface Battery {
   checkBatteryStatus();
 }
+
+interface Radio {
+  switchRadio(): void;
+}
+
 interface RadioWithBattery extends Radio {
   checkBatteryStatus();
 }
 class Car implements Radio{
-  switchRadio() {
-
+  switchRadio() { 
   }
 }
 
