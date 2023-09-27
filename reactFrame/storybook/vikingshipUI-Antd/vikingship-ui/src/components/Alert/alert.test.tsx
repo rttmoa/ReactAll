@@ -17,6 +17,7 @@ const testSuccessAlertProp: AlertProps = {
   type: 'success'
 }
 
+/** #### TODO: 测试 alert.tsx 组件  */
 describe('test Alert component', () => {
   it('should render the correct default Alert', async () => {
     const wrapper = render(<Alert {...testAlertProp}>Nice</Alert>)

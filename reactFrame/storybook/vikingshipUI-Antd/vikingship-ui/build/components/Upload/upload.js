@@ -38,11 +38,13 @@ export var Upload = function (props) {
             });
         });
     };
+    /***--- Div盒子onClick ---**/
     var handleClick = function () {
         if (fileInput.current) {
             fileInput.current.click();
         }
     };
+    /***--- 输入框onChange ---**/
     var handleFileChange = function (e) {
         var files = e.target.files;
         if (!files) {
@@ -50,9 +52,10 @@ export var Upload = function (props) {
         }
         uploadFiles(files);
         if (fileInput.current) {
-            fileInput.current.value = '';
+            fileInput.current.value = "";
         }
     };
+    /***--- 文件上传列表 - 移除列表数据 ---**/
     var handleRemove = function (file) {
         setFileList(function (prevList) {
             return prevList.filter(function (item) { return item.uid !== file.uid; });
@@ -61,6 +64,7 @@ export var Upload = function (props) {
             onRemove(file);
         }
     };
+    /***--- 拖拽上传文件 ---**/
     var uploadFiles = function (files) {
         var postFiles = Array.from(files);
         postFiles.forEach(function (file) {
@@ -80,6 +84,7 @@ export var Upload = function (props) {
             }
         });
     };
+    /***--- 发送数据 ---**/
     var post = function (file) {
         var _file = {
             uid: Date.now() + '_upload_file',
@@ -131,11 +136,9 @@ export var Upload = function (props) {
             }
         });
     };
-    return (React.createElement("div", { className: "viking-upload-component" },
+    return (React.createElement("div", { className: "viking-upload-component", style: { backgroundColor: '#fafafa' } },
         React.createElement("div", { className: "viking-upload-input", style: { display: 'inline-block' }, onClick: handleClick },
-            drag ?
-                React.createElement(Dragger, { onFile: function (files) { uploadFiles(files); } }, children) :
-                children,
+            drag ? React.createElement(Dragger, { onFile: function (files) { uploadFiles(files); } }, children) : children,
             React.createElement("input", { className: "viking-file-input", style: { display: 'none' }, ref: fileInput, onChange: handleFileChange, type: "file", accept: accept, multiple: multiple })),
         React.createElement(UploadList, { fileList: fileList, onRemove: handleRemove })));
 };

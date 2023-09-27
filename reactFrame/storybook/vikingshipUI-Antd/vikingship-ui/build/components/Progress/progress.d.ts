@@ -12,5 +12,9 @@ export interface ProgressProps {
     /** 主题 */
     theme?: ThemeProps;
 }
+/**
+ * ### 用于页面中展示百分比 进度条
+ * #### percent | strokeHeight? | showText? | styles? | theme?
+ */
 declare const Progress: FC<ProgressProps>;
 export default Progress;

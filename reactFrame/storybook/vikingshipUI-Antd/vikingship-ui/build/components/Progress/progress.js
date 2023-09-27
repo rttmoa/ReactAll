@@ -1,4 +1,8 @@
 import React from 'react';
+/**
+ * ### 用于页面中展示百分比 进度条
+ * #### percent | strokeHeight? | showText? | styles? | theme?
+ */
 var Progress = function (props) {
     var percent = props.percent, strokeHeight = props.strokeHeight, showText = props.showText, styles = props.styles, theme = props.theme;
     return (React.createElement("div", { className: "viking-progress-bar", style: styles },

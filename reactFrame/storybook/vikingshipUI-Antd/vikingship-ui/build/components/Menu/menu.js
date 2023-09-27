@@ -1,10 +1,9 @@
 import React, { useState, createContext } from 'react';
 import classNames from 'classnames';
+/***--- 创建上下文 ---**/
 export var MenuContext = createContext({ index: '0' });
 /**
- * 为网站提供导航功能的菜单。支持横向纵向两种模式，支持下拉菜单
- * ### 引用方法
- *
+ * #### 为网站提供导航功能的菜单。支持横向纵向两种模式，支持下拉菜单
  * ~~~js
  * import { Menu } from 'vikingship-ui'
  * // 然后可以使用 Menu.Item 和 Menu.Submenu 访问选项和子下拉菜单组件
@@ -27,16 +26,14 @@ export var Menu = function (props) {
         index: currentActive ? currentActive : '0',
         onSelect: handleSelect,
         mode: mode,
-        defaultOpenSubMenus: defaultOpenSubMenus
+        defaultOpenSubMenus: defaultOpenSubMenus,
     };
     var renderChildren = function () {
         return React.Children.map(children, function (child, index) {
             var childElement = child;
             var displayName = childElement.type.displayName;
             if (displayName === 'MenuItem' || displayName === 'SubMenu') {
-                return React.cloneElement(childElement, {
-                    index: index.toString()
-                });
+                return React.cloneElement(childElement, { index: index.toString() });
             }
             else {
                 console.error("Warning: Menu has a child which is not a MenuItem component");

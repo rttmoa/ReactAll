@@ -11,12 +11,7 @@ export interface UploadFile {
     error?: any;
 }
 /**
- * 通过点击或者拖拽上传文件
- * ### 引用方法
- *
- * ~~~js
- * import { Upload} from 'vikingship-ui'
- * ~~~
+ * ### 通过点击或者拖拽上传文件
  */
 export interface UploadProps {
     /** 发送请求地址 */
@@ -42,7 +37,7 @@ export interface UploadProps {
     headers?: {
         [key: string]: any;
     };
-    /** 文件名 */
+    /** 添加name 属性 - 代表发到后台的文件参数名称 */
     name?: string;
     /** 添加data属性 - 上传所需的额外参数 */
     data?: {

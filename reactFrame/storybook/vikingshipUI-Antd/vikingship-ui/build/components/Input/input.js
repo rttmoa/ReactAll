@@ -24,21 +24,14 @@ import React from 'react';
 import classNames from 'classnames';
 import Icon from '../Icon/icon';
 /**
- * Input 输入框 通过鼠标或键盘输入内容，是最基础的表单域的包装。
- * ### 引用方法
- *
- * ~~~js
- * import { Input } from 'vikingship-ui'
- * ~~~
+ * ### Input 输入框 通过鼠标或键盘输入内容，是最基础的表单域的包装。
  * 支持 HTMLInput 的所有基本属性
+ * #### disabled? | size? | icon? | prepend? | append? | onChange()?
  */
 export var Input = function (props) {
     var _a;
-    // 取出所有的属性
-    var disabled = props.disabled, size = props.size, icon = props.icon, prepend = props.prepend, append = props.append, style = props.style, restProps = __rest(props
-    // 根据不同的属性计算className
-    , ["disabled", "size", "icon", "prepend", "append", "style"]);
-    // 根据不同的属性计算className
+    var disabled = props.disabled, size = props.size, icon = props.icon, prepend = props.prepend, append = props.append, style = props.style, restProps = __rest(props, ["disabled", "size", "icon", "prepend", "append", "style"]);
+    // 根据不同的属性计算className | 用户行内样式的style 
     var classes = classNames('viking-input-wrapper', (_a = {},
         _a["input-size-".concat(size)] = size,
         _a['is-disabled'] = disabled,

@@ -23,13 +23,14 @@ export interface AlertProps {
 }
 
 /**
+ * ## Main
  * ### 用于页面中展示重要的提示信息。 点击右侧的叉提示自动消失 
  * #### title? | closable? | customClose? | onClose()? | children? | type
  */
 export const Alert: React.FC<AlertProps> = (props) => {
   
   const { title, closable, type, customClose, onClose, children } = props;
-
+  
   const customCloseP = customClose || <Icon icon="times" className="window-close" size='lg'/>
 
   const classes = classnames('alert', {[`alert-${type}`]: type})
@@ -40,6 +41,7 @@ export const Alert: React.FC<AlertProps> = (props) => {
   }
 
   const [visible, setVisible] = useState(true)
+
 
   return (
     <Transition

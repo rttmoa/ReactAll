@@ -1,0 +1,31 @@
+
+
+
+"scripts": {
+
+  // yarn start： 执行 /src/index.tsx 入口文件
+  "start": "react-scripts start",
+
+  // yarn lint：校验文件中是否有错误点
+  "lint": "eslint --ext js,ts,tsx src --max-warnings 10",
+
+
+  // yarn test： 执行文件中 /src/components/Input/input.test.tsx   test后缀文件
+  "test": "react-scripts test",
+  "eject": "react-scripts eject",
+
+  "clean": "rimraf ./build",
+  "build-ts": "tsc -p tsconfig.build.json",
+  "build-css": "node-sass ./src/styles/index.scss ./build/index.css",
+  // 生成 build 文件夹
+  "build": "npm run clean && npm run build-ts && npm run build-css",
+
+  // storybook
+  "storybook": "start-storybook -p 6006 -s public",
+
+  // 生成 storybook-static 
+  "build-storybook": "build-storybook -s public",
+
+  // 发布 npm 包
+  "pub": "npm run build && npm publish"
+},

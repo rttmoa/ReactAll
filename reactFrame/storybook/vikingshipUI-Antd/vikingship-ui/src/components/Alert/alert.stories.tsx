@@ -29,8 +29,26 @@ export const alertWithChildren = () => (
     <Alert type="success">zhangsan</Alert>
   </>
 )
-
+export const useAlert = () => {
+  return (
+    <>
+      <Alert
+        // className
+        // style
+        type='success'
+        title='test useAlert'
+        closable={true}
+        customClose='zhihu'
+        onClose={() => { console.log("关闭的回调"); }}
+      >
+        <span>{"useAlert"}</span>
+      </Alert>
+    </>
+  )
+}
+// AlertProps { title, closeable, customClose, onClose, children, type }
 storiesOf('Alert Component', module)
-  .add('Alert', defaultAlert)
+  .add("useAlert", useAlert)
+  .add('Alert Component', defaultAlert)
   .add('不同样式的 Alert', alertWithType)
   .add('添加描述的及回调 Alert', alertWithChildren)

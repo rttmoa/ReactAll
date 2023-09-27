@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 /**
- * 选项卡切换组件。 提供平级的区域将大块内容进行收纳和展现，保持界面整洁。
- * ### 引用方法
- *
- * ~~~js
- * import { Tabs } from 'vikingship-ui'
- * ~~~
+ * ### 选项卡切换组件。 提供平级的区域将大块内容进行收纳和展现，保持界面整洁。
+ * #### defaultIndex? | styleType? | onSelect()? | className?
  */
 export var Tabs = function (props) {
     var className = props.className, styleType = props.styleType, children = props.children, onSelect = props.onSelect;
@@ -24,6 +20,7 @@ export var Tabs = function (props) {
             onSelect(index);
         }
     }
+    /***--- 导航区域 ---**/
     var childrenComponent = function () {
         return React.Children.map(children, function (child, index) {
             var childElement = child;
@@ -38,14 +35,14 @@ export var Tabs = function (props) {
             return (React.createElement("li", { key: index, className: tabsLabelClasses, onClick: handleChildClick }, childElement.props.label));
         });
     };
+    /***--- 内容区域 ---**/
     var renderChildren = function () {
         return React.Children.map(children, function (child, index) {
             var childElement = child;
             var displayName = childElement.type.displayName;
+            // console.log(childElement)
             if (displayName === 'TabsItem') {
-                return React.cloneElement(childElement, {
-                    isActive: activeIndex === index
-                });
+                return React.cloneElement(childElement, { isActive: activeIndex === index });
             }
             else {
                 console.error("Warning: Tabs has a child which is not a TabsItem component");

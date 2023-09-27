@@ -14,8 +14,7 @@ export var UploadList = function (props) {
                 item.status === 'error' && React.createElement(Icon, { icon: "times-circle", theme: "danger" })),
             React.createElement("span", { className: "file-actions" },
                 React.createElement(Icon, { icon: "times", onClick: function () { onRemove(item); } })),
-            item.status === 'uploading' &&
-                React.createElement(Progress, { percent: item.percent || 0 })));
+            item.status === 'uploading' && React.createElement(Progress, { percent: item.percent || 0 })));
     })));
 };
 export default UploadList;

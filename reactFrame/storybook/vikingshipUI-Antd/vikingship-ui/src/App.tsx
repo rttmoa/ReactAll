@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import ButtonDemo from './demos/button-demo'
@@ -13,21 +14,28 @@ import UploadCom from './demos/uploadCom'
 function App() {
   const [title, setTitle] = useState('')
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/posts/1').then(response => { setTitle(response.data.title) })
-  })
+    axios.get('https://jsonplaceholder.typicode.com/posts/1').then(response => {  setTitle(response.data.title) })
+  }) 
+  let styleProps = {
+    backgroundColor: '#eae6e6', marginBottom: '100px', padding: '20px 60px'
+  }
   return (
-    <div className="App" style={{padding: '20px 80px'}}>
-      <b>{title}</b>
-      <br />
-      {/* <ButtonDemo /> */}
-      {/* <AlertDemo /> */} 
-      {/* <InputDemo /> */}
-      {/* <TransitionDemo /> */}
+    <div className="App">
+      <div style={{...styleProps}}>
+        <b>Title: {title}</b>
+      </div>
+      <div style={{...styleProps}}>
+        <ButtonDemo />
+      </div>
+      
+      <AlertDemo />
+      <InputDemo />
+      <TransitionDemo />
       <IconDemo />
-      {/* <TabsDemo /> */}
-      {/* <MenuDemo /> */}
-      {/* <UploadDemo /> */}
-      {/* <UploadCom /> */}
+      <TabsDemo />
+      <MenuDemo />
+      <UploadDemo />
+      <UploadCom />
     </div>
   )
 }

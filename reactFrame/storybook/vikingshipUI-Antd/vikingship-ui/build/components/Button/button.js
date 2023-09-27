@@ -23,12 +23,8 @@ var __rest = (this && this.__rest) || function (s, e) {
 import React from 'react';
 import classNames from 'classnames';
 /**
- * 页面中最常用的的按钮元素，适合于完成特定的交互，支持 HTML button 和 a 链接 的所有属性
- * ### 引用方法
- *
- * ~~~js
- * import { Button } from 'vikingship-ui'
- * ~~~
+ * ### 页面中最常用的的按钮元素，适合于完成特定的交互，支持 HTML button 和 a 链接 的所有属性
+ * #### className? | disabled? | size? | btnType? | children? | href?
  */
 export var Button = function (props) {
     var _a;

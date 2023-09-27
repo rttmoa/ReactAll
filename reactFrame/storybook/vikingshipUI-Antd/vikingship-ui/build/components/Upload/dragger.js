@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
+/**
+ * ### 文件上传拖拽到组件中
+ * #### onFile()?
+ */
+// {drag ? <Dragger onFile={files => uploadFiles(files)}>{children}</Dragger> : children}
 export var Dragger = function (props) {
     var onFile = props.onFile, children = props.children;
     var _a = useState(false), dragOver = _a[0], setDragOver = _a[1];
-    var classes = classNames('viking-uploader-dragger', {
-        'is-dragover': dragOver
-    });
+    var classes = classNames('viking-uploader-dragger', { 'is-dragover': dragOver });
     var handleDrop = function (e) {
         e.preventDefault();
         setDragOver(false);

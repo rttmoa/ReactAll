@@ -2,7 +2,8 @@
 import React from 'react'
 import { withInfo } from '@storybook/addon-info'
 import { configure, addDecorator, addParameters } from '@storybook/react'
-// 引入样式文件
+
+// todo 引入样式文件
 import '../src/styles/index.scss'
 
 export const parameters = {
@@ -11,16 +12,18 @@ export const parameters = {
 
 const wrapperStyle: React.CSSProperties = {
   padding: '20px 40px',
-  // width: '500px'
-  // background: 'pink'
+  // width: '500px',
+  // backgroundColor: 'pink'
 }
+
 // 定义内容居中的组件
 const StoryWrapper = (storyFn: any) => (
   <div style={wrapperStyle}>
-    <h3>组件演示</h3>
+    <h3><b>组件演示</b></h3>
     {storyFn()}
   </div>
 )
+
 // 添加全局修饰器
 addDecorator(StoryWrapper)
 // 添加显示组件信息
@@ -34,6 +37,7 @@ addParameters({
   }
 })
 
+// 处理 文件后缀名
 const loaderFn = () => {
   const allExports = [require('../src/welcome.stories.tsx'), require('../src/Introduction.stories.mdx')]
   const req = require.context('../src/components', true, /\.stories\.tsx$/)
