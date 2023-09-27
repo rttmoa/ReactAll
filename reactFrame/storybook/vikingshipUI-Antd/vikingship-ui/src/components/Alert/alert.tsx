@@ -31,6 +31,7 @@ export const Alert: React.FC<AlertProps> = (props) => {
   
   const { title, closable, type, customClose, onClose, children } = props;
   
+  // 关闭图标；默认 Icon
   const customCloseP = customClose || <Icon icon="times" className="window-close" size='lg'/>
 
   const classes = classnames('alert', {[`alert-${type}`]: type})

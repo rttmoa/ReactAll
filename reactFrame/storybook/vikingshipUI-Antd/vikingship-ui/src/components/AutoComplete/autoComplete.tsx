@@ -6,6 +6,8 @@ import Transition from '../Transition/transition'
 import useDebounce from '../../hooks/useDebounce'
 import useClickOutside from '../../hooks/useClickOutside'
 
+
+
 interface DataSourceObject {
   value: string;
 }
@@ -31,7 +33,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
 
   const { fetchSuggestions, onSelect, value, renderOption, ...restProps  } = props;
 
-  const [inputValue, setInputValue] = useState(value as string)
+  const [inputValue, setInputValue] = useState(value as string) // Input['value']
   const [suggestions, setSuggestions] = useState<DataSourceType[]>([])
   const [loading, setLoading] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
@@ -39,6 +41,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   const triggerSearch = useRef(false)
   const componentRef = useRef<HTMLDivElement>(null)
   const debouncedValue = useDebounce(inputValue, 300)
+  
   useClickOutside(componentRef, () => { setSuggestions([])})
 
   useEffect(() => {
@@ -74,6 +77,8 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     }
     setHighlightIndex(index)
   }
+
+  // Input['onKeyDown']
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     switch(e.keyCode) {
       case 13:
@@ -94,7 +99,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
         break
     }
   }
-
+  // Input['onChange']
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim()
     setInputValue(value)
@@ -123,23 +128,22 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
         onExited={() => { setSuggestions([]) }}
       >
         <ul className="viking-suggestion-list">
-          {loading &&
+          {loading && (
             <div className="suggestions-loading-icon">
               <Icon icon="spinner" spin/>
             </div>
-          }
-          {
-            suggestions.map((item, index) => {
-              const classnames = classNames('suggestion-item', {
-                'is-active': index === highlightIndex
-              })
-              return (
-                <li key={index} className={classnames} onClick={() => handleSelect(item)}>
-                  {renderTemplate(item)}
-                </li>
-              )
+          )}
+          {suggestions.map((item, index) => {
+            const classnames = classNames('suggestion-item', {
+              'is-active': index === highlightIndex
             })
-          }
+            return (
+              <li key={index} className={classnames} onClick={() => handleSelect(item)}>
+                {/* {renderTemplate(item)} */}
+                {renderOption ? renderOption(item) : item.value}
+              </li>
+            )
+          })}
       </ul>
       </Transition>
     )
