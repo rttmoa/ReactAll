@@ -1,7 +1,7 @@
 import React from 'react'
 import { CSSTransition } from 'react-transition-group'
 import { CSSTransitionProps } from 'react-transition-group/CSSTransition'
- 
+  
 // type CSSTransitionProps<Ref extends HTMLElement | undefined = undefined> = (TimeoutProps<Ref> & {
 //   classNames?: string | CSSTransitionClassNames | undefined;
 // }) | (EndListenerProps<Ref> & {

@@ -39,7 +39,8 @@ export const Tabs: React.FC<TabProps> = (props) => {
       onSelect(index);
     }
   }
-  /***--- 导航区域 ---**/
+
+  // todo 导航区域
   const childrenComponent = () => {
     return React.Children.map(children, (child, index) => {
       const childElement = child as React.FunctionComponentElement<TabsItemProps>;
@@ -58,8 +59,8 @@ export const Tabs: React.FC<TabProps> = (props) => {
       )
     })
   }
-  /***--- 内容区域 ---**/
-  const renderChildren = () => {
+  // todo 内容区域
+  const renderContentChildren = () => {
     return React.Children.map(children, (child, index) => {
       const childElement = child as React.FunctionComponentElement<TabsItemProps>
       const { displayName } = childElement.type;
@@ -74,14 +75,12 @@ export const Tabs: React.FC<TabProps> = (props) => {
 
   return (
     <div>
-      {/* 导航区域 */}
       <nav className={classes}>
         <ul className="tabs-ul">
           {childrenComponent()}
         </ul>
       </nav>
-      {/* 内容区域 */}
-      {renderChildren()}
+      {renderContentChildren()}
     </div>
   )
 }

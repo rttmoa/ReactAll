@@ -31,6 +31,9 @@ export const tabsWithOutline = () => (
     <TabsItem disabled label="disabled">
       this is content three
     </TabsItem>
+    <TabsItem label="card4">
+      this is content four
+    </TabsItem>
   </Tabs>
 )
 
