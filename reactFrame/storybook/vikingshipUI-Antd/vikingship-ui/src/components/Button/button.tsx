@@ -1,19 +1,22 @@
 import React, { FC, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'react'
 import classNames from 'classnames'
 
+export enum ButtonEnumSize {
+  Large = 'lg',
+  Small = 'sm'
+}
+
+export enum ButtonEnumType {
+  Primary = 'primary',
+  Default = 'default',
+  Danger = 'danger',
+  Link = 'link',
+}
+
+
+
 export type ButtonSize = 'lg' | 'sm'
 export type ButtonType = 'primary' | 'default' | 'danger' | 'link'
-// export enum ButtonSize {
-//   Large = 'lg',
-//   Small = 'sm'
-// }
-
-// export enum ButtonType {
-//   Primary = 'primary',
-//   Default = 'default',
-//   Danger = 'danger',
-//   Link = 'link',
-// }
 
 interface BaseButtonProps {
   className?: string;
@@ -25,11 +28,14 @@ interface BaseButtonProps {
   btnType?: ButtonType;
   children: React.ReactNode;
   href?: string;
+  // testButtonEnumType?: ButtonEnumType
 }
 
 type NativeButtonProps = BaseButtonProps & ButtonHTMLAttributes<HTMLElement>
 type AnchorButtonProps = BaseButtonProps & AnchorHTMLAttributes<HTMLElement>
 
+// Partial＜T＞：快速把某个接口类型中定义的属性变成可选
+// TS 关于泛类约束Partial＜T＞、Required＜T＞、Readonly＜T＞: https://blog.csdn.net/qq_37548296/article/details/131174181
 export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>
 
 /**
@@ -38,7 +44,8 @@ export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>
  */
 export const Button: FC<ButtonProps> = (props) => {
   
-  const { btnType, disabled, size, children, className, href, ...restProps } = props
+  const { btnType, disabled, size, children, className, href, ...restProps } = props;
+
   // btn, btn-lg, btn-primary
   const classes = classNames('btn', className, {
     [`btn-${btnType}`]: btnType,
