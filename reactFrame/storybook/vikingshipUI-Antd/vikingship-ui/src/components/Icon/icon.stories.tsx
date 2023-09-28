@@ -37,8 +37,16 @@ const iconWithAction = () => (
   </>
 )
 
+const useIcon = () => {
+  return (
+    <>
+
+    </>
+  )
+}
 
 storiesOf('Icon Component', module)
+.add('useIcon', useIcon)
   .add('Icon', defaultIcon)
   .add('不同主题的 Icon', iconWithTheme)
   .add('更多行为的 Icon', iconWithAction)

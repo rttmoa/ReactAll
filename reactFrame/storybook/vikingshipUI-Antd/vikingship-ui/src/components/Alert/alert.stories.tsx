@@ -30,6 +30,21 @@ export const alertWithChildren = () => (
   </>
 )
 export const useAlert = () => {
+  const str = `
+    export interface AlertProps {
+    /** 标题 */
+    title?: string;
+    /** 是否显示关闭图标 */
+    closable?: boolean;
+    /** the close icon */
+    customClose?: string;
+    /** 关闭alert时触发的事件 */
+    onClose?: (() => void);
+    /** 描述 */
+    children?: React.ReactNode;
+    /** 类型 四种可选 针对四种不同的场景 */
+    type: AlertType;
+  }`
   return (
     <>
       <Alert
@@ -41,7 +56,7 @@ export const useAlert = () => {
         customClose='zhihu'
         onClose={() => { console.log("关闭的回调"); }}
       >
-        <span>{"useAlert"}</span>
+        <span>{str}</span>
       </Alert>
     </>
   )

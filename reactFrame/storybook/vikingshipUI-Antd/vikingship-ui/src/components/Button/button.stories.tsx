@@ -24,7 +24,22 @@ const buttonWithType = () => (
   </>
 )
 
+const useButton = () => {
+  return (
+    <>
+      {/* 可以添加HTML属性 */}
+      <Button size='sm' btnType='primary' disabled>useButton</Button>
+      <Button size='sm' btnType='default'>useButton</Button>
+      <Button size='sm' btnType='danger'>useButton</Button>
+      <Button size='sm' btnType='link' href="https://google.com">useButton</Button>
+      <Button size='sm' btnType='danger' disabled>useButton</Button>
+      <Button size='sm' btnType='danger' onChange={() => {}}>useButton</Button>
+      <Button size='lg' btnType='danger' className='useButton'>useButton</Button>
+    </>
+  )
+}
 storiesOf('Button Component', module)
+.add('useButton', useButton)
   .add('Button', defaultButton)
   .add('不同尺寸的 Button', buttonWithSize)
   .add('不同类型的 Button', buttonWithType)
