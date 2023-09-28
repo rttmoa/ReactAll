@@ -11,7 +11,7 @@ export interface ProgressProps {
   /** 额外的样式 */
   styles?: React.CSSProperties;
   /** 主题 */
-  theme?: ThemeProps;
+  theme?: ThemeProps; // "primary" | "secondary" | "success" | "info" | "warning" | "danger" | "light" | "dark"
 }
 
 /**
@@ -25,10 +25,7 @@ const Progress: FC<ProgressProps> = (props) => {
   return (
     <div className="viking-progress-bar" style={styles}>
       <div className="viking-progress-bar-outer" style={{ height: `${strokeHeight}px`}}>
-        <div
-          className={`viking-progress-bar-inner color-${theme}`}
-          style={{width: `${percent}%`}}
-        >
+        <div className={`viking-progress-bar-inner color-${theme}`} style={{width: `${percent}%`}}>
           {showText && <span className="inner-text">{`${percent}%`}</span>}
         </div>
       </div>

@@ -24,6 +24,7 @@
       margin: 0 5px;
     }
   }
+  // for 循环 theme-colors 主题颜色
   @each $key, $val in $theme-colors {
     .color-#{$key} {
       background-color: $val;
