@@ -7,6 +7,7 @@ import { MenuContext } from './menu'
 
 
 export interface MenuItemProps {
+  // 点击 MenuItem 的索引
   index?: string;
   /** 选项是否被禁用 */
   disabled?: boolean;

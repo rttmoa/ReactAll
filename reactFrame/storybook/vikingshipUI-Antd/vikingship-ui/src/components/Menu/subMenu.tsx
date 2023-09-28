@@ -8,6 +8,7 @@ import Transition from '../Transition'
 
 
 export interface SubMenuProps {
+  // 点击 SubMenu 的索引
   index?: string;
   /** 	下拉菜单选项的文字 */
   title: string;

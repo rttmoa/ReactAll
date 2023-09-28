@@ -27,13 +27,13 @@ interface IMenuContext {
   mode?: MenuMode;
   defaultOpenSubMenus?: string[];
 }
-/***--- 创建上下文 ---**/
+
 export const MenuContext = createContext<IMenuContext>({ index: '0' })
 /**
  * #### 为网站提供导航功能的菜单。支持横向纵向两种模式，支持下拉菜单 
  * ~~~js
  * import { Menu } from 'vikingship-ui'
- * // 然后可以使用 Menu.Item 和 Menu.Submenu 访问选项和子下拉菜单组件
+ * 然后可以使用 Menu.Item 和 Menu.Submenu 访问选项和子下拉菜单组件
  * ~~~
  */
 export const Menu: FC<MenuProps> = (props) => {
@@ -48,11 +48,10 @@ export const Menu: FC<MenuProps> = (props) => {
 
   const handleSelect = (index: string) => {
     setActive(index);
-    if (onSelect) {
-      onSelect(index);
-    }
+    onSelect && onSelect(index);
   }
 
+  // 向 children 中提供 index、onSelect、mode、defaultOpenSubMenus
   const passedContent: IMenuContext = {
     index: currentActive ? currentActive : '0',
     onSelect: handleSelect,
