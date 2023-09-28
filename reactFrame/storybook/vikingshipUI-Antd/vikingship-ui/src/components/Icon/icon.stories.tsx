@@ -40,11 +40,22 @@ const iconWithAction = () => (
 const useIcon = () => {
   return (
     <>
-
+      <Icon icon="times" size='2x' /> 
+      <Icon icon="check" size='2x' /> 
+      <Icon icon="times" size='3x' /> 
+      <Icon icon="check" size='3x' /> 
+      <Icon icon="check" size='3x' theme='danger' /> 
+      <Icon icon="check" size='3x' theme='success' /> 
+      <Icon icon="anchor" size="3x" theme="primary" />
+      <Icon icon="exclamation-circle" size='3x' theme='warning' />
+      <Icon icon="spinner" size='3x' pulse theme='success' />
+      <Icon icon="spinner" size='3x' spin theme='primary' />
     </>
   )
 }
 
+// TODO: <FontAwesomeIcon className={classes} {...restProps} />
+// interface FontAwesomeIconProps {}
 storiesOf('Icon Component', module)
 .add('useIcon', useIcon)
   .add('Icon', defaultIcon)

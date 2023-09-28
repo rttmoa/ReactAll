@@ -11,17 +11,19 @@ const ControlledInput = () => {
   console.log('value', value)
   return <Input value={value} defaultValue={value} onChange={(e) => { setValue(e.target.value) }} />
 }
-
-const defaultInput = () => (
-  <>
-    <Input
-      style={{width: '300px'}}
-      placeholder="placeholder"
-      onChange={action('changed')}
-    />
-    <ControlledInput />
+const defaultInput = () => {
+  return (
+    <>
+      <Input
+        style={{width: '300px'}}
+        placeholder="placeholder"
+        onChange={action('changed')}
+      />
+      <ControlledInput />
   </>
-)   
+  )
+}
+
 const inputWithDisabled = () => (
   <Input
     style={{width: '300px'}}
@@ -68,8 +70,22 @@ const inputWithPad = () => (
   </>
 )
 
+const useInput = () => {
+  return (
+    <>
+      <Input style={{width: 300}} placeholder='placeholder' onChange={action("changed")} />
+      <Input style={{width: 300}} placeholder='disabled Input' disabled />
+      <Input style={{width: 300}} placeholder='input with icon' icon="search" />
+      <Input style={{width: 300}} placeholder='small Input' size='sm' />
+      <Input style={{width: 300}} placeholder='large Input' size='lg' /> 
+      <Input style={{width: 300}} placeholder='large Input' prepend="https://" defaultValue="prepend text" /> 
+      <Input style={{width: 300}} placeholder='large Input' append=".com"  defaultValue="google" />
+    </>
+  )
+}
 
 storiesOf('Input component', module)
+  .add('useInput', useInput)
   .add('Input', defaultInput)
   .add('被禁用的 Input', inputWithDisabled)
   .add('带图标的 Input', inputWithIcon)

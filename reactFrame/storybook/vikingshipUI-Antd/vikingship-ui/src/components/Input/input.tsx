@@ -4,6 +4,8 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import Icon from '../Icon/icon'
 // import { faDivide } from '@fortawesome/free-solid-svg-icons'
 
+
+
 export type InputSize = 'lg' | 'sm'
 export type ButtonType = 'primary' | 'default' | 'danger' | 'link'
 
@@ -29,6 +31,7 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLElement>, 'size
 export const Input: FC<InputProps> = (props) => {
 
   const { disabled, size, icon, prepend, append, style, ...restProps } = props;
+
   // 根据不同的属性计算className | 用户行内样式的style 
   const classes = classNames('viking-input-wrapper', {
     [`input-size-${size}`]: size,
@@ -38,16 +41,10 @@ export const Input: FC<InputProps> = (props) => {
     'input-group-prepend': !!prepend
   })
 
-  const fixControlledValue = (value: any) => {
-    if (typeof value === 'undefined' || value === null) {
-      return ''
-    }
-    return value
-  }
-
+  
   if ('value' in props) {
     delete restProps.defaultValue;
-    restProps.value = fixControlledValue(props.value)
+    restProps.value = (typeof props.value === 'undefined' || props.value === null) ? "" : props.value
   }
 
   return (

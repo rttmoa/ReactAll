@@ -9,7 +9,7 @@ import SubMenu from './subMenu'
 
 
 export const defaultMenu = () => (
-  <Menu onSelect={(index) => {action(`clicked ${index} item`)}} >
+  <Menu onSelect={(index) => {action(`clicked ${index} item`); console.log(index);}} >
     <MenuItem>
       cool link
     </MenuItem>
@@ -31,7 +31,7 @@ export const defaultMenu = () => (
 )
 
 export const menuWithVertical = () => (
-  <Menu mode="vertical" onSelect={(index) => {action(`clicked ${index} item`)}} >
+  <Menu mode="vertical"  onSelect={(index) => {action(`clicked ${index} item`)}} >
     <MenuItem>
       cool link
     </MenuItem>
@@ -63,7 +63,7 @@ export const menuWithOpened = () => (
       </MenuItem>
       <MenuItem>
         下拉选项二
-      </MenuItem>
+      </MenuItem> 
     </SubMenu>
   </Menu>
 )

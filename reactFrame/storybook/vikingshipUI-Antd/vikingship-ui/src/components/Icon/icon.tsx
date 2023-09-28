@@ -24,6 +24,7 @@ export const Icon: React.FC<IconProps> = (props) => {
   const { className, theme, ...restProps } = props;
   const classes = classNames('viking-icon', className, { [`icon-${theme}`]: theme })
   return (
+    // interface FontAwesomeIconProps {}
     <FontAwesomeIcon className={classes} {...restProps} />
   )
 }
