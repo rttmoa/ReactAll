@@ -7,7 +7,7 @@ import Icon from '../Icon'
 
 
 export const defaultTabs = () => (
-  <Tabs onSelect={function noRefCheck(){}}>
+  <Tabs onSelect={function noRefCheck(selectedIndex){console.log(selectedIndex);}}>
     <TabsItem label="选项卡一">
       this is content one
     </TabsItem>
@@ -47,8 +47,21 @@ export const tabsWithCustom = () => (
     </TabsItem>
   </Tabs>
 )
+const useTabs = () => {
+  return (
+    <>
+      <Tabs defaultIndex={2} styleType='underline' onSelect={(selectedIndex) => {console.log(selectedIndex);}} className=''>
+        <TabsItem label={<><Icon icon="exclamation-circle" />{"  select one"}</>}><div><span>Content1</span></div></TabsItem>
+        <TabsItem label="select two" disabled={true}><button>Content2</button></TabsItem>
+        <TabsItem label="select three"><p><h4>Content3</h4></p></TabsItem>  
+        <TabsItem label="select four"><div><b>Content4</b></div></TabsItem>
+      </Tabs>
+    </>
+  )
+}
 
 storiesOf('Tabs Component', module)
+.add('useTabs', useTabs)
   .add('Tabs', defaultTabs)
   .add('选项卡样式的 Tabs', tabsWithOutline)
   .add('自定义选项卡样式 Tabs', tabsWithCustom)

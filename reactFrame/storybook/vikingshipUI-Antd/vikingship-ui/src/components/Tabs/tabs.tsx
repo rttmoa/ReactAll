@@ -18,27 +18,19 @@ export interface TabProps {
 /**
  * ### 选项卡切换组件。 提供平级的区域将大块内容进行收纳和展现，保持界面整洁。
  * #### defaultIndex? | styleType? | onSelect()? | className?
- */
+ */  
+// TODO: CODE: React.Children & React.cloneElement
 export const Tabs: React.FC<TabProps> = (props) => {
 
-  const { className, styleType, children, onSelect } = props;
+  const { className, styleType, children, onSelect, defaultIndex } = props;
 
   const classes = classNames('tabs-nav', className, {
     'tabs-underline': styleType === 'underline',
     'tabs-outline': styleType === 'outline'
   });
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(defaultIndex); // 控制显示哪个 Children Content
 
-  function handleClick(index: number, disabled: boolean): void {
-    if (disabled) { return; }
-
-    setActiveIndex(index);
-
-    if (typeof onSelect === 'function') {
-      onSelect(index);
-    }
-  }
 
   // todo 导航区域
   const childrenComponent = () => {
@@ -50,8 +42,10 @@ export const Tabs: React.FC<TabProps> = (props) => {
         'tabs-label-disabled': childElement.props.disabled
       });
       const handleChildClick = () => {
-        handleClick(index, isLabelDisabled);
-      }
+        if(isLabelDisabled) return
+        setActiveIndex(index)
+        if(typeof onSelect === "function") onSelect(index)
+      } 
       return (
         <li key={index} className={tabsLabelClasses} onClick={handleChildClick}>
           {childElement.props.label}

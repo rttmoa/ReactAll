@@ -17,7 +17,7 @@ export interface MenuProps {
   style?: React.CSSProperties;
   /** 点击菜单项触发的回掉函数 */
   onSelect?: SelectCallback;
-  /** 设置子菜单的默认打开 只在纵向模式下生效 */
+  /** 设置子菜单的默认打开 只在纵向模式下生效 */  
   defaultOpenSubMenus?: string[];
 }
 
@@ -29,6 +29,7 @@ interface IMenuContext {
 }
 
 export const MenuContext = createContext<IMenuContext>({ index: '0' })
+
 /**
  * #### 为网站提供导航功能的菜单。支持横向纵向两种模式，支持下拉菜单 
  * ~~~js
@@ -36,6 +37,7 @@ export const MenuContext = createContext<IMenuContext>({ index: '0' })
  * 然后可以使用 Menu.Item 和 Menu.Submenu 访问选项和子下拉菜单组件
  * ~~~
  */
+// TODO: CODE: React.Children & React.cloneElement & React.createContext
 export const Menu: FC<MenuProps> = (props) => {
 
   const { className, mode, style, children, defaultIndex, onSelect, defaultOpenSubMenus } = props;

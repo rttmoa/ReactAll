@@ -83,9 +83,7 @@ export const Upload: FC<UploadProps> = props => {
   /***--- 输入框onChange ---**/
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
-    if (!files) {
-      return
-    }
+    if (!files) return
 
     uploadFiles(files)
 
@@ -102,7 +100,7 @@ export const Upload: FC<UploadProps> = props => {
       onRemove(file)
     }
   }
-  /***--- 拖拽上传文件 ---**/
+  // todo 上传文件
   const uploadFiles = (files: FileList) => {
     let postFiles = Array.from(files)
     postFiles.forEach(file => {
@@ -110,11 +108,11 @@ export const Upload: FC<UploadProps> = props => {
         post(file)
       } else {
         const result = beforeUpload(file)
-        if (result && result instanceof Promise) {
+        if (result && result instanceof Promise) { // 上传文件之前 转换
           result.then(processedFile => {
             post(processedFile)
           })
-        } else if (result !== false) {
+        } else if (result !== false) { // 上传文件之前 验证
           post(file)
         }
       }
@@ -141,12 +139,12 @@ export const Upload: FC<UploadProps> = props => {
         formData.append(key, data[key])
       })
     }
-    axios
-      .post(action, formData, {
+    axios.post(action, formData, {
         headers: {
           ...headers,
           'Content-Type': 'multipart/form-data',
         },
+        // 是否携带请求参数
         withCredentials,
         // 上传进度计算
         onUploadProgress: e => {
@@ -192,7 +190,10 @@ export const Upload: FC<UploadProps> = props => {
         ) : (
           children
         )}
-        <input className="viking-file-input" style={{ display: 'none' }} ref={fileInput} onChange={handleFileChange} type="file" accept={accept} multiple={multiple} />
+        <input 
+          className="viking-file-input" 
+          style={{ display: 'none' }} ref={fileInput} onChange={handleFileChange} type="file" accept={accept} multiple={multiple} 
+        />
       </div>
 
       {/* 文件上传列表 */}

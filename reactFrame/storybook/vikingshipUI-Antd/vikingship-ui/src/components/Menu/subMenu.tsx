@@ -8,18 +8,20 @@ import Transition from '../Transition'
 
 
 export interface SubMenuProps {
-  // 点击 SubMenu 的索引
+  /** #### 点击 SubMenu.Item 的索引  */
   index?: string;
-  /** 	下拉菜单选项的文字 */
+  /** #### 下拉菜单选项的文字  */
   title: string;
-  /** 下拉菜单选型的扩展类名 */
+  /** #### 下拉菜单选型的扩展类名  */
   className?: string;
 }
 
 export const SubMenu: FC<SubMenuProps> = (props) => {
 
-  const context = useContext(MenuContext)
   const { index, title, children, className } = props
+
+  const context = useContext(MenuContext)
+  
   const openedSubMenus = context.defaultOpenSubMenus as Array<string>
   const isOpened = (index && context.mode === 'vertical') ? openedSubMenus.includes(index) : false
   const [ menuOpen, setOpen ] = useState(isOpened);
@@ -30,26 +32,35 @@ export const SubMenu: FC<SubMenuProps> = (props) => {
     'is-vertical': context.mode === 'vertical'
   })
 
+
+
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setOpen(!menuOpen);
   }
+  // mode="vertical"时， 点击事件
+  const clickEvents = context.mode === 'vertical' ? { onClick: handleClick } : {}
+
+  
   let timer: any;
   const handleMouse = (e: React.MouseEvent, toggle: boolean) => {
+    // 1.清除定时器
     clearTimeout(timer);
     e.preventDefault();
+    // 2.开启本次定时器
     timer = setTimeout(() => {
       setOpen(toggle);
     }, 300)
-  }
-
-  const clickEvents = context.mode === 'vertical' ? { onClick: handleClick } : {}
+  }  
+  // mode="horizontal"时， 防抖
   const hoverEvents = context.mode !== 'vertical' ? {
     onMouseEnter: (e: React.MouseEvent) => { handleMouse(e, true) },
     onMouseLeave: (e: React.MouseEvent) => { handleMouse(e, false) }
   } : {}
 
+  
 
+  // todo 渲染 SubMenu 下拉菜单中 children
   const renderChildren = () => {
     const subMenuClasses = classNames('viking-submenu', { 'menu-opened': menuOpen })
     const childrenComponent = React.Children.map(children, (child, i) => {
@@ -72,8 +83,7 @@ export const SubMenu: FC<SubMenuProps> = (props) => {
   return (
     <li key={index} className={classes} {...hoverEvents}>
       <div className="submenu-title"  {...clickEvents}>
-        {title}
-        <Icon icon="angle-down" className="arrow-icon"/>
+        {title} <Icon icon="angle-down" className="arrow-icon"/>
       </div>
       {renderChildren()}
     </li>

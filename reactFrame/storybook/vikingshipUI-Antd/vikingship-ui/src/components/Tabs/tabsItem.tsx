@@ -14,12 +14,15 @@ export interface TabsItemProps {
 }
 
 export const TabsItem: React.FC<TabsItemProps> = (props) => {
-  const classes = classNames('tabs-content', props.className, {
-    'tabs-content-active': props.isActive,
+
+  const { className, isActive, label, children } = props
+
+  const classes = classNames('tabs-content', className, {
+    'tabs-content-active': isActive,
   }) 
   return (
-    <div key={props.label} className={classes}>
-      {props.children}
+    <div key={label} className={classes}>
+      {children}
     </div>
   )
 }

@@ -2,18 +2,14 @@ import React, { FC, useContext } from 'react'
 import classNames from 'classnames'
 import { MenuContext } from './menu'
 
-
-
-
-
 export interface MenuItemProps {
-  // 点击 MenuItem 的索引
+  /** #### 点击 MenuItem 的索引  */
   index?: string;
-  /** 选项是否被禁用 */
+  /** #### 选项是否被禁用  */
   disabled?: boolean;
-  /** 选项扩展的 className */
+  /** #### 选项扩展的 className  */
   className?: string;
-  /** 选项的自定义 style */
+  /** #### 选项的自定义 style  */
   style?: React.CSSProperties;
 }
 
@@ -24,7 +20,7 @@ export const MenuItem: FC<MenuItemProps> = (props) => {
   
   const context = useContext(MenuContext);
 
-  const classes = classNames('menu-item', className, {
+  const cs = classNames('menu-item', className, {
     'is-disabled': disabled,
     'is-active': context.index === index
   })
@@ -36,7 +32,7 @@ export const MenuItem: FC<MenuItemProps> = (props) => {
   }
 
   return (
-    <li className={classes} style={style} onClick={handleClick}>
+    <li className={cs} style={style} onClick={handleClick}>
       {children}
     </li>
   )
