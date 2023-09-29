@@ -22,7 +22,7 @@ export interface UploadFile {
 export interface UploadProps {
   /** 发送请求地址 */
   action: string
-  /** 文件列表 */
+  /** 默认上传文件列表 */
   defaultFileList?: UploadFile[]
   /**
    * 上传文件之前验证或进行转换
