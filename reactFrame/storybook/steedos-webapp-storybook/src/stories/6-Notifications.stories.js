@@ -10,11 +10,12 @@ export default {
 };
 
 const Container = styled.div`
+  /* width: 100px; */
   float: right;
   margin: 1.2rem;
   clear: both;
   @media (max-width: 767px) {
-      .slds-popover__body{
+      .slds-popover__body {
         /* stories 案例在手机上高度不够，不方便调式 */
         max-height: 320px;
       }
@@ -36,7 +37,7 @@ export const interval = () => (
   <Provider store={store}>
     <Bootstrap>
       <Container>
-        <Notifications interval={5} />
+        <Notifications interval={1} />
       </Container>
     </Bootstrap>
   </Provider>

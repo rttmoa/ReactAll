@@ -1,10 +1,10 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import _ from 'underscore';
-import moment from 'moment';
-import { GlobalHeaderNotifications, Popover, Button, Icon } from '@salesforce/design-system-react';
-import { getAbsoluteUrl, getRelativeUrl, getUserId, getAuthToken, getSpaceId } from '../../utils';
+import * as React from 'react'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import _ from 'underscore'
+import moment from 'moment'
+import { GlobalHeaderNotifications, Popover, Button, Icon } from '@salesforce/design-system-react'
+import { getAbsoluteUrl, getRelativeUrl, getUserId, getAuthToken, getSpaceId } from '../../utils'
 
 const Container = styled.div`
     &.loading{
@@ -32,23 +32,23 @@ const Container = styled.div`
             height: 2.75rem!important;
         }
     }
-`;
+`
 
 const LoadingContainer = styled.div`
     text-align: center;
-`;
+`
 
 const EmptyContainer = styled.div`
     text-align: center;
     padding: .5rem .75rem;
-`;
+`
 
 const ContentContainer = styled.div`
     .slds-avatar img{
         width: 100%;
         height: 100%;
     }
-`;
+`
 
 const LoadingIcon = (props) => (
     <Icon
@@ -57,101 +57,100 @@ const LoadingIcon = (props) => (
         category="standard"
         colorVariant="base"
         name="generic_loading"
-    /> 
-);
+    />
+)
 
 const HeaderNotificationsCustomHeading = (props) => (
     <div>
         <span>{props.title}</span>
         {
-            props.isUnreadEmpty ? 
-            null :
-            <Button
-                label={props.assistiveText.markAllAsRead}
-                onClick={props.onMarkReadAll}
-                variant="link"
-                style={{
-                    float: "right",
-                    fontSize: "0.9rem",
-                    marginTop: "0.12rem",
-                    outline: "none"
-                }}
-                iconCategory="standard"
-                iconName={props.isMethodLoading ? "generic_loading": ""}
-                iconSize="large"
-            />
+            props.isUnreadEmpty ?
+                null :
+                <Button
+                    label={props.assistiveText.markAllAsRead}
+                    onClick={props.onMarkReadAll}
+                    variant="link"
+                    style={{
+                        float: "right",
+                        fontSize: "0.9rem",
+                        marginTop: "0.12rem",
+                        outline: "none"
+                    }}
+                    iconCategory="standard"
+                    iconName={props.isMethodLoading ? "generic_loading" : ""}
+                    iconSize="large"
+                />
         }
     </div>
 )
 
-HeaderNotificationsCustomHeading.displayName = 'HeaderNotificationsCustomHeading';
+HeaderNotificationsCustomHeading.displayName = 'HeaderNotificationsCustomHeading'
 
-const getItemUrl = (item)=>{
-    if(window.Meteor && window.Steedos.isMobile()){
-        return 'javascript:void(0);';
-    }else{
-        return getRelativeUrl(`/api/v4/notifications/${item._id}/read`);
+const getItemUrl = (item) => {
+    if (window.Meteor && window.Steedos.isMobile()) {
+        return 'javascript:void(0);'
+    } else {
+        return getRelativeUrl(`/api/v4/notifications/${item._id}/read`)
     }
 }
 
-const itemOnClick = (item)=>{
-    if(window.Meteor && window.Steedos.isMobile()){
+const itemOnClick = (item) => {
+    if (window.Meteor && window.Steedos.isMobile()) {
         window.$.ajax({
-            url : getAbsoluteUrl(`/api/v4/notifications/${item._id}/read?async`),
-            type : "get",
-            data : {},
-            async : false,
-            beforeSend: function(request){
+            url: getAbsoluteUrl(`/api/v4/notifications/${item._id}/read?async`),
+            type: "get",
+            data: {},
+            async: false,
+            beforeSend: function (request) {
                 request.setRequestHeader('X-User-Id', getUserId())
                 request.setRequestHeader('X-Auth-Token', getAuthToken())
                 request.setRequestHeader('X-Space-Id', getSpaceId())
             },
-            success : function(result) {
-                if(result && result.redirect){
+            success: function (result) {
+                if (result && result.redirect) {
                     //此处连续调用2次click用于解决IOS设备上，点击通知记录后，popover不关闭问题。
-                    window.$(".slds-button_icon", window.$('#header-notifications-popover-id-popover')).trigger('click');
-                    window.$(".slds-button_icon", window.$('#header-notifications-popover-id-popover')).trigger('click');
-                    var url = result.redirect;
+                    window.$(".slds-button_icon", window.$('#header-notifications-popover-id-popover')).trigger('click')
+                    window.$(".slds-button_icon", window.$('#header-notifications-popover-id-popover')).trigger('click')
+                    var url = result.redirect
                     var ROOT_URL_PATH_PREFIX = window.__meteor_runtime_config__.ROOT_URL_PATH_PREFIX
-                    if(ROOT_URL_PATH_PREFIX && url.startsWith(ROOT_URL_PATH_PREFIX)){
-                        url = url.replace(ROOT_URL_PATH_PREFIX, '');
+                    if (ROOT_URL_PATH_PREFIX && url.startsWith(ROOT_URL_PATH_PREFIX)) {
+                        url = url.replace(ROOT_URL_PATH_PREFIX, '')
                     }
-                    window.FlowRouter.go(url);
+                    window.FlowRouter.go(url)
                 }
             }
-        }); 
+        })
     }
 }
 
-const getItemAvatarUrl = (item)=>{
-    if(item.from){
-        return getAbsoluteUrl(`/avatar/${item.from}`);
+const getItemAvatarUrl = (item) => {
+    if (item.from) {
+        return getAbsoluteUrl(`/avatar/${item.from}`)
     }
-    else{
-        return getRelativeUrl(`/packages/steedos_lightning-design-system/client/images/themes/oneSalesforce/lightning_lite_profile_avatar_96.png`);
+    else {
+        return getRelativeUrl(`/packages/steedos_lightning-design-system/client/images/themes/oneSalesforce/lightning_lite_profile_avatar_96.png`)
     }
 }
 
 const HeaderNotificationsCustomContent = (props) => {
-    if(props.isEmpty){
-        return (<EmptyContainer>{props.assistiveText.emptyNotifications}</EmptyContainer>);
+    if (props.isEmpty) {
+        return (<EmptyContainer>{props.assistiveText.emptyNotifications}</EmptyContainer>)
     }
-    else if(props.isLoading){
+    else if (props.isLoading) {
         return (
             <LoadingContainer>
-                <LoadingIcon />  
+                <LoadingIcon />
             </LoadingContainer>
-        );
+        )
     }
-    else{
+    else {
         return (
             <ContentContainer>
                 <ul id="header-notifications-custom-popover-content">
                     {props.items.map((item) => (
                         <li
-                            className={`slds-global-header__notification ${
-                                item.is_read ? '' : 'slds-global-header__notification_unread'
-                            }`}
+                            className={`slds-global-header__notification ${item.is_read ? '' : 'slds-global-header__notification_unread'
+                                }`}
                             key={`notification-item-${item._id}`}
                         >
                             <div className="slds-media slds-has-flexi-truncate slds-p-around_x-small">
@@ -170,7 +169,7 @@ const HeaderNotificationsCustomContent = (props) => {
                                             href={getItemUrl(item)}
                                             target="_blank"
                                             className="slds-text-link_reset slds-has-flexi-truncate"
-                                            onClick={()=>{itemOnClick(item)}}
+                                            onClick={() => { itemOnClick(item) }}
                                         >
                                             <h3
                                                 className="slds-truncate"
@@ -183,7 +182,7 @@ const HeaderNotificationsCustomContent = (props) => {
                                             </p>
                                             <p className="slds-m-top_x-small slds-text-color_weak">
                                                 {moment(item.created).startOf().fromNow()}{' '}
-                                                {item.is_read ?  null : (
+                                                {item.is_read ? null : (
                                                     <abbr
                                                         className="slds-text-link slds-m-horizontal_xxx-small"
                                                         title="unread"
@@ -200,15 +199,17 @@ const HeaderNotificationsCustomContent = (props) => {
                     ))}
                 </ul>
             </ContentContainer>
-        );
+        )
     }
 }
 
-HeaderNotificationsCustomContent.displayName = 'HeaderNotificationsCustomContent';
+HeaderNotificationsCustomContent.displayName = 'HeaderNotificationsCustomContent'
+
+
 
 class Notifications extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
     };
 
     static defaultProps = {
@@ -244,35 +245,36 @@ class Notifications extends React.Component {
     };
 
     componentDidMount() {
-        const { init } = this.props;
+        console.log(this.props)
+        const { init } = this.props
         if (init) {
             let options = Object.assign({}, this.props, {
                 pageSize: this.props.top
-            });
-            init(options);
+            })
+            init(options)
         }
     }
 
     componentWillUnmount() {
-        const { exist } = this.props;
+        const { exist } = this.props
         if (exist) {
-            exist(this.props);
+            exist(this.props)
         }
     }
 
     state = {
     };
 
-    getPopover(){
-        const { rows: items, loading: isLoading, methodLoading: isMethodLoading, itemsLoaded: isItemsLoaded, title, onMarkReadAll, unreadCount, assistiveText } = this.props;
-        const isEmpty = isLoading ? false : items.length === 0;
-        const isUnreadEmpty = !!!unreadCount;
+    getPopover() {
+        const { rows: items, loading: isLoading, methodLoading: isMethodLoading, itemsLoaded: isItemsLoaded, title, onMarkReadAll, unreadCount, assistiveText } = this.props
+        const isEmpty = isLoading ? false : items.length === 0
+        const isUnreadEmpty = !!!unreadCount
         return (
             <Popover
                 ariaLabelledby="header-notifications-custom-popover-content"
                 body={
                     <HeaderNotificationsCustomContent
-                        isLoading={ isItemsLoaded ? false : isLoading}
+                        isLoading={isItemsLoaded ? false : isLoading}
                         isEmpty={isEmpty}
                         items={items}
                         assistiveText={assistiveText}
@@ -293,8 +295,8 @@ class Notifications extends React.Component {
     }
 
     render() {
-        const { unreadCount, countLoading, assistiveText } = this.props;
-        const popover = this.getPopover();
+        const { unreadCount, countLoading, assistiveText } = this.props
+        const popover = this.getPopover()
 
         return (
             <Container className={countLoading ? "loading" : ""}>
@@ -307,11 +309,11 @@ class Notifications extends React.Component {
                     notificationCount={countLoading ? 0 : unreadCount}
                     popover={popover}
                 />
-                { countLoading ? <LoadingIcon /> : ""}
+                {countLoading ? <LoadingIcon /> : ""}
             </Container>
 
-        );
+        )
     }
 }
 
-export default Notifications;
+export default Notifications

@@ -45,7 +45,8 @@ const SimpleUpload = () => {
   }
   return (
     <Upload
-      action='https://run.mocky.io/v3/bf320cd5-28e3-4081-b426-66e4ea0cd491' // 提交地址
+      // action='https://run.mocky.io/v3/bf320cd5-28e3-4081-b426-66e4ea0cd491' // 提交地址
+      action="https://run.mocky.io/v3/8a19a432-1e59-46a8-9841-a92d98486bde"
       defaultFileList={defaultFileList} // ，默认文件列表
       beforeUpload={checkFileSize} // 上传之前校验 或 进行转换
 
@@ -61,7 +62,7 @@ const SimpleUpload = () => {
       // headers={{'X-Powered-By': 'vikingship'}} // 添加自定义 header
       // name="fileName" // 添加name属性、代表发到后台的文件参数名称
       // data={{ 'key': 'value' }} // 上传所需的额外参数
-      // withCredentials={true}
+      withCredentials={true}
       accept=".jpg"
       // accept={".jpg" || ".png" || ".jpeg" || ".webp" || ".gif"}
       multiple // 允许上传多个文件
