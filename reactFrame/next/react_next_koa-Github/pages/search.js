@@ -8,6 +8,8 @@ import { cacheArray } from '../lib/repo-basic-cache'
 const api = require('../lib/api')
 
 
+// todo Search: http://localhost:3000/search?query=react
+
 // 筛选条件：语言类型
 const LANGUAGES = ['JavaScript', 'HTML', 'CSS', 'TypeScript', 'Java', 'Rust']
 // 筛选条件：排序类型

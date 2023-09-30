@@ -11,7 +11,7 @@ import api from '../../lib/api';
 
 const CACHE = {}
 
-
+// todo issue: http://localhost:3000/detail/issues?owner=primer&name=react
 
 /** #### TODO: 查看 Issue 详情  显示与隐藏  */
 function IssueDetail({ issue }) {
@@ -140,7 +140,7 @@ function makeQuery(creator, state, labels) {
   return `?${arr.join('&')}`;
 }
 
- 
+  
 
 /**
  * TODO: 在标题上显示label！！！！！

@@ -1,13 +1,12 @@
 import dynamic from 'next/dynamic';    /* 异步模块加载 */
 import api from '../../lib/api';
 
- 
 import withRepoBasic from '../../components/with-repo-basic';  
 
 
 
+// todo detail: http://localhost:3000/detail?owner=primer&name=react 
 
-// 详情页：http://localhost:3000/detail?owner=coreui&name=coreui-free-react-admin-template
 // 异步组件加载： MDRenderer这个组件只有等到 Detail 执行渲染的时候， 它才会被真正的加载
 const MDRenderer = dynamic(() => import('../../components/MarkdownRenderer'), {
   // 第二个参数 在异步加载的时候，可以反馈给用户加载的状态，而不是空白的内容
