@@ -34,10 +34,10 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   const { fetchSuggestions, onSelect, value, renderOption, ...restProps  } = props;
 
   const [inputValue, setInputValue] = useState(value as string) // Input['value']
-  const [suggestions, setSuggestions] = useState<DataSourceType[]>([])
+  const [suggestions, setSuggestions] = useState<DataSourceType[]>([]) // 下拉列表中 搜索建议词
   const [loading, setLoading] = useState(false)
-  const [showDropdown, setShowDropdown] = useState(false)
-  const [highlightIndex, setHighlightIndex] = useState(-1)
+  const [showDropdown, setShowDropdown] = useState(false) // 显示下拉框
+  const [highlightIndex, setHighlightIndex] = useState(-1) // 高亮索引
   const triggerSearch = useRef(false)
   const componentRef = useRef<HTMLDivElement>(null)
   const debouncedValue = useDebounce(inputValue, 300)
@@ -78,7 +78,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     setHighlightIndex(index)
   }
 
-  // Input['onKeyDown']
+  // Input['onKeyDown']  键盘事件（上、下、回车、ESC）
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     switch(e.keyCode) {
       case 13:
@@ -99,7 +99,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
         break
     }
   }
-  // Input['onChange']
+  // Input['onChange']  输入框事件改变
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim()
     setInputValue(value)
@@ -115,10 +115,11 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     triggerSearch.current = false
   }
 
-  const renderTemplate = (item: DataSourceType) => {
-    return renderOption ? renderOption(item) : item.value
-  }
+  // const renderTemplate = (item: DataSourceType) => {
+  //   return renderOption ? renderOption(item) : item.value
+  // }
 
+  // todo 下拉列表
   const generateDropdown = () => {
     return (
       <Transition

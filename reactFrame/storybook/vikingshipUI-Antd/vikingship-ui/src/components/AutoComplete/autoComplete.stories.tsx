@@ -49,6 +49,7 @@ const SimpleComplete = () => {
 
   const renderOption = (item: DataSourceType) => {
     const itemWithGithub = item as DataSourceType<GithubUserProps>
+    return <p>{itemWithGithub.value}</p>
     return (
       <>
         <h2>Name: {itemWithGithub.value}</h2>
@@ -63,7 +64,7 @@ const SimpleComplete = () => {
     <AutoComplete
       fetchSuggestions={handleFetch}
       onSelect={action('selected')}
-      // renderOption={renderOption}
+      renderOption={renderOption}
     />
   )
 }

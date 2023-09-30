@@ -50,7 +50,7 @@ export const tabsWithCustom = () => (
 const useTabs = () => {
   return (
     <>
-      <Tabs defaultIndex={2} styleType='underline' onSelect={(selectedIndex) => {console.log(selectedIndex);}} className=''>
+      <Tabs defaultIndex={2} styleType='outline' onSelect={(selectedIndex) => {console.log(selectedIndex);}} className=''>
         <TabsItem label={<><Icon icon="exclamation-circle" />{"  select one"}</>}><div><span>Content1</span></div></TabsItem>
         <TabsItem label="select two" disabled={true}><button>Content2</button></TabsItem>
         <TabsItem label="select three"><p><h4>Content3</h4></p></TabsItem>  

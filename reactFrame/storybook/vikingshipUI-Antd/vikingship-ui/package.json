@@ -7,23 +7,20 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
+    "dayjs": "^1.11.10",
+    "moment": "^2.29.4",
     "react-transition-group": "^4.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    
     "lint": "eslint --ext js,ts,tsx src --max-warnings 10",
-
     "clean": "rimraf ./build",
     "build-ts": "tsc -p tsconfig.build.json",
     "build-css": "node-sass ./src/styles/index.scss ./build/index.css",
     "build": "npm run clean && npm run build-ts && npm run build-css",
-
     "storybook": "start-storybook -p 6006 -s public",
-
     "build-storybook": "build-storybook -s public",
     "pub": "npm run build && npm publish"
   },

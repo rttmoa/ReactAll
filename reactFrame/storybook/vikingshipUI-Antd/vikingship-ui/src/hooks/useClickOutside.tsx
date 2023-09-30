@@ -2,7 +2,7 @@ import { RefObject, useEffect } from 'react'
 
 
 
-
+// useClickOutside(componentRef, () => { setSuggestions([]) })
 function useClickOutside(ref: RefObject<HTMLElement>, handler: Function) {
   useEffect(() => {
     const listener = (event: MouseEvent) => {
