@@ -18,7 +18,7 @@ export type TransitionProps<Ref extends HTMLElement | undefined = undefined> = C
 }
 
 /**
- * ### CSS过渡效果 包裹着内部的children
+ * ### CSS过渡效果 包裹着内部的 children
  * #### animation? | wrapper?
  */
 const Transition: React.FC<TransitionProps> = (props) => {

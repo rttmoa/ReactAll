@@ -62,7 +62,8 @@ const SimpleUpload = () => {
       // name="fileName" // 添加name属性、代表发到后台的文件参数名称
       // data={{ 'key': 'value' }} // 上传所需的额外参数
       // withCredentials={true}
-      accept={".jpg" || ".png" || ".jpeg" || ".webp" || ".gif"}
+      accept=".jpg"
+      // accept={".jpg" || ".png" || ".jpeg" || ".webp" || ".gif"}
       multiple // 允许上传多个文件
       drag
     >
