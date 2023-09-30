@@ -4,7 +4,7 @@ const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const config = require('./config')
 
 
-
+// TODO: https://www.nextjs.cn/docs/api-reference/next.config.js/introduction
 // 修改nextjs默认配置
 const configs = {
   // 编译文件的输出目录

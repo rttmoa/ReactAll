@@ -2,6 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import Button from './button'
+import UseButton from './UseButton'
 
 const defaultButton = () => (
   <Button onClick={action('clicked')}>Default button</Button>
@@ -28,13 +29,13 @@ const useButton = () => {
   return (
     <>
       {/* 可以添加HTML属性 */}
-      <Button size='sm' btnType='primary' disabled>useButton</Button>
-      <Button size='sm' btnType='default'>useButton</Button>
-      <Button size='sm' btnType='danger'>useButton</Button>
-      <Button size='sm' btnType='link' href="https://google.com">useButton</Button>
-      <Button size='sm' btnType='danger' disabled>useButton</Button>
-      <Button size='sm' btnType='danger' onChange={() => {}}>useButton</Button>
-      <Button size='lg' btnType='danger' className='useButton'>useButton</Button>
+      <UseButton size='sm' btnType='primary' disabled>useButton</UseButton>
+      <UseButton size='sm' btnType='default'>useButton</UseButton>
+      <UseButton size='sm' btnType='danger'>useButton</UseButton>
+      <UseButton size='sm' btnType='link' href="https://google.com">useButton</UseButton>
+      <UseButton size='sm' btnType='danger' disabled>useButton</UseButton>
+      <UseButton size='sm' btnType='danger' onChange={() => {}}>useButton</UseButton>
+      <UseButton size='lg' btnType='danger' className='useButton'>useButton</UseButton>
     </>
   )
 }

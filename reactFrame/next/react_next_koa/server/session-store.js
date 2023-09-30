@@ -4,7 +4,7 @@ function getRedisSessionId(sid) {
   return `ssid:${sid}`
 }
 
-/**--- 使用Redis去操作session的存，取，删除 ---**/
+/** #### TODO: 使用Redis去操作session的存，取，删除  */
 class RedisSessionStore {
   constructor(client) {
     // console.log(client)

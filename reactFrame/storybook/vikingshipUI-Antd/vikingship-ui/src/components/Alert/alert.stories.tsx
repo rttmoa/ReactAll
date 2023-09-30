@@ -2,7 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 // import { action } from '@storybook/addon-actions'
 import Alert from './alert'
-
+import UseAlert from './UseAlert'
 
 
 export const defaultAlert = () => (
@@ -47,7 +47,7 @@ export const useAlert = () => {
   }`
   return (
     <>
-      <Alert
+      <UseAlert
         // className
         // style
         type='success'
@@ -57,7 +57,7 @@ export const useAlert = () => {
         onClose={() => { console.log("关闭的回调"); }}
       >
         <span>{str}</span>
-      </Alert>
+      </UseAlert>
     </>
   )
 }

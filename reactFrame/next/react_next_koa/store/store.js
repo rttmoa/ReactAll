@@ -27,7 +27,7 @@ function newReducer(state = userInitialState, action) {
       return { 
         ...state,
         username: action.name
-       }
+        }
     } 
     default:
       return state

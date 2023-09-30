@@ -15,7 +15,7 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });              /* 是否处于开发状态 */
 const handle = app.getRequestHandler()  /* 处理Http请求的响应 */
 
- 
+  
 const redis = new Redis({ port: 6379, db:3 }) 
 
 global.atob = atob; // 它将 base64 编码的 ascii 数据转换回二进制
@@ -114,7 +114,7 @@ app.prepare().then(() => {
 
   server.listen(3000, () => {
     console.log(123)
-    console.log('koa server listening on 3000')
+    console.log('koa server listening on 3000: http://localhost:3000/')
   })
 
 })
