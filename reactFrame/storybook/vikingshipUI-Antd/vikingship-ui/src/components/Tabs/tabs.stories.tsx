@@ -48,6 +48,8 @@ export const tabsWithCustom = () => (
     </TabsItem>
   </Tabs>
 )
+
+
 const useTabs = () => {
   return (
     <div>
