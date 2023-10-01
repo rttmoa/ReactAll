@@ -2,6 +2,9 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { AutoComplete, DataSourceType } from './autoComplete'
+import UseAutoComplete from './UseAutoComplete'
+
+
 
 interface LakerPlayerProps {
   value: string;
@@ -50,13 +53,6 @@ const SimpleComplete = () => {
   const renderOption = (item: DataSourceType) => {
     const itemWithGithub = item as DataSourceType<GithubUserProps>
     return <p>{itemWithGithub.value}</p>
-    return (
-      <>
-        <h2>Name: {itemWithGithub.value}</h2>
-        <p>url: {itemWithGithub.url}</p>
-        <p>avatar_url: {itemWithGithub.avatar_url}</p>
-      </>
-    )
   }
 
 
@@ -69,5 +65,14 @@ const SimpleComplete = () => {
   )
 }
 
+const UseAutoCompleteCom = () => {
+  const lakers = ['bradley', 'pope', 'caruso', 'cook', 'cousins', 'james', 'AD', 'green', 'howard', 'kuzma', 'McGee', 'rando']
+  const handleFetch = (query: string) => {
+    return lakers.filter(name => name.includes(query)).map(name => ({value: name}))
+  }
+  return <UseAutoComplete fetchSuggestions={handleFetch} onSelect={action("selected")} />
+}
+
 storiesOf('AutoComplete Component', module)
-  .add('useAutoComplete', SimpleComplete)
+.add('UseAutoComplete', UseAutoCompleteCom)
+  .add('AutoComplete', SimpleComplete)
