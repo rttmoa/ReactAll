@@ -27,14 +27,15 @@ const UseAutoComplete:React.FC<UseAutoCompleteProps> = (props) => {
   const debouncedValue = useDebounce(inputValue, 300)
 
 
-  const highlight = (index: number) => {
-    if(index < 0) index = 0
-    if(index > suggestions.length) index = suggestions.length - 1
-    setHightlightIndex(index)
-  }
+
 
   // Input['onKeyDown'] 键盘事件
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    const highlight = (index: number) => {
+      if(index < 0) index = 0
+      if(index > suggestions.length) index = suggestions.length - 1
+      setHightlightIndex(index)
+    }
     switch(e.keyCode){
       case 13:
         if(suggestions[highlightIndex]){

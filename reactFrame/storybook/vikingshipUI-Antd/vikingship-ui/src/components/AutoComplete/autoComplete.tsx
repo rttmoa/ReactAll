@@ -70,16 +70,15 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     setHighlightIndex(-1)
   }, [debouncedValue, fetchSuggestions])
 
-  const highlight = (index: number) => {
-    if (index < 0) index = 0
-    if (index >= suggestions.length) {
-      index = suggestions.length - 1
-    }
-    setHighlightIndex(index)
-  }
+
 
   // Input['onKeyDown']  键盘事件（上、下、回车、ESC）
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    const highlight = (index: number) => {
+      if (index < 0) index = 0
+      if (index >= suggestions.length) index = suggestions.length - 1
+      setHighlightIndex(index)
+    }
     switch(e.keyCode) {
       case 13:
         if (suggestions[highlightIndex]) {
