@@ -20,7 +20,11 @@ export const TabsItem: React.FC<TabsItemProps> = (props) => {
   const classes = classNames('tabs-content', className, {
     'tabs-content-active': isActive,
   }) 
-  return <div key={label} className={classes}>{children}</div>
+  return (
+    <div key={label} className={classes}>
+      {children}
+    </div>
+  )
 }
 
 TabsItem.defaultProps = {

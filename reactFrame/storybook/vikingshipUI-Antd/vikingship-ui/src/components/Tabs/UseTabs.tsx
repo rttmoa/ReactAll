@@ -9,7 +9,7 @@ export interface UseTabsItemProps {
   isActive?: boolean
   disabled?: boolean
 }
-const UseTabsItems: React.FC<UseTabsItemProps> = (props) => {
+export const UseTabsItems: React.FC<UseTabsItemProps> = (props) => {
 
   const { className, isActive, label, children } = props;
   const cs = classNames('tabs-content', className, {'tabs-content-active': isActive})
@@ -18,12 +18,21 @@ const UseTabsItems: React.FC<UseTabsItemProps> = (props) => {
 UseTabsItems.defaultProps = { disabled: false, isActive: false }
 
 
-const UseTabs = () => {
+
+type UseTabStyle = "underline" | "outline";
+export interface UseTabProps {
+  defaultIndex?: number
+  styleType?: UseTabStyle
+  onSelect?: (selectedIndex: number) => void
+  className?: string
+}
+export const UseTabs: React.FC<UseTabProps> = (props) => {
+  const { defaultIndex, styleType, onSelect, className, children } = props;
+
   return (
     <div>
-      
+      {children}
     </div>
   );
 };
-
-export { UseTabs, UseTabsItems }
+UseTabs.defaultProps = { defaultIndex: 0, styleType: 'underline' }

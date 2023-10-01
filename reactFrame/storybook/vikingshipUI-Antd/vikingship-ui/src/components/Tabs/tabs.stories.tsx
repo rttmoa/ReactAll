@@ -5,6 +5,7 @@ import Tabs from './tabs'
 import TabsItem from './tabsItem'
 import Icon from '../Icon'
 import { UseTabs, UseTabsItems } from './UseTabs'
+// import UseTabsItems from './UseTabs'
 
 export const defaultTabs = () => (
   <Tabs onSelect={function noRefCheck(selectedIndex){console.log(selectedIndex);}}>
@@ -49,15 +50,14 @@ export const tabsWithCustom = () => (
 )
 const useTabs = () => {
   return (
-    <>
-      {/* <Tabs defaultIndex={2} styleType='outline' onSelect={(selectedIndex) => {console.log(selectedIndex);}} className=''>
-        <TabsItem label={<><Icon icon="exclamation-circle" />{"  select one"}</>}><div><span>Content1</span></div></TabsItem>
-        <TabsItem label="select two" disabled={true}><button>Content2</button></TabsItem>
-        <TabsItem label="select three"><p><h4>Content3</h4></p></TabsItem>  
-        <TabsItem label="select four"><div><b>Content4</b></div></TabsItem>
-      </Tabs> */}
-      <UseTabsItems label={<><Icon icon="exclamation-circle" />{"  select one"}</>}><div><span>Content1</span></div></UseTabsItems>
-    </>
+    <div>
+      <UseTabs defaultIndex={2} styleType='outline' onSelect={(selectedIndex) => {console.log(selectedIndex);}} className=''>
+        <UseTabsItems label={<><Icon icon="exclamation-circle" />{"  select one"}</>}><div><span>Content1</span></div></UseTabsItems>
+        <UseTabsItems label="select two" disabled={true}><button>Content2</button></UseTabsItems>
+        <UseTabsItems label="select three"><p><h4>Content3</h4></p></UseTabsItems>  
+        <UseTabsItems label="select four"><div><b>Content4</b></div></UseTabsItems>
+      </UseTabs>  
+    </div>
   )
 }
 
