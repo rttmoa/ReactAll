@@ -6,6 +6,8 @@
 
   添加Controls：https://storybook.js.org/docs/react/essentials/controls
 
+  todo 如何去封装公共组件
+
   components
     写了 <UseAlert /> 组件
     写了 <UseButton /> 组件
@@ -13,4 +15,4 @@
 
     ! <UseAutoComplete />
     <UseMenu />
-    <UseTabs />
+    ! <UseTabs />
