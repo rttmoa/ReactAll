@@ -38,6 +38,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   const [loading, setLoading] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false) // 显示下拉框
   const [highlightIndex, setHighlightIndex] = useState(-1) // 高亮索引
+  
   const triggerSearch = useRef(false)
   const componentRef = useRef<HTMLDivElement>(null)
   const debouncedValue = useDebounce(inputValue, 300)
