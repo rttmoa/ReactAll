@@ -53,19 +53,12 @@ export const Button: FC<ButtonProps> = (props) => {
     'disabled': (btnType === 'link') && disabled
   })
 
-  if (btnType === 'link' && href) {
-    return (
-      <a className={cs} href={href} {...restProps}>
-        {children}
-      </a>
-    )
-  } else {
-    return (
-      <button className={cs} disabled={disabled} {...restProps}>
-        {children}
-      </button>
-    )
+  if(btnType === "link" && href){
+    return <a className={cs} href={href} {...restProps}>{children} </a>
   }
+  else{
+    return <button className={cs} disabled={disabled} {...restProps}>{children}</button>
+  }  
 }
 
 Button.defaultProps = {
