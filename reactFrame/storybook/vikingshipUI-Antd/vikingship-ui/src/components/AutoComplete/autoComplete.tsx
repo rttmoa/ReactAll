@@ -109,9 +109,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   const handleSelect = (item: DataSourceType) => {
     setInputValue(item.value)
     setShowDropdown(false)
-    if (onSelect) {
-      onSelect(item)
-    }
+    onSelect && onSelect(item)
     triggerSearch.current = false
   }
 
