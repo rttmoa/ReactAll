@@ -74,5 +74,5 @@ class MyApp extends App { // 覆盖_app.js文件
     )
   }
 }
-/** TODO: 高阶组件   */
+// todo 高阶组件
 export default testHoc(MyApp)
