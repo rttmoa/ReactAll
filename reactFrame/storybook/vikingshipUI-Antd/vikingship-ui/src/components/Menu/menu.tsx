@@ -39,24 +39,22 @@ export const MenuContext = createContext<IMenuContext>({ index: '0' })
  */
 // TODO: CODE: React.Children & React.cloneElement & React.createContext
 export const Menu: FC<MenuProps> = (props) => {
-
   const { className, mode, style, children, defaultIndex, onSelect, defaultOpenSubMenus } = props;
+
   const [currentActive, setActive] = useState(defaultIndex);
 
   const classes = classNames('viking-menu', className, {
     'menu-vertical': mode === 'vertical',
     'menu-horizontal': mode !== 'vertical'
   })
-
-  const handleSelect = (index: string) => {
-    setActive(index);
-    onSelect && onSelect(index);
-  }
-
-  // 向 children 中提供 index、onSelect、mode、defaultOpenSubMenus
+  
+  // todo 向 children 中提供 index、onSelect、mode、defaultOpenSubMenus
   const passedContent: IMenuContext = {
-    index: currentActive ? currentActive : '0',
-    onSelect: handleSelect,
+    index: currentActive ? currentActive : "0",
+    onSelect: function (index: string) { // 选择后：设置 index & 回调 index
+      setActive(index);
+      onSelect && onSelect(index)
+    },
     mode,
     defaultOpenSubMenus,
   }
@@ -81,8 +79,6 @@ export const Menu: FC<MenuProps> = (props) => {
     </ul>
   )
 }
-
-
 Menu.defaultProps = {
   defaultIndex: '0',
   mode: 'horizontal',

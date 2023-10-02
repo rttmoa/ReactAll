@@ -17,7 +17,6 @@ export interface SubMenuProps {
 }
 
 export const SubMenu: FC<SubMenuProps> = (props) => {
-
   const { index, title, children, className } = props
 
   const context = useContext(MenuContext)
@@ -34,14 +33,15 @@ export const SubMenu: FC<SubMenuProps> = (props) => {
 
 
 
+  // mode="vertical"时， 点击事件 （下拉菜单）
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setOpen(!menuOpen);
   }
-  // mode="vertical"时， 点击事件
   const clickEvents = context.mode === 'vertical' ? { onClick: handleClick } : {}
 
   
+  // mode="horizontal"时， 防抖 （下拉菜单）
   let timer: any;
   const handleMouse = (e: React.MouseEvent, toggle: boolean) => {
     // 1.清除定时器
@@ -51,8 +51,7 @@ export const SubMenu: FC<SubMenuProps> = (props) => {
     timer = setTimeout(() => {
       setOpen(toggle);
     }, 300)
-  }  
-  // mode="horizontal"时， 防抖
+  }
   const hoverEvents = context.mode !== 'vertical' ? {
     onMouseEnter: (e: React.MouseEvent) => { handleMouse(e, true) },
     onMouseLeave: (e: React.MouseEvent) => { handleMouse(e, false) }
@@ -66,9 +65,7 @@ export const SubMenu: FC<SubMenuProps> = (props) => {
     const childrenComponent = React.Children.map(children, (child, i) => {
       const childElement = child as FunctionComponentElement<MenuItemProps>
       if (childElement.type.displayName === 'MenuItem') {
-        return React.cloneElement(childElement, {
-          index: `${index}-${i}`
-        })
+        return React.cloneElement(childElement, { index: `${index}-${i}` }) // todo 设置 SubMenu 下的 index
       } else {
         console.error("Warning: SubMenu has a child which is not a MenuItem component")
       }
@@ -76,7 +73,7 @@ export const SubMenu: FC<SubMenuProps> = (props) => {
     return (
       <Transition in={menuOpen} timeout={300} animation="zoom-in-top">
         <ul className={subMenuClasses}>{childrenComponent}</ul>
-      </Transition> 
+      </Transition>
     )
   }
 
@@ -89,6 +86,5 @@ export const SubMenu: FC<SubMenuProps> = (props) => {
     </li>
   )
 }
-
 SubMenu.displayName = 'SubMenu';
 export default SubMenu

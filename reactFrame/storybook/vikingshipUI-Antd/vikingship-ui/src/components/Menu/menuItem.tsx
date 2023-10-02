@@ -2,6 +2,8 @@ import React, { FC, useContext } from 'react'
 import classNames from 'classnames'
 import { MenuContext } from './menu'
 
+
+
 export interface MenuItemProps {
   /** #### 点击 MenuItem 的索引  */
   index?: string;
@@ -12,10 +14,7 @@ export interface MenuItemProps {
   /** #### 选项的自定义 style  */
   style?: React.CSSProperties;
 }
-
-
 export const MenuItem: FC<MenuItemProps> = (props) => {
-
   const { className, index, style, children, disabled } = props;
   
   const context = useContext(MenuContext);
@@ -31,12 +30,7 @@ export const MenuItem: FC<MenuItemProps> = (props) => {
     }
   }
 
-  return (
-    <li className={cs} style={style} onClick={handleClick}>
-      {children}
-    </li>
-  )
+  return <li className={cs} style={style} onClick={handleClick}>{children}</li>
 }
-
 MenuItem.displayName = 'MenuItem';
 export default MenuItem

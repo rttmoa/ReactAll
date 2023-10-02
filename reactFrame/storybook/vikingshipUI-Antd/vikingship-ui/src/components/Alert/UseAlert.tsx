@@ -14,10 +14,9 @@ export interface UseAlertRrops {
   type: UseAlertType
 }
 
-
 const UseAlert: React.FC<UseAlertRrops> = (props) => {
-
   const { title, closable, type, customClose, onClose, children } = props;
+
   const customCloseP = customClose || <Icon icon="times" className='window-close' size='lg' />
   const classes = classNames('alert', {[`alert-${type}`]: type})
   const [visible, setVisible] = useState(true)
