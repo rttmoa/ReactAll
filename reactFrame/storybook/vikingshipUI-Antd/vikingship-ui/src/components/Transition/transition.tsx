@@ -5,11 +5,10 @@ import { CSSTransitionProps } from 'react-transition-group/CSSTransition'
 // type CSSTransitionProps<Ref extends HTMLElement | undefined = undefined> = (TimeoutProps<Ref> & {
 //   classNames?: string | CSSTransitionClassNames | undefined;
 // }) | (EndListenerProps<Ref> & {
-//   ...;
-//   })
+//   // ...;
+// })
 
 type AnimationName = 'zoom-in-top' | 'zoom-in-left' | 'zoom-in-bottom' | 'zoom-in-right'
-
 export type TransitionProps<Ref extends HTMLElement | undefined = undefined> = CSSTransitionProps<Ref> & {
   /** #### 动画名：'zoom-in-top' | 'zoom-in-left' | 'zoom-in-bottom' | 'zoom-in-right'  */
   animation?: AnimationName,
@@ -17,23 +16,23 @@ export type TransitionProps<Ref extends HTMLElement | undefined = undefined> = C
   wrapper?: boolean,
 }
 
+// todo react-transition-group: https://reactcommunity.org/react-transition-group/
+// todo <Transition animation="zoom-in-top" wrapper={true}>Content</Transition>
 /**
  * ### CSS过渡效果 包裹着内部的 children
  * #### animation? | wrapper?
  */
 const Transition: React.FC<TransitionProps> = (props) => {
-  
   const { children, classNames, animation, wrapper, ...restProps } = props;
+  
   return (
     <CSSTransition classNames = { classNames ? classNames : animation} {...restProps}>
       {wrapper ? <div>{children}</div> : children}
     </CSSTransition>
   )
 }
-
 Transition.defaultProps = {
   unmountOnExit: true, // 进入时挂载, 离开时卸载
   appear: true // 初次加载时也有动画
 }
-
 export default Transition;
