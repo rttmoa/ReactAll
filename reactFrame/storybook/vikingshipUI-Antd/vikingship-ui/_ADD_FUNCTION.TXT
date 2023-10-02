@@ -16,3 +16,5 @@
     ! <UseAutoComplete />
     <UseMenu />
     ! <UseTabs />
+    <Upload /> - 文件上传 
+      上传成功： .txt | .gitignore 

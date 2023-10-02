@@ -8,6 +8,10 @@ import { CSSTransitionProps } from 'react-transition-group/CSSTransition'
 //   // ...;
 // })
 
+// todo react-transition-group: https://reactcommunity.org/react-transition-group/
+// todo <Transition animation="zoom-in-top" wrapper={true}>Content</Transition>
+
+
 type AnimationName = 'zoom-in-top' | 'zoom-in-left' | 'zoom-in-bottom' | 'zoom-in-right'
 export type TransitionProps<Ref extends HTMLElement | undefined = undefined> = CSSTransitionProps<Ref> & {
   /** #### 动画名：'zoom-in-top' | 'zoom-in-left' | 'zoom-in-bottom' | 'zoom-in-right'  */
@@ -16,8 +20,6 @@ export type TransitionProps<Ref extends HTMLElement | undefined = undefined> = C
   wrapper?: boolean,
 }
 
-// todo react-transition-group: https://reactcommunity.org/react-transition-group/
-// todo <Transition animation="zoom-in-top" wrapper={true}>Content</Transition>
 /**
  * ### CSS过渡效果 包裹着内部的 children
  * #### animation? | wrapper?

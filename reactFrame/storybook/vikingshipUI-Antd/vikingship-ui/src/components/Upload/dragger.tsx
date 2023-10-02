@@ -9,7 +9,7 @@ interface DraggerProps {
 }
 /**
  * ### 文件上传拖拽到组件中
- * #### onFile()?
+ * #### onFile()? & children
  */
 export const Dragger: FC<DraggerProps> = (props) => {
   const { onFile, children } = props;

@@ -9,8 +9,8 @@ interface UploadListProps {
 }
 
 export const UploadList: FC<UploadListProps> = (props) => {
-
   const { fileList, onRemove } = props;
+  // console.log(fileList);
 
   return (
     <ul className="viking-upload-list">
@@ -19,18 +19,17 @@ export const UploadList: FC<UploadListProps> = (props) => {
           <li className="viking-upload-list-item" key={item.uid}>
             {/* 左侧文件名 */}
             <span className={`file-name file-name-${item.status}`}>
-              <Icon icon="file-alt" theme="secondary" />
-              {item.name}
+              <Icon icon="file-alt" theme="secondary" /> {item.name}
             </span>
             {/* 右侧图标状态 - 成功、失败、加载中 */}
             <span className="file-status">
-              {(item.status === 'uploading' || item.status === 'ready') && <Icon icon="spinner" spin theme="primary" />}
+              {['uploading','ready'].includes(item.status!) && <Icon icon="spinner" spin theme="primary" />}
               {item.status === 'success' && <Icon icon="check-circle" theme="success" />}
               {item.status === 'error' && <Icon icon="times-circle" theme="danger" />}
             </span>
             {/* 右侧隐藏的关闭图标 */}
             <span className="file-actions">
-              <Icon icon="times" onClick={() => { onRemove(item)}}/>
+              <Icon icon="times" onClick={() => { onRemove(item)}} />
             </span>
             {/* 进度条 */}
             {item.status === 'uploading' && <Progress percent={item.percent || 0} />}

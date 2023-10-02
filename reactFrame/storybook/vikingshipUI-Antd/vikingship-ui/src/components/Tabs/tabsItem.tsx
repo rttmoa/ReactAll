@@ -13,8 +13,8 @@ export interface TabsItemProps {
   disabled?: boolean;
 }
 
+// React.Children 遍历 TabsItem
 export const TabsItem: React.FC<TabsItemProps> = (props) => {
-
   const { className, isActive, label, children } = props
 
   const classes = classNames('tabs-content', className, {
@@ -26,7 +26,6 @@ export const TabsItem: React.FC<TabsItemProps> = (props) => {
     </div>
   )
 }
-
 TabsItem.defaultProps = {
   disabled: false,
   isActive: false

@@ -29,7 +29,6 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLElement>, 'size
  * #### disabled? | size? | icon? | prepend? | append? | onChange()?
  */
 export const Input: FC<InputProps> = (props) => {
-
   const { disabled, size, icon, prepend, append, style, ...restProps } = props;
 
   // 根据不同的属性计算className | 用户行内样式的style 
@@ -41,12 +40,12 @@ export const Input: FC<InputProps> = (props) => {
     'input-group-prepend': !!prepend
   })
 
-  
-  if ('value' in props) {
+  // console.log('原', props);
+  if ('value' in props) { 
     delete restProps.defaultValue;
     restProps.value = (typeof props.value === 'undefined' || props.value === null) ? "" : props.value
   }
-
+  // console.log('新', props);
   return (
     // 根据属性判断是否要添加不同的节点
     <div className={classes} style={style}>

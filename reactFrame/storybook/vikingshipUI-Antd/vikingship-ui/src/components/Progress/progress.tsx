@@ -19,8 +19,8 @@ export interface ProgressProps {
  * #### percent | strokeHeight? | showText? | styles? | theme?
  */
 const Progress: FC<ProgressProps> = (props) => {
-
   const { percent, strokeHeight, showText, styles, theme } = props;
+  
   return (
     <div className="viking-progress-bar" style={styles}>
       <div className="viking-progress-bar-outer" style={{ height: `${strokeHeight}px`}}>
@@ -31,11 +31,9 @@ const Progress: FC<ProgressProps> = (props) => {
     </div>
   )
 }
-
 Progress.defaultProps = {
   strokeHeight: 15,
   showText: true,
   theme: "primary"
 }
-
 export default Progress

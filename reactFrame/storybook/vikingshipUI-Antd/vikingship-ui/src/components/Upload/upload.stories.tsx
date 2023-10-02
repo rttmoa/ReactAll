@@ -28,25 +28,31 @@ const defaultFileList: UploadFile[] = [
 ]
 
 const SimpleUpload = () => {
+
+  // 文件上传进度：子组件传递过来 Percentage 和 File
   const onProgress = (percentage: any, file: any) => {
-    console.log(percentage);
+    console.log('文件上传进度：', percentage);
   }
+  // 服务器响应成功时：子组件传递过来 Data 和 File
   const onSuccess = (data: any, file: any) => {
-    console.log(data);
+    console.log("服务器响应成功时：", data);
   }
+  // 服务器响应错误时：子组件传递过来 Error 和 File
   const onError = (err: any, file: File) => {
-    console.log(err);
+    console.log('服务器响应错误时', err, file);
   }
+  // 服务器响应结果时：子组件传递过来 File 
   const onChange = (file: File) => {
-    console.log(file);
+    console.log('服务器响应结果时', file);
   }
+  // 文件列表移除时，传递过来一个 File 属性
   const onRemove = (file: any) => {
-    console.log(file);
+    console.log("移除：", file);
   }
   return (
     <Upload
-      // action='https://run.mocky.io/v3/bf320cd5-28e3-4081-b426-66e4ea0cd491' // 提交地址
-      action="https://run.mocky.io/v3/8a19a432-1e59-46a8-9841-a92d98486bde"
+      action='https://run.mocky.io/v3/bf320cd5-28e3-4081-b426-66e4ea0cd491' // 提交地址
+      // action="https://run.mocky.io/v3/8a19a432-1e59-46a8-9841-a92d98486bde"
       defaultFileList={defaultFileList} // ，默认文件列表
       beforeUpload={checkFileSize} // 上传之前校验 或 进行转换
 
@@ -63,7 +69,7 @@ const SimpleUpload = () => {
       // name="fileName" // 添加name属性、代表发到后台的文件参数名称
       // data={{ 'key': 'value' }} // 上传所需的额外参数
       withCredentials={true}
-      accept=".jpg"
+      accept="."
       // accept={".jpg" || ".png" || ".jpeg" || ".webp" || ".gif"}
       multiple // 允许上传多个文件
       drag
@@ -75,5 +81,5 @@ const SimpleUpload = () => {
   )
 }
 
-storiesOf('Upload component', module)
+storiesOf('Upload （文件上传）', module)
   .add('Upload', SimpleUpload)

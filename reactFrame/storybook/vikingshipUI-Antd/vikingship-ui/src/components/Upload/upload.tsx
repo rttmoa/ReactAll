@@ -4,7 +4,6 @@ import UploadList from './uploadList'
 import Dragger from './dragger'
 
 export type UploadFileStatus = 'ready' | 'uploading' | 'success' | 'error'
-
 export interface UploadFile {
   uid: string
   size: number
@@ -15,10 +14,6 @@ export interface UploadFile {
   response?: any
   error?: any
 }
-
-/**
- * ### 通过点击或者拖拽上传文件
- */
 export interface UploadProps {
   /** 发送请求地址 */
   action: string
@@ -55,14 +50,21 @@ export interface UploadProps {
   /** 是否拖动上传 */
   drag?: boolean
 }
-
+/**
+ * ### 通过点击或者拖拽上传文件
+ */
 export const Upload: FC<UploadProps> = props => {
-  const { action, defaultFileList, beforeUpload, onProgress, onSuccess, onError, onChange, onRemove, headers, name, data, withCredentials, accept, multiple, children, drag } = props
+  const { 
+    action, defaultFileList, beforeUpload, 
+    onProgress, onSuccess, onError, onChange, onRemove, 
+    headers, name, data, withCredentials, accept, multiple, children, drag
+  } = props;
 
   const fileInput = useRef<HTMLInputElement>(null)
 
-  const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList || [])
+  const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList || []) // 文件上传列表
 
+  // 更新文件上传状态：提交到后台更新状态
   const updateFileList = (updateFile: UploadFile, updateObj: Partial<UploadFile>) => {
     setFileList(prevList => {
       return prevList.map(file => {
@@ -74,37 +76,34 @@ export const Upload: FC<UploadProps> = props => {
       })
     })
   }
-  /***--- Div盒子onClick ---**/
+  
+  // <input type="file" /> 点击上传文件
   const handleClick = () => {
     if (fileInput.current) {
+      // <input class="viking-file-input" type="file" accept="." multiple="" style="display: none;"></input>
+      // 点击 <input /> 进行上传
       fileInput.current.click()
     }
   }
-  /***--- 输入框onChange ---**/
+  // input['onChange'] 输入框Change事件
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (!files) return
-
     uploadFiles(files)
-
-    if (fileInput.current) {
-      fileInput.current.value = ''
-    }
+    if (fileInput.current) fileInput.current.value = ""
   }
-  /***--- 文件上传列表 - 移除列表数据 ---**/
+  // 移除文件列表中文件: 子组件传递过来的 File - onRemove
   const handleRemove = (file: UploadFile) => {
     setFileList(prevList => {
       return prevList.filter(item => item.uid !== file.uid)
     })
-    if (onRemove) {
-      onRemove(file)
-    }
+    onRemove && onRemove(file) 
   }
-  // todo 上传文件
+  // todo 上传文件 (拖拽或上传，，提交到接口中)
   const uploadFiles = (files: FileList) => {
     let postFiles = Array.from(files)
     postFiles.forEach(file => {
-      if (!beforeUpload) {
+      if (!beforeUpload) { // 如果有 beforeUpload 校验，先校验 File
         post(file)
       } else {
         const result = beforeUpload(file)
@@ -118,7 +117,7 @@ export const Upload: FC<UploadProps> = props => {
       }
     })
   }
-  /***--- 发送数据 ---**/
+  // todo 发送数据 （上传文件到接口中）
   const post = (file: File) => {
     let _file: UploadFile = {
       uid: Date.now() + '_upload_file',
@@ -140,6 +139,7 @@ export const Upload: FC<UploadProps> = props => {
       })
     }
     axios.post(action, formData, {
+        // 请求头信息 
         headers: {
           ...headers,
           'Content-Type': 'multipart/form-data',
@@ -177,21 +177,13 @@ export const Upload: FC<UploadProps> = props => {
       })
   }
 
+
+  // todo <Dragger onFile={file => { ...子组件中传递过来一个File }} /> 
   return (
     <div className="viking-upload-component" style={{ backgroundColor: '#fafafa' }}>
       <div className="viking-upload-input" style={{ display: 'inline-block' }} onClick={handleClick}>
-        {drag ? (
-          <Dragger
-            onFile={files => {
-              uploadFiles(files)
-            }}>
-            {children}
-          </Dragger>
-        ) : (
-          children
-        )}
-        <input 
-          className="viking-file-input" 
+        {drag ? (<Dragger onFile={files => { uploadFiles(files) }}>{children}</Dragger>) : (children)}
+        <input className="viking-file-input" 
           style={{ display: 'none' }} ref={fileInput} onChange={handleFileChange} type="file" accept={accept} multiple={multiple} 
         />
       </div>
