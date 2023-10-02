@@ -1,8 +1,8 @@
 import App, { Container } from 'next/app'
 import { Provider } from 'react-redux'
 import Router from 'next/router'
-// import Link from 'next/link'
-// import axios from 'axios'
+import Link from 'next/link'
+import axios from 'axios'
 
 import Layout from '../components/Layout'
 import PageLoading from '../components/PageLoading'
@@ -12,6 +12,10 @@ import 'antd/dist/antd.css'
 
 
 class MyApp extends App { // 覆盖_app.js文件
+  // 获取 github 中 react的数据
+  // axios.get("https://api.github.com/search/repositories?q=react").then(resp => console.log(resp))
+  // axios.get("github/search/repositories?q=react").then(resp => console.log(resp))
+  
   // state可以通过 this.props.pageProps属性传递到每个页面中
   state = {
     context: 'value',
@@ -25,10 +29,6 @@ class MyApp extends App { // 覆盖_app.js文件
     Router.events.on('routeChangeStart', this.startLoading)    // 切换：路由开始的时候 Loading：true
     Router.events.on('routeChangeComplete', this.stopLoading)
     Router.events.on('routeChangeError', this.stopLoading)
-
-    // 获取 github 中 react的数据
-    // axios.get("https://api.github.com/search/repositories?q=react").then(resp => console.log("react data", resp))
-    // axios.get("github/search/repositories?q=react").then(resp => console.log(resp))
   }
   // 组件卸载：当页面卸载时，加载进度条从开始到结束
   componentWillUnmount() {
@@ -42,7 +42,7 @@ class MyApp extends App { // 覆盖_app.js文件
     const { Component } = ctx;
     // console.log("getInitialProps ctx")
     // console.error('getInitialProps app init')
-    let pageProps = {};
+    let pageProps = {}; 
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
@@ -55,14 +55,13 @@ class MyApp extends App { // 覆盖_app.js文件
 
   render() {
     // reduxStore是with-redux中传递过来的
-    const { Component, pageProps, reduxStore } = this.props;
-    const { loading } = this.props;
+    const { Component, pageProps, reduxStore } = this.props; 
     // console.log("_appjs", this.props)
     
     return (
       <Container>
         <Provider store={reduxStore}>
-          {loading ? <PageLoading /> : null}
+          {this.props.loading && <PageLoading />}
 
           {/* TODO: Layout布局：头，体，足 */}
           <Layout>
@@ -76,6 +75,4 @@ class MyApp extends App { // 覆盖_app.js文件
   }
 }
 /** TODO: 高阶组件   */
-export default testHoc(
-  MyApp
-)
+export default testHoc(MyApp)

@@ -5,13 +5,10 @@ import { Spin } from 'antd'
 
 
 
-/** #### TODO: 加载Loading效果 ---*/
-export default () => (
-
-
+/** #### TODO: 加载 Loading 效果 （样式：全屏遮罩层，图标水平垂直居中） ---*/
+export default () => ( 
   <div className="root">
-    <Spin />
-    {/* 样式：全屏遮罩层，图标水平垂直居中 */}
+    <Spin /> 
     <style jsx>{`
       .root {
         position: fixed;
@@ -26,6 +23,5 @@ export default () => (
         justify-content: center;
       }
     `}</style>
-  </div>
-  
+  </div> 
 )

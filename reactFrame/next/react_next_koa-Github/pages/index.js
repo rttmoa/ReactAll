@@ -3,34 +3,27 @@ import { Button, Icon, Tabs } from 'antd'
 import getCofnig from 'next/config'     /** #### TODO: 获取 next.config.js 文件中 configs属性   */
 import { connect } from 'react-redux'
 import Router, { withRouter } from 'next/router'
+import Repo from '../components/Repo'
+import { cacheArray } from '../lib/repo-basic-cache' // 缓存更新策略： const cache = new LRU({  maxAge: 1000 * 10 })
 // import LRU from 'lru-cache'
 // import axios from 'axios'
 
-import Repo from '../components/Repo'
-import { cacheArray } from '../lib/repo-basic-cache'
 const api = require('../lib/api')
-
-// 缓存更新策略： const cache = new LRU({  maxAge: 1000 * 10 })
-
 const { publicRuntimeConfig, serverRuntimeConfig } = getCofnig();
 let cachedUserRepos, cachedUserStaredRepos; // 缓存数据：使用变量保存起来
-const isServer = typeof window === 'undefined';
+const isServer = typeof window === 'undefined'; // todo 开发模式下
 
 
-
-function Index({ userRepos, userStaredRepos, user, router }) { // 浏览器端
-  // console.log(userRepos, userStaredRepos)
-  // console.log("router", router)
-
-
-  const tabKey = router.query.key || '1'; // 要显示 你的仓库 | 你关注的仓库
+// TODO:  Index: 首页
+function Index({ userRepos, userStaredRepos, user, router }) { // 浏览器端 
+  const tabKey = router.query.key || "1"; // 要显示 你的仓库 | 你关注的仓库
 
   const handleTabChange = activeKey => { Router.push(`/?key=${activeKey}`) }  // 动态切换Tabs, 查看地址栏即可
 
   useEffect(() => {
     // 缓存到页面中 
     if (!isServer) {
-      // console.log(123)
+      // console.log('我的仓库', userRepos)
       cachedUserRepos = userRepos; // 你的仓库
       cachedUserStaredRepos = userStaredRepos; // 你关注的仓库
 
@@ -46,7 +39,7 @@ function Index({ userRepos, userStaredRepos, user, router }) { // 浏览器端
   }, [userRepos, userStaredRepos])
 
   // lru-cache缓存数据，缓存主页 我的仓库&我关注的仓库
-  useEffect(() => {
+  useEffect(() => { 
     // cache缓存页面数据 && 对于cacheArray，服务端是没有必要去执行的 && 这个是用户去搜索有关的
     if (!isServer) {
       cacheArray(userRepos)
@@ -74,12 +67,8 @@ function Index({ userRepos, userStaredRepos, user, router }) { // 浏览器端
     )
   }
 
-
-
-  
   return (
     <div className="root">
-
       {/* 左侧用户信息 */}
       <div className="user-info">
         <img src={user.avatar_url} alt="user avatar" className="avatar" />
@@ -88,18 +77,18 @@ function Index({ userRepos, userStaredRepos, user, router }) { // 浏览器端
         <span className="bio">{user.bio}</span>
         <p className="email">
           <Icon type="mail" style={{ marginRight: 10 }} />
-          <a href={`mailto:${user.email}`}>{user && user.email || "无"}</a>
+          <a href={`mailto:${user.email}`}>{user && user.email || "none"}</a>
         </p>
       </div>
 
       {/* 右侧用户仓库列表（你的仓库，你关注的仓库） */}
       <div className="user-repos">
-        <Tabs activeKey={tabKey} onChange={handleTabChange} animated={false}>
+        <Tabs activeKey={tabKey} onChange={handleTabChange} animated={true}>
           <Tabs.TabPane tab="你的仓库" key="1">
-            {userRepos.map(repo => ( <Repo key={repo.id} repo={repo} /> ))}
+            {userRepos.map(repo => <Repo key={repo.id} repo={repo} /> )}
           </Tabs.TabPane>
           <Tabs.TabPane tab="你关注的仓库" key="2">
-            {userStaredRepos.map(repo => ( <Repo key={repo.id} repo={repo} /> ))}
+            {userStaredRepos.map(repo => <Repo key={repo.id} repo={repo} /> )}
           </Tabs.TabPane>
         </Tabs>
       </div>
@@ -156,7 +145,7 @@ Index.getInitialProps = async ({ ctx, reduxStore }) => { // 服务端
 
   // const moment = await import("moment") // 异步加载
   // console.log("moment", moment) // moment 好多属性
-
+  
   // const result = await axios.get('/github/search/repositories?q=react').then(resp => console.log(resp)) 
   // console.log('搜索react', result)
 
@@ -192,13 +181,11 @@ Index.getInitialProps = async ({ ctx, reduxStore }) => { // 服务端
     }
   }
 
+  // todo 将下面返回的数据和withRouter和Redux数据返回给 function Index() {}
   // const userRe = await api.request({ url: '/search/repositories?q=react'}, ctx.req, ctx.res)
-  // console.log(userRe.data) // 可以拿到数据的
-
+  // console.log(userRe.data.length) // 可以拿到数据的
   const userRepos = await api.request({url: '/user/repos'}, ctx.req, ctx.res)
   const userStaredRepos = await api.request({url: '/user/starred'}, ctx.req, ctx.res)
-
-  // 返回给浏览器端： function Index({ userRepos, userStaredRepos, user, router }) {}
   return {
     isLogin: true,
     userRepos: userRepos.data,

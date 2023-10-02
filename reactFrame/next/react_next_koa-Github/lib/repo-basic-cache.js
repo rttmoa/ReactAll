@@ -6,11 +6,11 @@ import LRU from 'lru-cache'
 
 /** #### TODO: 数据缓存工具类  */
 const REPO_CACHE = new LRU({
-  maxAge: 1000 * 60 * 60,
+  maxAge: 1000 * 60 * 60, // 60分钟
 })
 
 export function cache(repo) {
-  const full_name = repo.full_name
+  const full_name = repo.full_name 
   REPO_CACHE.set(full_name, repo)
 }
 

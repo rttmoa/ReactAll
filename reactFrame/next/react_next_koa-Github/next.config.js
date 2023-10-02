@@ -65,7 +65,7 @@ module.exports = withBundleAnalyzer(
       return config
     },
     publicRuntimeConfig: {
-      GITHUB_OAUTH_URL: config.GITHUB_OAUTH_URL,
+      GITHUB_OAUTH_URL: config.GITHUB_OAUTH_URL, // https://github.com/login/oauth/authorize
       OAUTH_URL: config.OAUTH_URL,
     },
     analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
