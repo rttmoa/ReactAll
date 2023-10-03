@@ -5,6 +5,7 @@ import { withRouter } from 'next/router'
 import api from '../lib/api'
 import { get, cache } from '../lib/repo-basic-cache'
 
+// let linkProps = { fontWeight: "bold" }
 
 function makeQuery(queryObject) {
   const query = Object.entries(queryObject).reduce((result, entry) => {
@@ -16,19 +17,16 @@ function makeQuery(queryObject) {
 const isServer = typeof window === 'undefined';
 
 
-
-/** #### TODO: 高阶组件 返回组件 ---*/
+/** #### TODO: 高阶组件  详情页面 |  详情问题页面 ---*/
 export default function(Comp, type = 'index') {   // type: index / issue
 
-  function WithDetail({repoBasic, router, ...rest}) {
-    const query = makeQuery(router.query);
-    // console.log("query", query) // ?owner=rttmoa&name=DesignPatterns
-    // console.log("repoBasic", repoBasic)    // 仓库信息
-    // console.log("router query", router.query) //--->  {owner: 'rttmoa', name: 'DesignPatterns'}
-    // console.log("router asPath", router.asPath) //--->    /detail?owner=rttmoa&name=DesignPatterns
-    // debugger
-    // console.log("...rest", rest)
+  function WithDetail({ repoBasic, router, ...rest }) {
 
+    const query = makeQuery(router.query);
+    // console.log("repoBasic", repoBasic)    // 仓库信息
+    // console.log(router) // router {}
+    // console.log("query", query) // ?owner=facebook&name=react 
+    // console.log("...rest", rest) 
 
     useEffect(() => {
       // cache缓存页面数据 && 对于cacheArray，服务端是没有必要去执行的 && 这个是用户去搜索有关的
@@ -42,10 +40,11 @@ export default function(Comp, type = 'index') {   // type: index / issue
           {/* 切换 Readme | Issue */}
           <div className="tabs">
             {type === 'index' ? (<span className="tab">Readme</span>) : (
+              // 跳转：/detail?owner=facebook&name=react 
               <Link href={`/detail${query}`}>
                 <a className="tab index">Readme</a>
               </Link>
-            )}  
+            )}
             {type === 'issues' ? (<span className="tab">Issues</span>) : (
               <Link href={`/detail/issues${query}`}>
                 <a className="tab issues">Issues</a>
@@ -54,7 +53,7 @@ export default function(Comp, type = 'index') {   // type: index / issue
           </div>
         </div>
 
-        {/* 渲染 Detail | Issue 组件 */}
+        {/* 渲染 Content 部分 */}
         <div> 
           <Comp {...rest} />
         </div>
@@ -65,32 +64,33 @@ export default function(Comp, type = 'index') {   // type: index / issue
           }
           .repo-basic {
             padding: 20px;
-            border: 1px solid #eee;
+            border: 5px solid #eee;
             margin-bottom: 20px;
-            border-radius: 5px;
-          }
+            border-radius: 20px;
+          } 
           .tab + .tab {
-            margin-left: 20px;
+            margin-left: 20px; 
           }
         `}</style>
       </div>
     )
   }
 
-  WithDetail.getInitialProps = async context => {
-    // console.log(ctx.query)
+  WithDetail.getInitialProps = async context => { // 服务端
+
     const { router, ctx } = context;
     const { owner, name } = ctx.query;
 
     const full_name = `${owner}/${name}`;
+    // console.log(full_name) // facebook/react
 
     let pageData = {};
     if (Comp.getInitialProps) {
-      pageData = await Comp.getInitialProps(context);     // 传入完整的context
+      pageData = await Comp.getInitialProps(context);     // 传入完整的 context
     }
 
-    if (get(full_name)) {
-      /* TODO: 如果缓存中有数据，直接拿，      如果缓存中没有数据 则发请求去拿 */
+    // console.log('get(full_name)', get(full_name))
+    if (!!get(full_name)) {
       return {
         repoBasic: get(full_name),
         ...pageData

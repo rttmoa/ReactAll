@@ -8,7 +8,7 @@ import LRU from 'lru-cache'
 const REPO_CACHE = new LRU({
   maxAge: 1000 * 60 * 60, // 60分钟
 })
-
+// @params: Object
 export function cache(repo) {
   const full_name = repo.full_name 
   REPO_CACHE.set(full_name, repo)
