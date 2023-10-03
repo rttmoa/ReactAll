@@ -46,16 +46,16 @@ function Label({ label }) {
           display: inline-block;
           line-height: 20px;
           margin-left: 15px;
-          padding: 3px 10px;
-          border-radius: 3px;
-          font-size: 14px;
+          padding: 2px 5px;
+          border-radius: 5px;
+          font-size: 12px;
         }
       `}</style>
     </>
   )
 }
 
-/** #### TODO: 每一项Issue外壳  */
+/** #### Issue Item  */
 function IssueItem({ issue }) {
 
   // 使用按钮控制 IssueDetail 的显示与隐藏
@@ -132,7 +132,7 @@ function makeQuery(creator, state, labels) {
   if (labels && labels.length > 0) {
     labelStr = `labels=${labels.join(',')}`; // 以 ， 分割的字符串
   } 
-  const arr = [] 
+  const arr = []
   if (creatorStr) arr.push(creatorStr)
   if (stateStr) arr.push(stateStr)
   if (labelStr) arr.push(labelStr)
@@ -140,12 +140,8 @@ function makeQuery(creator, state, labels) {
   return `?${arr.join('&')}`;
 }
 
-  
 
-/**
- * TODO: 在标题上显示label！！！！！
- */
-function Issues({ initialIssues, labels, owner, name }) {    // 在服务端渲染的时候，将labels返回，在Issues页面当中使用
+function Issues({ initialIssues, labels, owner, name }) {      
 
   const [creator, setCreator] = useState(); // 搜索框：创建者
 
@@ -208,10 +204,12 @@ function Issues({ initialIssues, labels, owner, name }) {    // 在服务端渲�
         </Button>
       </div>
       {fetching ? (
+        // 搜索时，加载 Loading 效果
         <div className="loading">
           <Spin />
         </div>
       ) : (
+        // 渲染所有 Issue
         <div className="issues">
           {issues.map(issue => (<IssueItem issue={issue} key={issue.id} />))}
         </div>
@@ -256,5 +254,6 @@ Issues.getInitialProps = async ({ ctx }) => {
     labels: fetchs[1].data
   }
 }
+
 // TODO:  将Issue页面传入高阶组件中，高阶组件中处理 仓库信息， 返回 <Com {...rest} /> 组件信息
 export default withRepoBasic(Issues, 'issues');  
