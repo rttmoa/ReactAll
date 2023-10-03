@@ -10,28 +10,21 @@ const api = require('../lib/api')
 
 // todo Search: http://localhost:3000/search?query=react
 
-// 筛选条件：语言类型
+// 筛选条件： 语言类型
 const LANGUAGES = ['JavaScript', 'HTML', 'CSS', 'TypeScript', 'Java', 'Rust']
-// 筛选条件：排序类型
+
+// 筛选条件： 排序类型
 const SORT_TYPES = [
   { name: 'Best Match' },
-  {
-    name: 'Most Stars', value: 'stars', order: 'desc',
-  },
-  {
-    name: 'Fewest Stars', value: 'stars', order: 'asc',
-  },
-  {
-    name: 'Most Forks', value: 'forks', order: 'desc',
-  },
-  {
-    name: 'Fewest Forks', value: 'forks', order: 'asc',
-  },
+  { name: 'Most Stars', value: 'stars', order: 'desc', },
+  { name: 'Fewest Stars', value: 'stars', order: 'asc', },
+  { name: 'Most Forks', value: 'forks', order: 'desc', },
+  { name: 'Fewest Forks', value: 'forks', order: 'asc', },
 ]
 
 const selectedItemStyle = {
   borderLeft: '2px solid #e36209',
-  fontWeight: 100,
+  fontWeight: 700,
 }
 
 
@@ -40,8 +33,8 @@ const selectedItemStyle = {
 const isServer = typeof window === 'undefined'
 
 
-function noop () { console.log("分页 Change") }
-const per_page = 5
+function noop (page, pageSize) { console.log('分页', page, pageSize) }
+const per_page = 5;
 const FilterLink = memo(({ name, query, lang, sort, order, page }) => { // 不依赖任何的state，可以放外部，没有任何副作用
   let queryString = `?query=${query}`
   if (lang) queryString += `&lang=${lang}`
@@ -58,15 +51,17 @@ const FilterLink = memo(({ name, query, lang, sort, order, page }) => { // 不�
 
 
 /**
+ * ! Search Page  （左侧筛选条件 + 右侧仓库列表）
+ * 地址栏中的参数 （服务端处理返回给客户端）
  * sort: 排序方式
  * order: 排序顺序
  * lang: 仓库的项目开发主语言
  * page：分页页面
  * 封装组件：<Repo />
  */
-function Search ({ router, repos }) { // withRouter包裹组件
-  const { ...querys } = router.query
-  const { lang, sort, order, page } = router.query
+function Search ({ router, repos }) { // withRouter 包裹组件
+  const { ...querys } = router.query;
+  const { lang, sort, order, page } = router.query;
   // console.log("querys", querys) // {query: 'react', lang: 'JavaScript', sort: 'forks', order: 'desc', page: '1', per_page: "20"}
   // console.log("repos", repos)
 
@@ -90,7 +85,7 @@ function Search ({ router, repos }) { // withRouter包裹组件
               const selected = lang === item
               return (
                 <List.Item style={selected ? selectedItemStyle : null}>
-                  {selected ? (<span>{item}</span>) : (
+                  {selected ? <span>{item}</span> : (
                     // http://localhost:3000/search?query=react&lang=JavaScript&page=3&per_page=20
                     <FilterLink {...querys} lang={item} name={item} />
                   )}
@@ -167,16 +162,12 @@ function Search ({ router, repos }) { // withRouter包裹组件
   )
 }
 
-
-
-Search.getInitialProps = async ({ ctx }) => {
-  // console.log("Search.getInitialProps>ctx", ctx)
-
+Search.getInitialProps = async ({ ctx }) => { 
   const { query, sort, lang, order, page } = ctx.query
   if (!query) return { repos: { total_count: 0 } }
 
-  // 拼接字符串发请求 = 仓库排列层生成字符串
-  // ?q=react+language:javascript&sort=stars&order=desc&page=2
+  // search?q=react+language:javascript&sort=stars&order=desc&page=2
+  // search?query=react&lang=TypeScript&sort=stars&order=desc&page=3&per_page=5
   let queryString = `?q=${query}`
   if (lang) queryString += `+language:${lang}`
   if (sort) queryString += `&sort=${sort}&order=${order || 'desc'}`
@@ -184,12 +175,8 @@ Search.getInitialProps = async ({ ctx }) => {
   queryString += `&per_page=${per_page}`
 
   // 传入 req, res 这是API约定
-  const result = await api.request({ url: `/search/repositories${queryString}` }, ctx.req, ctx.res)
-  // console.log("result", result.data.total_count, result.data.incomplete_results) // result 3897706 true
-
-  /**
-   * TODO: 返回的参数在 Search页面中可以拿到
-   */
+  const result = await api.request({ url: `/search/repositories${queryString}` }, ctx.req, ctx.res)   
+  
   return {
     repos: result.data,
   }

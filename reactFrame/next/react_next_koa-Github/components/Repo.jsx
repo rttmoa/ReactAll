@@ -9,19 +9,15 @@ function getLicense(license) {
 
 
 
-/** #### TODO: 首页：你的仓库，你关注的仓库 ---*/
+/** #### TODO: 仓库列表数据 ---*/
 export default ({ repo }) => {
-  // console.log("repo.updated_at", repo.updated_at) // 2023-03-19T08:00:22Z   处理为   2 minutes age
-  // 详情页
-  // console.log("url: ", `/detail?owner=${repo.owner.login}&name=${repo.name}`) // 例1：/detail?owner=rttmoa&name=JueJuePocketBook
-
 
   return (
     // .rootdiv
     // p.other-info
     <div className="root">
 
-      {/* 名称 描述 时间 issues */}
+      {/* 仓库标题 & 描述 & 时间 & issues数量 */}
       <div className="basic-info">
         <h3 className="repo-title">
           <Link href={`/detail?owner=${repo.owner.login}&name=${repo.name}`}>
@@ -45,14 +41,14 @@ export default ({ repo }) => {
       <style jsx>{`
         .root {
           display: flex;
-          justify-content: space-between;
+          justify-content: space-between; 
         }
         .other-info > span + span {
           margin-left: 10px;
         }
         {/* 相邻兄弟 */}
         .root + .root {
-          border-top: 1px solid #eee;
+          border-top: 3px solid #eee;
           padding-top: 20px;
         }
         .repo-title {
@@ -65,7 +61,7 @@ export default ({ repo }) => {
         .lang-star > span {
           width: 120px;
           text-align: right;
-        }
+        } 
         .repo-desc {
           width: 400px;
         }

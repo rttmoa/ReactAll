@@ -5,7 +5,7 @@ import { withRouter } from 'next/router'
 import api from '../lib/api'
 import { get, cache } from '../lib/repo-basic-cache'
 
-// let linkProps = { fontWeight: "bold" }
+let style = { fontWeight: "bold" }
 
 function makeQuery(queryObject) {
   const query = Object.entries(queryObject).reduce((result, entry) => {
@@ -14,6 +14,7 @@ function makeQuery(queryObject) {
     }, []).join('&');
   return `?${query}`;
 }
+
 const isServer = typeof window === 'undefined';
 
 
@@ -39,15 +40,15 @@ export default function(Comp, type = 'index') {   // type: index / issue
           <Repo repo={repoBasic} />
           {/* 切换 Readme | Issue */}
           <div className="tabs">
-            {type === 'index' ? (<span className="tab">Readme</span>) : (
-              // 跳转：/detail?owner=facebook&name=react 
+            {type === 'index' ? (<span className="tab" style={style}>README</span>) : (
+              // 跳转：/detail?owner=facebook&name=react
               <Link href={`/detail${query}`}>
-                <a className="tab index">Readme</a>
+                <a className="tab index" style={style}>README</a>
               </Link>
             )}
-            {type === 'issues' ? (<span className="tab">Issues</span>) : (
+            {type === 'issues' ? (<span className="tab" style={style}>ISSUE</span>) : (
               <Link href={`/detail/issues${query}`}>
-                <a className="tab issues">Issues</a>
+                <a className="tab issues" style={style}>ISSUE</a>
               </Link>
             )}
           </div>

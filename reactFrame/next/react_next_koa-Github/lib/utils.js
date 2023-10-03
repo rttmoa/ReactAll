@@ -6,7 +6,7 @@ import moment from 'moment'
 
 
 
-/**格式化时间 - 多久之前 */
+/** 格式化时间 - 多久之前 */
 export function getLastUpdated(time) {
   return moment(time).fromNow()
 }

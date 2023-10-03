@@ -8,24 +8,25 @@ const MdRenderer = dynamic(() => import('../../components/MarkdownRenderer'));
 import api from '../../lib/api';
 
 
-
 const CACHE = {}
 
 // todo issue: http://localhost:3000/detail/issues?owner=primer&name=react
 
-/** #### TODO: 查看 Issue 详情  显示与隐藏  */
+
+
+
+/** #### 查看 Issue 详情  显示与隐藏  */
 function IssueDetail({ issue }) {
-  // console.log("IssueDetail-issue", issue)
   return (
     <div className="root">
       <MdRenderer content={issue.body} />
       <div className="actions">
-        <Button href={issue.html_url} target="_blank">打开Issue讨论页面（github Issue）</Button>
+        <Button type='primary' href={issue.html_url} target="_blank">打开Issue讨论页面（github Issue）</Button>
       </div>
       <style jsx>{`
         .root {
-          background: #fefefe; // MarkDown背景颜色   #fafafa：浅灰
-          padding: 20px;
+          background: #eee; // MarkDown 背景颜色   #eee：浅灰
+          padding: 20px 40px;
         }
         .actions {
           text-align: right;
@@ -35,13 +36,29 @@ function IssueDetail({ issue }) {
   )
 }
 
-
-
+/** #### 渲染 标签(灰色，紫色，红色，绿色) Tag */
+function Label({ label }) {
+  return (
+    <>
+      <span className="label" style={{ background: `#${label.color}` }}>{label.name}</span>
+      <style jsx>{`
+        .label {
+          display: inline-block;
+          line-height: 20px;
+          margin-left: 15px;
+          padding: 3px 10px;
+          border-radius: 3px;
+          font-size: 14px;
+        }
+      `}</style>
+    </>
+  )
+}
 
 /** #### TODO: 每一项Issue外壳  */
 function IssueItem({ issue }) {
 
-  // 使用按钮控制Detail的显示与隐藏
+  // 使用按钮控制 IssueDetail 的显示与隐藏
   const [showDetail, setShowDetail] = useState(false);
   const toggleShowDetail = useCallback(() => {setShowDetail(detail => !detail)}, [])
 
@@ -71,7 +88,7 @@ function IssueItem({ issue }) {
           }
           {/* 鼠标移上去 */}
           .issue:hover {
-            background: #fafafa;
+            background: #eee;
           }
           .issue + .issue {
             border-top: 1px solid #eee;
@@ -101,29 +118,12 @@ function IssueItem({ issue }) {
 
 
 
-/** #### TODO: 渲染 标签(灰色，紫色，红色，绿色)  */
-function Label({ label }) {
-  // console.log("label", label)
-  return (
-    <>
-      <span className="label" style={{ background: `#${label.color}` }}>{label.name}</span>
-      <style jsx>{`
-        .label {
-          display: inline-block;
-          line-height: 20px;
-          margin-left: 15px;
-          padding: 3px 10px;
-          border-radius: 3px;
-          font-size: 14px;
-        }
-      `}</style>
-    </>
-  )
-}
 
 
 const isServer = typeof window === 'undefined';
+
 const Option = Select.Option;
+
 /** 搜索框内Url  */
 function makeQuery(creator, state, labels) {
   let creatorStr = creator ? `creator=${creator}` : "";
@@ -239,18 +239,15 @@ function Issues({ initialIssues, labels, owner, name }) {    // 在服务端渲�
   )
 }
 
-Issues.getInitialProps = async ({ ctx }) => {   // TODO: 在控制台CMD中打印
-  // console.log('issues getInitialProps invoked')
-
+Issues.getInitialProps = async ({ ctx }) => {  
   const { owner, name } = ctx.query;
   const full_name = `${owner}/${name}`;
   
-  // TODO: 并发请求
+  // 并发请求
   const fetchs = await Promise.all([
     await api.request({url: `/repos/${owner}/${name}/issues`}, ctx.req, ctx.res),
     CACHE[full_name] ? Promise.resolve({ data: CACHE[full_name] }) : await api.request({url: `/repos/${owner}/${name}/labels`}, ctx.req, ctx.res),
-  ]);
-  // console.log("fetchs", fetchs) // 控制台中打印
+  ]); 
 
   return {
     owner,
@@ -259,4 +256,5 @@ Issues.getInitialProps = async ({ ctx }) => {   // TODO: 在控制台CMD中打�
     labels: fetchs[1].data
   }
 }
-export default withRepoBasic(Issues, 'issues');
+// TODO:  将Issue页面传入高阶组件中，高阶组件中处理 仓库信息， 返回 <Com {...rest} /> 组件信息
+export default withRepoBasic(Issues, 'issues');  
