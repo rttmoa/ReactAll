@@ -1,4 +1,4 @@
-import { cloneElement } from 'react'
+import React from 'react'
 
 const style = {
   width: '100%',
@@ -10,11 +10,9 @@ const style = {
 }
 
 
-// cloneElement扩展组件可复用性的高级技巧
+// TODO: React.cloneElement 扩展组件可复用性的高级技巧
 export default ({ children, renderer = <div /> }) => {
-  // console.log(renderer)
-  const newElement = cloneElement(renderer, {
-    // 这样是 renderer={<Comp color="red" style={{fontsize:20}}} color和style属性都可以接收到
+  const newElement = React.cloneElement(renderer, {
     style: Object.assign({}, renderer.props.style, style), 
     children,
   })
@@ -25,10 +23,4 @@ export default ({ children, renderer = <div /> }) => {
   // <Content>
   //   <Container renderer={<Comp color="red" stlye={{ fontSize: 40}} />}>{children}</Container>
   // </Content>
-
-  // <Content>
-  //   <Container renderer={<Comp color="red" />}>{children}</Container>
-  // </Content>
-
-  // // return <Comp style={style}>{children}</Comp>
 }

@@ -36,11 +36,11 @@ function MyLayout({ children, user, logout, router }) {
   // console.log("router", router)
 
   const urlQuery = router.query && router.query.query
-
+  // Input.Search['value']
   const [search, setSearch] = useState(urlQuery || '') // 输入框内的Value
-
+  // Input.Search['onChange']
   const handleSearchChange = useCallback(event => { setSearch(event.target.value) }, [setSearch]) // 输入框关键词 Change
-  
+  // Input.Search['onSearch']
   const handleOnSearch = useCallback(() => {router.push(`/search?query=${search}`)}, [search]) // 搜索关键词
 
   
@@ -106,10 +106,8 @@ function MyLayout({ children, user, logout, router }) {
 
 
       <Content>
-        {/* _app.js中传递过来的 children */}
-        {/* cloneElement扩展组件可复用性的高级技巧 */}
         <Container>{children}</Container>
-        
+        {/* <Container renderer={<p style={{backgroundColor: 'pink', height: 500}} />}>{children}</Container> */}
         {/* <Container renderer={<div />}>{children}</Container> */}
         {/* <Container renderer={<Comp color="red" />}>{children}</Container> */}
         {/* <Container><Comp color="red">{children}</Comp></Container> */}
