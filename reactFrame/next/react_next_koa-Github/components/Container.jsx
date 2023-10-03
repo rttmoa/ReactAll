@@ -18,8 +18,6 @@ export default ({ children, renderer = <div /> }) => {
     style: Object.assign({}, renderer.props.style, style), 
     children,
   })
-  // console.log(newElement)
-
   return newElement
 
   // return cloneElement(renderer, {style, children})

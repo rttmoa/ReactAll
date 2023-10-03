@@ -43,7 +43,7 @@ app.prepare().then(() => {
 
   // 配置处理github OAuth的登录
   // 将server传入 使用module.exports = server => {}  函数接收
-  auth(server)  
+  auth(server)
   api(server)
 
 

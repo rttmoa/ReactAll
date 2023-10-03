@@ -6,7 +6,7 @@ import axios from 'axios'
 
 import Layout from '../components/Layout'
 import PageLoading from '../components/PageLoading'
-import testHoc from '../lib/with-redux';   /* TODO: 可以将 export default Comp => {} 函数中传递到 此组件中this.props使用 */
+import testHoc from '../lib/with-redux';    
 import 'antd/dist/antd.css'
 
 
@@ -54,7 +54,6 @@ class MyApp extends App { // 覆盖_app.js文件
   
 
   render() {
-    // reduxStore是with-redux中传递过来的
     const { Component, pageProps, reduxStore } = this.props; 
     // console.log("_appjs", this.props)
     
@@ -63,7 +62,7 @@ class MyApp extends App { // 覆盖_app.js文件
         <Provider store={reduxStore}>
           {this.props.loading && <PageLoading />}
 
-          {/* TODO: Layout布局：头，体，足 */}
+          {/* Layout布局：头，体，足 */}
           <Layout>
             {/*  把 pageProps 传递给实际渲染的页面   实际上是Index.getInitialProps函数中的数据渲染到要渲染的Component组件中去   */}
             <Component {...pageProps} />

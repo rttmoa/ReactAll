@@ -21,7 +21,7 @@ function getOrCreateStore(initialState) {
   return window[__NEXT_REUDX_STORE__]
 }
 
-// todo 1.处理服务端  2.处理客户端
+// todo  高阶函数  1.处理服务端  2.处理客户端
 export default Comp => {
   class WithReduxApp extends React.Component {
     constructor(props) {
@@ -42,7 +42,6 @@ export default Comp => {
   }
   // getInitialProps方法会在每次页面切换时，都会被调用的
   WithReduxApp.getInitialProps = async ctx => {  
-
     // 保证只有一个Store对象，如果每次都创建一个Store，那么Store每次就是初始化状态了，不是之前维持更新记录的Store了
     let reduxStore;
 

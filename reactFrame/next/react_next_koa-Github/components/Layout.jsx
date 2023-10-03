@@ -11,7 +11,6 @@ import { logout } from '../store/store'
 const { Header, Content, Footer } = Layout;
 const { publicRuntimeConfig } = getCofnig()
 
-// 这个style是永远不会变的
 const githubIconStyleProps = {
   color: 'white',
   fontSize: 40,
@@ -20,9 +19,7 @@ const githubIconStyleProps = {
   marginRight: 20,
 }
 
-const footerStyleProps = {
-  textAlign: 'center',
-}
+
 // 1、父组件要传入子组件的Comp
 // const Comp = ({ color, children }) => <div style={{color}}>{children}</div>
 // 2、父组件渲染
@@ -33,10 +30,8 @@ const footerStyleProps = {
 // }
 
 
-// 页面间传递数据方式
-// children： _app.js中相同部分的结构通过 children
 /** #### TODO: 布局：头部，内容区域，底部 ---*/
-function MyLayout({ children, user, logout, router }) { // 使用Redux获取user用户信息
+function MyLayout({ children, user, logout, router }) { 
   // console.log("user", user)
   // console.log("router", router)
 
@@ -44,12 +39,12 @@ function MyLayout({ children, user, logout, router }) { // 使用Redux获取user
 
   const [search, setSearch] = useState(urlQuery || '') // 输入框内的Value
 
-  const handleSearchChange = useCallback(event => { setSearch(event.target.value) }, [setSearch]) // 输入框关键词Change
+  const handleSearchChange = useCallback(event => { setSearch(event.target.value) }, [setSearch]) // 输入框关键词 Change
   
   const handleOnSearch = useCallback(() => {router.push(`/search?query=${search}`)}, [search]) // 搜索关键词
 
+  
   const handleLogout = useCallback(() => {logout()}, [logout]) // 退出登陆
-
   const handleGotoOAuth = useCallback(e => {
     e.preventDefault();
     axios.get(`/prepare-auth?url=${router.asPath}`).then(resp => {
@@ -65,7 +60,7 @@ function MyLayout({ children, user, logout, router }) { // 使用Redux获取user
 
   const userDropDown = (
     <Menu>
-      <Menu.Item> 
+      <Menu.Item>
         <a href="javascript:void(0)">占 位</a>
       </Menu.Item>
       <Menu.Item> 
@@ -81,7 +76,7 @@ function MyLayout({ children, user, logout, router }) { // 使用Redux获取user
     <Layout>
 
       <Header>
-        {/* cloneElement扩展组件可复用性的高级技巧 - Container */}
+        {/* TODO: React.cloneElement扩展组件可复用性的高级技巧 - <Container /> */}
         <Container renderer={<div className="header-inner" />}>
           <div className="header-left">
             <div className="logo">
@@ -121,7 +116,7 @@ function MyLayout({ children, user, logout, router }) { // 使用Redux获取user
         {/* <Container comp="p"><div className='content'>{children}</div></Container>  */}
         {/* <Container comp={Comp}>{children}</Container> */}
       </Content>
-      <Footer style={footerStyleProps}>
+      <Footer style={{textAlign: 'center'}}>
         Develop by Jokcy @<a href="mailto:jokcy@hotmail.com">jokcy@hotmail.com</a>
       </Footer>
       <style jsx>{`
@@ -137,7 +132,6 @@ function MyLayout({ children, user, logout, router }) { // 使用Redux获取user
           justify-content: flex-start;
         }
       `}</style>
-      {/* 全局global - 查看控制台的antd属性 并设置 */}
       <style jsx global>{`
         #__next {
           height: 100%;

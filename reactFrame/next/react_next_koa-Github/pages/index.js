@@ -156,7 +156,7 @@ Index.getInitialProps = async ({ ctx, reduxStore }) => { // 服务端
   // console.log("index.getInitialProps -> ctx", ctx) // {pathname: '/', query: {…}, asPath: '/'}
   // console.log("index.getInitialProps -> ctx", reduxStore) // {dispatch, subscribe, getState, replaceReducer, [Symbol(observable)]} 
   const user = reduxStore.getState().user;
-  // console.log("reduxStore user", user) // TODO: github中：redux 中的用户信息
+  console.log("reduxStore user", user) 
   if (!user || !user.id) {
     return {
       isLogin: false
