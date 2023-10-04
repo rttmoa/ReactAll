@@ -15,7 +15,7 @@ const CACHE = {}
 
 
 
-/** #### 查看 Issue 详情  显示与隐藏  */
+/** #### 查看 Issue 详情  显示与隐藏 （渲染 MD + 跳转Github）  */
 function IssueDetail({ issue }) {
   return (
     <div className="root">
@@ -111,12 +111,10 @@ function IssueItem({ issue }) {
           }
         `}</style>
       </div>
-      {showDetail ? <IssueDetail issue={issue} /> : null}
+      {showDetail && <IssueDetail issue={issue} />}
     </div>
   )
 }
-
-
 
 
 
@@ -124,8 +122,9 @@ const isServer = typeof window === 'undefined';
 
 const Option = Select.Option;
 
-/** 搜索框内Url  */
+/** Url 拼接字符串  */
 function makeQuery(creator, state, labels) {
+  // url: "/github/repos/facebook/react/issues?creator=rttmoa&state=open&labels=Browser: IE,Browser: Safari"
   let creatorStr = creator ? `creator=${creator}` : "";
   let stateStr = state ? `state=${state}` : ''
   let labelStr = ''
@@ -140,8 +139,7 @@ function makeQuery(creator, state, labels) {
   return `?${arr.join('&')}`;
 }
 
-
-function Issues({ initialIssues, labels, owner, name }) {      
+function Issues({ initialIssues, labels, owner, name }) {  // 服务端得到； 问题列表、标签列表
 
   const [creator, setCreator] = useState(); // 搜索框：创建者
 
@@ -151,7 +149,7 @@ function Issues({ initialIssues, labels, owner, name }) {
 
   const [issues, setIssues] = useState(initialIssues); // 问题列表
 
-  const [fetching, setFetching] = useState(false); // 设置 加载状态(按钮，页面的加载图标) 
+  const [fetching, setFetching] = useState(false); // 加载状态（详情问题的加载）
 
   useEffect(() => {
     // 在服务端渲染的时候跳过
@@ -162,13 +160,13 @@ function Issues({ initialIssues, labels, owner, name }) {
 
   const handleCreatorChange = useCallback(value => {setCreator(value)}, []);  // SearchUser 组件回调 搜索创建者内容
 
-  const handleStateChange = useCallback(value => {setState(value)}, []);
+  const handleStateChange = useCallback(value => {setState(value)}, []); // value: all | open | closed
 
-  const handleLabelChange = useCallback(value => {setLabel(value)}, []);
+  const handleLabelChange = useCallback(value => {setLabel(value)}, []); // (4) ['Browser: IE', 'Browser: Safari', 'Component: DOM', 'Component: Hooks']
 
   const handleSearch = useCallback(() => {
-    setFetching(true);
-    // URL: "/github/repos/facebook/react/issues?state=all&labels=Browser: IE,Browser: Safari,CLA Signed"
+    setFetching(true); 
+    // url: "/github/repos/facebook/react/issues?creator=rttmoa&state=open&labels=Browser: IE,Browser: Safari"
     api.request({ url: `/repos/${owner}/${name}/issues${makeQuery(creator, state, label)}`}).then(resp => {
       // console.log("搜索响应内容", resp)
       setIssues(resp.data);
@@ -179,40 +177,34 @@ function Issues({ initialIssues, labels, owner, name }) {
     })
   }, [owner, name, creator, state, label]);  // TODO: 如果搜索框中条件改变，搜索按钮会根据新条件去查询
 
+
+
   // console.log("labels", labels)
-
-
   return (
     <div className="root">
       <div className="search">
-        <SearchUser onChange={handleCreatorChange} value={creator} /> {/* 搜索组件封装 */}
-        <Select placeholder="状态" onChange={handleStateChange} style={{ width: 200, marginLeft: 20 }} value={state}>
+        {/* 输入 创建者 输入框加载状态 */}
+        <SearchUser onChange={handleCreatorChange} value={creator} />  
+        <Select placeholder="状态" onChange={handleStateChange} style={{ width: 200, marginLeft: 20 }} value={state} disabled={fetching}>
           <Option value="all">all</Option>
           <Option value="open">open</Option>
           <Option value="closed">closed</Option>
         </Select>
-        <Select mode="multiple" placeholder="Label" onChange={handleLabelChange} style={{ flexGrow: 1, marginLeft: 20, marginRight: 20 }} value={label}>
+        <Select mode="multiple" placeholder="Label" onChange={handleLabelChange} style={{ flexGrow: 1, marginLeft: 20, marginRight: 20 }} value={label}         disabled={fetching}>
           {labels.map(la => (
             <Option value={la.name} key={la.id}>
               {la.name}
             </Option>
           ))}
         </Select>
-        {/* 通过 fetching 来控制的按钮是否可以点击/禁用 */}
-        <Button type="primary" disabled={fetching} onClick={handleSearch}>
-          搜索
-        </Button>
+        <Button type="primary" disabled={fetching} onClick={handleSearch}>搜索</Button>
       </div>
       {fetching ? (
         // 搜索时，加载 Loading 效果
-        <div className="loading">
-          <Spin />
-        </div>
+        <div className="loading"><Spin /></div>
       ) : (
-        // 渲染所有 Issue
-        <div className="issues">
-          {issues.map(issue => (<IssueItem issue={issue} key={issue.id} />))}
-        </div>
+        // 渲染所有 Issue Item
+        <div className="issues">{issues.map(issue => (<IssueItem issue={issue} key={issue.id} />))}</div>
       )}
       
       <style jsx>{`

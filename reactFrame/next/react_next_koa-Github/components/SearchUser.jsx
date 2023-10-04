@@ -10,12 +10,12 @@ const Option = Select.Option;
 
 
 // TODO: deboune  页面在详情页面中 - Issue - 创建者中进行搜索
-function SearchUser({ onChange, value }) {
-  // console.log("SearchUser")
-  // { current: 0 }
+function SearchUser({ onChange, value }) { // 回调；搜索框的值
+
+  
   const lastFetchIdRef = useRef(0) // 使用Ref逃脱闭包陷阱
-  const [fetching, setFetching] = useState(false)
-  const [options, setOptions] = useState([])
+  const [fetching, setFetching] = useState(false) // 记载状态
+  const [options, setOptions] = useState([]) // 所有选项值
 
 
   // useCallback方法中没有任何依赖，fetching和options是永远不会变的，所以不用加依赖项
@@ -42,25 +42,26 @@ function SearchUser({ onChange, value }) {
         setFetching(false)
         setOptions(data)
         })
-    }, 500), [])
+  }, 500), [])
 
     
   const handleChange = value => {
-    // console.log("value", value) // 在搜索框输入的内容
+    // console.log(value) 
     setOptions([])
     setFetching(false)
-    onChange(value) // 回调到issuejs中
+    onChange(value)  
   }
 
 
 
   return (
+    // https://3x.ant.design/components/select-cn/#API
     <Select
       style={{ width: 200 }}
-      showSearch={true}
-      notFoundContent={fetching ? <Spin size="small" /> : <span>请输入人名搜索名字</span>}
+      showSearch={true}  
+      notFoundContent={fetching ? <Spin size="small" /> : <span>请输入人名; 搜索名字</span>}
       filterOption={false}
-      placeholder="创建者"
+      placeholder="创建者搜索"
       value={value}
       onChange={handleChange}   // 输入框事件改变时
       onSearch={fetchUser}
