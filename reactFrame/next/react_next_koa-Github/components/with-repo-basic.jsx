@@ -18,7 +18,7 @@ function makeQuery(queryObject) {
 const isServer = typeof window === 'undefined';
 
 
-/** #### TODO: 高阶组件  详情页面 |  详情问题页面 ---*/
+// TODO: 高阶组件  详情页面 |  详情问题页面
 export default function(Comp, type = 'index') {   // type: index / issue
 
   function WithDetail({ repoBasic, router, ...rest }) {

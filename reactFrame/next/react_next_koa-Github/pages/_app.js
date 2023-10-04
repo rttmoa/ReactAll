@@ -11,7 +11,7 @@ import 'antd/dist/antd.css'
 
 
 
-class MyApp extends App { // 覆盖_app.js文件
+class MyApp extends App { // 覆盖 _app.js 文件
   // 获取 github 中 react的数据
   // axios.get("https://api.github.com/search/repositories?q=react").then(resp => console.log(resp))
   // axios.get("github/search/repositories?q=react").then(resp => console.log(resp))

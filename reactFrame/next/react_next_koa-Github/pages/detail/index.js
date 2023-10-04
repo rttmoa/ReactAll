@@ -19,8 +19,4 @@ Detail.getInitialProps = async ({ router, ctx: { query: { owner, name }, req, re
     readme: readmeResp.data
   }
 }
-
-// detail: http://localhost:3000/detail?owner=primer&name=react
-// 将 Detail() 和 Detail.getInitialProps() 传入到高阶组件中处理
-
 export default withRepoBasic(Detail, 'index')   // TODO: 高阶组件中传入 index   （高阶组件中处理详情页面的  卡片和Markdown部分）

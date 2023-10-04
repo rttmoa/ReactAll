@@ -5,19 +5,18 @@ const { requestGithub } = require('../lib/api')
 
 
 module.exports = server => {
+
   server.use(async (ctx, next) => {
     const path = ctx.path
     const method = ctx.method
 
     if (path.startsWith('/github/')) {
-      console.log(ctx.request.body)
+      // console.log(ctx.request.body)
+      const headers = {}
       const session = ctx.session
       const githubAuth = session && session.githubAuth
-      const headers = {}
       if (githubAuth && githubAuth.access_token) {
-        headers['Authorization'] = `${githubAuth.token_type} ${
-          githubAuth.access_token
-        }`
+        headers['Authorization'] = `${githubAuth.token_type} ${githubAuth.access_token}`;
       }
       const result = await requestGithub(
         method,
@@ -25,7 +24,6 @@ module.exports = server => {
         ctx.request.body || {}, // 因为使用了koa-body模块
         headers,
       )
-      console.log("server>apijs")
       ctx.status = result.status
       ctx.body = result.data
     } else {

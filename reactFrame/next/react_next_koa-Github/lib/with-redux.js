@@ -2,12 +2,12 @@ import React from 'react'
 import createSore from '../store/store'
 
 
-
-
 // 判断是否是服务端：是否有window全局变量判断是否处于window环境
 const isServer = typeof window === 'undefined';
 const __NEXT_REUDX_STORE__ = '__NEXT_REUDX_STORE__';
 function getOrCreateStore(initialState) {
+  // console.log(initialState) // {user: {…}}
+
   // 如果是服务端
   if (isServer) {
     return createSore(initialState)
@@ -21,18 +21,18 @@ function getOrCreateStore(initialState) {
   return window[__NEXT_REUDX_STORE__]
 }
 
-// todo  高阶函数  1.处理服务端  2.处理客户端
+// todo  高阶函数  1.处理服务端  2.处理客户端  （_app.js）
 export default Comp => {
   class WithReduxApp extends React.Component {
     constructor(props) {
-      super(props)
-      // console.log('WithReduxApp', this.props)
-      const { initialReduxState } = this.props; // 由下面 WithReduxApp.getInitialProps 传入过来的
+      super(props) 
+      const { initialReduxState } = this.props; 
       this.reduxStore = getOrCreateStore(initialReduxState); 
     }
 
     render() { 
       const { Component, pageProps, ...rest } = this.props; 
+      // console.log('window', window[__NEXT_REUDX_STORE__])
       // console.log('WithReduxApp', this.props)
 
       if (pageProps) pageProps.test = '123 - 表示不是每个页面都有 pageProps （pageProps 存在才有 test属性）';
@@ -47,7 +47,6 @@ export default Comp => {
 
     // 如果是服务端
     if (isServer) {
-      // console.log("服务端的ctx", ctx)
       const { req } = ctx.ctx; // 在nextjs渲染之前 serverjs中 ctx.req.session = ctx.session;
       const session = req.session;
       // console.log("session", session) // <ref *1> Session {...}
@@ -72,7 +71,7 @@ export default Comp => {
     // console.log(appProps) // { pageProps: { repoBasic: {}, readme: {} } }
     return {
       ...appProps,
-      initialReduxState: reduxStore.getState(),
+      initialReduxState: reduxStore.getState(), // { user: {} }
     }
   }
   return WithReduxApp

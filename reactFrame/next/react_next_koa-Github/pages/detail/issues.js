@@ -4,13 +4,13 @@ import dynamic from 'next/dynamic'
 import { getLastUpdated } from '../../lib/utils'
 import withRepoBasic from '../../components/with-repo-basic';   /* TODO: 使用 withRepoBasic 组件 包裹组件 */
 import SearchUser from '../../components/SearchUser';
-const MdRenderer = dynamic(() => import('../../components/MarkdownRenderer'));
 import api from '../../lib/api';
+const MdRenderer = dynamic(() => import('../../components/MarkdownRenderer'));
 
 
 const CACHE = {}
 
-// todo issue: http://localhost:3000/detail/issues?owner=primer&name=react
+// todo issue: http://localhost:3000/detail/issues?owner=facebook&name=react
 
 
 
@@ -122,23 +122,7 @@ const isServer = typeof window === 'undefined';
 
 const Option = Select.Option;
 
-/** Url 拼接字符串  */
-function makeQuery(creator, state, labels) {
-  // url: "/github/repos/facebook/react/issues?creator=rttmoa&state=open&labels=Browser: IE,Browser: Safari"
-  let creatorStr = creator ? `creator=${creator}` : "";
-  let stateStr = state ? `state=${state}` : ''
-  let labelStr = ''
-  if (labels && labels.length > 0) {
-    labelStr = `labels=${labels.join(',')}`; // 以 ， 分割的字符串
-  } 
-  const arr = []
-  if (creatorStr) arr.push(creatorStr)
-  if (stateStr) arr.push(stateStr)
-  if (labelStr) arr.push(labelStr)
-
-  return `?${arr.join('&')}`;
-}
-
+  
 function Issues({ initialIssues, labels, owner, name }) {  // 服务端得到； 问题列表、标签列表
 
   const [creator, setCreator] = useState(); // 搜索框：创建者
@@ -164,11 +148,27 @@ function Issues({ initialIssues, labels, owner, name }) {  // 服务端得到；
 
   const handleLabelChange = useCallback(value => {setLabel(value)}, []); // (4) ['Browser: IE', 'Browser: Safari', 'Component: DOM', 'Component: Hooks']
 
+
+  function makeQuery(creator, state, labels) {
+    // url: "/github/repos/facebook/react/issues?creator=rttmoa&state=open&labels=Browser: IE,Browser: Safari"
+    let creatorStr = creator ? `creator=${creator}` : "";
+    let stateStr = state ? `state=${state}` : ''
+    let labelStr = ''
+    if (labels && labels.length > 0) {
+      labelStr = `labels=${labels.join(',')}`; // 以 ， 分割的字符串
+    } 
+    const arr = []
+    if (creatorStr) arr.push(creatorStr)
+    if (stateStr) arr.push(stateStr)
+    if (labelStr) arr.push(labelStr)
+  
+    return `?${arr.join('&')}`;
+  }
   const handleSearch = useCallback(() => {
     setFetching(true); 
     // url: "/github/repos/facebook/react/issues?creator=rttmoa&state=open&labels=Browser: IE,Browser: Safari"
     api.request({ url: `/repos/${owner}/${name}/issues${makeQuery(creator, state, label)}`}).then(resp => {
-      // console.log("搜索响应内容", resp)
+      // console.log("SearchButton：", resp) // todo 查询结果 （客户端）
       setIssues(resp.data);
       setFetching(false);
     }).catch(err => {
@@ -238,6 +238,7 @@ Issues.getInitialProps = async ({ ctx }) => {
     await api.request({url: `/repos/${owner}/${name}/issues`}, ctx.req, ctx.res),
     CACHE[full_name] ? Promise.resolve({ data: CACHE[full_name] }) : await api.request({url: `/repos/${owner}/${name}/labels`}, ctx.req, ctx.res),
   ]); 
+  console.log(fetchs)
 
   return {
     owner,

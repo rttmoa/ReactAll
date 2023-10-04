@@ -6,9 +6,11 @@
 
 // 需要在github中配置 Authorization callback URL
 // https://github.com/settings/developers   注册名字，开发URL，授权后跳转的生产URL
+
 const client_id = "b545a2ba1f9f58b9815e"
-const GITHUB_OAUTH_URL = 'https://github.com/login/oauth/authorize'
 const SCOPE = 'user'
+const GITHUB_OAUTH_URL = 'https://github.com/login/oauth/authorize'
+
 module.exports = {
   github: {
     request_token_url: 'https://github.com/login/oauth/access_token',

@@ -1,0 +1,14 @@
+
+
+
+
+
+
+
+
+
+
+const isServer = typeof window === 'undefined';
+  @表示是以哪个环境运行的  development(false) | production(true)
+
+启动开发环境(yarn start) | 启动生产环境(yarn production)

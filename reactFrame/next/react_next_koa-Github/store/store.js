@@ -21,13 +21,13 @@ function userReducer(state = userInitialState, action) {
   }
 }
 const UODATE_USERNAME = "UODATE_USERNAME"
-function newReducer(state = userInitialState, action) {
+function newUserReducer(state = userInitialState, action) {
   switch (action.type) {
     case UODATE_USERNAME: {
       return { 
         ...state,
         username: action.name
-        }
+      }
     } 
     default:
       return state

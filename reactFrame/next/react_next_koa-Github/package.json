@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "build": "next build",
-    "production": "cross-env NODE_ENV=production nodemon server.js",
+    "production": "cross-env NODE_ENV=production node server.js",
     "export": "next export",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build"
   },
