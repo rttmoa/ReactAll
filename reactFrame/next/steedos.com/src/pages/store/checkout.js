@@ -56,7 +56,7 @@ export default function Checkout({productsVariant, productsVariantPrice}) {
   useSWR('userCartCheckout', async () => {
     let _cart = {};
     if(!has(router.query, 'ids')){
-       _cart = await getCart();
+        _cart = await getCart();
       if (!_cart.error) {
         let _lines = [];
         let _variantsSubTotalPrice = {};

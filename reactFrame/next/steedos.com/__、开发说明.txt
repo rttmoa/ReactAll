@@ -8,7 +8,7 @@
 
 启动 》 yarn dev
 端口 》 3000
-
+Url 》 http://localhost:3000/
 
 redirectsJson 所有地址：
     http://localhost:3000/cn
