@@ -12,12 +12,6 @@ info:
     name: API Support
     email: support@steedos.com
     url: https://www.steedos.com/
-  x-logo:
-    url: "/img/logo_platform.png"
-    altText: Steedos platform logo
-  x-dark-logo:
-    url: "/img/logo_platform.png"
-    altText: Steedos platform logo
   license:
     name: MIT
     url: "https://www.steedos.com/"
@@ -25,24 +19,26 @@ info:
 #   description: Find out how to create Github repo for your OpenAPI spec.
 #   url: "https://github.com/Rebilly/generator-openapi-repo"
 tags:
-  - name: service_rest
+  - name: service_records
     description: 记录的增删改查接口
-    x-displayName: REST API
+    x-displayName: Records API
 # x-tagGroups:
 #   - name: REST API
 #     tags:
-#       - service_rest
+#       - service_records
+security:
+  - BearerAuth: []
 paths:
   "/api/v1/{objectName}":
     get:
       summary: 获取记录列表
-      x-apifox-folder: service_rest
+      x-apifox-folder: service_records
       x-apifox-status: developing
       deprecated: false
       description: ""
       operationId: getList
       tags:
-        - service_rest
+        - service_records
       parameters:
         - name: objectName
           in: path
@@ -86,6 +82,13 @@ paths:
           example: "1"
           schema:
             type: integer
+        - name: Authorization
+          in: header
+          description: "身份验证"
+          required: true
+          example: Bearer apikey,${apikey}
+          schema:
+            type: string
       responses:
         "200":
           description: 成功
@@ -158,22 +161,31 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiResponseError"
+        "401":
+          description: 身份验证不通过
       x-run-in-apifox: https://apifox.com/web/project/1580216/apis/api-88207663-run
     post:
       summary: 新增一条记录
-      x-apifox-folder: service_rest
+      x-apifox-folder: service_records
       x-apifox-status: developing
       deprecated: false
       description: ""
       operationId: createRecord
       tags:
-        - service_rest
+        - service_records
       parameters:
         - name: objectName
           in: path
           description: 对象API名称
           required: true
           example: contracts
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: "身份验证"
+          required: true
+          example: Bearer apikey,${apikey}
           schema:
             type: string
       requestBody:
@@ -335,23 +347,32 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiResponseError"
+        "401":
+          description: 身份验证不通过
       x-run-in-apifox: https://apifox.com/web/project/1580216/apis/api-88867475-run
   "/api/v1/{objectName}/search":
     post:
       summary: 查询记录列表
-      x-apifox-folder: service_rest
+      x-apifox-folder: service_records
       x-apifox-status: developing
       deprecated: false
       description: ""
       operationId: searchRecords
       tags:
-        - service_rest
+        - service_records
       parameters:
         - name: objectName
           in: path
           description: 对象API名称
           required: true
           example: contracts
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: "身份验证"
+          required: true
+          example: Bearer apikey,${apikey}
           schema:
             type: string
       requestBody:
@@ -485,17 +506,19 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiResponseError"
+        "401":
+          description: 身份验证不通过
       x-run-in-apifox: https://apifox.com/web/project/1580216/apis/api-88708024-run
   "/api/v1/{objectName}/{id}":
     get:
       summary: 获取单条记录
-      x-apifox-folder: service_rest
+      x-apifox-folder: service_records
       x-apifox-status: developing
       deprecated: false
       description: ""
       operationId: getRecord
       tags:
-        - service_rest
+        - service_records
       parameters:
         - name: objectName
           in: path
@@ -516,6 +539,13 @@ paths:
           description: 字段名
           required: false
           example: '["name",  "amount",  "created"]'
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: "身份验证"
+          required: true
+          example: Bearer apikey,${apikey}
           schema:
             type: string
       responses:
@@ -579,16 +609,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiResponseError"
+        "401":
+          description: 身份验证不通过
       x-run-in-apifox: https://apifox.com/web/project/1580216/apis/api-88800233-run
     put:
       summary: 更新一条记录
-      x-apifox-folder: service_rest
+      x-apifox-folder: service_records
       x-apifox-status: developing
       deprecated: false
       description: ""
       operationId: updateRecord
       tags:
-        - service_rest
+        - service_records
       parameters:
         - name: objectName
           in: path
@@ -602,6 +634,13 @@ paths:
           description: 记录id
           required: true
           example: 63884b0e7afcfb99c989be03_6262243287e5c50032d9bda5
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: "身份验证"
+          required: true
+          example: Bearer apikey,${apikey}
           schema:
             type: string
       requestBody:
@@ -961,16 +1000,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiResponseError"
+        "401":
+          description: 身份验证不通过
       x-run-in-apifox: https://apifox.com/web/project/1580216/apis/api-88867878-run
     delete:
       summary: 删除一条记录
-      x-apifox-folder: service_rest
+      x-apifox-folder: service_records
       x-apifox-status: developing
       deprecated: false
       description: ""
       operationId: deleteRecord
       tags:
-        - service_rest
+        - service_records
       parameters:
         - name: objectName
           in: path
@@ -984,6 +1025,13 @@ paths:
           description: 记录id
           required: true
           example: 5e7d1b9b9c9d4400001d1b9b
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: "身份验证"
+          required: true
+          example: Bearer apikey,${apikey}
           schema:
             type: string
       responses:
@@ -1032,7 +1080,128 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiResponseError"
+        "401":
+          description: 身份验证不通过
       x-run-in-apifox: https://apifox.com/web/project/1580216/apis/api-88867977-run
+      security:
+        - BearerAuth: []
+  "/api/files/files/{fileId}":
+    get:
+      summary: 下载附件
+      x-apifox-folder: service_records
+      x-apifox-status: developing
+      deprecated: false
+      description: ""
+      operationId: downloadFile
+      tags:
+        - service_records
+      parameters:
+        - name: fileId
+          in: path
+          description: 附件id
+          required: true
+          example: 650cede7157c5a3dfb79ab21
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: "身份验证"
+          required: true
+          example: Bearer apikey,${apikey}
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 成功
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties: {}
+                x-apifox-ignore-properties: []
+                x-apifox-orders: []
+        "401":
+          description: 没有权限
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: error
+                  message:
+                    type: string
+                    description: You must be logged in to do this.
+                required:
+                  - status
+                  - message
+                x-apifox-orders:
+                  - status
+                  - message
+                x-apifox-ignore-properties: []
+      x-run-in-apifox: https://apifox.com/web/project/1580216/apis/api-112596612-run
+      security:
+        - BearerAuth: []
+  "/s3/files/":
+    post:
+      summary: 上传附件
+      x-apifox-folder: service_records
+      x-apifox-status: developing
+      deprecated: false
+      description: ""
+      operationId: uploadFiles
+      tags:
+        - service_records
+      parameters: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  example: file:///Users/sunhaolin/Documents/gsx250r.jpg
+                  format: binary
+              required:
+                - file
+      responses:
+        "200":
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apifox-ignore-properties: []
+                x-apifox-orders: []
+              examples:
+                "1":
+                  summary: 成功示例
+                  value:
+                    _id: 650d09cd9da18d458c2f61f4
+                    link: http://127.0.0.1:5100/api/files/images/650d09cd9da18d458c2f61f4
+                    original:
+                      type: image/jpeg
+                      size: 724081
+                      name: gsx250r.jpg
+                    metadata:
+                      owner: 64b5026f15b58356a29a6c0c
+                    uploadedAt: 2023-09-22T03:28:13.147Z
+                    copies:
+                      files:
+                        name: gsx250r.jpg
+                        type: image/jpeg
+                        size: 724081
+                        key: 2023/9//files-650d09cd9da18d458c2f61f4-gsx250r.jpg
+                        updatedAt: 2023-09-22T03:28:13.147Z
+                        createdAt: 2023-09-22T03:28:13.147Z
+        "401":
+          description: 身份验证不通过
+      x-run-in-apifox: https://apifox.com/web/project/1580216/apis/api-112658896-run
+      security:
+        - BearerAuth: []
 components:
   schemas:
     ApiResponseError:
@@ -1055,3 +1224,9 @@ components:
         - status
         - msg
         - data
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: 身份验证
+      
