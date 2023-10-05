@@ -1,9 +1,10 @@
 const Koa = require('koa')
-const Router = require('koa-router')
-const next = require('next')            /* next作为中间件 */
-const session = require('koa-session')  /* koa-session */
-const Redis = require('ioredis')
+const Router = require('koa-router')   /* next作为中间件 */
+const session = require('koa-session')   
 const koaBody = require('koa-body')
+const next = require('next')         
+
+const Redis = require('ioredis')
 const atob = require('atob')
 
 const auth = require('./server/auth')
@@ -16,8 +17,7 @@ const handle = app.getRequestHandler()  /* 处理 Http 请求的响应 */
 
   
 const RedisSessionStore = require('./server/session-store')   // Redis 操作 session
-const redis = new Redis({ port: 6379, db: 3 }) 
-const actionRedis = new RedisSessionStore(redis)
+const redis = new Redis({ port: 6379, db: 3 })  
 
 global.atob = atob; // 它将 base64 编码的 ascii 数据转换回二进制
 
@@ -34,10 +34,10 @@ app.prepare().then(() => {
   // Koa的session对象 
   const SESSION_CONFIG = {
     key: 'jid',
-    // maxAge: 10 * 1000,  // FIXME: 注释掉时间后，刷新页面session不会丢失
-    store: actionRedis, // 连接数据库存储的功能
+    // maxAge: 10 * 1000,  // 注释掉时间后，刷新页面session不会丢失
+    store: new RedisSessionStore(redis), // 连接数据库存储的功能
   }
-  
+
   server.use(session(SESSION_CONFIG, server))
 
   auth(server) // 通过去Github上OAuth获取code，换取Token，最后获取到用户信息的过程
@@ -64,7 +64,7 @@ app.prepare().then(() => {
 
   /**--- 测试 session 添加与删除 Redis ---**/
   router.get('/set/user', async ctx => {
-    ctx.session.user = {name: 'Jokcy', age: 18}
+    ctx.session.user = { name: 'Jokcy', age: 18 }
     ctx.body = "set session success"
   })
   router.get('/delete/user', async ctx => {
@@ -97,7 +97,8 @@ app.prepare().then(() => {
     // ctx.cookies.set('id', index, {httpOnly: false})
     // index += 1
 
-    // ctx.cookies.set('id', 'userid:xxxxx')
+    // console.log(ctx.cookies.set('id', 'userid:457345'))
+
     ctx.req.session = ctx.session; // 在 nextjs 渲染之前，将 session 赋值到 ctx.req.session
     await handle(ctx.req, ctx.res) // handle参数中：req和res是ctx全局挂载nodejs的request,response实例
     ctx.respond = false
@@ -108,7 +109,7 @@ app.prepare().then(() => {
     await next()
   })
 
-  server.listen(3000, () => { 
+  server.listen(3000, () => {
     console.log('koa server listening on 3000: http://localhost:3000/')
   })
 

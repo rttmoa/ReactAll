@@ -7,7 +7,7 @@ function getRedisSessionId(sid) {
 /** #### TODO: 使用Redis去操作session的存，取，删除  */
 class RedisSessionStore {
   constructor(client) {
-    this.client = client; // 接收client对象，保存到this中
+    this.client = client; // 接收client对象，client对象就是； Redis实例
   }
 
   // 获取Redis中存储的session数据
