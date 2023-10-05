@@ -22,7 +22,6 @@ const redis = new Redis({ port: 6379, db: 3 })
 global.atob = atob; // 它将 base64 编码的 ascii 数据转换回二进制
 
 
-
 app.prepare().then(() => {
   const server = new Koa()
   const router = new Router()
@@ -43,7 +42,7 @@ app.prepare().then(() => {
   auth(server) // 通过去Github上OAuth获取code，换取Token，最后获取到用户信息的过程
   api(server)  // 服务端处理 github  api.requestGithub()
   // return
-
+  
   // server.use(async (ctx, next) => {
   //   const path = ctx.path // 获取请求路径
   //   const method = ctx.method
@@ -92,6 +91,15 @@ app.prepare().then(() => {
   })
 
   server.use(router.routes())
+
+  server.use(async (ctx, next) => {
+    // console.log("测试 redis")
+    // ctx.cookies.get("*")
+    
+    await next()
+  })
+
+
 
   server.use(async (ctx, next) => {
     // ctx.cookies.set('id', index, {httpOnly: false})

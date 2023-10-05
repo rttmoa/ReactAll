@@ -5,7 +5,7 @@ const { requestGithub } = require('../lib/api')
 
 
 
-// TODO:  客户端 api 请求
+// TODO:  开发环境下 api 请求
 module.exports = server => {
 
   server.use(async (ctx, next) => {

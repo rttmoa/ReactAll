@@ -4,12 +4,12 @@ const { client_id, client_secret, request_token_url } = config.github
 
 
 
+// todo 通过去 Github 上 OAuth 获取 code，换取 Token，最后获取到用户信息 将用户信息绑定到 ctx.session 上的过程
 module.exports = server => {  // 接收 server
   
   server.use(async (ctx, next) => {
     
     // 如果 /auth 做处理
-    // todo 通过去Github上OAuth获取code，换取Token，最后获取到用户信息的过程
     if (ctx.path === '/auth') {
       const code = ctx.query.code;  
       if (!code) {
