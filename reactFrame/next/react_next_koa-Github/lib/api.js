@@ -12,7 +12,7 @@ async function requestGithub(method, url, data, headers) {
 }
 
 // TODO: 同构概念：客户端和服务端都会执行  又要适应服Nodejs执行环境 又要适应浏览器执行环境
-// todo 判断是 开发环境 | 生产环境
+// todo 判断是 开发环境(development) | 生产环境(production)
 // 服务端渲染和客户端请求的区别 | 判断是否是服务端  
 const isServer = typeof window === 'undefined';
 // console.log('isServer', isServer)

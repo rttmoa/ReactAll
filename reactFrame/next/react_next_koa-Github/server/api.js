@@ -4,14 +4,17 @@ const { requestGithub } = require('../lib/api')
 
 
 
+
+// TODO:  客户端 api 请求
 module.exports = server => {
 
   server.use(async (ctx, next) => {
     const path = ctx.path
     const method = ctx.method
 
-    if (path.startsWith('/github/')) {
-      // console.log(ctx.request.body)
+    if (path.startsWith('/github/')) { 
+      console.log('/server/api.js --> ', ctx.url)
+      
       const headers = {}
       const session = ctx.session
       const githubAuth = session && session.githubAuth

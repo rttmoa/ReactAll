@@ -229,7 +229,7 @@ function Issues({ initialIssues, labels, owner, name }) {  // 服务端得到；
   )
 }
 
-Issues.getInitialProps = async ({ ctx }) => {  
+Issues.getInitialProps = async ({ ctx }) => {
   const { owner, name } = ctx.query;
   const full_name = `${owner}/${name}`;
   
@@ -238,7 +238,7 @@ Issues.getInitialProps = async ({ ctx }) => {
     await api.request({url: `/repos/${owner}/${name}/issues`}, ctx.req, ctx.res),
     CACHE[full_name] ? Promise.resolve({ data: CACHE[full_name] }) : await api.request({url: `/repos/${owner}/${name}/labels`}, ctx.req, ctx.res),
   ]); 
-  console.log(fetchs)
+  // console.log(fetchs)
 
   return {
     owner,

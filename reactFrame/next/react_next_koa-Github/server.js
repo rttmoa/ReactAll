@@ -42,7 +42,7 @@ app.prepare().then(() => {
 
   auth(server) // 通过去Github上OAuth获取code，换取Token，最后获取到用户信息的过程
   api(server)  // 服务端处理 github  api.requestGithub()
-
+  // return
 
   // server.use(async (ctx, next) => {
   //   const path = ctx.path // 获取请求路径

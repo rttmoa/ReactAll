@@ -11,8 +11,10 @@ module.exports = server => {  // 接收 server
     // 如果 /auth 做处理
     // todo 通过去Github上OAuth获取code，换取Token，最后获取到用户信息的过程
     if (ctx.path === '/auth') {
-      const code = ctx.query.code
+      const code = ctx.query.code;  
       if (!code) {
+        // code: 0e4ed5464d3a39f14a2b
+        // http://localhost:3000/auth?code=0e4ed5464d3a39f14a2b
         ctx.body = 'code not exist'
         return
       }
@@ -26,14 +28,19 @@ module.exports = server => {  // 接收 server
         },
         headers: { Accept: 'application/json' },
       })
-
-      // console.log(result.status, result.data)
+      console.log('OAuthGetToken: ', result.status, result.data)
+      // 200 
+      // {
+      //   access_token: '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',
+      //   token_type: 'bearer',
+      //   scope: 'user'
+      // }
 
       if (result.status === 200 && (result.data && !result.data.error)) {
 
         ctx.session.githubAuth = result.data // todo： 获取 Token 绑定给 ctx 上
 
-        const { access_token, token_type } = result.data
+        const { access_token, token_type, scope } = result.data
 
         const userInfoResp = await axios({
           method: 'GET',
@@ -56,10 +63,9 @@ module.exports = server => {  // 接收 server
     }
   })
 
-  server.use(async (ctx, next) => {
-    const path = ctx.path
-    const method = ctx.method
-    if (path === '/logout' && method === 'POST') {  // 如果登出，清空session即可
+  server.use(async (ctx, next) => { 
+    const { path, method } = ctx;
+    if (path === '/logout' && method === 'POST') {  // 如果登出，清空 session 即可
       ctx.session = null
       ctx.body = `logout success`
     } else {
@@ -67,9 +73,8 @@ module.exports = server => {  // 接收 server
     }
   })
 
-  server.use(async (ctx, next) => {
-    const path = ctx.path
-    const method = ctx.method
+  server.use(async (ctx, next) => { 
+    const { path, method } = ctx; 
     if (path === '/prepare-auth' && method === 'GET') {
       // ctx.session = null
       // ctx.body = `logout success`
