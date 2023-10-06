@@ -57,14 +57,15 @@ export async function getStaticPaths() {
 
 
 
-
+// todo 此文件内容为； 文档   /layouts/ContentsLayout.js
 const BlogPosts: React.FC = (props: any) => {
   const {errorCode, blog, posts} = props;
-
   if (errorCode) {
     return <Error statusCode={errorCode} />
   }
 
+
+  console.log("BlogPosts+++++++++++++++++++++++");
   return (
     <>
       <NextSeo

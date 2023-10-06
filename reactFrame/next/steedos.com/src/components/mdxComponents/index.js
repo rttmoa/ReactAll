@@ -36,7 +36,7 @@ export function alert({ node, ...props }){
         </div>
       </div>
     )
-   } else if (props.type === 'tip') {
+  } else if (props.type === 'tip') {
     return (
       <div className="rounded-md bg-yellow-50 p-4">
         <div className="flex">

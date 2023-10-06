@@ -35,6 +35,8 @@ export async function getStaticPaths() {
   return { paths, fallback: 'blocking' }
 }
 
+
+// todo 此文件被重写   /pages/index.js   ==={开源开放，携手伙伴，打造海量解决方案}===
 export default class Collection extends React.Component {
   // console.log("Collection")
   render(){

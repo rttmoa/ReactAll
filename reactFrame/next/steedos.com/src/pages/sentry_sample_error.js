@@ -1,9 +1,6 @@
 import Head from 'next/head'
 
-
-
-
-const boxStyles = { padding: '12px', border: '1px solid #eaeaea', borderRadius: '10px' };
+    
 export default function Home() {
     return (
         <div>
@@ -17,7 +14,7 @@ export default function Home() {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                alignItems: 'center',
+                alignItems: 'center', 
             }}>
                 <h1 style={{ fontSize: '4rem' }}>
                     <svg style={{
@@ -30,8 +27,10 @@ export default function Home() {
                 <p >
                     Get started by sending us a sample error
                 </p>
-                <button type="button" style={{
-                    ...boxStyles,
+                <button type="button" style={{ 
+                    padding: '12px', 
+                    border: '1px solid #eaeaea', 
+                    borderRadius: '10px',
                     backgroundColor: '#c73852',
                     borderRadius: '12px',
                     border: 'none'

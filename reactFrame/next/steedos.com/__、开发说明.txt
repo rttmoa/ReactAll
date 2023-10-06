@@ -13,9 +13,14 @@
 Url 》 http://localhost:3000/
 
 redirectsJson 所有地址：
-    http://localhost:3000/cn
-    http://localhost:3000/platform
-    http://localhost:3000/platform/try
+
+    http://localhost:3000/ 
+    http://localhost:3000/pricing/platform
+    http://localhost:3000/docs/deploy/getting-started
+    http://localhost:3000/videos
+
+
+
     http://localhost:3000/customers
     http://localhost:3000/help
     http://localhost:3000/help/download

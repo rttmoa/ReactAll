@@ -104,7 +104,7 @@ export default function ProductDetail({ product, vid }) {
             <div className="col-span-3 w-full">
               <ImageSwiper images={getMedia(product)}/>
             </div>
-           
+                      
 
             {/* Product info */}
             <div className="col-span-2 mt-6 lg:mt-0">

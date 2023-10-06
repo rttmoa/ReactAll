@@ -18,7 +18,7 @@ import { SessionProvider } from "next-auth/react"
 import { SearchProvider } from '../components/Search'
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
-// import { getSite } from '@/lib/site';
+import { getSite } from '@/lib/site';
 
 
 // 判断是服务端时还是客户端时
@@ -45,7 +45,7 @@ Router.events.on('routeChangeError', progress.finish)
 
 
 
-
+// TODO: Github服务端渲染中；使用高阶组件包裹App、在高阶组件中处理，并返回一些属性给 App
 export default function App({ Component, pageProps: { session, ...pageProps }, router }) {
 
   // posthog.js: https://github.com/PostHog/posthog
@@ -91,11 +91,11 @@ export default function App({ Component, pageProps: { session, ...pageProps }, r
   // console.log(session) // undefined
   // console.log(showHeader) // 页面中true， Login时为false
   return (
-    // TODO: 项目总结构：next-auth && SearchProvider && Header && Layout && Component
+    // TODO: 所有 Children 经过appjs去处理
+    // 项目总结构：next-auth && SearchProvider && Header && Layout && Component
     <SessionProvider session={session}>
 
       <SearchProvider>
-
         {showHeader && (
           <Header
             hasNav={Boolean(Component.layoutProps?.Layout?.nav)}
@@ -108,7 +108,6 @@ export default function App({ Component, pageProps: { session, ...pageProps }, r
           <Layout {...layoutProps}>
             <Component section={section} {...pageProps} />
           </Layout>
-
         {showFooter && <Footer/>}
       </SearchProvider>
 
@@ -116,13 +115,15 @@ export default function App({ Component, pageProps: { session, ...pageProps }, r
   )
 }
 
+// Error: EPERM: operation not permitted,
 // App.getInitialProps = async ({ctx}) => {
-//   let site = null;
-//   if(ctx.req){
+//   let site = null; 
+//   if(ctx.req){ 
 //     try {
 //       let parsedSrc = new URL(req.headers.referer);
 //       site = await getSite(parsedSrc.hostname)
 //     } catch (err) { }
 //   }
-//   return { site }
+//   console.log(site)
+//   return {}
 // }

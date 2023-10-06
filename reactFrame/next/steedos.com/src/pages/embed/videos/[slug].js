@@ -52,8 +52,9 @@ export async function getStaticPaths() {
 
 
 
-
+// todo 此文件被重写  /pages/videos/index.tsx
 export default function VideoEmbed(props) {
+  console.log("VideoEmbed")
   const router = useRouter()
   const {
     title = 'Missing title',_id,body,download_url, duration, hls_url, is_free, name,owner,site,slug,thumb_image,

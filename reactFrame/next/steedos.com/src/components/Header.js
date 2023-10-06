@@ -509,6 +509,11 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
                     >
                       LowCode
                     </a>
+                    <a href="https://www.steedos.com/" target="_blank"
+                      className="ml-6 block text-slate-400 hover:text-slate-500 dark:hover:text-slate-300"
+                    >
+                      Steedos
+                    </a>
                   </div>
                 </div>
                 <SearchButton className="ml-auto text-slate-500 w-8 h-8 -my-1 flex items-center justify-center hover:text-slate-600 lg:hidden dark:text-slate-400 dark:hover:text-slate-300">

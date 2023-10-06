@@ -40,7 +40,7 @@ function TableOfContents({ tableOfContents, currentSection }) {
   return (
     <>
       <h5 className="text-slate-900 font-semibold mb-4 text-sm leading-6 dark:text-slate-100">
-        本页内容
+        本页内容333
       </h5>
       <ul className="text-slate-700 text-sm leading-6">
         {tableOfContents.map((section) => (

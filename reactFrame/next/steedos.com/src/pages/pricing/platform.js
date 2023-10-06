@@ -16,7 +16,8 @@ export default function PricingPage(props) {
 
       <div className="max-w-screen-lg xl:max-w-screen-xl mx-auto space-y-20 sm:space-y-32 md:space-y-40 lg:space-y-44">
         <div className="relative max-w-7xl mx-auto px-4 focus:outline-none sm:px-3 md:px-5">
-          <Markdown body={
+          <Markdown 
+            body={
             `
             ## 版本对比表
 

@@ -15,6 +15,9 @@ const STEEDOS_ROOT_URL = process.env.NEXT_PUBLIC_STEEDOS_ROOT_URL
 const OIDC_API = '/api/global/auth/oidc/login'
 const VALIDATE_API = '/api/setup/validate'
 
+
+// TODO: 此文件定义一些 auth； OAuth、Session、SteedosiD
+
 const loginSteedosByOIDC = async (accessToken) => {
   const projectRootUrl = STEEDOS_ROOT_URL
   const rest = await axios({

@@ -75,34 +75,34 @@ export async function getServerSideProps({ params, locale, locales, preview }) {
 
 
 
-// export async function getStaticPaths() {
-//   const result = await axios({
-//     url: `${STEEDOS_ROOT_URL}/graphql`,
-//     method: 'post',
-//     data: {
-//       query: `{
-//         site_pages {
-//           name
-//           slug
-//           site__expand {
-//             name
-//             slug
-//           }
-//         }
-//       }`,
-//     },
-//     headers: {
-//       "Content-Type": "application/json",
-//       "Authorization": `Bearer apikey,${STEEDOS_SERVER_API_KEY}`
-//     }
-//   });
-//   const pages = result?.data?.data?.site_pages || []
-//   // Get the paths we want to pre-render based on posts
-//   const paths = pages.map((page) => ({
-//     params: {
-//       site_slug: page.site__expand.slug,
-//       page_slug: page.slug.split('/')
-//     },
-//   }))
-//   return { paths, fallback: 'blocking' }
-// }
+export async function getStaticPaths() {
+  const result = await axios({
+    url: `${STEEDOS_ROOT_URL}/graphql`,
+    method: 'post',
+    data: {
+      query: `{
+        site_pages {
+          name
+          slug
+          site__expand {
+            name
+            slug
+          }
+        }
+      }`,
+    },
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer apikey,${STEEDOS_SERVER_API_KEY}`
+    }
+  });
+  const pages = result?.data?.data?.site_pages || []
+  // Get the paths we want to pre-render based on posts
+  const paths = pages.map((page) => ({
+    params: {
+      site_slug: page.site__expand.slug,
+      page_slug: page.slug.split('/')
+    },
+  }))
+  return { paths, fallback: 'blocking' }
+}

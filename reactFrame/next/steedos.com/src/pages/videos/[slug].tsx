@@ -3,9 +3,9 @@ import get from 'lodash/get'
 import Image from 'next/image'
 import useSWR from 'swr'
 import removeMarkdown from 'remove-markdown'
+
+
 import { getVideo, getVideos } from '@/lib/video'
-
-
 import React, { FunctionComponent } from 'react'
 import { useWindowSize } from 'react-use'
 import { useRouter } from 'next/router'

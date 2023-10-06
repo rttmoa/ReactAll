@@ -30,6 +30,8 @@ const errors = {
   SessionRequired: "Please sign in to access this page.",
   default: "Unable to sign in.",
 };
+
+
 export default function Login({ providers = {}, csrfToken }) {
   const { data: session } = useSession();
   const router = useRouter();
@@ -48,7 +50,7 @@ export default function Login({ providers = {}, csrfToken }) {
           </a>
         </Link>
         <h2 className="mt-4 text-lg font-semibold text-gray-900">
-          登录您的账户
+          登录您的账户 （登录页）
         </h2>
         <span className="mt-2 text-sm text-red-500">
           {error && errors[error] && (
