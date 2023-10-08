@@ -35,7 +35,7 @@ function VariantRadio({ productVariant, onChange, defValue }) {
     return (
         <div className="mt-8">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-sm font-medium text-gray-900">{productVariant.name}</h2>
+                    <h2 className="text-sm font-medium text-gray-900">{productVariant.name}</h2>
                 </div>
 
                 <RadioGroup value={selected} onChange={(value)=>{

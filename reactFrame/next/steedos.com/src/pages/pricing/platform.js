@@ -2,10 +2,10 @@ import Head from 'next/head'
 import { Markdown } from '@/components/Markdown'
 import { Pricing } from '../../components/salient/Pricing'
 
-
 // TODO: 版本与报价: http://localhost:3000/pricing/platform
+
 export default function PricingPage(props) {
-  const { name, collection } = props;
+  const { name, collection } = props
   return (
     <>
       <Head>
@@ -16,9 +16,8 @@ export default function PricingPage(props) {
 
       <div className="max-w-screen-lg xl:max-w-screen-xl mx-auto space-y-20 sm:space-y-32 md:space-y-40 lg:space-y-44">
         <div className="relative max-w-7xl mx-auto px-4 focus:outline-none sm:px-3 md:px-5">
-          <Markdown 
-            body={
-            `
+          <Markdown
+            body={`
             ## 版本对比表
 
             ### 平台基础功能
@@ -220,8 +219,7 @@ export default function PricingPage(props) {
             | OKR |    |    | Y |
 
             `}
-          >
-          </Markdown>
+          ></Markdown>
         </div>
       </div>
     </>

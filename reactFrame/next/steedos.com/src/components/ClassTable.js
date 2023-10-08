@@ -36,6 +36,8 @@ function renderProperties(
   })
 }
 
+
+//  /layouts/ContentsLayout.js   <ClassTable {...classes} />
 export const ClassTable = memo(
   ({
     utilities = {},

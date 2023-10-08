@@ -33,7 +33,7 @@ import { Testimonials as Testimonials2} from '../components/salient/Testimonials
 export async function getStaticProps({params}) {
   const slug = 'steedos-packages'
   const collection = await getCollectionProducts('steedos-packages')
-  console.log(collection)
+  // console.log(collection)
   return {
     props: {
       collection,
@@ -43,7 +43,7 @@ export async function getStaticProps({params}) {
 }
 
 
-export default function Home(props) {
+export default function Home(props) { 
   const { name, collection } = props; 
 
 

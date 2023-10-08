@@ -128,6 +128,8 @@ export const headerNav = {
   pages: [
     { name: '文档', href: '/docs/' },
     { name: '视频', href: '/videos/' },
-    { name: '联系我们', href: '/company/contact-us' },
+    { name: '报价', href: '/pricing/platform' },
+    // { name: '联系我们', href: '/company/contact-us' },
+    { name: 'V', href: '/view/' },
   ],
 }

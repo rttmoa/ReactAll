@@ -15,7 +15,7 @@ let grid = 'max-w-3xl mx-auto xl:max-w-none xl:grid xl:grid-cols-[1fr_50rem] xl:
 
 
 
-// 可能未使用此组件哦
+// !可能未使用此组件哦
 export function BlogPostLayout({ children, meta, slug, latestPosts }) {
   console.log("/layouts -> Funtion BlogPostLayout () {} ")
   return (

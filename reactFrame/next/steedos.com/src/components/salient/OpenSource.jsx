@@ -1,7 +1,11 @@
+import { getCollectionProducts, getCollections } from '@/lib/product';
+import { getDefaultPrice } from '@/lib/product.client';
+
+import ReviewStars from '@/components/product/ReviewStars'
+import Price from '@/components/product/Price'
 
 
-
-
+// todo 此 源文件在  /pages/collections/[slug.js]
 export function OpenSource({ collection }) {
   return (
       <div className="max-w-screen-lg xl:max-w-screen-xl mx-auto space-y-20 sm:space-y-32 md:space-y-40 lg:space-y-44">

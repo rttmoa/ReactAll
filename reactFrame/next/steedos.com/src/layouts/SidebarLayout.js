@@ -1,233 +1,63 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { createContext, forwardRef, useRef } from 'react'
-import { useIsomorphicLayoutEffect } from '@/hooks/useIsomorphicLayoutEffect'
+import { useIsomorphicLayoutEffect } from '../hooks/useIsomorphicLayoutEffect'
 import clsx from 'clsx'
 import { SearchButton } from '../components/Search'
 import { Dialog } from '@headlessui/react'
+import { documentationNav } from '../navs/documentation'
 
 export const SidebarContext = createContext()
 
 
+// TODO: 左侧 侧边布局
 
+  
 
-//========={父 Nav}==========
-const NavItem = forwardRef(({ href, children, isActive, isPublished, fallbackHref }, ref) => {
-
-  // 渲染Title下Children
-  return (
-    <li ref={ref}>
-      <Link href={isPublished ? href : fallbackHref}>
-        <a className={clsx('block border-l pl-4 -ml-px', {
-            'text-sky-500 border-current font-semibold dark:text-sky-400': isActive,
-            'border-transparent hover:border-slate-400 dark:hover:border-slate-500': !isActive,
-            'text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300':
-              !isActive && isPublished,
-            'text-slate-400': !isActive && !isPublished,
-          })}
-        >
-          {children}
-        </a>
-      </Link>
-    </li>
-  )
-})
-
-//========={父 Nav}==========
-/** 找到最近的可滚动祖先 (如果可滚动则为 self)  ->  @param  {Element} el */
-function nearestScrollableContainer(el) {
-  /** 显示元素是否可以滚动 -> @param {Node} el */
-  function isScrollable(el) {
-    const style = window.getComputedStyle(el)
-    const overflowX = style['overflowX']
-    const overflowY = style['overflowY']
-    const canScrollY = el.clientHeight < el.scrollHeight
-    const canScrollX = el.clientWidth < el.scrollWidth
-
-    const isScrollableY = canScrollY && (overflowY === 'auto' || overflowY === 'scroll')
-    const isScrollableX = canScrollX && (overflowX === 'auto' || overflowX === 'scroll')
-
-    return isScrollableY || isScrollableX
-  }
-  while (el !== document.body && isScrollable(el) === false) {
-    el = el.parentNode || el.host
-  }
-  return el
-}
-
-//========={父 SidebarLayout}==========
-function Nav({ nav, children, fallbackHref, mobile = false }) {
-  const router = useRouter()
-  const activeItemRef = useRef()
-  const previousActiveItemRef = useRef()
-  const scrollRef = useRef()
-
-  useIsomorphicLayoutEffect(() => {
-    function updatePreviousRef() {
-      previousActiveItemRef.current = activeItemRef.current
-    }
-
-    if (activeItemRef.current) {
-      if (activeItemRef.current === previousActiveItemRef.current) {
-        updatePreviousRef()
-        return
-      }
-
-      updatePreviousRef()
-
-      const scrollable = nearestScrollableContainer(scrollRef.current)
-
-      const scrollRect = scrollable.getBoundingClientRect()
-      const activeItemRect = activeItemRef.current.getBoundingClientRect()
-
-      const top = activeItemRef.current.offsetTop
-      const bottom = top - scrollRect.height + activeItemRect.height
-
-      if (scrollable.scrollTop > top || scrollable.scrollTop < bottom) {
-        scrollable.scrollTop = top - scrollRect.height / 2 + activeItemRect.height / 2
-      }
-    }
-  }, [router.pathname])
-
-  return (
-    <nav ref={scrollRef} id="nav" className="lg:text-sm lg:leading-6 relative">
-      <div className="sticky top-0 -ml-0.5 pointer-events-none">
-        {!mobile && <div className="h-10 bg-white dark:bg-slate-900" />}
-        <div className="bg-white dark:bg-slate-900 relative pointer-events-auto">
-          <SearchButton className="hidden w-full lg:flex items-center text-sm leading-6 text-slate-400 rounded-md ring-1 ring-slate-900/10 shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700">
-            {({ actionKey }) => (
-              <>
-                <svg
-                  width="24"
-                  height="24"
-                  fill="none"
-                  aria-hidden="true"
-                  className="mr-3 flex-none"
-                >
-                  <path
-                    d="m19 19-3.5-3.5"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <circle
-                    cx="11"
-                    cy="11"
-                    r="6"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                快速搜索...
-                {actionKey && (
-                  <span className="ml-auto pl-3 flex-none text-xs font-semibold">
-                    {actionKey[0]}K
-                  </span>
-                )}
-              </>
-            )}
-          </SearchButton>
-        </div>
-        {!mobile && <div className="h-8 bg-gradient-to-b from-white dark:from-slate-900" />}
-      </div>
-      <ul>
-        {/* ========={顶部6个Link}========== */}
-        <TopLevelNav mobile={mobile} />
-        {children}
-        {nav && Object.keys(nav).map((category) => {
-            let publishedItems = nav[category].filter((item) => item?.published !== false)
-            if (publishedItems.length === 0 && !fallbackHref) return null
-            return (
-              <li key={category} className="mt-12 lg:mt-8">
-                <h5
-                  className={clsx('mb-8 lg:mb-3 font-semibold', {
-                    'text-slate-900 dark:text-slate-200': publishedItems.length > 0,
-                    'text-slate-400': publishedItems.length === 0,
-                  })}
-                >
-                  {category}
-                </h5>
-                <ul
-                  className={clsx(
-                    'space-y-6 lg:space-y-2 border-l border-slate-100',
-                    mobile ? 'dark:border-slate-700' : 'dark:border-slate-800'
-                  )}
-                >
-                  {(fallbackHref ? nav[category] : publishedItems).map((item, i) => {
-                    if (!item) {
-                      console.log(i)
-                      return null
-                    }
-                    let isActive = item.match
-                      ? item.match.test(router.pathname)
-                      : item.href === router.pathname
-                    return (
-                      <NavItem
-                        key={i}
-                        href={item.href}
-                        isActive={isActive}
-                        ref={isActive ? activeItemRef : undefined}
-                        isPublished={item.published !== false}
-                        fallbackHref={fallbackHref}
-                      >
-                        {item.shortTitle || item.title}
-                      </NavItem>
-                    )
-                  })}
-                </ul>
-              </li>
-            )
-          }).filter(Boolean)}
-      </ul>
-    </nav>
-  )
-}
-
-//========={父 TopLevelLink}==========
 const TopLevelAnchor = forwardRef(({ children, href, className, icon, isActive, onClick, shadow, activeBackground, mobile }, ref) => {
-    return (
-      <li>
-        <a ref={ref}
-          href={href}
-          onClick={onClick}
-          className={clsx('group flex items-center lg:text-sm lg:leading-6', className,
-            isActive ? 'font-semibold text-sky-500 dark:text-sky-400' : 'font-medium text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300'
+  const Props = (
+    <TopLevelAnchor
+      mobile={mobile}
+      href="/docs/deploy/getting-started"
+      isActive="{pathname.startsWith('/docs/deploy')}"
+      className="mb-4"
+      shadow="group-hover:shadow-sky-200 dark:group-hover:bg-sky-500"
+      activeBackground="dark:bg-sky-500"
+      icon={<><path /></>}
+    >
+      安装部署
+    </TopLevelAnchor>
+  )
+  return (
+    <li>
+      <a ref={ref} href={href} onClick={onClick}
+        className={clsx('group flex items-center lg:text-sm lg:leading-6', className,
+          isActive ? 'font-semibold text-sky-500 dark:text-sky-400' : 'font-medium text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300'
+        )}
+      >
+        <div className={clsx(
+            'mr-4 rounded-md ring-1 ring-slate-900/5 shadow-sm group-hover:shadow group-hover:ring-slate-900/10 dark:ring-0 dark:shadow-none dark:group-hover:shadow-none dark:group-hover:highlight-white/10',
+            shadow,
+            isActive ? [activeBackground, 'dark:highlight-white/10'] : mobile ? 'dark:bg-slate-700 dark:highlight-white/5' : 'dark:bg-slate-800 dark:highlight-white/5'
           )}
         >
-          <div className={clsx(
-              'mr-4 rounded-md ring-1 ring-slate-900/5 shadow-sm group-hover:shadow group-hover:ring-slate-900/10 dark:ring-0 dark:shadow-none dark:group-hover:shadow-none dark:group-hover:highlight-white/10',
-              shadow,
-              isActive
-                ? [activeBackground, 'dark:highlight-white/10']
-                : mobile
-                ? 'dark:bg-slate-700 dark:highlight-white/5'
-                : 'dark:bg-slate-800 dark:highlight-white/5'
-            )}
-          >
-            <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none">
-              {icon}
-            </svg>
-          </div>
-          {children}
-        </a>
-      </li>
-    )
-  }
-)
-//========={父 TopLevelNav}==========
+          <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none">
+            {icon}
+          </svg>
+        </div>
+        {children}
+      </a>
+    </li>
+  )
+}) 
 function TopLevelLink({ href, as, ...props }) {
   // if (/^https?:\/\//.test(href)) return <TopLevelAnchor href={href} {...props} />
   // return <Link href={href} as={as} passHref><TopLevelAnchor {...props} /></Link>
   return <TopLevelAnchor href={href} {...props} />
 }
-//========={父 Nav}==========
-function TopLevelNav({ mobile }) { //========={安装部署 开发人员 系统管理员 低代码协议 Resource 社区}==========
+function TopLevelNav({ mobile }) {
   let { pathname } = useRouter();
 
-  //========={安装部署 开发人员 系统管理员 低代码协议 Resource 社区}==========
   return (
     <>
       <TopLevelLink
@@ -473,28 +303,204 @@ function TopLevelNav({ mobile }) { //========={安装部署 开发人员 系统�
   )
 }
 
-//========={父 SidebarLayout}==========
-function Wrapper({ allowOverflow, children }) {
-  return <div className={allowOverflow ? undefined : 'overflow-hidden'}>
-    {/* {"children"} */}
-    {children}
-  </div>
+const NavItem = forwardRef(({ href, children, isActive, isPublished, fallbackHref }, ref) => {
+  return (
+    <li ref={ref}>
+      <Link href={isPublished ? href : fallbackHref}>
+        <a className={clsx('block border-l pl-4 -ml-px', {
+            'text-sky-500 border-current font-semibold dark:text-sky-400': isActive,
+            'border-transparent hover:border-slate-400 dark:hover:border-slate-500': !isActive,
+            'text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300': !isActive && isPublished,
+            'text-slate-400': !isActive && !isPublished,
+          })}
+        >
+          {children}
+        </a>
+      </Link>
+    </li>
+  )
+})
+
+
+/** 找到最近的可滚动祖先 (如果可滚动则为 self)  ->  @param  {Element} el */
+function nearestScrollableContainer(el) {
+  /** 显示元素是否可以滚动 -> @param {Node} el */
+  function isScrollable(el) {
+    const style = window.getComputedStyle(el)
+    const overflowX = style['overflowX']
+    const overflowY = style['overflowY']
+    const canScrollY = el.clientHeight < el.scrollHeight
+    const canScrollX = el.clientWidth < el.scrollWidth
+
+    const isScrollableY = canScrollY && (overflowY === 'auto' || overflowY === 'scroll')
+    const isScrollableX = canScrollX && (overflowX === 'auto' || overflowX === 'scroll')
+
+    return isScrollableY || isScrollableX
+  }
+  while (el !== document.body && isScrollable(el) === false) {
+    el = el.parentNode || el.host
+  }
+  return el
 }
 
 
+function Nav({ nav, children, fallbackHref, mobile = false }) {  // todo ========={ Nav }==========
+  const router = useRouter()
+  const activeItemRef = useRef()          // 挂载到 访问的 li 上
+  const previousActiveItemRef = useRef()  // 预备Ref
+  const scrollRef = useRef()              // nav 上
+
+  // 刷新页面 定位到访问元素
+  useIsomorphicLayoutEffect(() => { 
+    
+    const updatePreviousRef = () => previousActiveItemRef.current = activeItemRef.current;
+
+    // console.log(activeItemRef.current) // <li>...</li>
+    if (activeItemRef.current) {
+      if (activeItemRef.current === previousActiveItemRef.current) {
+        updatePreviousRef()
+        return
+      }
+      updatePreviousRef()
+      
+      const scrollable = nearestScrollableContainer(scrollRef.current)
+
+      const scrollRect = scrollable.getBoundingClientRect()
+      const activeItemRect = activeItemRef.current.getBoundingClientRect()
+
+      const top = activeItemRef.current.offsetTop
+      const bottom = top - scrollRect.height + activeItemRect.height
+
+          // console.log(scrollRef.current) // DOM: <nav />
+          // console.log(scrollable) // DOM: <nav />
+          // console.log(scrollRect)
+          // console.log(activeItemRect)
+          // console.log(top) // offsetTop: 距离DOM最顶部的距离
+          // console.log(bottom)
+          // console.log(scrollRect.height, activeItemRect.height)  
+
+      if (scrollable.scrollTop > top || scrollable.scrollTop < bottom) {
+        scrollable.scrollTop = top - scrollRect.height / 2 + activeItemRect.height / 2
+      }
+    }
+  }, [router.pathname]) // 监控 router
 
 
-//========={侧边栏}==========
-export function SidebarLayout({ children,navIsOpen,setNavIsOpen,nav,sidebar,fallbackHref,layoutProps: { allowOverflow = true } = {}, }) {
+
+
+  return (
+    <nav ref={scrollRef} id="nav" className="lg:text-sm lg:leading-6 relative">
+      <div className="sticky top-0 -ml-0.5 pointer-events-none">
+        {!mobile && <div className="h-10 bg-white dark:bg-slate-900" />}
+        <div className="bg-white dark:bg-slate-900 relative pointer-events-auto">
+          <SearchButton className="hidden w-full lg:flex items-center text-sm leading-6 text-slate-400 rounded-md ring-1 ring-slate-900/10 shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700">
+            {({ actionKey }) => (
+              <>
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  aria-hidden="true"
+                  className="mr-3 flex-none"
+                >
+                  <path
+                    d="m19 19-3.5-3.5"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                快速搜索...
+                {actionKey && (
+                  <span className="ml-auto pl-3 flex-none text-xs font-semibold">
+                    {actionKey[0]}K
+                  </span>
+                )}
+              </>
+            )}
+          </SearchButton>
+        </div>
+        {!mobile && <div className="h-8 bg-gradient-to-b from-white dark:from-slate-900" />}
+      </div>
+      <ul> 
+        <TopLevelNav mobile={mobile} /> 
+        {children} 
+        {nav && documentationNav && Object.keys(nav).map((category) => { // nav 属性名
+          // console.log(nav)
+          // console.log(Object.keys(nav))
+            let publishedItems = nav[category].filter((item) => item?.published !== false)
+            if (publishedItems.length === 0 && !fallbackHref) return null
+            return (
+              <li key={category} className="mt-12 lg:mt-8">
+                <h5 className={clsx('mb-8 lg:mb-3 font-semibold', {
+                    'text-slate-900 dark:text-slate-200': publishedItems.length > 0,
+                    'text-slate-400': publishedItems.length === 0,
+                  })}
+                >
+                  {category}
+                </h5>
+                <ul 
+                  className={clsx('space-y-6 lg:space-y-2 border-l border-slate-100', mobile ? 'dark:border-slate-700' : 'dark:border-slate-800')}
+                >
+                  {(fallbackHref ? nav[category] : publishedItems).map((item, i) => {
+                    if (!item) {
+                      console.log(i)
+                      return null
+                    }
+                    let isActive = item.match ? item.match.test(router.pathname) : item.href === router.pathname
+                    return (
+                      <NavItem 
+                        key={i}
+                        href={item.href}
+                        isActive={isActive}
+                        ref={isActive ? activeItemRef : undefined}
+                        isPublished={item.published !== false}
+                        fallbackHref={fallbackHref}
+                      >
+                        {item.shortTitle || item.title}
+                      </NavItem>
+                    )
+                  })}
+                </ul>
+              </li>
+            )
+          }).filter(Boolean)}
+      </ul>
+    </nav>
+  )
+}
+
+
+function Wrapper({ allowOverflow, children }) {
+  return (
+    <div className={allowOverflow ? undefined : 'overflow-hidden'}>
+      {children}
+    </div>
+  )
+}   
+
+// TODO: ========={侧边栏}==========
+export function SidebarLayout({ children, navIsOpen, setNavIsOpen, nav, sidebar, fallbackHref, layoutProps: { allowOverflow = true } = {}, }) {
   return (
     <SidebarContext.Provider value={{ nav, navIsOpen, setNavIsOpen }}>
 
       {/* ========={width > 1024}========== */}
       <Wrapper allowOverflow={allowOverflow}>
         <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+          {/* ========={左 -> 导航}========== */}
           <div className="hidden lg:block fixed z-20 inset-0 top-[3.8125rem] left-[max(0px,calc(50%-45rem))] right-auto w-[19.5rem] pb-10 px-8 overflow-y-auto">
             <Nav nav={nav} fallbackHref={fallbackHref}>
-              {sidebar}
+              {sidebar || "sidebar"}
             </Nav>
           </div>
           {/* ========={右 -> 内容部分}========== */}

@@ -13,6 +13,8 @@ import { MDXProvider } from '@mdx-js/react'
 export const ContentsContext = createContext()
 
 
+// TODO: 右侧 内容布局
+
 
 //========={本页内容}==========
 function TableOfContents({ tableOfContents, currentSection }) {
@@ -44,6 +46,7 @@ function TableOfContents({ tableOfContents, currentSection }) {
       </h5>
       <ul className="text-slate-700 text-sm leading-6">
         {tableOfContents.map((section) => (
+          // let sectionIsActive = section.slug || section.children.findIndex(({ slug }) => slug === currentSection) > -1;
           <Fragment key={section.slug}>
             <li>
               <a href={`#${section.slug}`}
@@ -130,7 +133,7 @@ function useTableOfContents(tableOfContents) {
 
 // 可能未使用此组件哦
 export function ContentsLayoutOuter({ children, layoutProps, ...props }) {
-  console.log("/layouts/ Function ContentsLayoutOuter() {}  ?????")
+  // console.log("/layouts/ Function ContentsLayoutOuter() {}  ?????")
   const { currentSection, registerHeading, unregisterHeading } = useTableOfContents(layoutProps.tableOfContents)
 
   return (
@@ -156,21 +159,21 @@ export function ContentsLayoutOuter({ children, layoutProps, ...props }) {
 
 
 
-// TODO: ========={docs文档内容区域}==========
+// TODO: ========={ 内容 }==========
 export function ContentsLayout({ children, meta, classes, tableOfContents, section }) {
-  // console.log("/layouts/ Function ContentsLayout() {} ")
   const router = useRouter()
   const toc = [
     ...(classes ? [{ title: 'Quick reference', slug: 'class-reference', children: [] }] : []),
     ...tableOfContents,
   ];
   const { currentSection, registerHeading, unregisterHeading } = useTableOfContents(toc);
-  let { prev, next } = usePrevNext();
+  let { prev, next } = usePrevNext(); // 上下翻页
 
 
   // return null
   // console.log(toc)
   // console.log(classes)
+  // console.log(children)
   return (
     <div className="max-w-3xl mx-auto pt-10 xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16">
 
@@ -178,8 +181,8 @@ export function ContentsLayout({ children, meta, classes, tableOfContents, secti
       <PageHeader
         title={meta.title}
         description={meta.description}
-        repo={meta.repo}
-        badge={{ key: 'Tailwind CSS version', value: meta.featureVersion }}
+        repo={meta.repo || "repo"}
+        badge={{ key: 'Tailwind CSS version', value: meta.featureVersion}}
         section={section}
       />
 
@@ -199,10 +202,10 @@ export function ContentsLayout({ children, meta, classes, tableOfContents, secti
         )}
       </ContentsContext.Provider>
 
-      {/* ========={Footer}========== */}
+      {/* ========={ Footer }========== */}
       <Footer previous={prev} next={next}>
         <Link href={`https://github.com/steedos/steedos.com/edit/master/src/pages${router.pathname}.mdx`}>
-          <a className="hover:text-slate-900 dark:hover:text-slate-400">在GitHub上编辑此页面  Link：{"`${router.pathname}`"}</a>
+          <a className="hover:text-slate-900 dark:hover:text-slate-400">在GitHub上编辑此页面</a>
         </Link>
       </Footer>
 

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import * as React from 'react'
 import Image from 'next/image'
 import friendlyTime from 'friendly-time'
-import {NextSeo} from 'next-seo'
+import { NextSeo } from 'next-seo'
 import { ROOT_URL } from '@/lib/base.client'
 import removeMarkdown from 'remove-markdown'
 import { getCollection, getCollections } from '@/lib/document';
@@ -21,7 +21,7 @@ export async function getStaticProps({params}) {
     props: {
       ...collection
     },
-    revalidate: parseInt(process.env.NEXT_STATIC_PROPS_REVALIDATE), // In seconds
+    revalidate: parseInt(process.env.NEXT_STATIC_PROPS_REVALIDATE!), // In seconds
   }
 }
 
@@ -36,15 +36,20 @@ export async function getStaticPaths() {
   console.log('Building Document Collections...');
   console.log(paths);
 
-  // We'll pre-render only these paths at build time.
-  // { fallback: blocking } will server-render pages
-  // on-demand if the path doesn't exist.
+  // 我们将在构建时仅预渲染这些路径。
+  // { fallback: blocking } 将服务器渲染页面
+  // 如果路径不存在则按需。
   return { paths, fallback: 'blocking' }
 }
 
+
+
+// todo 此文件在   /layouts/ContentsLayout.js 被重写    ==={文档布局}===
 const Collection: React.FC = (props: any) => {
   const {name, slug, description, documents} = props;
   console.log("Collection")
+
+
   return (
     <>
       <NextSeo
@@ -56,52 +61,56 @@ const Collection: React.FC = (props: any) => {
         <div className="divide-y divide-gray-200">
           <div className="pt-6 pb-8 space-y-2 md:space-y-5">
             <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl md:text-[4rem] md:leading-[3.5rem]">
-            {name}
+              {name}
             </h1>
             <Markdown body={description}></Markdown>
           </div>
         </div>
         <ul className="divide-y divide-gray-200">
-        {documents && documents.map((article: any) => {
+          {documents && documents.map((article: any) => {
+          // FIXME: Url: http://localhost:3000/docs/deploy/getting-started     ==={/docs/{slug}/{article.slug}}===
           const fullSlug = `/docs/${slug}/${article.slug}`
           return (
-          <li className="py-12" key={fullSlug}>
-            <article className="sm:flex lg:col-span-7">
-              {/* <dl>
-                <dt className="sr-only">Published on</dt>
-                <dd className="text-base font-medium text-gray-500">
-                  <time datetime="2021-08-11T19:30:00.000Z">August 12, 2021</time>
-                </dd>
-              </dl> */}
-              <div className="flex-shrink-0 w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-none sm:w-40 sm:h-40">
-                {article.image && <img
-                    src={`${ROOT_URL}/api/files/images/${article.image}`}
-                    alt={article.name}
-                    width={160}
-                    height={160}
-                    className="w-full h-full object-center object-cover sm:w-full sm:h-full"
-                  />
-                }
-              </div>
-              <div className="mt-6 sm:mt-0 sm:ml-6">
-                <div className="space-y-4">
-                  <h2 className="text-2xl font-bold tracking-tight">
-                    <Link href={fullSlug}>
-                        <a className="text-gray-900">{article.name}</a>
-                    </Link>
-                  </h2>
-                  <div className="prose max-w-none text-gray-500">
-                    <div className="prose max-w-none">
-                      <p>{article.summary}</p>
+              <li className="py-12" key={fullSlug}>
+                <article className="sm:flex lg:col-span-7">
+                  <dl>
+                    <dt className="sr-only">Published on</dt>
+                    <dd className="text-base font-medium text-gray-500">
+                      <time dateTime="2021-08-11T19:30:00.000Z">August 12, 2021</time>
+                    </dd>
+                  </dl>
+                  <div className="flex-shrink-0 w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden sm:aspect-none sm:w-40 sm:h-40">
+                    {article.image && (
+                      // FIXME: Img: 安装部署、开发人员 前面的小图标
+                      <img
+                        src={`${ROOT_URL}/api/files/images/${article.image}`}
+                        alt={article.name}
+                        width={160}
+                        height={160}
+                        className="w-full h-full object-center object-cover sm:w-full sm:h-full"
+                      /> 
+                    )
+                    } 
+                  </div>
+                  <div className="mt-6 sm:mt-0 sm:ml-6">
+                    <div className="space-y-4">
+                      <h2 className="text-2xl font-bold tracking-tight">
+                        <Link href={fullSlug}>
+                            <a className="text-gray-900">{article.name}</a>
+                        </Link>
+                      </h2>
+                      <div className="prose max-w-none text-gray-500">
+                        <div className="prose max-w-none">
+                          <p>{article.summary}</p>
+                        </div>
+                      </div>
+                      <div className="text-base font-medium">
+                        <a className="text-teal-600 hover:text-teal-700" aria-label={article.name} href={fullSlug}>阅读更多 →</a>
+                      </div>
                     </div>
                   </div>
-                  <div className="text-base font-medium">
-                    <a className="text-teal-600 hover:text-teal-700" aria-label={article.name} href={fullSlug}>阅读更多 →</a>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </li>
+                </article>
+              </li>
             )
           })}
         </ul>

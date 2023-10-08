@@ -11,7 +11,7 @@ import KeycloakProvider from '@/lib/auth/KeycloakProvider'
 import CredentialsProvider from '@/lib/auth/CredentialsProvider'
 const axios = require('axios')
 const querystring = require('querystring')
-const STEEDOS_ROOT_URL = process.env.NEXT_PUBLIC_STEEDOS_ROOT_URL
+const STEEDOS_ROOT_URL = process.env.NEXT_PUBLIC_STEEDOS_ROOT_URL // https://console.steedos.cn
 const OIDC_API = '/api/global/auth/oidc/login'
 const VALIDATE_API = '/api/setup/validate'
 
@@ -42,19 +42,22 @@ const validateSteedosToken = async (space, token) => {
 }
 
 /**
- * Takes a token, and returns a new token with updated
- * `accessToken` and `accessTokenExpires`. If an error occurs,
- * returns the old token and an error property
+ * todo 刷新访问令牌
+ * 获取一个令牌，并返回一个更新后的新令牌
+ * `accessToken` 和 `accessTokenExpires`。如果发生错误，
+ * 返回旧令牌和错误属性
  */
 async function refreshAccessToken(token) {
   try {
-    const url = `${process.env.KEYCLOAK_ISSUER}/protocol/openid-connect/token`
+    // https://id.steedos.cn/realms/master
+    // https://id.steedos.cn/realms/master/protocol/openid-connect/token
+    const url = `${process.env.KEYCLOAK_ISSUER}/protocol/openid-connect/token` 
 
     const response = await axios.post(
       url,
       querystring.stringify({
-        client_id: process.env.KEYCLOAK_ID,
-        client_secret: process.env.KEYCLOAK_SECRET,
+        client_id: process.env.KEYCLOAK_ID, // www.steedos.cn
+        client_secret: process.env.KEYCLOAK_SECRET, // none
         grant_type: 'refresh_token',
         refresh_token: token.refreshToken,
       })
@@ -66,7 +69,7 @@ async function refreshAccessToken(token) {
       ...token,
       accessToken: refreshedTokens.access_token,
       accessTokenExpires: Date.now() + refreshedTokens.expires_in * 1000,
-      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
+      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // 回退到旧的刷新令牌
     }
   } catch (error) {
     console.log(error)
@@ -77,8 +80,9 @@ async function refreshAccessToken(token) {
     }
   }
 }
-
+// todo Nextjs 使用next-auth配置JWT token：https://www.cnblogs.com/eddyz/p/17622721.html
 export const authOptions = {
+  // 9kOEcyNC4qfhClzm2FFnyR3xzI2DuE7/F6BWqdYTlko=
   secret: process.env.NEXTAUTH_SECRET,
   // Configure one or more authentication providers
   providers: [KeycloakProvider],

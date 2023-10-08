@@ -3,14 +3,8 @@ import { Footer } from '@/components/Footer'
 
 
 
-
-
-
-
-
-
-// 可能未使用此组件哦
-export function BasicLayout({ children }) {
+  
+export function BasicLayout({ children }) { // !可能未使用此组件哦
   console.log("/layouts Funtion BasicLayout () {}")
   return (
     <>

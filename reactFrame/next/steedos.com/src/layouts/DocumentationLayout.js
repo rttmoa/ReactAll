@@ -1,27 +1,20 @@
-import Head from 'next/head'
-import { Header } from '@/components/Header'
-import socialSquare from '@/img/social-square.jpg'
-
-
 import { useRouter } from 'next/router'
 import { Title } from '../components/Title'
-import { SidebarLayout } from '@/layouts/SidebarLayout'
-import { documentationNav } from '@/navs/documentation'
+import { SidebarLayout } from './SidebarLayout'
+import { documentationNav } from '../navs/documentation'
 
 
-
-
-
-// TODO: 文档布局
+// TODO: 文档布局 Main
 export function DocumentationLayout(props) {
   let router = useRouter()
-  // console.log("/layouts Funtion DocumentationLayout () {}") // +
+  // console.log(props) //  { children, layoutProps, navIsOpen, setNavIsOpen }
 
   return (
     <>
       <Title suffix={router.pathname === '/' ? undefined : '华炎魔方'}>
         {props.layoutProps.meta.metaTitle || props.layoutProps.meta.title}
       </Title>
+
       <SidebarLayout nav={documentationNav} {...props} />
     </>
   )

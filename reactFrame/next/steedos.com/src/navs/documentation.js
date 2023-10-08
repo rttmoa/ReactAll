@@ -5,10 +5,14 @@
  * @LastEditTime: 2022-07-11 17:19:01
  * @Description:
  */
-import { createPageList } from '../utils/createPageList';  // TODO: utils/createPageList
+import { createPageList, t_createPageList } from '../utils/createPageList';  // TODO: utils/createPageList
 
 
+const t_deploy = t_createPageList(require.context('../pages/docs/deploy/?meta=title,shortTitle,published', false, /\.mdx$/), 'docs/deploy')
+// console.log(t_deploy)
+// console.log(t_deploy['getting-started']) // {title: '快速向导', href: '/docs/deploy/getting-started'}
 
+// 安装部署
 const deploy = createPageList(require.context(`../pages/docs/deploy/?meta=title,shortTitle,published`, false, /\.mdx$/), 'docs/deploy');
 
 const admin = createPageList(
@@ -41,7 +45,7 @@ const apps = createPageList(
 )
 
 
-//========={docs SideBar}==========
+//========={docs SideBar}==========   属性： {title: '快速向导', href: '/docs/deploy/getting-started'}
 export const documentationNav = {
   '安装部署': [
     deploy['getting-started'],
@@ -50,6 +54,9 @@ export const documentationNav = {
     deploy['app-store'],
     deploy['steedos-config'],
     deploy['upgrade'],
+  ],
+  'Fake': [
+
   ],
   '开发人员': [
     developer['getting-started'],
@@ -140,3 +147,4 @@ export const documentationNav = {
     developer['jsreport'],
   ],
 }
+// console.log(documentationNav)

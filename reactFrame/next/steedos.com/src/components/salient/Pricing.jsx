@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 
 import { Button } from '@/components/salient/Button'
-import { Container } from '@/components/salient/Container'
+import { Container } from './Container'
 
 
 
@@ -22,7 +22,7 @@ function SwirlyDoodle({ className }) {
     </svg>
   )
 }
-
+// ul li 前面的  √
 function CheckIcon({ className }) {
   return (
     <svg
@@ -48,7 +48,7 @@ function CheckIcon({ className }) {
     </svg>
   )
 }
-
+// 社区版、专业版、企业版 卡片
 function Plan({ name, price, description, href, hrefTitle, features, featured = false }) {
   return (
     <section
@@ -96,11 +96,10 @@ function Plan({ name, price, description, href, hrefTitle, features, featured = 
   )
 }
 
-// 主页面 -> 版本与报价
+// TODO: 版本与报价
 export function Pricing() {
   return (
-    <section
-      id="pricing"
+    <section id="pricing"
       aria-label="Pricing"
       className="bg-slate-900 py-20 sm:py-32"
     >
@@ -108,9 +107,10 @@ export function Pricing() {
         <div className="md:text-center">
           <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl">
             <span className="relative whitespace-nowrap">
+              {/* 背景图画 （Svg） */}
               <SwirlyDoodle className="absolute top-1/2 left-0 h-[1em] w-full fill-blue-400" />
               <span className="relative">版本与报价</span>
-            </span>{' '}
+            </span>
           </h2>
           <p className="mt-4 text-lg text-slate-400">
             华炎魔方社区版完全免费，不限制用户数、不限制时间。
@@ -135,6 +135,8 @@ export function Pricing() {
             ]}
           />
           <Plan
+            description="描述...."
+            // 蓝色卡片
             featured
             name="¥9,800/不限用户/年"
             price="专业版"

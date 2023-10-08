@@ -1,3 +1,4 @@
+/** #### TODO: 节选 & 标题 & 描述  */
 export function PageHeader({ title, description, repo, badge = {}, section }) {
   if (!title && !description) return null
 
@@ -6,12 +7,12 @@ export function PageHeader({ title, description, repo, badge = {}, section }) {
       <div>
         {section && (
           <p className="mb-2 text-sm leading-6 font-semibold text-sky-500 dark:text-sky-400">
-            <b>sec：</b>{section}
+            {section}
           </p>
         )}
         <div className="flex items-center">
           <h1 className="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">
-          <b>t：</b>{title}
+            {title}
           </h1>
           {repo && (
             <a href={repo} className="ml-3 block text-slate-400 hover:text-slate-500 dark:hover:text-slate-300 sm:mt-1 sm:ml-4">
@@ -35,7 +36,7 @@ export function PageHeader({ title, description, repo, badge = {}, section }) {
         )}
       </div>
       {description && (
-        <p className="mt-2 text-lg text-slate-700 dark:text-slate-400"><b>des：</b>{description}</p>
+        <p className="mt-2 text-lg text-slate-700 dark:text-slate-400">{description}</p>
       )}
     </header>
   )
