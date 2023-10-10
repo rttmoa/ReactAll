@@ -13,16 +13,14 @@ const QUERY_SITE_VIDEOS = `{
         sort_no,
         thumb_image,
         summary
-      }
+    }
 
 }`
 
 export async function getVideos() {
-    //TODO：按站点获取数据 , filters:["site","=","${siteId}"]
     const query = `{site_videos_collections(sort: "sort_no")${QUERY_SITE_VIDEOS}}`;
     const result = await fetchGraphql(query);
     let videos = null;
-    // console.log("result", result) // FIXME: 没有权限：{ code: 401, type: 'NO_RIGHTS', retryable: false }
     if(result.data && result.data.site_videos_collections && result.data.site_videos_collections.length > 0){
         videos = result.data.site_videos_collections;
     }

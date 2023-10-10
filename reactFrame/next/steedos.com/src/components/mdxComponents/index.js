@@ -1,9 +1,10 @@
 import { XCircleIcon, InformationCircleIcon, ExclamationIcon, StarIcon } from '@heroicons/react/solid'
-import { Heading } from '../Heading'
-import Frame from '../Frame'
+
 import { isString } from 'lodash'
 
+import Frame from '../Frame'
 
+import { Heading } from '../Heading'
 
 
 export function a({ node, ...props }) {
@@ -11,10 +12,7 @@ export function a({ node, ...props }) {
     const result = props.href.match(/\/embed\/videos\//i);
     if (result) {
       // const src = props.href.replace('/videos/', '/embed/videos/')
-      return <Frame
-        className="aspect-video"
-        src={props.href}
-      />
+      return <Frame className="aspect-video" src={props.href} />            // todo 封装 <iframe />
     }
 
     const target = props.href.match(/https:\/\//i) || props.href.match(/http:\/\//i) ? "_blank": "_self";

@@ -3,35 +3,32 @@ import { ContentsContext } from '@/layouts/ContentsLayout'
 import { useTop } from '@/hooks/useTop'
 import clsx from 'clsx'
 
-export function Heading({
-  level,
-  id,
-  children,
-  number,
-  badge,
-  className = '',
-  hidden = false,
-  ignore = false,
-  style = {},
-  nextElement,
-  ...props
-}) {
+
+  
+export function Heading({ level,id,children,number = "",badge = "",className = '',hidden = false,ignore = false,  style = {},nextElement,  ...props }) {
+
   let Component = `h${level}`
   const context = useContext(ContentsContext)
 
   let ref = useRef()
   let top = useTop(ref)
+  // console.log(ref.current) // ? ref 绑定到DOM上 即获取每个DOM
+  // console.log(parseInt(top))
 
   useEffect(() => {
     if (!context) return
     if (typeof top !== 'undefined') {
-      context.registerHeading(id, top)
+      // console.log(id, top)
+      context.registerHeading(id, top) // ? 返回  id 对应 DOM 距离顶部的高度
     }
     return () => {
+      // console.log(id)
       context.unregisterHeading(id)
     }
   }, [top, id, context?.registerHeading, context?.unregisterHeading])
 
+
+  // console.log(id) // 每个导航名； 软件包名称 / 登录NPM / 发布 / 软件包安装 / 安装 / 升级 
   return (
     <Component
       className={clsx('group flex whitespace-pre-wrap', className, {
@@ -69,6 +66,7 @@ export function Heading({
           {number}
         </span>
       )}
+      {/* 标题 */}
       <span className={hidden ? 'sr-only' : undefined}>{children}</span>
       {badge && (
         <span className="ml-3 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium leading-4 bg-green-150 text-green-900">

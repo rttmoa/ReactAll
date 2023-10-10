@@ -1,6 +1,11 @@
+
+
+
+
 function importAll(r) {
+  // 属性名 & 开头包含. & 返回新数组 & 过滤 & 过滤 & 排序
   return r
-    .keys()
+    .keys() 
     .filter((filename) => filename.startsWith('.'))
     .map((filename) => ({
       slug: filename.substr(2).replace(/\/index\.mdx$/, ''),
@@ -22,6 +27,6 @@ export function getAllPostPreviews() {
   return importAll(require.context('../pages/blog/?preview', true, /\.mdx$/))
 }
 
-export function getAllPosts() {
+export function getAllPosts() {  
   return importAll(require.context('../pages/blog/?rss', true, /\.mdx$/))
 }

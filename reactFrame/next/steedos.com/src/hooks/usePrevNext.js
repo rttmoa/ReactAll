@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 
 
 
-// 自定义Hook ->  docs翻页
+// 上下翻页
 export function usePrevNext() {
   let router = useRouter()
   let { nav } = useContext(SidebarContext)

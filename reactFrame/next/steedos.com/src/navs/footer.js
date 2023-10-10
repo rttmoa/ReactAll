@@ -1,6 +1,6 @@
 
 
-//========={Home中 底部Footer}==========
+// ?========={ Footer 配置 Object  }==========
 export const footerNav = [
   {
     id: 'platform',

@@ -348,14 +348,15 @@ function Nav({ nav, children, fallbackHref, mobile = false }) {  // todo =======
   const router = useRouter()
   const activeItemRef = useRef()          // 挂载到 访问的 li 上
   const previousActiveItemRef = useRef()  // 预备Ref
-  const scrollRef = useRef()              // nav 上
+  const scrollRef = useRef()              // 挂载到 nav 上
 
-  // 刷新页面 定位到访问元素
+  // ? 刷新页面 定位到访问元素
+  // 组织与用户； http://localhost:3000/docs/admin/organization  
   useIsomorphicLayoutEffect(() => { 
     
     const updatePreviousRef = () => previousActiveItemRef.current = activeItemRef.current;
 
-    // console.log(activeItemRef.current) // <li>...</li>
+    // console.log(activeItemRef.current) // <li><a>组织与用户</a></li>
     if (activeItemRef.current) {
       if (activeItemRef.current === previousActiveItemRef.current) {
         updatePreviousRef()
@@ -363,23 +364,26 @@ function Nav({ nav, children, fallbackHref, mobile = false }) {  // todo =======
       }
       updatePreviousRef()
       
-      const scrollable = nearestScrollableContainer(scrollRef.current)
+      const scrollable = nearestScrollableContainer(scrollRef.current) // 整个 DOM； <nav />
 
-      const scrollRect = scrollable.getBoundingClientRect()
-      const activeItemRect = activeItemRef.current.getBoundingClientRect()
+      const scrollRect = scrollable.getBoundingClientRect() 
+      const activeItemRect = activeItemRef.current.getBoundingClientRect() // DOMRect { bottom, height: 23, left, right, top: 1176, width, x, y}
 
-      const top = activeItemRef.current.offsetTop
+      const top = activeItemRef.current.offsetTop // 1116
       const bottom = top - scrollRect.height + activeItemRect.height
 
           // console.log(scrollRef.current) // DOM: <nav />
           // console.log(scrollable) // DOM: <nav />
-          // console.log(scrollRect)
-          // console.log(activeItemRect)
+          // console.log(scrollable.scrollTop)
+          // console.log(scrollRect) // DOMRect { } 
+          // console.log(scrollRect.height)
+          // console.log(activeItemRect) // DOMRect { } 
           // console.log(top) // offsetTop: 距离DOM最顶部的距离
-          // console.log(bottom)
+          // console.log(bottom)  
           // console.log(scrollRect.height, activeItemRect.height)  
 
       if (scrollable.scrollTop > top || scrollable.scrollTop < bottom) {
+        // ? 设置 <nav /> 的scrollTop的值
         scrollable.scrollTop = top - scrollRect.height / 2 + activeItemRect.height / 2
       }
     }

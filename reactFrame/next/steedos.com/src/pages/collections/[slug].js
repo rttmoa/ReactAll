@@ -7,7 +7,7 @@
 // import ReviewStars from '@/components/product/ReviewStars'
 // import Price from '@/components/product/Price'
 
-// export async function getStaticProps({params}) {
+// export async function getStaticProps({params}) {  2
 //   const { slug } = params
 //   const collection = await getCollectionProducts(slug)
 //   if (!collection) {
@@ -19,18 +19,14 @@
 //   }
 // }
 
-// export async function getStaticPaths() {
+// export async function getStaticPaths() {  1
 //   const items = await getCollections()
 
 //   const paths = items.map((item) => ({
 //     params: { slug: item.slug },
 //   }))
 //   console.log('Building Product Collections...');
-//   console.log(paths);
-
-//   // We'll pre-render only these paths at build time.
-//   // { fallback: blocking } will server-render pages
-//   // on-demand if the path doesn't exist.
+//   console.log(paths); 
 //   return { paths, fallback: 'blocking' }
 // }
 

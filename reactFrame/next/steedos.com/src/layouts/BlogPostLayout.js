@@ -1,7 +1,7 @@
 // import { Widont } from '@/components/home/common'
 import PostItem from '@/components/PostItem'
 import Link from 'next/link'
-import tinytime from 'tinytime'   // TODO: 简单的日期和时间格式
+import tinytime from 'tinytime'   
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { MDXProvider } from '@mdx-js/react'
@@ -14,10 +14,58 @@ let postDateTemplate = tinytime('{dddd}, {MMMM} {DD}, {YYYY}')
 let grid = 'max-w-3xl mx-auto xl:max-w-none xl:grid xl:grid-cols-[1fr_50rem] xl:gap-x-8'
 
 
+// ? 未使用组件
+
+
+export function getStaticProps() {
+  return {
+    props: {
+      latestPosts: getAllPosts()
+        .slice(0, 3)
+        .map(({ slug, module: { meta } }) => {
+          return { slug, title: meta.title, description: meta.description, date: meta.date }
+        }),
+    },
+  }
+}
+
+
+function Metadata({ meta }) {
+  let router = useRouter()
+  return (
+    <Head>
+      <title>{meta.title} – Tailwind CSS</title>
+      <meta name="twitter:site" content="@tailwindcss" />
+      <meta name="twitter:creator" content="@tailwindcss" />
+      <meta name="twitter:title" content={`${meta.title} – Tailwind CSS`} />
+      <meta name="twitter:description" content={meta.description} />
+      {meta.image ? (
+        <>
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:image" content={`https://tailwindcss.com${meta.image}`} />
+        </>
+      ) : (
+        <>
+          <meta name="twitter:card" content="summary" />
+          <meta
+            name="twitter:image"
+            content={`https://tailwindcss.com${require('@/img/social-square.jpg').default}`}
+          />
+        </>
+      )}
+      <meta property="og:url" content={`https://tailwindcss.com${router.pathname}`} />
+      <meta property="og:type" content="article" />
+      <meta property="og:title" content={`${meta.title} – Tailwind CSS`} />
+      <meta property="og:description" content={meta.description} />
+      <meta property="og:image" content={`https://tailwindcss.com${meta.image}`} />
+      <meta name="description" content={meta.description}></meta>
+    </Head>
+  )
+}
+
 
 // !可能未使用此组件哦
 export function BlogPostLayout({ children, meta, slug, latestPosts }) {
-  console.log("/layouts -> Funtion BlogPostLayout () {} ")
   return (
     <div className="mx-auto mt-10 px-4 pb-28 sm:mt-16 sm:px-6 md:px-8 xl:px-12 xl:max-w-6xl">
       <main>
@@ -102,53 +150,5 @@ export function BlogPostLayout({ children, meta, slug, latestPosts }) {
         </div>
       </footer>
     </div>
-  )
-}
-
-export function getStaticProps() {
-  console.log("/layouts -> Funtion getStaticProps () {} ")
-  return {
-    props: {
-      latestPosts: getAllPosts()
-        .slice(0, 3)
-        .map(({ slug, module: { meta } }) => {
-          return { slug, title: meta.title, description: meta.description, date: meta.date }
-        }),
-    },
-  }
-}
-
-function Metadata({ meta }) {
-  let router = useRouter()
-  console.log("/layouts -> Funtion Metadata () {} ")
-
-  return (
-    <Head>
-      <title>{meta.title} – Tailwind CSS</title>
-      <meta name="twitter:site" content="@tailwindcss" />
-      <meta name="twitter:creator" content="@tailwindcss" />
-      <meta name="twitter:title" content={`${meta.title} – Tailwind CSS`} />
-      <meta name="twitter:description" content={meta.description} />
-      {meta.image ? (
-        <>
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:image" content={`https://tailwindcss.com${meta.image}`} />
-        </>
-      ) : (
-        <>
-          <meta name="twitter:card" content="summary" />
-          <meta
-            name="twitter:image"
-            content={`https://tailwindcss.com${require('@/img/social-square.jpg').default}`}
-          />
-        </>
-      )}
-      <meta property="og:url" content={`https://tailwindcss.com${router.pathname}`} />
-      <meta property="og:type" content="article" />
-      <meta property="og:title" content={`${meta.title} – Tailwind CSS`} />
-      <meta property="og:description" content={meta.description} />
-      <meta property="og:image" content={`https://tailwindcss.com${meta.image}`} />
-      <meta name="description" content={meta.description}></meta>
-    </Head>
   )
 }

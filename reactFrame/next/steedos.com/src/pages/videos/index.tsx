@@ -53,7 +53,22 @@ const SiteVideos: React.FC = ({ section, videos }: any) => {
                       <Link href={`/videos/${video.slug}`}>
                         <a>
                           <div className="absolute top-0 left-0 w-full h-full bg-gray-200 dark:bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 dark:text-gray-600">
-                            <IconPlaceholder />
+                            {/* 加载失败图片 */}
+                            <svg
+                              width="20"
+                              height="20"
+                              viewBox="0 0 20 20"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g fill="none">
+                                <path
+                                  fillRule="evenodd"
+                                  clipRule="evenodd"
+                                  d="M4 3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                                  fill="currentColor"
+                                />
+                              </g>
+                            </svg>
                           </div>
                         </a>
                       </Link>
@@ -78,25 +93,7 @@ const SiteVideos: React.FC = ({ section, videos }: any) => {
       </div>
     </div>
   ) 
-}
-// 加载失败图片
-const IconPlaceholder = () => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <g fill="none">
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M4 3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-        fill="currentColor"
-      />
-    </g>
-  </svg>
-)
+} 
 
 export const VideoData = [
   {

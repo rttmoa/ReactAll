@@ -5,8 +5,7 @@ import { Fragment, useEffect, useRef, useState } from 'react'
 
 function update() {
   if (
-    localStorage.theme === 'dark' ||
-    (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
   ) {
     document.documentElement.classList.add('dark', 'changing-theme')
   } else {
@@ -161,7 +160,7 @@ function useTheme() {
 
   return [setting, setSetting]
 }
-
+// ? 主题切换
 export function ThemeToggle({ panelClassName = 'mt-4' }) {
   let [setting, setSetting] = useTheme()
 
@@ -202,7 +201,7 @@ export function ThemeToggle({ panelClassName = 'mt-4' }) {
     </Listbox>
   )
 }
-
+// ? 主题选择
 export function ThemeSelect() {
   let [setting, setSetting] = useTheme()
 

@@ -20,9 +20,7 @@ export function Tabs({ tabs, selected, onChange, className, iconClassName }) {
                 fill="none"
                 aria-hidden="true"
                 className={`mb-6 ${
-                  selected === name
-                    ? iconClassName
-                    : 'text-slate-300 group-hover:text-slate-400 dark:text-slate-600 dark:group-hover:text-slate-500'
+                  selected === name ? iconClassName : 'text-slate-300 group-hover:text-slate-400 dark:text-slate-600 dark:group-hover:text-slate-500'
                 }`}
               >
                 {icon(selected === name)}

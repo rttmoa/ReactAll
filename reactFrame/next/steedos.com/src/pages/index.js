@@ -13,7 +13,6 @@ import ReviewStars from '@/components/product/ReviewStars'
 import Price from '@/components/product/Price'
 import { getDefaultPrice } from '@/lib/product.client';
 import clsx from 'clsx'
-import styles from './index.module.css'
 
 
 import { Features } from '@/components/Features'
@@ -26,9 +25,7 @@ import { PrimaryFeatures } from '../components/salient/PrimaryFeatures'
 import { SecondaryFeatures } from '../components/salient/SecondaryFeatures'
 import { Testimonials as Testimonials2} from '../components/salient/Testimonials'
 
-
-
-
+  
 
 export async function getStaticProps({params}) {
   const slug = 'steedos-packages'

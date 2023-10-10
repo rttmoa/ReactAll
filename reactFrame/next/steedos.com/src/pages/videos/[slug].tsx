@@ -16,8 +16,9 @@ import { Player } from '@/components/player'
 import { VideoData } from '.'
 
   
-  
-// export async function getStaticProps({ params, res, locale, locales, preview }) {
+// 服务端处理
+// export async function getStaticProps({ params, res, locale, locales, preview }) { // 第二步；给客户端数据
+//   console.log(params);  // { slug: 'lesson-object' }
 //   const { slug } = params;
 //   console.log('slug', slug);
 //   const video = await getVideo(slug)
@@ -28,11 +29,10 @@ import { VideoData } from '.'
 //   }
 // }
 
-// export async function getStaticPaths() {
+// export async function getStaticPaths() { // 第一步；先处理 Path
 //   const items = await getVideos()
-//   const paths = items.map((item) => ({ // 根据帖子获取我们想要预渲染的路径
-//     params: { slug: item.slug },
-//   })) 
+//   const pathsR = items.map((item) => ({ params: { slug: item.slug } })) // 根据帖子获取我们想要预渲染的路径
+
 //   let paths = [{params: {slug: 'lesson-object-relationship'}}, {params: {slug: 'lesson-object'}},{params: {slug: 'workflow_rules'}},]
 //   return { paths, fallback: 'blocking' }
 // }

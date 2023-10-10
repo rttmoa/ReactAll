@@ -2,13 +2,14 @@ import clsx from 'clsx'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 
-
+// ? 服务端渲染组件
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx)
     return { ...initialProps }
   }
   render() {
+    // console.log("MyDocument Component")
     return (
       <Html lang="en" className="[--scroll-mt:9.875rem] lg:[--scroll-mt:6.3125rem]">
         <Head>

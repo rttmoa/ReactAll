@@ -1,8 +1,16 @@
-import { fetchAPI, ROOT_URL } from '@/lib/base.client';
+import { fetchAPI, ROOT_URL } from './base.client';
 import { getSession, signOut } from 'next-auth/react';
 
 
-// TODO: 控制台中打印
+// ? 客户端；
+    // 权限认证
+    // 登陆
+    // 注册
+    // 退出
+    // 本地存储 localStorage
+    // 清除本地存储 localStorage
+    // 获取授权；Bearer Token
+
 function getRedirectUrl(href = window.location.href){
 	const redirect = href.replace("/steedos/sign-in", "").replace("/accounts/a/#/logout", "");
 	const u = new URL(redirect);
@@ -13,22 +21,22 @@ function getRedirectUrl(href = window.location.href){
 	return u.toString();
 }
 
-export async function authValidate(){
+export async function authValidate(){ // 权限认证
     const data = await fetchAPI(`/api/v4/users/validate`, {method: 'POST', body: JSON.stringify({})})
     return data;
 }
 
-export function goLogin(router){
+export function goLogin(router){ // 登陆
     window.location.href = `/login?callbackUrl=${getRedirectUrl()}`;
     // router.replace(`/login?callbackUrl=${getRedirectUrl()}`, null, {shallow: true})
     // window.location.href = `${ROOT_URL}/accounts/a/#/login?redirect_uri=${getRedirectUrl()}`
 }
 
-export function goSignup(router){
+export function goSignup(router){ // 注册
     window.location.href = `${ROOT_URL}/accounts/a/#/signup?redirect_uri=${getRedirectUrl()}`
 }
 
-export function goLogout(router){
+export function goLogout(router){ // 退出
     signOut({callbackUrl: getRedirectUrl()})
     //window.location.href = `${ROOT_URL}/accounts/a/#/logout?redirect_uri=${getRedirectUrl()}`
 }
@@ -45,10 +53,12 @@ export function removeAuthInfo(){
     localStorage.removeItem("steedos:token");
 }
 
-export async function getAuthorization() {
+export async function getAuthorization() { // 获得授权; Bearer Token
     try {
         const session = await getSession()
-        if(!session || !session.steedos){ return; }
+        // console.log('session', session) // null 
+
+        if(!session || !session.steedos) return
         let spaceId = session.steedos.space;
         let token = session.steedos.token;
 
@@ -57,7 +67,7 @@ export async function getAuthorization() {
         //     spaceId = searchParams.get('X-Space-Id');
         //     token = searchParams.get('X-Auth-Token');
         // }
-        if (!spaceId || !token) { return null; }
+        if (!spaceId || !token)  return null;
         return `Bearer ${spaceId},${token}`;
     } catch (error) {
         console.error(error)

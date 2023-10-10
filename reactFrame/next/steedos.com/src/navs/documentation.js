@@ -7,10 +7,17 @@
  */
 import { createPageList, t_createPageList } from '../utils/createPageList';  // TODO: utils/createPageList
 
+// ? 侧边栏 处理文件
 
 const t_deploy = t_createPageList(require.context('../pages/docs/deploy/?meta=title,shortTitle,published', false, /\.mdx$/), 'docs/deploy')
 // console.log(t_deploy)
 // console.log(t_deploy['getting-started']) // {title: '快速向导', href: '/docs/deploy/getting-started'}
+    // {
+    //   deploy-windows: {title: 'Windows 部署', href: '/docs/deploy/deploy-windows'}
+    //   getting-started: {title: '快速向导', href: '/docs/deploy/getting-started'}
+    //   upgrade: {title: '版本升级', href: '/docs/deploy/upgrade'}
+    //   .... 
+    // } 
 
 // 安装部署
 const deploy = createPageList(require.context(`../pages/docs/deploy/?meta=title,shortTitle,published`, false, /\.mdx$/), 'docs/deploy');

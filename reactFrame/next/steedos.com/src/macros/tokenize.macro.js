@@ -7,6 +7,9 @@ module.exports = createMacro(tokenizeMacro)
 
 
 
+
+// ? Prism 代码高亮工具
+
 function simplify(token) {
   if (typeof token === 'string') return token
   return [token.type, Array.isArray(token.content) ? token.content.map(simplify) : token.content]
@@ -65,7 +68,7 @@ function tokenizeMacro({ references, babel: { types: t } }) {
 
 const newlineRe = /\r\n|\r|\n/
 
-// Empty lines need to contain a single empty token, denoted with { empty: true }
+// 空行需要包含一个空标记，用 {empty: true } 表示
 function normalizeEmptyLines(line) {
   if (line.length === 0) {
     line.push({
@@ -86,13 +89,11 @@ function appendTypes(types, add) {
   return types.concat(add)
 }
 
-// Takes an array of Prism's tokens and groups them by line, turning plain
-// strings into tokens as well. Tokens can become recursive in some cases,
-// which means that their types are concatenated. Plain-string tokens however
-// are always of type "plain".
-// This is not recursive to avoid exceeding the call-stack limit, since it's unclear
-// how nested Prism's tokens can become
-function normalizeTokens(tokens) {
+// 获取一系列 Prism 的标记并按行对它们进行分组，变成普通的字符串也转换为标记。
+// 在某些情况下，令牌可能会递归，这意味着它们的类型是串联的。但是纯字符串标记始终是“plain”类型。
+// 这不是递归的，以避免超出调用堆栈限制，因为尚不清楚 
+// Prism 的令牌可以如何嵌套
+function normalizeTokens(tokens) { 
   const typeArrStack = [[]]
   const tokenArrStack = [tokens]
   const tokenArrIndexStack = [0]
@@ -112,7 +113,7 @@ function normalizeTokens(tokens) {
       const tokenArr = tokenArrStack[stackIndex]
       const token = tokenArr[i]
 
-      // Determine content and append type to types if necessary
+      // 确定内容并在必要时将类型附加到类型
       if (typeof token === 'string') {
         types = stackIndex > 0 ? types : ['plain']
         content = token
@@ -124,7 +125,7 @@ function normalizeTokens(tokens) {
         content = token.content
       }
 
-      // If token.content is an array, increase the stack depth and repeat this while-loop
+      // ? 如果 token.content 是一个数组，则增加堆栈深度并重复此 while 循环
       if (typeof content !== 'string') {
         stackIndex++
         typeArrStack.push(types)
@@ -134,13 +135,13 @@ function normalizeTokens(tokens) {
         continue
       }
 
-      // Split by newlines
+      // 按换行符分割
       const splitByNewlines = content.split(newlineRe)
       const newlineCount = splitByNewlines.length
 
       currentLine.push({ types, content: splitByNewlines[0] })
 
-      // Create a new line for each string on a new line
+      // 为新行上的每个字符串创建一个新行
       for (let i = 1; i < newlineCount; i++) {
         normalizeEmptyLines(currentLine)
         acc.push((currentLine = []))
@@ -148,7 +149,7 @@ function normalizeTokens(tokens) {
       }
     }
 
-    // Decreate the stack depth
+    // 减少堆栈深度
     stackIndex--
     typeArrStack.pop()
     tokenArrStack.pop()

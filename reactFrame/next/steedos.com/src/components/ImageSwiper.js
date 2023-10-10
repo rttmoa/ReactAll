@@ -1,17 +1,14 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Disclosure, Popover, RadioGroup, Tab, Transition } from '@headlessui/react'
-import {
-  XIcon,
-} from '@heroicons/react/outline'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectFlip, Navigation, Pagination } from "swiper";
-import 'swiper/css';
-import "swiper/css/effect-flip";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import { XIcon } from '@heroicons/react/outline'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { EffectFlip, Navigation, Pagination } from 'swiper'
+import 'swiper/css'
+import 'swiper/css/effect-flip'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 
-export const ImageSwiper = function({images}) {
-
+export const ImageSwiper = function ({ images }) {
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
@@ -26,17 +23,21 @@ export const ImageSwiper = function({images}) {
     <>
       <Swiper
         spaceBetween={30}
-        effect={"flip"}
+        effect={'flip'}
         navigation={true}
         pagination={{
           clickable: true,
         }}
         modules={[EffectFlip, Navigation, Pagination]}
         className="bg-black shadow-md shadow-gray-700 border-black aspect-[4/3] justify-center max-h-[260px] sm:max-h-[380px] md:max-h-[512px] lg:max-h-[512px] xl:max-h-[600px] ml-0"
-        >
+      >
         {images.map((image) => (
           <SwiperSlide className="overflow-hidden h-full">
-            <img className="mx-auto h-full max-w-full object-contain self-center" src={image.src} onClick={openModal}/>
+            <img
+              className="mx-auto h-full max-w-full object-contain self-center"
+              src={image.src}
+              onClick={openModal}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -77,24 +78,26 @@ export const ImageSwiper = function({images}) {
                     </button>
                   </div>
                   <div className="h-full">
-                      <Swiper
-                        spaceBetween={30}
-                        effect={"flip"}
-                        navigation={true}
-                        pagination={{
-                          clickable: true,
-                        }}
-                        modules={[EffectFlip, Navigation, Pagination]}
-                        className="h-full justify-center"
-                        >
-                        {images.map((image) => (
-                          <SwiperSlide className="h-full">
-                            <img className="mx-auto object-contain h-full max-w-full self-center" src={image.src} />
-                          </SwiperSlide>
-                        ))}
-                      </Swiper>
+                    <Swiper
+                      spaceBetween={30}
+                      effect={'flip'}
+                      navigation={true}
+                      pagination={{
+                        clickable: true,
+                      }}
+                      modules={[EffectFlip, Navigation, Pagination]}
+                      className="h-full justify-center"
+                    >
+                      {images.map((image) => (
+                        <SwiperSlide className="h-full">
+                          <img
+                            className="mx-auto object-contain h-full max-w-full self-center"
+                            src={image.src}
+                          />
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
                   </div>
-
                 </Dialog.Panel>
               </Transition.Child>
             </div>

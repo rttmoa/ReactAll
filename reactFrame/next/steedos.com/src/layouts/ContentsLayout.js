@@ -10,14 +10,15 @@ import { Footer } from '@/components/FooterDocs'
 import { mdxComponents } from '../components/mdxComponents'
 import { MDXProvider } from '@mdx-js/react'
 
-export const ContentsContext = createContext()
+export const ContentsContext = createContext() // 文档 > 内容
 
+import { Heading } from '@/components/Heading'
 
 // TODO: 右侧 内容布局
 
 
-//========={本页内容}==========
-function TableOfContents({ tableOfContents, currentSection }) {
+//========={ 本页内容 }==========
+function TableOfContents({ tableOfContents, currentSection }) { // section && section.children && href="#元数据"
   let sidebarContext = useContext(SidebarContext)
   let isMainNav = Boolean(sidebarContext)
 
@@ -39,17 +40,21 @@ function TableOfContents({ tableOfContents, currentSection }) {
 
   let pageHasSubsections = tableOfContents.some((section) => section.children.length > 0)
 
+
+
+  // console.log(tableOfContents)
   return (
     <>
       <h5 className="text-slate-900 font-semibold mb-4 text-sm leading-6 dark:text-slate-100">
-        本页内容333
+        本页内容
       </h5>
+      {/* ===={ 遍历目录 }==== */}
       <ul className="text-slate-700 text-sm leading-6">
-        {tableOfContents.map((section) => (
+        {tableOfContents && tableOfContents.map((section) => (
           // let sectionIsActive = section.slug || section.children.findIndex(({ slug }) => slug === currentSection) > -1;
           <Fragment key={section.slug}>
             <li>
-              <a href={`#${section.slug}`}
+              <a href={`#${section.slug}`} /* href= #触发器执行 */
                 onClick={closeNav}
                 className={clsx('block py-1', pageHasSubsections ? 'font-medium' : '',
                   isActive(section) ? 'font-medium text-sky-500 dark:text-sky-400' : 'hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300'
@@ -58,7 +63,7 @@ function TableOfContents({ tableOfContents, currentSection }) {
                 {section.title}
               </a>
             </li>
-            {section.children.map((subsection) => (
+            {section.children && section.children.map((subsection) => (
               <li className="ml-4" key={subsection.slug}>
                 <a href={`#${subsection.slug}`}
                   onClick={closeNav}
@@ -91,20 +96,25 @@ function TableOfContents({ tableOfContents, currentSection }) {
   )
 }
 
-// ========={自定义Hook}==========
-function useTableOfContents(tableOfContents) {
-  // console.log(tableOfContents)
-  let [currentSection, setCurrentSection] = useState(tableOfContents[0]?.slug)
+// ========={ 处理右侧导航 }==========
+function useTableOfContents(tableOfContents) { // ? 滚动时；哪个导航高亮
+  let setInit = tableOfContents[0]?.slug
+  let [currentSection, setCurrentSection] = useState(setInit) // 设置初始 slug
+
   let [headings, setHeadings] = useState([])
 
-  const registerHeading = useCallback((id, top) => {
+  const registerHeading = useCallback((id, top) => { // 这个值 是 Heading 组件中传递过来的
+    // console.log('registerHeading', id, top)
     setHeadings((headings) => [...headings.filter((h) => id !== h.id), { id, top }])
   }, [])
 
   const unregisterHeading = useCallback((id) => {
+    // console.log('unregisterHeading', id)
     setHeadings((headings) => headings.filter((h) => id !== h.id))
   }, [])
-
+  // console.log(tableOfContents)
+  
+  // 软件包； http://localhost:3000/docs/developer/package
   useEffect(() => {
     if (tableOfContents.length === 0 || headings.length === 0) return;
     function onScroll() {
@@ -131,9 +141,8 @@ function useTableOfContents(tableOfContents) {
   return { currentSection, registerHeading, unregisterHeading }
 }
 
-// 可能未使用此组件哦
+// !可能未使用此组件哦
 export function ContentsLayoutOuter({ children, layoutProps, ...props }) {
-  // console.log("/layouts/ Function ContentsLayoutOuter() {}  ?????")
   const { currentSection, registerHeading, unregisterHeading } = useTableOfContents(layoutProps.tableOfContents)
 
   return (
@@ -157,9 +166,7 @@ export function ContentsLayoutOuter({ children, layoutProps, ...props }) {
 
 
 
-
-
-// TODO: ========={ 内容 }==========
+// TODO: ========={ 内容布局 }==========
 export function ContentsLayout({ children, meta, classes, tableOfContents, section }) {
   const router = useRouter()
   const toc = [
@@ -167,13 +174,15 @@ export function ContentsLayout({ children, meta, classes, tableOfContents, secti
     ...tableOfContents,
   ];
   const { currentSection, registerHeading, unregisterHeading } = useTableOfContents(toc);
-  let { prev, next } = usePrevNext(); // 上下翻页
+
+  let { prev, next } = usePrevNext(); // todo 上下翻页
 
 
   // return null
   // console.log(toc)
   // console.log(classes)
   // console.log(children)
+  // console.log(tableOfContents)
   return (
     <div className="max-w-3xl mx-auto pt-10 xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16">
 
@@ -196,6 +205,7 @@ export function ContentsLayout({ children, meta, classes, tableOfContents, secti
             </div>
           </>
         ) : (
+          // TODO: MDXProvider中去渲染 Heading、a、alert组件
           <div id="content-wrapper" className="relative z-20 prose prose-slate mt-8 dark:prose-dark">
             <MDXProvider components={mdxComponents}>{children}</MDXProvider>
           </div>

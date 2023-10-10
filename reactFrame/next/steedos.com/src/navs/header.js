@@ -2,7 +2,7 @@
 
 
 
-//========={顶部Header  产品-联系我们 跳转地址}==========
+// ? ========={顶部 Header 配置 Object }==========
 export const headerNav = {
   categories: [
     {
@@ -130,6 +130,7 @@ export const headerNav = {
     { name: '视频', href: '/videos/' },
     { name: '报价', href: '/pricing/platform' },
     // { name: '联系我们', href: '/company/contact-us' },
-    { name: 'V', href: '/view/' },
+    { name: 'View', href: '/view/' },
+    { name: 'Utils', href: '/view/utils' },
   ],
 }

@@ -4,7 +4,6 @@ export const API_KEY = process.env.STEEDOS_SERVER_API_KEY; // -2IXhhWzbwkoE1uI_J
 const GRAPHQL_API = '/graphql';
 
 
-
 export function getAuthHeaders() {
     if (!API_KEY) { throw new Error('Please configure the environment variable STEEDOS_SERVER_API_KEY'); }
     const headers = {
@@ -15,8 +14,6 @@ export function getAuthHeaders() {
     return headers;
 }
 
-
-// TODO: 控制台中打印
 export async function fetchGraphql(query) {
     const headers = getAuthHeaders();
     const res = await fetch(`${ROOT_URL}${GRAPHQL_API}`, {
@@ -31,5 +28,6 @@ export async function fetchGraphql(query) {
         throw new Error('Failed to fetch API')
     }
     // console.log("base.js fetchGraphql 数据结果")
+    // console.log(json)
     return json
 }

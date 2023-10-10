@@ -1,4 +1,4 @@
-/** #### TODO: 节选 & 标题 & 描述  */
+/** #### TODO: 文档内容；节选 & 标题 & 描述  */
 export function PageHeader({ title, description, repo, badge = {}, section }) {
   if (!title && !description) return null
 

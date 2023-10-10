@@ -8,7 +8,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 
 
-// TODO: 控制台中打印
+// NextAuth.js  https://www.5axxw.com/questions/content/ou5xx0
 export default CredentialsProvider({
     // The name to display on the sign in form (e.g. "Sign in with...")
     name: "Password",

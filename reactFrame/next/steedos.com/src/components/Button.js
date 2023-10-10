@@ -35,15 +35,9 @@ let colorsDark = {
   ],
 }
 
-export function Button({
-  color = 'gray',
-  darkColor = color,
-  href,
-  children,
-  className = '',
-  reverse = false,
-  ...props
-}) {
+// ?除了传递属性外，传递一些 button 组件的属性 Props
+export function Button({ color = 'gray',  darkColor = color,  href,  children,  className = '',  reverse = false,  ...props }) {
+
   let colorClasses = typeof color === 'string' ? colors[color] : color
   let darkColorClasses = typeof darkColor === 'string' ? colorsDark[darkColor] || [] : darkColor
 

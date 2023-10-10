@@ -274,6 +274,7 @@ function Testimonial({ author, content, url, expanded }) {
   )
 }
 
+// TODO: 主页的 Features
 export function Features() {
   let ref = useRef()
   let [expanded, setExpanded] = useState(false)

@@ -18,6 +18,8 @@ const VALIDATE_API = '/api/setup/validate'
 
 // TODO: 此文件定义一些 auth； OAuth、Session、SteedosiD
 
+// ? 使用 NextAuth 在 Next.js 中添加用户身份验证; https://www.imangodoc.com/6d419f30.html
+
 const loginSteedosByOIDC = async (accessToken) => {
   const projectRootUrl = STEEDOS_ROOT_URL
   const rest = await axios({

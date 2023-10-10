@@ -1,15 +1,17 @@
-import { getAuthorization } from '@/lib/auth.client';
+import { getAuthorization } from './auth.client';
 
 
-export const ROOT_URL = process.env.NEXT_PUBLIC_STEEDOS_ROOT_URL; // ROOT_URL:  https://console.steedos.cn
+// ROOT_URL:  https://console.steedos.cn
+export const ROOT_URL = process.env.NEXT_PUBLIC_STEEDOS_ROOT_URL; 
 
 
 
-// TODO: 控制台中打印
 export async function fetchAPI(api, options = { credentials: 'include' }) {
     const headers = { 'Content-Type': 'application/json' }
+
     const AUTHORIZATION = await getAuthorization();
-    // console.log("Funtion fetchAPI() {} 获取权限")
+    // console.log(AUTHORIZATION) // undefined
+    
     if (AUTHORIZATION) { headers['Authorization'] = AUTHORIZATION }
     else { throw new Error(401) }
     options.headers = Object.assign({}, headers, options.headers);

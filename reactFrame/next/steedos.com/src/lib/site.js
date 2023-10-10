@@ -2,7 +2,7 @@ import { fetchGraphql } from '@/lib/base'
 
 
 
-export async function getSiteByDomain(domain) {
+export async function getSiteByDomain(domain) { // 获取网站通过域名
   const query = `
         {
             site_domains(filters:["name","=", "${domain}"]){
@@ -33,7 +33,7 @@ export async function getSiteByDomain(domain) {
 
 
 
-export async function getSite() {
+export async function getSite() { // 获取网站
   const query = `
         {
             sites {
@@ -61,7 +61,7 @@ export async function getSite() {
 
 
 
-export async function getSiteDomains() {
+export async function getSiteDomains() { // 获取网站域名
   const query = `
         {
             site_domains{

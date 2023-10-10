@@ -22,7 +22,7 @@ export async function getPost(blogSlug, postSlug){
                 name,
                 summary,
                 image,
-                slug,
+                slug,   
                 tags,
                 status,
                 published_at,

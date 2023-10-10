@@ -86,7 +86,7 @@ export async function getCollection(slug){
           slug,
           name,
           description,
-    			documents: _related_documents_collection(sort: "sort_no", filters:["status","=","published"]){
+          documents: _related_documents_collection(sort: "sort_no", filters:["status","=","published"]){
             _id,
             slug,
             name,

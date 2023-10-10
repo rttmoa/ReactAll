@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router'
 
 
-/***--- @param null,    @returns Boolean ---**/
+
+
+// 是否 主页
 export function useIsHome() {
   return useRouter().pathname === '/'
 }

@@ -1,8 +1,4 @@
 
-
-
-
-
 官网；
     https://www.steedos.cn/
     https://www.steedos.com/
@@ -12,14 +8,34 @@
 端口 》 3000
 Url 》 http://localhost:3000/
 
+
+? NextAuth.js -> 简单的说，NextAuth.js 是用于 Next.js 应用程序的完整开源身份验证解决方案。支持 OAuth 1.0、1.0A、2.0 和 OpenID Connect
+? 使用 NextAuth 在 Next.js 中添加用户身份验证; https://www.imangodoc.com/6d419f30.html
+
+
+!首页；indexjs封装一些组件及npm使用
+!文档；layouts封装布局
+!视频；视频播放
+!docs；mdx渲染及处理
+!权限；api\auth  next-auth配置JWT token
+
+!滚动处理
+!封装 components
+!封装 utils
+
+
+
+
+
+
+
+
 redirectsJson 所有地址：
 
     http://localhost:3000/ 
     http://localhost:3000/pricing/platform
     http://localhost:3000/docs/deploy/getting-started
     http://localhost:3000/videos
-
-
 
     http://localhost:3000/customers
     http://localhost:3000/help

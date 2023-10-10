@@ -90,7 +90,6 @@ export default function App({ Component, pageProps, router }) {
       <SearchProvider>
         {/* 头部 -  左侧：低代码 DevOps 平台协议  右侧：亮度/Github图标 */}
         {showHeader && (
-          // TODO: 页面缩小后 可以使用 另外一套功能！
           <Header
             hasNav={Boolean(Component.layoutProps?.Layout?.nav)}
             navIsOpen={navIsOpen}
