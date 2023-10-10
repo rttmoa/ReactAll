@@ -3,6 +3,7 @@ const slugify = (title) => title; // require('@sindresorhus/slugify')
 
 
 
+// ? next.config.js
 module.exports.withTableOfContents = () => {
   return (tree) => {
     const component = addImport(tree, '@/components/Heading', 'Heading')

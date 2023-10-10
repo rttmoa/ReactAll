@@ -27,17 +27,17 @@ const withTM = require('next-transpile-modules')(
 const {remarkPluginsWebpack} = require('./remark')
 const {rehypePlugins} = require('./rehype')
 
+
+// !文档布局
 const fallbackLayouts = {
-  // 'src/pages/docs/protocol/*': ['@/layouts/ProtocolLayout', 'ProtocolLayout'],
-  'src/pages/docs/**/*': ['@/layouts/DocumentationLayout', 'DocumentationLayout'],
+  // 'src/pages/docs/protocol/*': ['@/layouts/ProtocolLayout', 'ProtocolLayout'],  
+  'src/pages/docs/**/*': ['@/layouts/DocumentationLayout', 'DocumentationLayout'],  
 }
-
 const fallbackDefaultExports = {
-  'src/pages/docs/**/*': ['@/layouts/ContentsLayout', 'ContentsLayout'],
-  'src/pages/developer/**/*': ['@/layouts/ContentsLayout', 'ContentsLayout'],
-  'src/pages/blog/**/*': ['@/layouts/BlogPostLayout', 'BlogPostLayout'],
+  'src/pages/docs/**/*': ['@/layouts/ContentsLayout', 'ContentsLayout'], // 内容布局
+  'src/pages/developer/**/*': ['@/layouts/ContentsLayout', 'ContentsLayout'], // 内容布局
+  'src/pages/blog/**/*': ['@/layouts/BlogPostLayout', 'BlogPostLayout'], // Blog布局
 }
-
 const fallbackGetStaticProps = {
   'src/pages/blog/**/*': '@/layouts/BlogPostLayout',
 }
