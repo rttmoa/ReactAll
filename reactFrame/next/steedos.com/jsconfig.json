@@ -9,8 +9,7 @@
       "@/img/*": ["src/img/*"],
       "@/images/*": ["src/images/*"],
       "@/navs/*": ["src/navs/*"],
-      "@/lib/*": ["src/lib/*"]
-      
+      "@/lib/*": ["src/lib/*"] 
     }
   }
 }

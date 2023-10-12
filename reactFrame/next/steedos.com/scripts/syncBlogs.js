@@ -51,14 +51,13 @@ async function fetchGraphql(query) {
 }
 
 async function getBlogs(siteId){
-  //TODO：按站点获取数据 , filters:["site","=","${siteId}"]
   const query = `
   {
       site_blogs {
           _id,
           slug,
           name,
-    			posts: _related_site_posts_blog{
+          posts: _related_site_posts_blog{
             _id,
             slug,
             name,
@@ -82,7 +81,7 @@ async function getBlogs(siteId){
 
 async function sync(){
   const site_blogs = await getBlogs();
-  console.log(site_blogs)
+  // console.log(site_blogs)
   site_blogs.forEach(blog => {
     const dirname = path.join(process.cwd(), 'contents', 'blogs', blog.slug)
     const exists = fs.existsSync(dirname);
@@ -92,12 +91,12 @@ async function sync(){
     blog.posts.forEach(doc => {
       const filename = path.join(dirname, doc.slug + '.mdx')
       const content = 
-`---
-title: ${doc.name}
-description: ${doc.summary}
----
+      `---
+      title: ${doc.name}
+      description: ${doc.summary}
+      ---
 
-${doc.body}`
+      ${doc.body}`
       fs.writeFileSync(filename, content)
     })
   });

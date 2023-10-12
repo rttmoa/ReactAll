@@ -46,11 +46,7 @@ const isAllowImageDomain = (src) => {
 function customPlugin() {
   return (tree) => {
     visit(tree, (node) => {
-      if (
-        node.type === 'textDirective' ||
-        node.type === 'leafDirective' ||
-        node.type === 'containerDirective'
-      ) {
+      if ( node.type === 'textDirective' || node.type === 'leafDirective' || node.type === 'containerDirective' ) {
         const data = node.data || (node.data = {})
         if (node.name) {
           const hast = hastscript(node.name, node.attributes)

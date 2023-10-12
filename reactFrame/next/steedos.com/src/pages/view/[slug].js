@@ -9,8 +9,11 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() { 
-  // ... await api
-  return {}
+  // ... await api.request()
+  return {
+    paths: [{params: {id: '1'}}, {params: {id: '2'}},],
+    fallback: false
+  }
 }
   
 export default class Slug extends React.Component {

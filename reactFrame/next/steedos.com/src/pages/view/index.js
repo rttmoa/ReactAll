@@ -14,13 +14,13 @@ function views() {
   return (
     <div>
       <div style={{ width: 1200, height: 1000, margin: '20px auto' }}>
-        <h2>测试组件</h2>
+        <h2  style={{fontSize: 20}}><b>测试 Components</b></h2>
         {/* <Trash title="123" onRemove = {() => {}}>123</Trash> */}
         <p>
           <Title suffix="测试页">测试 components</Title>
         </p>
         <p>
-          <h1 style={{fontSize: 22}}><b>Tip提示组件</b></h1>
+          <h1 style={{fontSize: 16}}><b>Tip提示组件</b></h1>
           <TipGood>TipGood</TipGood>
           <TipBad>Tipbad</TipBad>
           <TipCompat>TipCompat</TipCompat>
@@ -36,7 +36,13 @@ function views() {
           <Button color='indigo' darkColor="sky" href="#" reverse={true} onClick={() => console.log(123)}>Button</Button>
           <Community></Community>
         </p>
-        <p>下一个</p>
+        <br />
+        <h2  style={{fontSize: 20}}><b>测试 TailwindCSS</b></h2>
+        <div className='flex '>
+          <button className='bg-indigo-500 p-2 text-stone-900 rounded-md'>Button</button>
+          <span className='font-sans hover:font-serif'>Font Family1</span>
+          <span className='font-sans md:font-serif'>Font Family2</span>
+        </div>
       </div>
     </div>
   )

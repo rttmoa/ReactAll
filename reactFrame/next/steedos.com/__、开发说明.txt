@@ -24,7 +24,12 @@ Url 》 http://localhost:3000/
 !封装 utils
 
 
-
+TODO Config 需要关注配置文件内容
+    jsconfig.json 
+    tsconfig.json 
+    next.config.js 
+    tailwindCSS.config.js
+    package.json 
 
 
 

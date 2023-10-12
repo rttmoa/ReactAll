@@ -11,7 +11,7 @@ const pages = await globby([
   path.join(process.cwd(), 'src', 'pages', 'docs', '**/*.mdx')
 ]);
 
-console.log(pages)
+// console.log(pages)
 const objects = pages.map(page => {
   const fileContents = fs.readFileSync(page, 'utf8')
   const {data, content} = matter(fileContents)
@@ -28,7 +28,7 @@ const objects = pages.map(page => {
   }
 })
 
-console.log(objects)
+// console.log(objects)
 
 const client = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,

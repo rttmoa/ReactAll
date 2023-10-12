@@ -44,7 +44,6 @@ async function fetchGraphql(query) {
 }
 
 async function getCollections(siteId){
-  //TODO：按站点获取数据 , filters:["site","=","${siteId}"]
   const query = `{
     document_collections(sort: "sort_no"){
         _id,
@@ -82,15 +81,15 @@ async function sync(){
     collection.documents.forEach(doc => {
       const filename = path.join(dirname, doc.slug + '.mdx')
       const content =
-`---
-title: ${doc.name}
-description: ${doc.summary}
----
-
-${doc.body}`
+      `---
+      title: ${doc.name}
+      description: ${doc.summary}
+      ---
+      ${doc.body}`
       fs.writeFileSync(filename, content)
     })
   });
 }
 
+// ? 从这里开始调用 同步执行
 sync()
