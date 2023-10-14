@@ -168,6 +168,8 @@ export function NavPopover({ display = 'md:hidden', className, ...props }) {
   )
 }
 
+
+// TODO Header Component
 export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section }) {
   let [isOpaque, setIsOpaque] = useState(false)
   const { data: session } = useSession()

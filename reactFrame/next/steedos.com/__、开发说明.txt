@@ -14,10 +14,20 @@ Url 》 http://localhost:3000/
 
 
 !首页；indexjs封装一些组件及npm使用
+    /pages/index.js
 !文档；layouts封装布局
+    /src/layous/
 !视频；视频播放
+    /pages/video/
 !docs；mdx渲染及处理
+    /pages/docs/
 !权限；api\auth  next-auth配置JWT token
+    /pages/api/auth/[...nextauth].js
+        next-auth； OAuth、Session、SteedosiD、token、refreshToken、accessToken
+        登陆 Steedos && 校验 Steedos Token && 处理 refreshToken && next-auth配置JWT token 
+    
+   
+  
 
 !滚动处理
 !封装 components
@@ -27,12 +37,14 @@ Url 》 http://localhost:3000/
 TODO Config 需要关注配置文件内容
     jsconfig.json 
     tsconfig.json 
+    postcss.config.js
     next.config.js 
     tailwindCSS.config.js
     package.json 
 
-
-
+Object.entries()       https://blog.csdn.net/m0_45093055/article/details/130348349
+Object.fromEntries()   https://blog.csdn.net/weixin_44730897/article/details/122920065
+  
 
 
 redirectsJson 所有地址：

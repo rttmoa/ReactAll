@@ -1,4 +1,3 @@
-
 import { SearchButton } from '@/components/Search'
 import { useEffect, useState } from 'react'
 import { Logo } from '@/components/Logo'
@@ -6,16 +5,16 @@ import { NavItems, NavPopover } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Markdown } from '@/components/Markdown'
 import NextLink from 'next/link'
-import Head from 'next/head'
 import {getSite, getSiteByDomain, getSiteDomains} from '@/lib/site'
-import { getCollectionProducts, getCollections } from '@/lib/product';
 import ReviewStars from '@/components/product/ReviewStars'
 import Price from '@/components/product/Price'
 import { getDefaultPrice } from '@/lib/product.client';
 import clsx from 'clsx'
 
 
-import { Features } from '@/components/Features'
+import Head from 'next/head'
+import { getCollectionProducts, getCollections } from '@/lib/product';
+import { Features } from '../components/Features'
 import { OpenSource } from '../components/salient/OpenSource'
 import { CallToAction } from '../components/salient/CallToAction'
 import { Faqs } from '../components/salient/Faqs'
@@ -27,23 +26,17 @@ import { Testimonials as Testimonials2} from '../components/salient/Testimonials
 
   
 
-export async function getStaticProps({params}) {
+export async function getStaticProps({ params }) {
   const slug = 'steedos-packages'
-  const collection = await getCollectionProducts('steedos-packages')
-  // console.log(collection)
+  const collection = await getCollectionProducts(slug)
   return {
-    props: {
-      collection,
-    },
+    props: { collection },
     revalidate: parseInt(process.env.NEXT_STATIC_PROPS_REVALIDATE), // In seconds
   }
 }
 
 
-export default function Home(props) { 
-  const { name, collection } = props; 
-
-
+export default function Home({ name, collection }) {  
   return (
     <>
       {/* ========={document.title}========== */}

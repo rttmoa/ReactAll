@@ -254,9 +254,9 @@ export async function getStaticPaths() {
       blog_slug: post.blog__expand.slug,
       post_slug: post.slug },
   }))
-  console.log("err")
-  console.log('Building Blogs...');
-  console.log(paths);
+  // console.log("err")
+  // console.log('Building Blogs...');
+  // console.log(paths);
   // We'll pre-render only these paths at build time.
   // { fallback: blocking } will server-render pages
   // on-demand if the path doesn't exist.

@@ -1,24 +1,26 @@
 {
-  "compilerOptions": {
+  "compilerOptions": {  // TODO  tsconfig.json配置详解； https://blog.csdn.net/qq_41038412/article/details/128138790
     "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": false,
+    "allowJs": true, // 允许编译器编译JS，JSX文件
+    "skipLibCheck": true,  
+    "strict": false, // 开启所有严格的类型检查
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
+    "noEmit": true, // 不输出文件,即编译后不会生成任何js文件
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "esnext", // 生成代码的模板标准
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
-    "baseUrl": ".", // This must be specified if "paths" is. | 如果“路径”是，则必须指定.
-    "paths": {
+    "jsx": "preserve", // 指定 jsx 格式
+    "baseUrl": ".",  // 解析非相对模块的基地址，默认是当前目录
+    "paths": { // 路径映射，相对于baseUrl
+      // 如使用jq时不想使用默认版本，而需要手动指定版本，可进行如下配置
+      // "jquery": ["node_modules/jquery/dist/jquery.min.js"],
       "@/components/*": [
         "src/components/*"
       ],
@@ -47,14 +49,14 @@
         "src/pages/*"
       ]
     },
-    "incremental": true
+    "incremental": true // TS编译器在第一次编译之后会生成一个存储编译信息的文件，第二次编译会在第一次的基础上进行增量编译，可以提高编译的速度
   },
-  "include": [
+  "include": [ // 包含的文件
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
   ],
-  "exclude": [
+  "exclude": [ // 排除的文件
     "node_modules"
   ]
 }

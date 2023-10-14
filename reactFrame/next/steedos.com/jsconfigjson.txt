@@ -1,5 +1,7 @@
 {
-  "compilerOptions": { 
+  "compilerOptions": {
+    // "target": "ES2015", // !指定要使用的默认库，值为 "es3", "es5", "es2015"
+    // "module": "CommonJS", // !在生成模块代码时指定模块系统 
     "baseUrl": ".", // !解析非相关模块名称的基础目录
     "paths": { // !指定相对与baseURL选项计算的路径映射，使用webpack别名，智能感知路径
       "@/components/*": ["src/components/*"],
@@ -11,5 +13,8 @@
       "@/navs/*": ["src/navs/*"],
       "@/lib/*": ["src/lib/*"] 
     },
+    // "checkJs": false // !启动JavaScript文件的类型检查
   },
+  // "exclude": ["node_modules", "**/node_modules/*",  "dist", "plop-templates"], // !要排除的文件
+  // "include": ["src/**/*"] // !包含的文件
 }

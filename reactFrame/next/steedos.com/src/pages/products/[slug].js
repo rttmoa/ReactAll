@@ -7,12 +7,7 @@ export async function getStaticProps({params, query}) {
   const { slug } = params;
   const product = await getProduct(slug)
 
-  if (!product) {
-    return {
-      notFound: true,
-    }
-  }
-
+  if (!product)  return { notFound: true, }
   return {
     props: {
       product: product
@@ -23,23 +18,13 @@ export async function getStaticProps({params, query}) {
 
 export async function getStaticPaths() {
   const products = await getProducts();
-
-  // Get the paths we want to pre-render based on posts
-  // FIXME: Server Error：  Error: Invalid `paths` value returned from getStaticPaths in /[blog_slug]/[post_slug].`paths` must be an array of strings or objects of shape { params: [key: string]: string }
-  const paths = products.map((product) => ({ params: { slug: product.slug } }))
-  console.log('Building Products...');
-  console.log(paths);
-
-  // We'll pre-render only these paths at build time.
-  // { fallback: blocking } will server-render pages
-  // on-demand if the path doesn't exist.
+  const paths = products.map((product) => ({ params: { slug: product.slug } })) 
   return { paths, fallback: 'blocking' }
 }
 
 
 
-
-// TODO: 产品  ->  什么是低代码? / 平台介绍 / 技术架构 / 十大引擎
+// TODO; https://www.steedos.cn/products/finance 
 export default function ProductDetail({product}){
   const router = useRouter();
   const {vid} = router.query;

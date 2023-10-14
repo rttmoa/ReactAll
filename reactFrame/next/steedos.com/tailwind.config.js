@@ -4,12 +4,15 @@ const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenCo
 
 
 
-// TODO tailwindCSS Config
+// TODO；   tailwindCSS Config
+// !https://www.tailwindcss.cn/docs/installation
 module.exports = {
   experimental: {
     optimizeUniversalDefaults: true,
   },
+  // 配置内容； https://www.tailwindcss.cn/docs/content-configuration
   content: ['./src/**/*.{js,jsx,tsx,mdx,html}', './remark/**/*.js'],
+  // 配置黑暗模式
   darkMode: 'class',
   theme: {
     // `demo-*` screens are used for the "mobile-first" responsive demo
@@ -292,14 +295,12 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/line-clamp'),
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
-    function ({ addVariant }) {
-      addVariant(
-        'supports-backdrop-blur',
-        '@supports (backdrop-filter: blur(0)) or (-webkit-backdrop-filter: blur(0))'
-      )
+    require('@tailwindcss/line-clamp'),    
+    require('@tailwindcss/typography'),    
+    require('@tailwindcss/aspect-ratio'),   
+
+    function ({ addVariant }) { // 将 addVariant 函数用于简单的自定义变体，传入自定义变体的名称以及表示应如何修改选择器的格式字符串。
+      addVariant('supports-backdrop-blur', '@supports (backdrop-filter: blur(0)) or (-webkit-backdrop-filter: blur(0))')
       addVariant('supports-scrollbars', '@supports selector(::-webkit-scrollbar)')
       addVariant('children', '& > *')
       addVariant('scrollbar', '&::-webkit-scrollbar')
@@ -307,33 +308,27 @@ module.exports = {
       addVariant('scrollbar-thumb', '&::-webkit-scrollbar-thumb')
       addVariant('demo-dark', '.demo-dark &')
     },
-    function ({ matchUtilities, theme }) {
+    function ({ matchUtilities, theme }) { // 使用 matchUtilities 函数注册映射到用户主题配置中定义的值的实用程序
       matchUtilities(
-        {
-          'bg-grid': (value) => ({
-            backgroundImage: `url("${svgToDataUri(
-              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`
-            )}")`,
-          }),
-        },
+        {'bg-grid': (value) => ({
+          backgroundImage: `url("${svgToDataUri(
+            `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`
+          )}")`,
+        }),},
         { values: flattenColorPalette(theme('backgroundColor')), type: 'color' }
       )
-
       matchUtilities(
-        {
-          highlight: (value) => ({ boxShadow: `inset 0 1px 0 0 ${value}` }),
-        },
-        { values: flattenColorPalette(theme('backgroundColor')), type: 'color' }
+        {highlight: (value) => ({ boxShadow: `inset 0 1px 0 0 ${value}` }),},
+        {values: flattenColorPalette(theme('backgroundColor')), type: 'color' }
       )
     },
-    function ({ addUtilities, theme }) {
+    function ({ addUtilities, theme }) { // 使用 addUtilities 函数注册不支持用户提供的值的简单静态实用程序：
       let backgroundSize = '7.07px 7.07px'
       let backgroundImage = (color) =>
         `linear-gradient(135deg, ${color} 10%, transparent 10%, transparent 50%, ${color} 50%, ${color} 60%, transparent 60%, transparent 100%)`
       let colors = Object.entries(theme('backgroundColor')).filter(
         ([, value]) => typeof value === 'object' && value[400] && value[500]
       )
-
       addUtilities(
         Object.fromEntries(
           colors.map(([name, colors]) => {
@@ -351,14 +346,12 @@ module.exports = {
           })
         )
       )
-
       addUtilities({
         '.bg-stripes-white': {
           backgroundImage: backgroundImage('rgba(255 255 255 / 0.75)'),
           backgroundSize,
         },
       })
-
       addUtilities({
         '.ligatures-none': {
           fontVariantLigatures: 'none',

@@ -24,7 +24,7 @@ configs.forEach((config) => {
     .then((result) => {
       css = result.css
     })
-
+    
   loopWhile(() => !css)
 
   const { styles: minified } = new CleanCSS().minify(css)

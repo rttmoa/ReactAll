@@ -7,7 +7,7 @@
  */
 
 import NextAuth from 'next-auth'
-import KeycloakProvider from '@/lib/auth/KeycloakProvider'
+import KeycloakProvider from '../../../lib/auth/KeycloakProvider'
 import CredentialsProvider from '@/lib/auth/CredentialsProvider'
 const axios = require('axios')
 const querystring = require('querystring')
@@ -16,13 +16,15 @@ const OIDC_API = '/api/global/auth/oidc/login'
 const VALIDATE_API = '/api/setup/validate'
 
 
-// TODO: 此文件定义一些 auth； OAuth、Session、SteedosiD
 
-// ? 使用 NextAuth 在 Next.js 中添加用户身份验证; https://www.imangodoc.com/6d419f30.html
 
-const loginSteedosByOIDC = async (accessToken) => {
+// TODO: next-auth； OAuth、Session、SteedosiD、token、refreshToken、accessToken
+// 使用 NextAuth 在 Next.js 中添加用户身份验证; https://www.imangodoc.com/6d419f30.html
+
+const loginSteedosByOIDC = async (accessToken) => { // 登陆 Steedos
   const projectRootUrl = STEEDOS_ROOT_URL
   const rest = await axios({
+    // https://console.steedos.cn/api/global/auth/oidc/login
     url: `${projectRootUrl}${OIDC_API}`,
     method: 'post',
     data: { accessToken },
@@ -31,8 +33,9 @@ const loginSteedosByOIDC = async (accessToken) => {
   return rest.data
 }
 
-const validateSteedosToken = async (space, token) => {
+const validateSteedosToken = async (space, token) => { // 校验 Steedos Token 
   const rest = await axios({
+    // https://console.steedos.cn/api/setup/validate
     url: `${STEEDOS_ROOT_URL}${VALIDATE_API}`,
     method: 'post',
     data: {
@@ -44,7 +47,7 @@ const validateSteedosToken = async (space, token) => {
 }
 
 /**
- * todo 刷新访问令牌
+ * ? 使用旧的 refreshToken 换取新的 refreshToken；   refreshToken & accessToken
  * 获取一个令牌，并返回一个更新后的新令牌
  * `accessToken` 和 `accessTokenExpires`。如果发生错误，
  * 返回旧令牌和错误属性
@@ -82,35 +85,41 @@ async function refreshAccessToken(token) {
     }
   }
 }
-// todo Nextjs 使用next-auth配置JWT token：https://www.cnblogs.com/eddyz/p/17622721.html
+
+
+// ? Nextjs 使用next-auth配置JWT token：https://www.cnblogs.com/eddyz/p/17622721.html
 export const authOptions = {
   // 9kOEcyNC4qfhClzm2FFnyR3xzI2DuE7/F6BWqdYTlko=
   secret: process.env.NEXTAUTH_SECRET,
-  // Configure one or more authentication providers
-  providers: [KeycloakProvider],
+  // 配置一个或多个身份验证提供程序
+  providers: [KeycloakProvider], // { cliendId, clientSecret, issuer, name }
   callbacks: {
-    async jwt(props) {
-      const { token, account, user } = props
 
-      // Persist the OAuth access_token to the token right after signin
+    // TODO 处理 token
+    async jwt(props) {
+      const { token, account, user } = props;
+
+      // 登录后立即将 OAuth access_token 持久化为令牌
       if (account && user) {
+
         const token = {
           accessToken: account.access_token,
           accessTokenExpires: account.expires_at * 1000,
           refreshToken: account.refresh_token,
           provider: account.provider,
-          user,
+          user: user,
+          steedos: {}
         }
 
         if (account.provider === 'keycloak') {
-          const loginResult = await loginSteedosByOIDC(account.access_token)
+          const loginResult = await loginSteedosByOIDC(account.access_token)  // 登陆 Steedos
 
           user.space = loginResult.space
           user.token = loginResult.token
         }
 
         if (user.space && user.token) {
-          const steedosSession = await validateSteedosToken(user.space, user.token)
+          const steedosSession = await validateSteedosToken(user.space, user.token)  // 校验 Steedos Token 
           token.steedos = Object.assign(steedosSession, { token: steedosSession.authToken })
         }
 
@@ -119,13 +128,10 @@ export const authOptions = {
 
       if (token.provider != 'keycloak') return token
 
-      // Return previous token if the access token has not expired yet
-      if (Date.now() < token.accessTokenExpires) {
-        return token
-      }
+      // 如果访问令牌尚未过期，则返回之前的令牌
+      if (Date.now() < token.accessTokenExpires) return token
 
-      // Access token has expired, try to update it
-      return refreshAccessToken(token)
+      return refreshAccessToken(token)  // 更新 token （使用旧的 refreshToken 换取新的 refreshToken）
     },
 
     async session({ session, token, user }) {

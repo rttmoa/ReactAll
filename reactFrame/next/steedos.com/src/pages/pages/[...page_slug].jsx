@@ -26,6 +26,7 @@ export default function Page({ page, site_slug, page_slug }) {
     let amisScoped = amis.embed('#root', amisJSON, { theme: 'antd' })
   }, [])
   return (
+    // TODO 加载 CDN  js&css
     <>
       <Head>
         <script src="https://unpkg.steedos.cn/amis/sdk/sdk.js"></script>

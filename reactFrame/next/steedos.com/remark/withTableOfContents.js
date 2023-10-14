@@ -8,7 +8,7 @@ module.exports.withTableOfContents = () => {
   return (tree) => {
     const component = addImport(tree, '@/components/Heading', 'Heading')
     const contents = []
-
+    // console.log("withTableOfContents", withTableOfContents)
     for (let nodeIndex = 0; nodeIndex < tree.children.length; nodeIndex++) {
       let node = tree.children[nodeIndex]
 

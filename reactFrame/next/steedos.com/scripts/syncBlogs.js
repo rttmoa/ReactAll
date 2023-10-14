@@ -95,7 +95,6 @@ async function sync(){
       title: ${doc.name}
       description: ${doc.summary}
       ---
-
       ${doc.body}`
       fs.writeFileSync(filename, content)
     })

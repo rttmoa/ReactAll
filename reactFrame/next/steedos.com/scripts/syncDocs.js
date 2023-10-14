@@ -73,7 +73,7 @@ async function getCollections(siteId){
 
 async function sync(){
   const collections = await getCollections();
-  console.log(collections)
+  // console.log(collections)
   collections.forEach(collection => {
     const dirname = path.join(process.cwd(), 'contents', 'docs', collection.slug)
     if (!fs.statSync(dirname, {throwIfNoEntry:false}))
