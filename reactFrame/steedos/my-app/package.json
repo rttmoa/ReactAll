@@ -1,0 +1,21 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "docker": "docker-compose up",
+    "start": "moleculer-runner services/*/package.service.js --hot --repl",
+    "repl": "moleculer-runner --repl",
+    "nodered": "node-red --settings nodered.config.js"
+  },
+  "dependencies": {
+    "@steedos/node-red-contrib-steedos": "2.4.3",
+    "@steedos/service-package-loader": "2.5.15",
+    "dotenv-flow": "4.0.0",
+    "moleculer-repl": "0.7.4",
+    "node-red": "3.1.0"
+  },
+  "devDependencies": {
+    "eslint": "8.51.0"
+  }
+}

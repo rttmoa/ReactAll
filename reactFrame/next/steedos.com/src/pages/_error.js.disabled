@@ -16,6 +16,10 @@
  *  - https://reactjs.org/docs/error-boundaries.html
  */
 
+TODO 错误捕捉页面； pages/_error.js
+Url: https://www.nextjs.cn/docs/advanced-features/custom-error-page
+
+
 import * as Sentry from '@sentry/nextjs';
 import NextErrorComponent from 'next/error';
 
