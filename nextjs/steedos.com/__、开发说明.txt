@@ -1,0 +1,67 @@
+
+官网；
+    https://www.steedos.cn/
+    https://www.steedos.com/
+
+Nodejs版本；V14.20.0
+启动; yarn dev && http://localhost:3000/
+
+tailwindCSS; https://www.tailwindcss.cn/
+
+
+? NextAuth.js -> 简单的说，NextAuth.js 是用于 Next.js 应用程序的完整开源身份验证解决方案。支持 OAuth 1.0、1.0A、2.0 和 OpenID Connect
+? 使用 NextAuth 在 Next.js 中添加用户身份验证; https://www.imangodoc.com/6d419f30.html
+
+
+!首页；indexjs封装一些组件及npm使用
+    /pages/index.js
+!文档；layouts封装布局
+    /src/layous/
+!视频；视频播放
+    /pages/video/
+!docs；mdx渲染及处理
+    /pages/docs/
+!权限；api\auth  next-auth配置JWT token
+    /pages/api/auth/[...nextauth].js
+        next-auth； OAuth、Session、SteedosiD、token、refreshToken、accessToken
+        登陆 Steedos && 校验 Steedos Token && 处理 refreshToken && next-auth配置JWT token 
+    
+   
+  
+
+!滚动处理
+!封装 components
+!封装 utils
+
+
+TODO Config 需要关注配置文件内容
+    jsconfig.json 
+    tsconfig.json 
+    postcss.config.js
+    next.config.js 
+    tailwindCSS.config.js
+    package.json 
+
+Object.entries()       https://blog.csdn.net/m0_45093055/article/details/130348349
+Object.fromEntries()   https://blog.csdn.net/weixin_44730897/article/details/122920065
+  
+
+
+redirectsJson 所有地址：
+
+    http://localhost:3000/ 
+    http://localhost:3000/pricing/platform
+    http://localhost:3000/docs/deploy/getting-started
+    http://localhost:3000/videos
+
+    http://localhost:3000/customers
+    http://localhost:3000/help
+    http://localhost:3000/help/download
+    http://localhost:3000/docs/deploy
+    http://localhost:3000/docs/developer
+    http://localhost:3000/docs/admin
+    http://localhost:3000/docs/user
+    http://localhost:3000/docs/low-code-academy
+    http://localhost:3000/docs
+    http://localhost:3000/cn/steedos/privacy
+    http://localhost:3000/register
