@@ -11,6 +11,18 @@ module.exports = appInfo => {
    **/
   const config = exports = {};
 
+  // !开启前置代理模式
+  // 注意，开启此模式后，应用就默认自己处于反向代理之后，会支持通过解析约定的请求头来获取用户真实的 IP，协议和域名。
+  // config.proxy = true;
+  // 开启 proxy 配置后，应用会解析 X-Forwarded-For 请求头来获取客户端的真实 IP。
+  // config.ipHeaders = 'X-Real-Ip, X-Forwarded-For';
+  // config.maxIpsCount
+  // config.maxIpsCount = 1;
+  // 开启 proxy 配置后，应用会解析 X-Forwarded-Proto 请求头来获取客户端的真实访问协议。
+  // config.protocolHeaders = 'X-Real-Proto, X-Forwarded-Proto';
+  // 开启 proxy 配置后，应用仍然还是直接读取 host 来获取请求的域名，绝大部分反向代理并不会修改这个值。但是也许有些反向代理会通过 X-Forwarded-Host 来传递客户端的真实访问域名，可以通过在 config.hostHeaders 中配置，这个配置项支持配置多个头（逗号分开）。
+  // config.hostHeaders = 'X-Forwarded-Host';
+
   // 用于cookie签名密钥，应更改为您自己的并保持安全
   config.keys = appInfo.name + '_1606747991901_2392';
 

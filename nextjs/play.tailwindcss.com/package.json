@@ -5,6 +5,7 @@
     "dev": "next dev",
     "build:plugins": "if [ -f './.next/serverless/scripts/buildBuiltinPlugins.js' ]; then node ./.next/serverless/scripts/buildBuiltinPlugins.js; else node ./.next/server/scripts/buildBuiltinPlugins.js; fi",
     "build": "next build && npm run build:plugins",
+    "b": "next build",
     "start": "next start"
   },
   "dependencies": {
@@ -24,6 +25,7 @@
     "autoprefixer-postcss7": "npm:autoprefixer@9.8.6",
     "babel-eslint": "10.x",
     "babel-plugin-preval": "^5.0.0",
+    "child_process": "^1.0.2",
     "clsx": "^1.1.1",
     "codemirror": "^5.57.0",
     "cssnano": "^4.1.10",
