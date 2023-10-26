@@ -11,7 +11,7 @@ class Statistic extends BaseComponent {
 	}
 	async apiRecord(req, res, next){
 		try{
-			const statis_id = await this.getId('statis_id')
+			const statis_id = await this.getId('statis_id') // BaseComponent > getId
 			const apiInfo = {
 				date: dtime().format('YYYY-MM-DD'),
 				origin: req.headers.origin,

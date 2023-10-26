@@ -11,12 +11,15 @@ qiniu.conf.SECRET_KEY = 'XNIW2dNffPBdaAhvm9dadBlJ-H6yyCTIJLxNM_N6'
 
 
 export default class BaseComponent {
+
   constructor() {
     this.idList = ['restaurant_id', 'food_id', 'order_id', 'user_id', 'address_id', 'cart_id', 'img_id', 'category_id', 'item_id', 'sku_id', 'admin_id', 'statis_id']
     this.imgTypeList = ['shop', 'food', 'avatar', 'default']
     this.uploadImg = this.uploadImg.bind(this)
     this.qiniu = this.qiniu.bind(this)
   }
+
+  /** #### TODO: this.fetch({}) 请求函数  */
   async fetch(url = '', data = {}, type = 'GET', resType = 'JSON') {
     type = type.toUpperCase()
     resType = resType.toUpperCase()
@@ -59,7 +62,8 @@ export default class BaseComponent {
     }
     return responseJson
   }
-  //获取id列表
+
+  /** #### TODO: 获取 id 列表  */
   async getId(type) {
     if (!this.idList.includes(type)) {
       console.log('id类型错误')
@@ -76,6 +80,7 @@ export default class BaseComponent {
     }
   }
 
+  /** #### TODO: 上传图片  */
   async uploadImg(req, res, next) {
     const type = req.params.type
     try {
@@ -95,6 +100,7 @@ export default class BaseComponent {
     }
   }
 
+ /** #### TODO: 获取路径  */
   async getPath(req, res) {
     return new Promise((resolve, reject) => {
       const form = formidable.IncomingForm()
@@ -147,6 +153,7 @@ export default class BaseComponent {
     })
   }
 
+  /** #### TODO: 保存至七牛  */
   async qiniu(req, type = 'default') {
     return new Promise((resolve, reject) => {
       const form = formidable.IncomingForm()

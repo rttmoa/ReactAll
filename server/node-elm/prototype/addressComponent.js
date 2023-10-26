@@ -1,9 +1,11 @@
 'use strict'
 
-import BaseComponent from './baseComponent'
+import BaseComponent from './baseComponent' // ! 继承 基本组件
+
+
 
 /*
-	腾讯地图和百度地图API统一调配组件
+	? 腾讯地图和百度地图API统一调配组件
  */
 class AddressComponent extends BaseComponent {
   constructor() {
@@ -15,7 +17,12 @@ class AddressComponent extends BaseComponent {
     this.baidukey = 'fjke3YUipM9N64GdOIh1DNeK2APO2WcT'
     // this.baidukey2 = 'fjke3YUipM9N64GdOIh1DNeK2APO2WcT';
   }
-  //获取定位地址
+
+  // ! 获取定位地址
+    // 判断 环境
+    // 获取请求 ip
+    // 使用 密钥 换取 城市信息；经度纬度城市名
+    // 回调 Promise 给调用者
   async guessPosition(req) {
     return new Promise(async (resolve, reject) => {
       let ip
@@ -71,7 +78,7 @@ class AddressComponent extends BaseComponent {
       }
     })
   }
-  //搜索地址
+  // ! 搜索地址
   async searchPlace(keyword, cityName, type = 'search') {
     try {
       const resObj = await this.fetch('http://apis.map.qq.com/ws/place/v1/search', {
@@ -89,7 +96,9 @@ class AddressComponent extends BaseComponent {
       throw new Error(err)
     }
   }
-  //测量距离
+  // ! 测量距离
+    // 百度地图；起始位置和目标位置 请求接口
+    // 返回值；时间值 OR 距离值
   async getDistance(from, to, type) {
     try {
       let res
@@ -138,7 +147,7 @@ class AddressComponent extends BaseComponent {
       throw new Error(err)
     }
   }
-  //通过ip地址获取精确位置
+  // ! 通过ip地址获取精确位置
   async geocoder(req) {
     try {
       const address = await this.guessPosition(req)
@@ -169,7 +178,7 @@ class AddressComponent extends BaseComponent {
       throw new Error(err)
     }
   }
-  //通过geohash获取精确位置
+  // ! 通过 geohash 获取精确位置
   async getpois(lat, lng) {
     try {
       const params = {
@@ -192,10 +201,10 @@ class AddressComponent extends BaseComponent {
       if (res.status == 0) {
         return res
       } else {
-        throw new Error('通过获geohash取具体位置失败')
+        throw new Error('通过获 geohash 取具体位置失败')
       }
     } catch (err) {
-      console.log('getpois获取定位失败', err)
+      console.log('getpois 获取定位失败', err)
       throw new Error(err)
     }
   }

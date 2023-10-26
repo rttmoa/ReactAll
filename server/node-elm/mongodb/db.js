@@ -3,9 +3,12 @@
 import mongoose from 'mongoose'
 import config from 'config-lite'
 import chalk from 'chalk'
+
 mongoose.connect(config.url, { useMongoClient: true })
 mongoose.Promise = global.Promise
 
+
+// mongoose 监听事件
 const db = mongoose.connection
 
 db.once('open', () => {

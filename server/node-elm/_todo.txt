@@ -29,6 +29,9 @@ TODO
 
 /public & 公共文件
 
-? /routes/index.js & 传入app实例, app挂载路由  &&  /routes & 路由接口
+? /routes/index.js & 传入app实例, app挂载路由  &&  /routes & 路由接口 + 导入 controller 控制层
+    import User from '../controller/v2/user'
+    const router = express.Router(); 
+    router.post('/v1/users/:user_id/avatar', User.updateAvatar)
 
 app.js
