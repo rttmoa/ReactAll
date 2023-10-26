@@ -3,6 +3,8 @@ import { NextSeo } from 'next-seo'
 import Detail from '../../components/product/Detail.js'
 import { getProduct, getProducts } from '../../lib/product'
 
+
+
 export async function getStaticProps({ params, query }) {
   const { slug } = params
   const product = await getProduct(slug)

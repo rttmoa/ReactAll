@@ -9,8 +9,10 @@ Nodejs版本；V14.20.0
 tailwindCSS; https://www.tailwindcss.cn/
 
 
+
 ? NextAuth.js -> 简单的说，NextAuth.js 是用于 Next.js 应用程序的完整开源身份验证解决方案。支持 OAuth 1.0、1.0A、2.0 和 OpenID Connect
 ? 使用 NextAuth 在 Next.js 中添加用户身份验证; https://www.imangodoc.com/6d419f30.html
+? 头部切换主题；light / dark
 
 
 !首页；indexjs封装一些组件及npm使用

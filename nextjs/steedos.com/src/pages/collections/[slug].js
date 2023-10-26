@@ -7,6 +7,8 @@
 // import ReviewStars from '@/components/product/ReviewStars'
 // import Price from '@/components/product/Price'
 
+
+
 // export async function getStaticProps({params}) {  2
 //   const { slug } = params
 //   const collection = await getCollectionProducts(slug)

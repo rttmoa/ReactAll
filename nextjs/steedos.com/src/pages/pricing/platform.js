@@ -9,6 +9,8 @@ import { Pricing } from '../../components/salient/Pricing'
 export default function PricingPage(props) {
   const { name, collection } = props;
 
+
+  // ! 折叠此变量
   let strContext = (
     <Markdown
       body={`
