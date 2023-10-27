@@ -20,8 +20,9 @@ const SearchContext = createContext()
 
 
 
-
+// ? children 为 整个页面 头 + 体 + 脚
 export function SearchProvider({ children }) {
+  // console.log(children)
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const [initialQuery, setInitialQuery] = useState(null)

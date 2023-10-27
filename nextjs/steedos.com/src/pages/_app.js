@@ -91,10 +91,9 @@ export default function App({ Component, pageProps: { session, ...pageProps }, r
   // console.log(session) // undefined
   // console.log(showHeader) // 页面中true， Login时为false
   return (
-    // TODO: 所有 Children 经过appjs去处理
-    // 项目总结构：next-auth && SearchProvider && Header && Layout && Component
+    // TODO 所有 Children 经过appjs去处理   &&&   头 + 体 + 脚
     <SessionProvider session={session}>
-
+      
       <SearchProvider>
         {showHeader && (
           <Header

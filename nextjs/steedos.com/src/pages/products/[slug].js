@@ -25,7 +25,11 @@ export async function getStaticPaths() {
 }
 
 
-
+// 收付款管理 - 管理、业务、财务一体化
+// 资产管理 - 企业固定资产管理工具
+// 采购管理 - 电子化管理企业采购流程
+// 订单管理 - 销售活动后续订单管理
+// TODO; https://www.steedos.com/products/asset
 // TODO; https://www.steedos.cn/products/finance
 export default function ProductDetail({ product }) {
   const router = useRouter()

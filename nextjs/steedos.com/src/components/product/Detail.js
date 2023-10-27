@@ -17,7 +17,7 @@ import VariantRadios from '@/components/product/VariantRadios'
 import ReviewStars from '@/components/product/ReviewStars'
 import Price from '@/components/product/Price'
 
-import { getPrice } from '@/lib/product.client';
+import { getPrice } from '@/lib/product.client'
 import { getMedia } from '@/lib/product.client'
 import { find, each, conformsTo } from 'lodash'
 import BuyNow from '@/components/product/BuyNow'
@@ -26,49 +26,49 @@ import { Markdown } from '@/components/Markdown'
 import { ImageSwiper } from '@/components/ImageSwiper'
 
 function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-  }
+  return classes.filter(Boolean).join(' ')
+}
 
 const postDateTemplate = tinytime('{YYYY}-{Mo}-{DD}')
 
-
-
 export default function ProductDetail({ product, vid }) {
-
   const breadcrumbs = [
     // { id: 1, name: '商城', href: '#' },
-    { id: 2, name: product.product_collection__expand[0].name, href: `/collections/${product.product_collection__expand[0].slug}` },
-  ];
-  let variant = null;
-  if(vid){
-    variant = find(product.product_variants, (v)=>{
-      return v._id === vid;
+    {
+      id: 2,
+      name: product.product_collection__expand[0].name,
+      href: `/collections/${product.product_collection__expand[0].slug}`,
+    },
+  ]
+  let variant = null
+  if (vid) {
+    variant = find(product.product_variants, (v) => {
+      return v._id === vid
     })
   }
-  
-  const [productVariant, setProductVariant] = useState(variant || product.product_variants[0]);
-  const onVariantRadiosChange = (values)=>{
-    setProductVariant(find(product.product_variants, (item)=>{
-      let isEq = true;
-      each(values, (v, k)=>{
-        if(isEq){
-          if(item[k] === v){
-            isEq = true
-          }else{
-            isEq = false
+
+  const [productVariant, setProductVariant] = useState(variant || product.product_variants[0])
+  const onVariantRadiosChange = (values) => {
+    setProductVariant(
+      find(product.product_variants, (item) => {
+        let isEq = true
+        each(values, (v, k) => {
+          if (isEq) {
+            if (item[k] === v) {
+              isEq = true
+            } else {
+              isEq = false
+            }
           }
-        }
+        })
+        return isEq
       })
-      return isEq;
-    }))
+    )
   }
   return (
     <>
       <main className="max-w-8xl mx-auto pt-4 sm:pt-8 px-4 sm:px-6 lg:px-8 w-full">
-
-
         <div className="max-w-3xl mx-auto lg:max-w-none">
-
           <nav aria-label="Breadcrumb">
             <ol role="list" className="mb-3 flex items-center space-x-2">
               {breadcrumbs.map((breadcrumb, breadcrumbIdx) => (
@@ -78,37 +78,37 @@ export default function ProductDetail({ product, vid }) {
                       {breadcrumb.name}
                     </a>
                     {breadcrumbIdx !== breadcrumbs.length - 1 ? (
-                    <svg
-                      width={16}
-                      height={20}
-                      viewBox="0 0 16 20"
-                      fill="currentColor"
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                      className="w-4 h-5 text-gray-300"
-                    >
-                      <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                    </svg>
-                    ):null}
+                      <svg
+                        width={16}
+                        height={20}
+                        viewBox="0 0 16 20"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                        className="w-4 h-5 text-gray-300"
+                      >
+                        <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                      </svg>
+                    ) : null}
                   </div>
                 </li>
               ))}
             </ol>
           </nav>
 
-          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">{product.name}</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            {product.name}
+          </h1>
 
           {/* Product */}
           <div className="mt-6 lg:grid lg:grid-cols-5 lg:gap-x-10 lg:items-start">
             {/* Image gallery */}
             <div className="col-span-3 w-full">
-              <ImageSwiper images={getMedia(product)}/>
+              <ImageSwiper images={getMedia(product)} />
             </div>
-                      
 
             {/* Product info */}
             <div className="col-span-2 mt-6 lg:mt-0">
-
               <div className="">
                 <h2 className="sr-only">Product information</h2>
                 <p className="text-3xl text-gray-900">
@@ -121,7 +121,7 @@ export default function ProductDetail({ product, vid }) {
                 <h3 className="sr-only">Reviews</h3>
                 <div className="flex items-center">
                   <div className="flex items-center">
-                  <ReviewStars rating={product.rating} />
+                    <ReviewStars rating={product.rating} />
                   </div>
                   <p className="sr-only">{product.rating} out of 5 stars</p>
                 </div>
@@ -133,7 +133,11 @@ export default function ProductDetail({ product, vid }) {
                 <Markdown body={product.description}></Markdown>
               </div>
 
-              <VariantRadios product={product} onChange={onVariantRadiosChange} productVariant={productVariant}></VariantRadios>
+              <VariantRadios
+                product={product}
+                onChange={onVariantRadiosChange}
+                productVariant={productVariant}
+              ></VariantRadios>
               <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
                 <AddToCart productVariant={productVariant}></AddToCart>
                 <BuyNow productVariant={productVariant}></BuyNow>
@@ -188,40 +192,55 @@ export default function ProductDetail({ product, vid }) {
               </section> */}
             </div>
           </div>
-          {product.html && (<section aria-labelledby="related-heading" className="max-w-3xl mt-6 border-gray-200 py-8 px-4 sm:px-0">
-            <div className="pb-8">
-              <Markdown body={product.html}></Markdown>
-            </div>
-          </section>)}
+          {product.html && (
+            <section
+              aria-labelledby="related-heading"
+              className="max-w-3xl mt-6 border-gray-200 py-8 px-4 sm:px-0"
+            >
+              <div className="pb-8">
+                <Markdown body={product.html}></Markdown>
+              </div>
+            </section>
+          )}
 
           {product.reviews && product.reviews.length > 0 && (
-            <section aria-labelledby="related-heading" className="mt-10 border-t border-gray-200 py-8 px-4 sm:px-0">
-              <h2 id="related-heading" className="text-xl font-bold text-gray-900">评论</h2>
+            <section
+              aria-labelledby="related-heading"
+              className="mt-10 border-t border-gray-200 py-8 px-4 sm:px-0"
+            >
+              <h2 id="related-heading" className="text-xl font-bold text-gray-900">
+                评论
+              </h2>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {product.reviews.map((review, reviewIdx) => (
                   <div key={review._id} className="flex text-sm text-gray-500 space-x-4">
                     <div className="flex-none py-10">
-                      <img src={`${process.env.NEXT_PUBLIC_STEEDOS_ROOT_URL}/avatar/${review.owner}`} alt="" className="w-10 h-10 bg-gray-100 rounded-full" />
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_STEEDOS_ROOT_URL}/avatar/${review.owner}`}
+                        alt=""
+                        className="w-10 h-10 bg-gray-100 rounded-full"
+                      />
                     </div>
-                    <div className='py-10'>
+                    <div className="py-10">
                       <h3 className="font-medium text-gray-900">{review.owner__expand.name}</h3>
                       <p>
-                        <time dateTime={review.created}>{postDateTemplate.render(new Date(Number(review.created)))}</time>
+                        <time dateTime={review.created}>
+                          {postDateTemplate.render(new Date(Number(review.created)))}
+                        </time>
                       </p>
-
 
                       <div className="mt-4">
                         <ReviewStars rating={review.rating} />
                       </div>
 
-                      <div className="mt-4 prose prose-sm max-w-none text-gray-500">{review.name}</div>
-                      
+                      <div className="mt-4 prose prose-sm max-w-none text-gray-500">
+                        {review.name}
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
             </section>
-
           )}
           {/* <section aria-labelledby="related-heading" className="mt-10 border-t border-gray-200 py-16 px-4 sm:px-0">
             <h2 id="related-heading" className="text-xl font-bold text-gray-900">

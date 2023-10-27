@@ -26,7 +26,12 @@ function views() {
     <div className='bg-gray-200'>
       <Head><title>测试Index组件 - 赋能企业，打造数字驱动型组织</title></Head>
 
-      <Testimonials2 />
+      {/* 使用 快速开始 页面，查看头部 底部布局， 头部底部在 _app.js 页面中 */}
+      <CallToAction />
+
+
+
+
 
     </div>
   )

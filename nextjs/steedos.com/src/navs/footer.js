@@ -1,6 +1,6 @@
 
 
-// ?========={ Footer 配置 Object  }==========
+// ? ========={ Footer 配置 <a /> 标签的跳转链接  }==========
 export const footerNav = [
   {
     id: 'platform',

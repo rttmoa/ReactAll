@@ -4,11 +4,14 @@
 
 
 
+头部
+底部
+PC端
+H5端
 
 
-
-
-
+layouts/ 
+  页面布局
 
 pages/
   api/auth/[...nextauth].js
@@ -22,5 +25,7 @@ pages/
   view/index.js 
   view/utils.js 
 
-  app.js 
-  index.js 
+  ? app.js 
+    ! 头部 + 内容 + 底部 
+  ? document.js
+  ? index.js
