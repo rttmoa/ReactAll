@@ -24,6 +24,8 @@ export async function getStaticPaths() {
   return { paths, fallback: 'blocking' }
 }
 
+
+
 // TODO; https://www.steedos.cn/products/finance
 export default function ProductDetail({ product }) {
   const router = useRouter()

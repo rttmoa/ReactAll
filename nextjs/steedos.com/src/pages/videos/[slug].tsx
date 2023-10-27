@@ -116,7 +116,7 @@ const Video: FunctionComponent<any> = (props) => {
                 flex items-center">
                   <span className="ml-1">{owner__expand.name}</span>
                 </a>
-                </div>
+              </div>
             </header>
             <Markdown body={body}></Markdown>
           </article>

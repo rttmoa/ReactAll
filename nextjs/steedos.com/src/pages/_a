@@ -1,0 +1,26 @@
+
+
+
+
+
+
+
+
+
+
+
+
+pages/
+  api/auth/[...nextauth].js
+  docs/mdx 
+  pages/[...page_slug].js
+  pricing/platform.js
+  products/[slug].js 
+  store 
+  video/[slug].js 
+  video/index.js 
+  view/index.js 
+  view/utils.js 
+
+  app.js 
+  index.js 
