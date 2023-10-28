@@ -1,17 +1,18 @@
 
 
-
-
-
-
 头部
 底部
 PC端
 H5端
+  ? <SearchButton /> 组件
+  ? H5端 文档布局； http://localhost:3000/docs/deploy/getting-started
 
+Components/
+  SearchButton.js     H5端时， 宽度 < 1024，右上角搜索按钮组件
+  Header.js （头部逻辑结构）
 
 layouts/ 
-  页面布局
+  ? 页面布局
 
 pages/
   api/auth/[...nextauth].js
@@ -27,5 +28,17 @@ pages/
 
   ? app.js 
     ! 头部 + 内容 + 底部 
+    ! <SearchProvider>{ children }</SearchProvider> (全局搜索组件，搜素项目中所有内容)
   ? document.js
   ? index.js
+
+
+
+<Footer /> 结构 & 外层控制width、margin、padding & 内层控制padding、text-center、font、text、border、gard、flex
+  <footer>
+    大盒子包裹着里面两个小盒子
+    <div>
+      <div>产品、解决方案、客户、公司</div>
+      <div>版权 + 图片</div>
+    </div>
+  </footer>

@@ -1,6 +1,8 @@
+// ? 社区； <svg /> & ul > li 图标分别是；Github、Discord、Twitter、YouTube
 export function Community() {
   return (
-    <ul className="grid sm:grid-cols-2 gap-6 xl:gap-8">
+    // 网格布局； + px-8 py-8
+    <ul className="grid sm:grid-cols-2 gap-6 xl:gap-8    ">
       <li>
         <a
           href="https://github.com/tailwindlabs/tailwindcss/discussions"

@@ -8,6 +8,8 @@ import 'swiper/css/effect-flip'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
+
+// ? 图片轮播 (翻转轮播)
 export const ImageSwiper = function ({ images }) {
   let [isOpen, setIsOpen] = useState(false)
 

@@ -3,7 +3,7 @@ import { formatPrice } from '@/lib/product.client'
 
 
 export default function Price({ price }) {
-  console.log(price)
+  // console.log(price)
   return (
     <>
       {price > 0 && (

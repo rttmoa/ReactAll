@@ -19,6 +19,6 @@ export function useActionKey() {
       }
     }
   }, [])
-
+  // console.log('actionKey', actionKey) // ['Ctrl ', 'Control']
   return actionKey
 }

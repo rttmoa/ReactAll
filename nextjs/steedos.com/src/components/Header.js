@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { SearchButton } from '@/components/Search'
+import { SearchButton } from './Search'
 import clsx from 'clsx'
 import Router from 'next/router'
 import { Logo } from './Logo'
@@ -7,13 +7,14 @@ import { useEffect, Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition, Menu } from '@headlessui/react'
 import { UserIcon, CodeIcon, ChevronDownIcon, CogIcon, LogoutIcon, ShoppingBagIcon, ViewGridIcon, UserAddIcon } from '@heroicons/react/outline'
 import { ThemeSelect, ThemeToggle } from './ThemeToggle'
-import { headerNav } from '@/navs/header';
+import { headerNav } from '../navs/header';
 import useSWR from 'swr'
 import { useSession, signIn, signOut } from "next-auth/react"
-
 import { getCart } from '@/lib/cart.client';
 
-const navigation = headerNav;
+
+const navigation = headerNav; // TODO header 结构； 产品、客户、文档、VIew 
+
 const registration_url = "https://id.steedos.cn/realms/master/protocol/openid-connect/registrations?client_id=steedos-oidc-public&redirect_uri=https://www.steedos.cn&response_type=code&ui_locales=zh_CN"
 
 function classNames(...classes) {
@@ -22,7 +23,7 @@ function classNames(...classes) {
 
 
 
-// ? 移动端时的导航菜单 弹窗
+// ? H5时的右上角导航菜单 ┆ 开启弹窗
 export function NavPopover({ display = 'md:hidden', className, ...props }) {
   let [isOpen, setIsOpen] = useState(false)
   useEffect(() => {
@@ -37,13 +38,12 @@ export function NavPopover({ display = 'md:hidden', className, ...props }) {
   }, [isOpen])
 
   return (
+    // ! 此 ┆ 图标控制着 弹窗的开启
     <div className={clsx(className, display)} {...props}>
-      <button
-        type="button"
+      <button type="button" onClick={() => setIsOpen(true)}
         className="text-slate-500 w-8 h-8 flex items-center justify-center hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
-        onClick={() => setIsOpen(true)}
       >
-        <span className="sr-only">Navigation</span>
+        <span className="sr-only">┆</span>
         <svg width="24" height="24" fill="none" aria-hidden="true">
           <path
             d="M12 6v.01M12 12v.01M12 18v.01M12 7a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm0 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm0 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"
@@ -54,18 +54,13 @@ export function NavPopover({ display = 'md:hidden', className, ...props }) {
           />
         </svg>
       </button>
-      <Dialog
-        as="div"
-        className={clsx('fixed z-50 inset-0', display)}
-        open={isOpen}
-        onClose={setIsOpen}
-      >
+      <Dialog as="div" className={clsx('fixed z-50 inset-0', display)} open={isOpen} onClose={setIsOpen}>
         <Dialog.Overlay className="fixed inset-0 bg-black/20 backdrop-blur-sm dark:bg-slate-900/80" />
-        <div className="fixed top-4 right-4 bottom-4 left-4 bg-white rounded-lg shadow-lg p-6 text-base font-semibold text-slate-900 dark:bg-slate-800 dark:text-slate-400 dark:highlight-white/5">
-          <button
-            type="button"
+        <div
+          className="fixed top-4 right-4 bottom-4 left-4 bg-white rounded-lg shadow-lg p-6 text-base font-semibold text-slate-900 dark:bg-slate-800 dark:text-slate-400 dark:highlight-white/5"
+        >
+          <button type="button" onClick={() => setIsOpen(false)}
             className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
-            onClick={() => setIsOpen(false)}
           >
             <span className="sr-only">Close navigation</span>
             <svg viewBox="0 0 10 10" className="w-2.5 h-2.5 overflow-visible" aria-hidden="true">
@@ -83,8 +78,7 @@ export function NavPopover({ display = 'md:hidden', className, ...props }) {
               <Tab.List className="-mb-px flex px-4 space-x-8">
                 {navigation.categories.map((category) => (
                   // !标题；产品 & 客户
-                  <Tab
-                    key={category.name}
+                  <Tab key={category.name}
                     className={({ selected }) =>
                       classNames(
                         selected ? 'text-sky-600 border-sky-600' : 'border-transparent',
@@ -102,7 +96,7 @@ export function NavPopover({ display = 'md:hidden', className, ...props }) {
                 <Tab.Panel key={category.name} className="focus:outline-none pt-10 pb-8 px-4 space-y-10">
                   <div className="grid grid-cols-2 gap-x-4">
                     {category.featured.map((item) => (
-                      // !此结构为；图片+图片标题
+                      // !此结构为；图片 + 图片标题
                       <div key={item.name} className="group relative text-sm">
                         <div className="aspect-w-4 aspect-h-3 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
                           <img src={item.imageSrc} alt={item.imageAlt} className="object-center object-cover" />
@@ -142,7 +136,8 @@ export function NavPopover({ display = 'md:hidden', className, ...props }) {
               ))}
             </Tab.Panels>
           </Tab.Group>
-
+          
+          {/* 导航；产品，客户，文档，视频，报价，View，Utils */}
           <div className="border-t border-gray-200 py-6 px-4 space-y-6">
             {navigation.pages.map((page) => (
               <div key={page.name} className="flow-root">
@@ -275,6 +270,7 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
 
 
 
+      {/* TODO: header 头部； 注释掉内部主要结构，看外部结构 */}
       <header
         className="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500                                                         lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] bg-white supports-backdrop-blur:bg-white/95 dark:bg-slate-900/75"
       >
@@ -298,12 +294,9 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
                       {({ open }) => (
                         <>
                           <div className="relative flex">
-                            <Popover.Button
-                              className={classNames(
-                                open
-                                  ? 'border-sky-600 text-sky-600'
-                                  : 'border-transparent hover:border-sky-600 hover:text-sky-600',
-                                'text-slate-700 dark:text-slate-200 font-semibold px-2 relative z-10 flex items-center transition-colors ease-out duration-200 border-b-2 -mb-px pt-px'
+                            <Popover.Button className={classNames(
+                                open ? 'border-sky-600 text-sky-600' : 'border-transparent hover:border-sky-600 hover:text-sky-600',
+                                'text-slate-700 dark:text-slate-200 font-semibold px-2 relative z-10 flex items-center transition-colors ease-out duration-200 border-b-2 -mb-px pt-px outline-0'
                               )}
                             >
                               <span>{category.name}</span>
@@ -319,12 +312,13 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                           >
-                          <Popover.Panel className="absolute top-full inset-x-0 text-sm">
+                            <Popover.Panel className="absolute top-full inset-x-0 text-sm">
                             {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
-                            <div className="absolute inset-0 top-1/2 shadow" aria-hidden="true" />
-                            {/* TODO: 渲染：产品 / 客户 下拉菜单 */}
-                            <div className="relative bg-white dark:bg-slate-800 font-normal">
+                              <div className="absolute inset-0 top-1/2 shadow" aria-hidden="true" />
+                              {/* TODO: 渲染：产品 / 客户 下拉菜单  &&  使用网格布局 */}
+                              <div className="relative bg-white dark:bg-slate-800 font-normal">
                               <div className="max-w-8xl mx-auto px-8">
+                                {/* 网格布局； 左侧结构 列表，  右侧结构 图片 */}
                                 <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
                                     <div className="col-start-2 grid grid-cols-2 gap-x-8">
                                       {category.featured.map((item) => (
@@ -348,15 +342,12 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
                                     </div>
                                     <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
                                       {category.sections.map((section) => (
+                                        // 这段结构是； 华炎魔方 -> 什么是低代码? ..... 
                                         <div key={section.name}>
                                           <p id={`${section.id}-heading`} className="font-semibold text-slate-900 dark:text-slate-100">
                                             <a href={section.href}>{section.name}</a>
                                           </p>
-                                          <ul
-                                            role="list"
-                                            aria-labelledby={`${section.id}-heading`}
-                                            className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
-                                          >
+                                          <ul role="list" aria-labelledby={`${section.id}-heading`} className="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
                                             {section.items.map((item) => (
                                               <li key={item.name} className="flex">
                                                 <a href={item.href} className="hover:text-slate-900 dark:hover:text-slate-300">
@@ -383,7 +374,7 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
                       key={page.name}
                       href={page.href}
                       target={page.target}
-                      className="px-2 flex items-center text-slate-700 dark:text-slate-200 text-base font-medium hover:border-sky-600 hover:text-sky-600 border-b-2 -mb-px pt-px border-transparent "
+                      className="px-2 flex items-center text-slate-700 dark:text-slate-200 text-base font-medium hover:border-sky-600 hover:text-sky-600 border-b-2 -mb-px pt-px border-transparent"
                     >
                       {page.name}
                     </a>
@@ -392,16 +383,19 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
               </Popover.Group>
 
 
-              
-              <div className="ml-auto flex items-center">
+              <span className="sr-only">TODO: PC/H5时，width＞1024时（我的账户、免费注册部分）、width＜1024时显示（搜索按钮、客户列表弹窗）</span>
+              <div className="ml-auto flex items-center">  
                 <div className="relative hidden lg:flex items-center ml-auto">
-                  {/* TODO: 我的账户、免费注册 */}
+                  <span className="sr-only">TODO: 我的账户、免费注册</span>
                   <div className="text-slate-700 dark:text-slate-200   hidden xl:block">
+                    {/* ================{ 我的账户下拉菜单 }================= */}
                     <Menu as="div" className="relative inline-block text-left">
                       <div>
-                        <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium rounded-md bg-opacity-20 hover:text-sky-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                        {userInfo.name && (userInfo.name)}
-                        我的账户
+                        <Menu.Button
+                          className="inline-flex justify-center w-full px-4 py-2     text-sm font-medium rounded-md bg-opacity-20 hover:text-sky-500  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                        >
+                          {userInfo.name && (userInfo.name)}
+                          我的账户
                           <ChevronDownIcon
                             className="w-5 h-5 ml-1 -mr-1 text-violet-300 hover:text-sky-500"
                             aria-hidden="true"
@@ -417,22 +411,26 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                          <div className="px-1 py-1">
-                            {/* Cart
+                        <Menu.Items 
+                          className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                        >
+                          <div className="px-3 py-1">
                             {userInfo.name && (
                               <Menu.Item>
-                                <a href="/store/shopping-cart" className="text-gray-900 group flex rounded-md items-center w-full px-2 py-2 text-sm">
+                                <a href="/store/shopping-cart" className="w-full px-2 py-2   text-gray-900 group flex rounded-md items-center  text-sm">
                                   <ShoppingBagIcon
                                     className="w-5 h-5 mr-2 text-sky-400"
                                     aria-hidden="true"
                                   />
                                   购物车 ({cart?.lines?.length})
                                 </a>
-                              </Menu.Item>)} */}
+                              </Menu.Item>
+                            )}
                             {!session && (
                               <Menu.Item>
-                                <a href="#" onClick={() => signIn("keycloak")} className="font-medium text-gray-900 group flex rounded-md items-center w-full px-2 py-2 text-sm">
+                                <a href="#" onClick={() => signIn("keycloak")} 
+                                  className="w-full px-2 py-2    font-medium text-gray-900 group flex rounded-md items-center text-sm"
+                                >
                                   <ShoppingBagIcon
                                     className="w-5 h-5 mr-2 text-sky-400"
                                     aria-hidden="true"
@@ -447,9 +445,7 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
                                   {session.user.name}
                                 </a>
                               </Menu.Item>
-                            )}
-
-
+                            )} 
                             <Menu.Item>
                               <a href="https://id.steedos.cn/realms/master/account/" target="_blank" className="font-medium text-gray-900 group flex rounded-md items-center w-full px-2 py-2 text-sm">
                                 <UserIcon
@@ -494,12 +490,16 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
                         </Menu.Items>
                       </Transition>
                     </Menu>
-                    <a className="hover:text-sky-500 dark:hover:text-sky-400 text-sm font-medium " href={registration_url}>
-                      <span className="ml-2 font-medium text-sm leading-5 rounded-full text-sky-600 bg-sky-400/10 px-3 py-2  dark:text-sky-400">免费注册</span>
+                    <a className="text-sm font-medium   hover:text-sky-500 dark:hover:text-sky-400" href={registration_url}>
+                      <span className="ml-2 px-3 py-2   font-medium text-sm leading-5 rounded-full text-sky-600 bg-sky-400/10 dark:text-sky-400">
+                        免费注册
+                      </span>
                     </a>
-                  </div> 
-                  {/* TODO: 主题切换、Github、LowCode、Steedos 图标 */}
+                  </div>
+
+                  <span className="sr-only">TODO: 主题切换、Github图标、LowCode、Steedos</span>
                   <div className="flex items-center border-l border-slate-200 ml-3 pl-6 dark:border-slate-800">
+                    <span className="sr-only">TODO: 主题切换 组件</span>
                     <ThemeToggle panelClassName="mt-8" />
                     <a href="https://github.com/steedos/steedos-platform" target="_blank"
                       className="ml-6 block text-slate-400 hover:text-slate-500 dark:hover:text-slate-300"
@@ -514,14 +514,10 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
                         <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
                       </svg>
                     </a>
-                    <a href="https://low-code-protocol.com/docs/overview" target="_blank"
-                      className="ml-6 block text-slate-400 hover:text-slate-500 dark:hover:text-slate-300"
-                    >
+                    <a href="https://low-code-protocol.com" target="_blank" className="ml-6 block text-slate-400 hover:text-slate-500">
                       LowCode
                     </a>
-                    <a href="https://www.steedos.com/" target="_blank"
-                      className="ml-6 block text-slate-400 hover:text-slate-500 dark:hover:text-slate-300"
-                    >
+                    <a href="https://www.steedos.com/" target="_blank" className="ml-6 block text-slate-400 hover:text-slate-500">
                       Steedos
                     </a>
                   </div>
@@ -544,14 +540,17 @@ export function Header({ hasNav = false, navIsOpen, onNavToggle, title, section 
                     <circle cx="11" cy="11" r="6" />
                   </svg>
                 </SearchButton>
+                {/* ? H5时的右上角导航菜单 开启弹窗 */}
                 <NavPopover className="ml-2 -my-1" display="lg:hidden" />
               </div>
             </div>
           </div>
         </nav>
 
-        {/* 当屏幕尺寸小于1024时 */}
+        {/* TODO: 导航 > 当屏幕尺寸小于1024时 > 文档 docs > 导航区域  点击 三 开启 文档菜单列表弹窗 */}
         {hasNav && (
+          // 结构； 三 安装部署 > 快速向导
+          // 结构； 三 开发人员 > 开发人员快速向导
           <div className="flex items-center p-4 border-b border-slate-900/10 lg:hidden dark:border-slate-50/[0.06]">
             <button
               type="button"

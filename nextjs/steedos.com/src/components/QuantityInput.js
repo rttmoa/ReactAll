@@ -2,6 +2,7 @@ import { Fragment, useState } from 'react'
 import { MinusSmIcon, PlusSmIcon } from '@heroicons/react/outline'
 import { isNumber, isFunction } from 'lodash';
 
+
 export default function QuantityInput({quantity, index, merchandise, onChange}) {
     const [value, setValue] = useState(quantity || 1);
     const [onChangeTimeOutId, setOnChangeTimeOutId] = useState(null);

@@ -3,10 +3,11 @@ import clsx from 'clsx'
 
 
 
-
+// ? 文档布局；内容区域；上一页，下一页
 export function Footer({ children, previous, next }) {
 
 
+  // console.log('上一页，下一页', previous, next)
   // return null
   return (
     <footer className={clsx('text-sm leading-6', previous || next ? 'mt-12' : 'mt-16')}>

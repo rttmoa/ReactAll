@@ -3,19 +3,10 @@ import { Listbox } from '@headlessui/react'
 import clsx from 'clsx'
 import { Fragment, useEffect, useRef, useState } from 'react'
 
-function update() {
-  if (
-    localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-  ) {
-    document.documentElement.classList.add('dark', 'changing-theme')
-  } else {
-    document.documentElement.classList.remove('dark', 'changing-theme')
-  }
-  window.setTimeout(() => {
-    document.documentElement.classList.remove('changing-theme')
-  })
-}
 
+
+
+/** #### TODO: 下拉菜单 light、dark、system 切换主题颜色  [{}, {}, {}]  */
 let settings = [
   {
     value: 'light',
@@ -106,6 +97,18 @@ function PcIcon({ selected, ...props }) {
   )
 }
 
+function update() {
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark', 'changing-theme')
+  } else {
+    document.documentElement.classList.remove('dark', 'changing-theme')
+  }
+  window.setTimeout(() => {
+    document.documentElement.classList.remove('changing-theme')
+  })
+}
+
+// ! Hooks 组件
 function useTheme() {
   let [setting, setSetting] = useState('system')
   let initial = useRef(true)
@@ -148,6 +151,8 @@ function useTheme() {
         setSetting('system')
       }
     }
+    
+    // ! window 监听 storeage 事件
     window.addEventListener('storage', onStorage)
 
     return () => {
@@ -165,9 +170,9 @@ function useTheme() {
 }
 
 
-// ? 主题切换
+// ? 头部 主题切换;  light / dark
 export function ThemeToggle({ panelClassName = 'mt-4' }) {
-  let [setting, setSetting] = useTheme()
+  let [setting, setSetting] = useTheme() // TODO 从这里获取主题
 
   return (
     <Listbox value={setting} onChange={setSetting}>
@@ -182,15 +187,14 @@ export function ThemeToggle({ panelClassName = 'mt-4' }) {
       </Listbox.Button>
       <Listbox.Options
         className={clsx(
-          'absolute z-50 top-full right-30 bg-white rounded-lg ring-1 ring-slate-900/10 shadow-lg overflow-hidden w-36 py-1 text-sm text-slate-700 font-semibold dark:bg-slate-800 dark:ring-0 dark:highlight-white/5 dark:text-slate-300',
-          panelClassName, 
+          'absolute z-50 top-full right-30 w-36 py-1    bg-white rounded-lg ring-1 ring-slate-900/10 shadow-lg overflow-hidden text-sm text-slate-700 font-semibold dark:bg-slate-800 dark:ring-0 dark:highlight-white/5 dark:text-slate-300',
+          panelClassName,
         )}
       >
         {settings.map(({ value, label, icon: Icon }) => (
           <Listbox.Option key={value} value={value} as={Fragment}>
             {({ active, selected }) => (
-              <li
-                className={clsx(
+              <li className={clsx(
                   'py-1 px-2 flex items-center cursor-pointer',
                   selected && 'text-sky-500',
                   active && 'bg-slate-50 dark:bg-slate-600/30'
@@ -206,6 +210,7 @@ export function ThemeToggle({ panelClassName = 'mt-4' }) {
     </Listbox>
   )
 }
+
 // ? 主题选择
 export function ThemeSelect() {
   let [setting, setSetting] = useTheme()
@@ -214,10 +219,12 @@ export function ThemeSelect() {
 
   return (
     <div className="flex items-center justify-between">
-      <label htmlFor="theme" className="text-slate-700 font-normal dark:text-slate-400">
+      <label htmlFor="theme" className="sr-only text-slate-700 font-normal dark:text-slate-400">
         Switch theme
       </label>
-      <div className="relative flex items-center ring-1 ring-slate-900/10 rounded-lg shadow-sm p-2 text-slate-700 font-semibold dark:bg-slate-600 dark:ring-0 dark:highlight-white/5 dark:text-slate-200">
+      <div 
+        className="relative flex items-center ring-1 ring-slate-900/10 rounded-lg shadow-sm p-2 text-slate-700 font-semibold dark:bg-slate-600 dark:ring-0 dark:highlight-white/5 dark:text-slate-200"
+      >
         <SunIcon className="w-6 h-6 mr-2 dark:hidden" />
         <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6 mr-2 hidden dark:block">
           <path
@@ -237,7 +244,7 @@ export function ThemeSelect() {
             className="fill-slate-400"
           />
         </svg>
-        {label}
+        <span className='text-sm text-slate-400'>{label}</span>
         <svg className="w-6 h-6 ml-2 text-slate-400" fill="none">
           <path
             d="m15 11-3 3-3-3"

@@ -3,10 +3,12 @@ import socialSquare from '@/img/social-square.jpg'
 
 
 
-
+// ? 标题 & 每一个模块都使用 <Title />  快速向导、Docker部署、参数配置....
+// http://localhost:3000/docs/deploy/steedos-config
 export function Title({ suffix, children }) {
   let title = children + (suffix ? ` - ${suffix}` : '')
-
+  // console.log(title)
+  
   return (
     <Head>
       <title key="title">{title}</title>

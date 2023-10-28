@@ -234,7 +234,7 @@ let testimonials = [
       },
     },
   ],
-]
+];
 
 
 function Testimonial({ author, content, url, expanded }) {

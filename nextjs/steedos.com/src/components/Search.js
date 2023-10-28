@@ -22,7 +22,7 @@ const SearchContext = createContext()
 
 // ? children 为 整个页面 头 + 体 + 脚
 export function SearchProvider({ children }) {
-  // console.log(children)
+
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const [initialQuery, setInitialQuery] = useState(null)
@@ -65,7 +65,7 @@ export function SearchProvider({ children }) {
       >
         {children}
       </SearchContext.Provider>
-      {isOpen &&
+      {isOpen && (
         createPortal(
           <DocSearchModal
             initialQuery={initialQuery}
@@ -100,8 +100,7 @@ export function SearchProvider({ children }) {
                 }
 
                 if (item._highlightResult?.hierarchy?.lvl0?.value) {
-                  item._highlightResult.hierarchy.lvl0.value =
-                    item._highlightResult.hierarchy.lvl0.value.replace(/&amp;/g, '&')
+                  item._highlightResult.hierarchy.lvl0.value = item._highlightResult.hierarchy.lvl0.value.replace(/&amp;/g, '&')
                 }
 
                 return {
@@ -109,11 +108,7 @@ export function SearchProvider({ children }) {
                   url: `${a.pathname}${hash}`,
                   __is_result: () => true,
                   __is_parent: () => item.type === 'lvl1' && items.length > 1 && index === 0,
-                  __is_child: () =>
-                    item.type !== 'lvl1' &&
-                    items.length > 1 &&
-                    items[0].type === 'lvl1' &&
-                    index !== 0,
+                  __is_child: () => item.type !== 'lvl1' && items.length > 1 && items[0].type === 'lvl1' && index !== 0,
                   __is_first: () => index === 1,
                   __is_last: () => index === items.length - 1 && index !== 0,
                 }
@@ -121,7 +116,8 @@ export function SearchProvider({ children }) {
             }}
           />,
           document.body
-        )}
+        )
+      )}
     </>
   )
 }
@@ -142,10 +138,11 @@ function Hit({ hit, children }) {
   )
 }
 
+// ? H5端时， 宽度 < 1024，右上角搜索按钮组件 ( 全局搜索内容 )
 export function SearchButton({ children, ...props }) {
   let searchButtonRef = useRef()
   let actionKey = useActionKey()
-  let { onOpen, onInput } = useContext(SearchContext)
+  let { onOpen, onInput } = useContext(SearchContext) // TODO 重点在这个 SearchContext 中 （全局搜索）
 
   useEffect(() => {
     function onKeyDown(event) {
@@ -169,6 +166,13 @@ export function SearchButton({ children, ...props }) {
 }
 
 function useDocSearchKeyboardEvents({ isOpen, onOpen, onClose }) {
+  function isEditingContent(event) {
+    let element = event.target
+    let tagName = element.tagName
+    return (
+      element.isContentEditable || tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA'
+    )
+  }
   useEffect(() => {
     function onKeyDown(event) {
       function open() {
@@ -178,14 +182,12 @@ function useDocSearchKeyboardEvents({ isOpen, onOpen, onClose }) {
           onOpen()
         }
       }
+      let condition1 = event.keyCode === 27 && isOpen;
+      let condition2 = event.key === "k" && (event.metaKey || event.ctrlKey);
+      let condition3 = !isEditingContent(event) && event.key === "/" && !isOpen;
 
-      if (
-        (event.keyCode === 27 && isOpen) ||
-        (event.key === 'k' && (event.metaKey || event.ctrlKey)) ||
-        (!isEditingContent(event) && event.key === '/' && !isOpen)
-      ) {
+      if (condition1 || condition2 || condition3) {
         event.preventDefault()
-
         if (isOpen) {
           onClose()
         } else if (!document.body.classList.contains('DocSearch--active')) {
@@ -201,13 +203,4 @@ function useDocSearchKeyboardEvents({ isOpen, onOpen, onClose }) {
   }, [isOpen, onOpen, onClose])
 }
 
-function isEditingContent(event) {
-  let element = event.target
-  let tagName = element.tagName
-  return (
-    element.isContentEditable ||
-    tagName === 'INPUT' ||
-    tagName === 'SELECT' ||
-    tagName === 'TEXTAREA'
-  )
-}
+

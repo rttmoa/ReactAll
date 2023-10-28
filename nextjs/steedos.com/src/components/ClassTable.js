@@ -4,10 +4,9 @@ import { castArray } from '@/utils/castArray'
 import clsx from 'clsx'
 import { Heading } from '@/components/Heading'
 
-function renderProperties(
-  properties,
-  { filter = () => true, transformValue = (x) => x, indent = 0 } = {}
-) {
+
+
+function renderProperties(properties, { filter = () => true, transformValue = (x) => x, indent = 0 } = {}) {
   return Object.keys(properties).map((property) => {
     if (isObject(properties[property])) {
       return [
@@ -20,9 +19,7 @@ function renderProperties(
         .filter((value) => filter(property, value, properties))
         .map((value, i) => {
           let transformedValue = transformValue(value)
-          let px = /^[\d.]+rem$/.test(transformedValue)
-            ? `${parseFloat(transformedValue) * 16}px`
-            : null
+          let px = /^[\d.]+rem$/.test(transformedValue) ? `${parseFloat(transformedValue) * 16}px` : null
           return (
             <Fragment key={i}>
               {'  '.repeat(indent)}
@@ -174,12 +171,9 @@ export const ClassTable = memo(
                 : 'mt-4 sticky bottom-[calc(1rem+env(safe-area-inset-bottom,0))]'
             )}
           >
-            <div
-              className={clsx(
+            <div className={clsx(
                 'absolute inset-x-0 bg-gradient-to-t from-white dark:from-slate-900',
-                isCollapsed
-                  ? '-top-8 bottom-0'
-                  : '-top-4 bottom-[calc(-1*(1rem+env(safe-area-inset-bottom,0)))]'
+                isCollapsed  ? '-top-8 bottom-0' : '-top-4 bottom-[calc(-1*(1rem+env(safe-area-inset-bottom,0)))]'
               )}
             />
             <button

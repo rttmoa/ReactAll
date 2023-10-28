@@ -1,4 +1,7 @@
 export function Tabs({ tabs, selected, onChange, className, iconClassName }) {
+  
+  
+  // console.log("tabs", tabs)
   return (
     <div className="flex overflow-auto -mx-4 sm:mx-0">
       <ul

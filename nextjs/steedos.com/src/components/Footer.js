@@ -3,14 +3,14 @@ import { footerNav } from '../navs/footer';
 
 
 
-// ? 底部 Footer  & 产品、解决方案、客户、公司
+// ? 底部 Footer  & 产品、解决方案、客户、公司  &  ©版权
 export const Footer = (props) => {
   return (
     <footer aria-labelledby="footer-heading" className="pt-20">
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
-      <div className="max-w-8xl mx-auto    px-4 sm:px-6 lg:px-8">
+      <div className="max-w-8xl mx-auto    px-4 sm:px-6 lg:px-8 f">
         <div className="py-8    grid grid-cols-4 gap-8 xl:col-span-2">
           {footerNav.map((section) => (
             // ! 网格布局 （gard）；产品、解决方案、客户、公司；  
@@ -28,7 +28,7 @@ export const Footer = (props) => {
                 </ul>
               </div>
             </div>
-          ))}
+          ))} 
         </div>
         <div className="py-10 text-center     border-t border-gray-200 dark:border-gray-700">
           <p className="text-sm text-gray-500">&copy; 2023 华炎软件, 保留所有权利</p>
@@ -37,5 +37,14 @@ export const Footer = (props) => {
         </div>
       </div>
     </footer>
+
+    // Footer结构 & 外层控制width、margin、padding & 内层控制padding、text-center、font、text、border、gard、flex
+    // <footer>
+    //   大盒子包裹着里面两个小盒子
+    //   <div>
+    //     <div>产品、解决方案、客户、公司</div>
+    //     <div>版权 + 图片</div>
+    //   </div>
+    // </footer>
   )
 }

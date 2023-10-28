@@ -34,9 +34,10 @@ class Iframe extends React.Component<any> {
     this.container.contentWindow.removeEventListener('resize', this.handleResize);
     // window.removeEventListener('resize', this.handleResize);
   }
-  
+
   render() {
     const { contentHeight } = this.state;
+    console.log("Frame");
     return (
       <iframe
         {...this.props} 

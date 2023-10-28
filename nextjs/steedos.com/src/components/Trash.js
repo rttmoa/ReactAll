@@ -2,6 +2,8 @@ import { Fragment, useState } from 'react'
 import { TrashIcon } from '@heroicons/react/outline'
 import { Dialog, Transition } from '@headlessui/react'
 
+
+// 垃圾
 export default function Trash({ title, onRemove }) {
   let [isOpen, setIsOpen] = useState(false)
 
