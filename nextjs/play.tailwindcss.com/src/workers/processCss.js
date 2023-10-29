@@ -46,8 +46,7 @@ export async function processCss(
 
   self[VIRTUAL_HTML_FILENAME] = htmlInput
 
-  let separator =
-    typeof config.separator === 'undefined' ? ':' : config.separator
+  let separator = typeof config.separator === 'undefined' ? ':' : config.separator
   separator = `${separator}`
 
   if (

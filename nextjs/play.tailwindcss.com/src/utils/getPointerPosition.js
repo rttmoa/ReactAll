@@ -1,3 +1,8 @@
+
+
+
+
+// ? 获取指针位置
 export function getPointerPosition(event) {
   if (event.targetTouches) {
     if (event.targetTouches.length === 1) {

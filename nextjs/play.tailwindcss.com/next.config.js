@@ -97,6 +97,7 @@ module.exports = {
       },
     ]
   },
+  // ? webpack config
   webpack: (config, { isServer, webpack, dev }) => {
     config.resolve.alias = { ...config.resolve.alias, ...moduleOverrides }
 
@@ -302,9 +303,7 @@ module.exports = {
             label,
             entry: require.resolve(path.join('monaco-editor/esm', entry)),
             filename: isServer ? `${label}.js` : `static/chunks/${label}.js`,
-            chunkFilename: isServer
-              ? `${label}.js`
-              : `static/chunks/${label}.js`,
+            chunkFilename: isServer ? `${label}.js` : `static/chunks/${label}.js`,
             plugins: [
               new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
             ],
@@ -316,14 +315,9 @@ module.exports = {
   },
 }
 
-/**
- * AddWorkerEntryPointPlugin
- * https://github.com/microsoft/monaco-editor/blob/57e51563851acfda93b532aa7812159943527c7b/monaco-editor-webpack-plugin/src/plugins/AddWorkerEntryPointPlugin.ts
- */
-function getCompilerHook(
-  compiler,
-  { id, label, entry, filename, chunkFilename, plugins }
-) {
+
+// https://github.com/microsoft/monaco-editor/blob/57e51563851acfda93b532aa7812159943527c7b/monaco-editor-webpack-plugin/src/plugins/AddWorkerEntryPointPlugin.ts
+function getCompilerHook(compiler, { id, label, entry, filename, chunkFilename, plugins }) {
   const webpack = compiler.webpack
 
   return function (compilation, callback) {
@@ -346,6 +340,7 @@ function getCompilerHook(
   }
 }
 
+// new AddWorkerEntryPointPlugin ({ ... })
 class AddWorkerEntryPointPlugin {
   constructor({
     id,

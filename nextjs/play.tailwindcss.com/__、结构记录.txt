@@ -1,0 +1,42 @@
+
+
+
+文件目录结构
+
+public; public文件中主要用来存放不会发生改动的静态文件
+
+src
+  /codemirror
+  /components
+  /hooks
+    useDebouncedState.js
+    useIsomorphicLayoutEffect.js
+  /modules
+  /monaco
+    css.js
+    html.js
+    javascript.js
+    ? types-v2.d.ts
+    ? types-v3.d.ts
+    ? types.d.ts
+  /pages
+    /api/share.js
+    _app.js
+    _document.js
+    ? [[...slug]].js
+  /scripts
+  /utils
+    database.js
+    getDefaultContent.js
+    getPointerPosition.js
+    ? runPlugin.js
+    ? theme.js
+    ? validateJavaScript.js
+  /workers
+
+next.config.js
+  webpack config
+
+postcss.config.js
+
+tailwind.config.js

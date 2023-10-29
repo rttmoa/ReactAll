@@ -1,5 +1,6 @@
 import CodeMirror from 'codemirror'
 
+// ? codemirror 是⼀个代码编辑器组件，可以嵌⼊到Web页⾯中。
 
 
 

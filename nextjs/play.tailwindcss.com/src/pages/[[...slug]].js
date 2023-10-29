@@ -27,6 +27,8 @@ const TAB_BAR_HEIGHT = 40
 const RESIZER_SIZE = 1
 const DEFAULT_RESPONSIVE_SIZE = { width: 540, height: 720 }
 
+
+// App > Pen
 function Pen({
   initialContent,
   initialPath,
@@ -286,6 +288,9 @@ function Pen({
     setActiveTab(initialActiveTab)
   }, [initialActiveTab])
 
+
+
+  
   return (
     <>
       <Head>
@@ -430,6 +435,7 @@ export default function App({ errorCode, ...props }) {
   return <Pen {...props} />
 }
 
+// ! 获取服务端
 export async function getServerSideProps({ params, res, query }) {
   const layoutProps = {
     initialLayout: ['vertical', 'horizontal', 'preview'].includes(query.layout)

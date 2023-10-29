@@ -10,8 +10,7 @@ export function onDidChangeTheme(callback) {
   const observer = new MutationObserver((mutationsList) => {
     for (let mutation of mutationsList) {
       if (
-        mutation.type === 'attributes' &&
-        mutation.attributeName === 'class'
+        mutation.type === 'attributes' && mutation.attributeName === 'class'
       ) {
         if (root.classList.contains('dark')) {
           callback('dark')

@@ -6,6 +6,7 @@ const DESCRIPTION =
   "An advanced online playground for Tailwind CSS that lets you use all of Tailwind's build-time features directly in the browser."
 const FAVICON_VERSION = 3
 
+// 开发环境
 if (typeof window !== 'undefined') {
   require('../workers/subworkers')
 }

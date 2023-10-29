@@ -1,3 +1,8 @@
+
+
+
+
+// ? 快捷键
 const shortcuts = {
   rootKey: 'alt',
   focus: 'tab',
