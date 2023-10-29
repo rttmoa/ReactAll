@@ -13,10 +13,15 @@ type PageLessonProps = {
   lesson: Lesson;
 };
 
+
+// TODO 重点界面，业务逻辑
+// regex-for-seo； http://localhost:3000/zh-cn/learn/regex-for-seo
+// regex101； http://localhost:3000/zh-cn/learn/regex101
 const PageLesson = ({ lesson }: PageLessonProps) => {
   const lessonData = require(`src/data/lessons/${lesson.key}.js`)?.default;
 
   return (
+    // TODO 组件；；InteractiveAreaProvider & Step & LearnFooter
     <>
       <CustomHead
         title={`lessons.${lesson.key}.title`}

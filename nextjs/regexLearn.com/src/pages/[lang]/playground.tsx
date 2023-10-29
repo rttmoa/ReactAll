@@ -9,7 +9,7 @@ import Icon from 'src/components/Icon';
 import ReportPlayground from 'src/components/ReportPlayground';
 
 
-
+// ? 游乐场；http://localhost:3000/zh-cn/playground
 const PagePlayground = () => (
   <>
     <CustomHead
@@ -25,8 +25,10 @@ const PagePlayground = () => (
         <div className="w-full  overflow-y-scroll p-4">
           <PlaygroundEditor />
         </div>
+        {/* 右侧；备忘单 + 赞赏 */}
         <div className="hidden sm:flex flex-col w-[400px] h-full border-l border-neutral-700">
           <PlaygroundSidebar />
+          {/* 右下角；赞赏 */}
           <div className="h-44 min-h-[100px] border-t py-2 flex flex-col items-center justify-between border-neutral-700 sticky bottom-0">
             <div className="flex text-xs items-center text-neutral-300">
               Supported by{' '}

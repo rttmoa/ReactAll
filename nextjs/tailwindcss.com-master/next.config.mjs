@@ -7,12 +7,7 @@ import { withSyntaxHighlighting } from './remark/withSyntaxHighlighting.mjs'
 import { withLinkRoles } from './rehype/withLinkRoles.mjs'
 import minimatch from 'minimatch'
 import withExamples from './remark/withExamples.mjs'
-import {
-  highlightCode,
-  fixSelectorEscapeTokens,
-  simplifyToken,
-  normalizeTokens,
-} from './remark/utils.mjs'
+import {  highlightCode,  fixSelectorEscapeTokens,  simplifyToken,  normalizeTokens, } from './remark/utils.mjs'
 import remarkGfm from 'remark-gfm'
 import remarkUnwrapImages from 'remark-unwrap-images'
 import { recmaImportImages } from './recma/importImages.mjs'
@@ -54,6 +49,7 @@ export default {
   async redirects() {
     return JSON.parse(fs.readFileSync(require.resolve('./redirects.json'), 'utf8'))
   },
+  // ? webpack config
   webpack(config, options) {
     config.module.rules.push({
       test: /\.mp4$/i,

@@ -1,7 +1,7 @@
 
+
+
 type TagWrapper = { value: string; regex: RegExp; tagName?: string; attributes?: object };
-
-
 
 const tagWrapper = ({ value, regex, tagName = 'span', attributes = {} }: TagWrapper): string => {
   if (typeof value !== 'string') return value;

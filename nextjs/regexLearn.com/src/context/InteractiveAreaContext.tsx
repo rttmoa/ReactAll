@@ -18,11 +18,12 @@ interface IInteractiveAreaContext {
   setLockError: (lockError: boolean) => void;
   prevStep: () => void;
   nextStep: () => void;
-  lesson: Lesson;
-  lessonData: LessonData[];
-  data: LessonData;
+  lesson: Lesson; // ! type Lesson {}
+  lessonData: LessonData[]; // ! type LessonData = {}
+  data: LessonData; // ! LessonData = {}
 }
 
+// ? 交互上下文
 const InteractiveAreaContext = createContext<IInteractiveAreaContext>({
   step: 0,
   setStep: () => {},
@@ -43,6 +44,8 @@ const InteractiveAreaContext = createContext<IInteractiveAreaContext>({
   data: null,
 });
 
+
+
 const InteractiveAreaProvider = ({ lesson, lessonData, children }) => {
   
   const lookieKey = `lesson.${lesson.key}`;
@@ -54,7 +57,7 @@ const InteractiveAreaProvider = ({ lesson, lessonData, children }) => {
   const [error, setError] = useState(false);
   const [lockError, setLockError] = useState(false);
 
-  const data = lessonData[step];
+  const data = lessonData[step]; // 根据 step 获取 lessonData 里面的 results
 
   useEffect(() => {
     const { lastStep = 0, currentStep = lastStep } = lookie.get(lookieKey) || {};

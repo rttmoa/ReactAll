@@ -16,6 +16,9 @@ import ProductHuntBadges from 'src/components/ProductHuntBadges';
 
 import sponsors from 'sponsors.json';
 
+
+
+// ? 点击 Logo；  首页内容
 const PageHome = () => {
   const { formatMessage } = useIntl();
 
@@ -140,6 +143,8 @@ const PageHome = () => {
 };
 
 export default PageHome;
+
+
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const lang = params.lang || defaultLocale;

@@ -4,6 +4,9 @@ import CheatsheetCollapse from 'src/components/CheatsheetCollapse';
 
 import data from 'src/data/cheatsheet.json';
 
+
+
+
 const PlaygroundSidebar = () => {
   const { formatMessage } = useIntl();
 

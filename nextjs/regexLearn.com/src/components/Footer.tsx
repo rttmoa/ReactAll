@@ -4,6 +4,8 @@ import Social from 'src/components/Social';
 
 import packageInfo from 'package.json';
 
+
+// ? 脚 Footer
 const Footer = () => (
   <footer className="flex items-center justify-center flex-col h-20 mt-8 w-full">
     <div className="flex items-center">

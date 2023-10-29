@@ -11,6 +11,9 @@ import HighlightedText from 'src/components/HighlightedText';
 import { defaultLocale, locales } from 'src/localization';
 import lessons from 'src/data/lessons/index.json';
 
+
+
+// ? 学习页；http://localhost:3000/zh-cn/learn
 const PageLearn = () => {
   const { formatMessage } = useIntl();
 

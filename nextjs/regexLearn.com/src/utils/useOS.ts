@@ -9,8 +9,8 @@ const MobileRegexes = {
 
 const passWhenSSR = fn => (typeof window === 'undefined' ? new Function() : fn);
 
+// ? 判断是  Apple 
 export const isMacOS = passWhenSSR(() => /macintosh|mac os x/i.test(window.navigator.userAgent));
 
-export const isMobile = passWhenSSR(() =>
-  Object.values(MobileRegexes).some(regex => regex.test(window.navigator.userAgent)),
-);
+// ? 判断是  Mobile
+export const isMobile = passWhenSSR(() => Object.values(MobileRegexes).some(regex => regex.test(window.navigator.userAgent)),);

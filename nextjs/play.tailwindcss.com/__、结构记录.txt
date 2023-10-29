@@ -3,6 +3,10 @@
 
 文件目录结构
 
+Function  
+  切换主题
+
+
 public; public文件中主要用来存放不会发生改动的静态文件
 
 src

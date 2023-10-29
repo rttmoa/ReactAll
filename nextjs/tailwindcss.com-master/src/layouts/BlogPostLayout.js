@@ -6,6 +6,8 @@ import { MDXProvider } from '@mdx-js/react'
 import clsx from 'clsx'
 import Link from 'next/link'
 
+
+
 export function BlogPostLayout({ children, meta }) {
   return (
     <div className="overflow-hidden">

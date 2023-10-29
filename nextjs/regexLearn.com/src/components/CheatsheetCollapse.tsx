@@ -9,6 +9,8 @@ interface CheatsheetCollapseProps {
   data: any;
 }
 
+
+
 const CheatsheetCollapse = ({ title, data }: CheatsheetCollapseProps) => {
   const [open, setOpen] = useState(false);
 
@@ -43,6 +45,7 @@ const CheatsheetCollapse = ({ title, data }: CheatsheetCollapseProps) => {
         {title}
       </div>
       {open && (
+        // ! 显示卡片，文本和正则表达式
         <div id={`Collapse-${data.title}`} className="h-auto mb-3 mt-2">
           {data.description && (
             <p className="text-xs text-neutral-400 mb-4 pl-14">

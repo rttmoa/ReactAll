@@ -16,18 +16,16 @@ const ReportPlayground = () => {
   useEffect(() => {
     setBody(
       encodeURI(`
-**Page:** \`Playground\`
-**Language:** \`${lang}\`
-**Version:** \`v${packageInfo.version}\`
+        **Page:** \`Playground\`
+        **Language:** \`${lang}\`
+        **Version:** \`v${packageInfo.version}\`
 
-**User Agent:** 
-\`${window.navigator.userAgent.replace(/;/g, ',')}\`
+        **User Agent:** 
+        \`${window.navigator.userAgent.replace(/;/g, ',')}\`
 
----
+        ---
 
-**What is the problem you are experiencing?**
-    
-    
+        **What is the problem you are experiencing?** 
     `),
     );
   }, [lang]);

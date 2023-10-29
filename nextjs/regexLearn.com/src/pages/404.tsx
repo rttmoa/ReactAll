@@ -8,6 +8,9 @@ import Footer from 'src/components/Footer';
 import IntlLink from 'src/components/IntlLink';
 import { defaultLocale } from 'src/localization';
 
+
+
+
 const Page404 = () => {
   const { formatMessage } = useIntl();
 
@@ -26,12 +29,7 @@ const Page404 = () => {
             </Button>
           </IntlLink>
           <p className="mt-3">
-            <FormattedMessage
-              id="notFound.intro"
-              values={{
-                br: <br />,
-              }}
-            />
+            <FormattedMessage id="notFound.intro" values={{ br: <br />, }} />
           </p>
         </div>
         <Footer />

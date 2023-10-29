@@ -41,6 +41,8 @@ const initText = `Regular Expressions, abbreviated as Regex or Regexp, are a str
 
 const initialContent = ContentState.createFromText(initText);
 
+
+// TODO 演练场；编辑器
 const Playground = () => {
   const { formatMessage } = useIntl();
   const regexInput = useRef<HTMLInputElement>(null);
@@ -206,6 +208,10 @@ const Playground = () => {
     });
   }, []);
 
+
+
+
+  
   return (
     <>
       <div
@@ -233,7 +239,7 @@ const Playground = () => {
           <FlagSelect flags={state.flags} setFlags={onChangeFlags} />
         </div>
         <Button
-          className="h-12 py-0 ml-2 w-fit relative"
+          className="h-12 py-0 ml-2 w-1/12 relative "
           variant={ButtonVariants.Primary}
           onClick={handleShare}
           disabled={!hasChange}

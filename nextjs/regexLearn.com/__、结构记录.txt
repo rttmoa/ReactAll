@@ -3,12 +3,26 @@
 Nodejs V14.20.0
 yarn dev
 
+? React + Next + Typescript
+
+? 内容
+  切换语言 （国际化语言）
+  styles 全局CSS、global.css 
+  types.d.ts
+  全局上下文 InteractiveAreaProvider
+  components 封装组件
+  
 
 public; public文件中主要用来存放不会发生改动的静态文件
-
 src 
-
-
+  components
+    Header.tsx 头部切换语言，点击跳转时，href对应到pages下目录中
+  context
+    InteractiveAreaContext.tsx
+  data
+  localization
+  pages
+    /[lang]/learn/[lesson].tsx
 
 
 

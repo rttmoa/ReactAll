@@ -10,11 +10,16 @@ import { defaultLocale, locales } from 'src/localization';
 import data from 'src/data/cheatsheet.json';
 
 const columns = [data.slice(0, 3), data.slice(3, 4), data.slice(4, 6)];
+// console.log(columns); //  [Array(3), Array(1), Array(2)]
 
+
+// ? 备忘单；cheatsheet
+// http://localhost:3000/zh-cn/cheatsheet
 const PageCheatsheet = () => {
   const { formatMessage } = useIntl();
 
   return (
+    // ? 当 width > 768  ||   width > 640  ||  width  < 640
     <>
       <CustomHead
         title="page.cheatsheet.title"
@@ -28,16 +33,14 @@ const PageCheatsheet = () => {
             <div key={index} className="w-full sm:w-1/2 md:w-1/3">
               <div className="flex flex-col mr-0 md:mr-8">
                 {column.map(row => (
+                  // ! Title + ListItem
                   <div key={row.title} className="mb-8">
                     <h4 className="mb-6 text-white">
                       <FormattedMessage id={row.title} />
                     </h4>
                     {row.data.map(item => (
-                      <CheatsheetCollapse
-                        key={item.title}
-                        data={item}
-                        title={formatMessage({ id: item.title })}
-                      />
+                      // ! 一个Title对应的 ListItem 列表  &&  可点击 （显示卡片）
+                      <CheatsheetCollapse key={item.title} data={item} title={formatMessage({ id: item.title })}/>
                     ))}
                   </div>
                 ))}
@@ -51,7 +54,6 @@ const PageCheatsheet = () => {
     </>
   );
 };
-
 export default PageCheatsheet;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
