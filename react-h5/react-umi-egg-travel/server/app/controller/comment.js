@@ -7,7 +7,7 @@ class CommentController extends BaseController {
   async add() { // 添加评论： 查询 添加 SQL    异常
     const { ctx } = this;
     const user = await ctx.service.user.getUser(ctx.username);
-    console.log(user);
+    // console.log(user);
     const result = await ctx.service.comment.add({
       userId: user.id,
       houseId: ctx.params('houseId'),

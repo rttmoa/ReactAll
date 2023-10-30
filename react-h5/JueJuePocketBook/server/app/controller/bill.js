@@ -181,7 +181,7 @@ class BillController extends Controller {
     } catch (error) {
       ctx.body = {
         code: 500,
-        msg: '系统错误',
+        msg: '系统错误', 
         data: null
       }
     }

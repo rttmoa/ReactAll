@@ -1,5 +1,5 @@
 /* eslint-disable strict */
-const Controller = require('egg').Controller;
+// const Controller = require('egg').Controller;
 const BaseController = require('./base');
 
 class CommonsController extends BaseController {

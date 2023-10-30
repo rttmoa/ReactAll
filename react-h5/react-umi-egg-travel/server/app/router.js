@@ -5,6 +5,7 @@
  */
 module.exports = app => {
   const { router, controller } = app;
+  // middleware/userExist.js 判断用户是否存在
   const userExist = app.middleware.userExist();
 
   // FIXME: 用户部分已测试....
