@@ -16,7 +16,6 @@ module.exports = app => {
   // 类型
   router.get('/api/type/list', _jwt, controller.type.list); // 获取消费类型列表
 
-  // ? controller/bill/文件下 async list () {} 方法
   router.get('/api/bill/list', _jwt, controller.bill.list); // 获取账单列表
   router.post('/api/bill/add', _jwt, controller.bill.add); // 添加账单
   router.get('/api/bill/detail', _jwt, controller.bill.detail); // 获取详情
