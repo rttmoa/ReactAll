@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 'use strict';
 
 const ldap = require('ldapjs');
@@ -12,6 +13,10 @@ class LdapService extends Service {
             url: server,
         });
     }
+
+    // LdapService
+        // LDAP search 服务
+
 
     /*
      *

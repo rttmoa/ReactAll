@@ -52,7 +52,7 @@ module.exports = app => {
     // 根据markpage获得页面详情信息
     apiV1Router.get('pages/getPageForMarkpage', tokenRequired, pages.getPageForMarkpage);
 
-    // // -------------------ajax-----------------------------
+    // -------------------ajax-----------------------------
     // 根据url获得ajax信息
     apiV1Router.get('ajax/getPageAjaxsAvg', tokenRequired, ajax.getPageAjaxsAvg);
     // 获得ajax平均性能列表

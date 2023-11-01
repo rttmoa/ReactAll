@@ -4,6 +4,8 @@ const Controller = require('egg').Controller;
 
 class WebController extends Controller {
 
+    // todo 渲染 Vue 界面
+
     // 新增系统
     async webaddsystem() {
         const { ctx } = this;

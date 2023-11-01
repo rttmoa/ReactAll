@@ -7,7 +7,7 @@ class ErrorsController extends Controller {
     // 获得系统重启信息
     async getSysDbErrorList() {
         const { ctx } = this;
-        const result = await ctx.service.errors.getErrorList();
+        const result = await ctx.service.errors.getErrorList(); // ! 从 Redis 中获取 错误信息列表
 
         ctx.body = this.app.result({
             data: result,

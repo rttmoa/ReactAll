@@ -1,9 +1,17 @@
+/* eslint-disable indent */
 'use strict';
 
 const Service = require('egg').Service;
 const parser = require('cron-parser');
 
 class EmailsService extends Service {
+
+    // EmailsService
+        // 查询邮件列表
+        // 添加邮件
+        // 删除邮件
+        // 更新 system_ids字段
+        // 超过历史pv流量峰值时发送邮件
 
     /*
      * 保存用户上报的数据

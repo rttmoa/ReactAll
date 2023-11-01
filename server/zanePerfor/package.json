@@ -1,7 +1,7 @@
 {
   "name": "zane-performance",
   "version": "1.0.0",
-  "description": "前端性能监控系统",
+  "description": "前端性能监控系统 / npm run dev / http://127.0.0.1:7001/",
   "private": true,
   "dependencies": {
     "address": "^1.0.3",

@@ -8,6 +8,10 @@ const Service = require('egg').Service;
  */
 class UserService extends Service {
 
+
+    // UserService
+
+
     /* 用户登录
      * @param {*} userName
      * @param {*} passWord

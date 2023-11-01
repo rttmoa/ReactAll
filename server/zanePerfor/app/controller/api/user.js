@@ -1,9 +1,17 @@
+/* eslint-disable no-multiple-empty-lines */
+/* eslint-disable no-trailing-spaces */
 'use strict';
 
 const Controller = require('egg').Controller;
 
+
+// TODO 用户相关
 class UserController extends Controller {
 
+
+
+    
+    
     // 用户登录
     async login() {
         const { ctx } = this;

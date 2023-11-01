@@ -4,6 +4,8 @@ const Controller = require('egg').Controller;
 
 class WxController extends Controller {
 
+    // todo 渲染 Vue 界面
+
     // 新增系统
     async wxaddsystem() {
         const { ctx } = this;

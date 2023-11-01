@@ -7,8 +7,8 @@
 [![Redis](https://img.shields.io/badge/redis-5.0+-green.svg?style=plastic)](https://redis.io/)
 
 ## 开发功能进度说明
->
-> * 集成框架选型及其相关配置（已完成）
+
+> * 集成框架选型及其 相关配置（已完成）
 > * 主重数据库相关配置开发（已完成）
 > * web网页sdk开发（已完成）
 > * web端数据库数据后端存储逻辑开发 （已完成）
@@ -30,9 +30,9 @@
 > * Mongodb副本集读写分离开发（已完成）
 > * 数据库分表（即分集合）针对于apges,ajaxs,errors,resource,enviroment大数据量表分表，不同应用存储到不同的表中（已完成）
 > * Mongodb集群配置 （已完成）
-> * github第三方登录 （已完成）
-> * 新浪微博第三方登录 （已完成）
-> * 微信授权第三方登录 （已完成）
+> * **github第三方登录 （已完成）**
+> * **新浪微博第三方登录 （已完成）**
+> * **微信授权第三方登录 （已完成）**
 > * Mongodb集群分片开发（优化中）
 > * 项目性能优化（已完成）
 > * 邮件触发服务开发（已完成)
@@ -49,7 +49,7 @@
 
 ### 1. 安装 Docker
 
-Docker 官网：<https://www.docker.com/>
+Docker 官网：[https://www.docker.com/](https://www.docker.com/)
 
 docker 官网中下载适合自己系统得 Docker 进行安装。
 
@@ -63,14 +63,13 @@ Docker --version
 
 Docker 安装成功之后，推荐安装 Docker Desktop
 
-Desktop 安装地址：<https://www.docker.com/products/docker-desktop/>
+Desktop 安装地址：[https://www.docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/)
 
 ### 3. 安装 docker-compose
 
-docker-compose 下载地址：<https://github.com/docker/compose/releases>
+docker-compose 下载地址：[https://github.com/docker/compose/releases](https://github.com/docker/compose/releases)
 
 * 在 Assets 中下载对应的解压包
-
 * 验证是否安装成功
 
 ```ts
@@ -166,8 +165,7 @@ defaultReport({
 })
 ```
 
-* web-report SDK详细文档: <https://github.com/wangweianger/web-report-sdk>
-
+* web-report SDK详细文档: [https://github.com/wangweianger/web-report-sdk](https://github.com/wangweianger/web-report-sdk)
 * 附加： [vue 项目使用参考文档](./docs/vue.md)
 
 ## 微信小程序端使用说明
@@ -186,13 +184,13 @@ new wxRepotSdk({
 })
 ```
 
-* wx-report-sdk SDK详细文档：<https://github.com/wangweianger/wx-report-sdk>
+* wx-report-sdk SDK详细文档：[https://github.com/wangweianger/wx-report-sdk](https://github.com/wangweianger/wx-report-sdk)
 
 ## 展示效果
 
-![](https://github.com/wangweianger/zanePerfor/blob/master/demo/01.png "")
-![](https://github.com/wangweianger/zanePerfor/blob/master/demo/02.png "")
-![](https://github.com/wangweianger/zanePerfor/blob/master/demo/03.png "")
-![](https://github.com/wangweianger/zanePerfor/blob/master/demo/04.png "")
-![](https://github.com/wangweianger/zanePerfor/blob/master/demo/09.png "")
-![](https://github.com/wangweianger/zanePerfor/blob/master/demo/012.png "")
+![](https://github.com/wangweianger/zanePerfor/blob/master/demo/01.png)
+![](https://github.com/wangweianger/zanePerfor/blob/master/demo/02.png)
+![](https://github.com/wangweianger/zanePerfor/blob/master/demo/03.png)
+![](https://github.com/wangweianger/zanePerfor/blob/master/demo/04.png)
+![](https://github.com/wangweianger/zanePerfor/blob/master/demo/09.png)
+![](https://github.com/wangweianger/zanePerfor/blob/master/demo/012.png)

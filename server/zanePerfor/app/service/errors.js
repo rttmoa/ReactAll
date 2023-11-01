@@ -1,7 +1,13 @@
+/* eslint-disable indent */
 'use strict';
 const Service = require('egg').Service;
 
 class ErrorsService extends Service {
+
+    // ErrorsService
+        // Redis 获取错误列表
+        // Redis 存储错误信息
+
 
     /*
      * 获得列表信息

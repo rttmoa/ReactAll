@@ -1,8 +1,15 @@
+/* eslint-disable indent */
 'use strict';
 
 const Service = require('egg').Service;
 
 class CacheService extends Service {
+
+    // CacheService
+        // Redis Get Key
+        // Redis Set Key
+        // Redis multi.incr Key
+
     /*
      * @param {*} key
      * @returns

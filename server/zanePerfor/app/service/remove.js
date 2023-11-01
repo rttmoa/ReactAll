@@ -1,8 +1,15 @@
+/* eslint-disable indent */
 'use strict';
 const parser = require('cron-parser');
 const Service = require('egg').Service;
 
 class RemoveService extends Service {
+
+
+    // RemoveService
+        // 定时删除原始上报数据 一天删一次
+        // 清空db2 number日之前所有性能数据
+
 
     /*
      * 定时删除原始上报数据 一天删一次

@@ -2,6 +2,7 @@
 
 const Controller = require('egg').Controller;
 
+
 class EmailsController extends Controller {
 
     async getList() {
@@ -10,7 +11,7 @@ class EmailsController extends Controller {
         const pageNo = query.pageNo;
         const pageSize = query.pageSize || this.app.config.pageSize;
         const email = query.email;
-
+        // console.log('调用获取邮件列表', query); // 调用获取邮件列表 { _: '1698810790329', pageNo: '1', pageSize: '6' }
         const result = await ctx.service.emails.getList(pageNo, pageSize, email);
 
         ctx.body = this.app.result({

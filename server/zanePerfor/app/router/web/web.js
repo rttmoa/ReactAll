@@ -4,7 +4,8 @@ module.exports = app => {
     const { router, controller } = app;
     const { web } = controller.web;
 
-    // ------------------------------ 浏览器 -------------------------------
+    // ! ------------------------------ WEB浏览器页面访问接口 -------------------------------
+
     // 首页pvuvip数据统计
     router.get('/web/home', web.webhome);
 

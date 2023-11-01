@@ -4,6 +4,8 @@ const Controller = require('egg').Controller;
 
 class HomeController extends Controller {
 
+    // todo 渲染 Vue 界面
+
     // 系统应用列表
     async systemlist() {
         const { ctx } = this;
@@ -15,6 +17,8 @@ class HomeController extends Controller {
     }
 
     // 新增系统选择应用类型
+    // http://127.0.0.1:7001/selectype
+    // 选择系统类；WEB浏览器、微信小程序
     async selectype() {
         const { ctx } = this;
         await ctx.render('selectype', {
@@ -24,7 +28,7 @@ class HomeController extends Controller {
         });
     }
 
-    // 用户登录
+    // ? 用户登录; 登陆时，读取配置，传递给 login 页面
     async login() {
         const { ctx } = this;
         await ctx.render('login', {

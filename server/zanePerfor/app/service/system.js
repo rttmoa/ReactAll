@@ -4,9 +4,8 @@ const Service = require('egg').Service;
 
 class SystemService extends Service {
 
+    // ! 新增系统
     /*
-     * 保存用户上报的数据
-     *
      * @param {*} ctx
      * @memberof SystemService
      */
@@ -52,9 +51,8 @@ class SystemService extends Service {
         this.updateSystemCache(token);
     }
 
+    // ! 修改系统信息 （系统设置-阀值设置）
     /*
-     * 保存用户上报的数据
-     *
      * @param {*} ctx
      * @memberof SystemService
      */
@@ -117,35 +115,34 @@ class SystemService extends Service {
         return JSON.parse(result);
     }
 
+    // ! 根据系统ID获得单个系统信息
     /*
-     * 获得某个系统信息(数据库)
-     *
      * @param {*} appId
      * @returns
      * @memberof SystemService
      */
     async getSystemForDb(appId) {
         if (!appId) throw new Error('查询某个系统信：appId不能为空');
-
+        // console.log('根据系统ID获得单个系统信息', await this.ctx.model.System.findOne({ app_id: appId }).exec()); // ! 点击应用中的系统设置
         return await this.ctx.model.System.findOne({ app_id: appId }).exec() || {};
     }
 
+    // ! 根据用户id获取系统列表
     /*
-     * 根据用户id获取系统列表
-     *
      * @param {*} ctx
      * @returns
      * @memberof SystemService
      */
     async getSysForUserId(ctx) {
         const token = ctx.request.query.token;
+        // console.log('token', token);
         if (!token) return [];
+        // console.log('根据用户id获取系统列表', await ctx.model.System.where('user_id').elemMatch({ $eq: token }).exec()); // ! 应用列表
         return await ctx.model.System.where('user_id').elemMatch({ $eq: token }).exec() || [];
     }
 
+    // ! 系统列表
     /*
-     * 获得系统列表信息
-     *
      * @returns
      * @memberof SystemService
      */
@@ -162,9 +159,8 @@ class SystemService extends Service {
         ]).exec();
     }
 
+    // ! 删除系统中某个用户
     /*
-     * 删除系统中某个用户
-     *
      * @param {*} appId
      * @param {*} userToken
      * @returns
@@ -177,7 +173,8 @@ class SystemService extends Service {
             { multi: true }).exec();
     }
 
-    /* 系统中新增某个用户
+    // ! 系统中新增某个用户
+    /*
      * @param {*} appId
      * @param {*} userToken
      * @return
@@ -187,12 +184,12 @@ class SystemService extends Service {
         return await this.ctx.model.System.update(
             { app_id: appId },
             { $addToSet: { user_id: userToken } },
-            { multi: true }).exec();
+            { multi: true }
+        ).exec();
     }
 
+    // ! 删除某个系统
     /*
-     * 删除某个系统
-     *
      * @param {*} appId
      * @return
      * @memberof SystemService
@@ -211,8 +208,8 @@ class SystemService extends Service {
         return result;
     }
 
+    // ! 新增 | 删除 日报邮件
     /*
-     * 新增 | 删除 日报邮件
      * item: 1:日报邮件发送  2：流量峰值邮件发送
      * @param {*} appId
      * @param {*} email

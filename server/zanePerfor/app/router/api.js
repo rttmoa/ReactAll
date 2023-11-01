@@ -1,18 +1,22 @@
+/* eslint-disable indent */
 'use strict';
 
 module.exports = app => {
     const apiV1Router = app.router.namespace('/api/v1/');
     const { controller, middleware } = app;
-    const {
-        user,
-        remove,
-        system,
-        errors,
-        emails,
-    } = controller.api;
+    const { user, remove, system, errors, emails } = controller.api; // ? 此 api 调用处 /controlle/api/user.js
+
 
     // 校验用户是否登录中间件
     const tokenRequired = middleware.tokenRequired();
+    // console.dir(tokenRequired);
+
+
+    // todo 主要业务逻辑
+        // router 接口功能
+        // controller 业务逻辑功能
+        // service 处理业务逻辑功能
+
 
     // -----------------用户相关------------------
     // 用户登录
@@ -68,9 +72,7 @@ module.exports = app => {
 
     // -------------------邮件信息-----------------------------
     apiV1Router.get('emails/list', tokenRequired, emails.getList);
-
     apiV1Router.post('emails/add', tokenRequired, emails.addEmail);
-
     apiV1Router.post('emails/delete', tokenRequired, emails.deleteEmail);
 
 };
