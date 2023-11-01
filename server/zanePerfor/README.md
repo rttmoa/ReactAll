@@ -26,12 +26,12 @@
 > * TOP性能统计（已完成）
 > * 省市流量统计热力图分析（已完成）
 > * 上报方式新增redis 消息队列（已完成）
-> * 索引优化（已完成）
+> * **索引优化（已完成 / Model）[索引 Index](https://blog.csdn.net/qappleh/article/details/95097931)**
 > * Mongodb副本集读写分离开发（已完成）
 > * 数据库分表（即分集合）针对于apges,ajaxs,errors,resource,enviroment大数据量表分表，不同应用存储到不同的表中（已完成）
 > * Mongodb集群配置 （已完成）
 > * **github第三方登录 （已完成）**
-> * **新浪微博第三方登录 （已完成）**
+> * **新浪微博第三方登录 （已完成）[微博授权](https://blog.csdn.net/weixin_49319422/article/details/110551048)**
 > * **微信授权第三方登录 （已完成）**
 > * Mongodb集群分片开发（优化中）
 > * 项目性能优化（已完成）

@@ -1,8 +1,14 @@
+/* eslint-disable no-multiple-empty-lines */
 'use strict';
 
 const Service = require('egg').Service;
 
 class SystemService extends Service {
+
+
+    // SystemService
+
+
 
     // ! 新增系统
     /*
@@ -231,7 +237,8 @@ class SystemService extends Service {
         const result = await this.ctx.model.System.update(
             { app_id: appId },
             handleData,
-            { multi: true }).exec();
+            { multi: true }
+        ).exec();
 
         // 更新redis缓存
         this.updateSystemCache(appId);

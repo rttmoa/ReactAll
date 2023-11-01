@@ -49,10 +49,7 @@ class UserController extends Controller {
     // 退出登录
     async logout() {
         const { ctx } = this;
-        const usertoken = ctx.cookies.get('usertoken', {
-            encrypt: true,
-            signed: true,
-        }) || '';
+        const usertoken = ctx.cookies.get('usertoken', { encrypt: true, signed: true }) || ''; // ! 获取 cookies teken
         if (!usertoken) throw new Error('退出登录：token不能为空');
 
         await ctx.service.user.logout(usertoken);
@@ -62,6 +59,7 @@ class UserController extends Controller {
     }
 
     // 获得用户列表
+    // POST / http://127.0.0.1:7001/api/v1/user/getUserList
     async getUserList() {
         const { ctx } = this;
         const query = ctx.request.body;
@@ -109,7 +107,7 @@ class UserController extends Controller {
         });
     }
 
-    // github callback
+    // ? github callback  (先授权认证)
     async githubLogin() {
         const { ctx } = this;
         try {
@@ -125,7 +123,8 @@ class UserController extends Controller {
                 dataType: 'json',
                 timeout: 8000,
             });
-            if (tokenResult.status !== 200) {
+            // console.log('tokenResult', tokenResult);
+            if (tokenResult.status !== 200) { // 失败
                 await ctx.render('github', {
                     data: {
                         title: 'github login',
@@ -153,6 +152,7 @@ class UserController extends Controller {
             if (!userResult.data.login || !userResult.data.node_id) {
                 result.desc = 'github 权限验证失败, 请重试！';
             } else {
+                // ? github 权限认证成功，调用 Service Register Interface
                 result = await ctx.service.user.githubRegister(userResult.data.login, userResult.data.node_id);
             }
             result.type = 'github';
@@ -176,13 +176,15 @@ class UserController extends Controller {
         }
     }
 
-    // 新浪微博登录
+    // ? 新浪微博登录  (先授权认证)
     async weiboLogin() {
         const { ctx } = this;
         try {
             const query_code = ctx.query.code;
-
-            const getTokenPath = `https://api.weibo.com/oauth2/access_token?client_id=${this.app.config.weibo.client_id}&client_secret=${this.app.config.weibo.client_secret}&grant_type=authorization_code&code=${query_code}&redirect_uri=${this.app.config.origin}/api/v1/weibo/callback`;
+            const client_id = this.app.config.weibo.client_id;
+            const client_secret = this.app.config.weibo.client_secret;
+            const redirect_uri = this.app.config.origin;
+            const getTokenPath = `https://api.weibo.com/oauth2/access_token?client_id=${client_id}&client_secret=${client_secret}&grant_type=authorization_code&code=${query_code}&redirect_uri=${redirect_uri}/api/v1/weibo/callback`;
             const tokenResult = await ctx.curl(getTokenPath, {
                 method: 'POST',
                 contentType: 'json',
@@ -215,7 +217,9 @@ class UserController extends Controller {
                 });
                 return;
             }
-            const getUserInfo = await ctx.curl(`https://api.weibo.com/2/users/show.json?access_token=${tokenResult.data.access_token}&uid=${getTokenInfo.data.uid}`, {
+            const accessToken = tokenResult.data.access_token;
+            const uid = getTokenInfo.data.uid;
+            const getUserInfo = await ctx.curl(`https://api.weibo.com/2/users/show.json?access_token=${accessToken}&uid=${uid}`, {
                 dataType: 'json',
                 timeout: 8000,
             });
@@ -224,6 +228,7 @@ class UserController extends Controller {
             if (!getUserInfo.data.name || !getUserInfo.data.idstr) {
                 result.desc = '新浪微博权限验证失败, 请重试！';
             } else {
+                // ? 新浪微博权限验证成功，调用 Service Register Interface
                 result = await ctx.service.user.githubRegister(getUserInfo.data.name, getUserInfo.data.idstr);
             }
             result.type = 'weibo';
@@ -248,7 +253,7 @@ class UserController extends Controller {
         }
     }
 
-    // 微信登录
+    // ? 微信登录  (先授权认证)
     async wechatLogin() {
         const { ctx } = this;
         try {

@@ -12,7 +12,8 @@ class UserService extends Service {
     // UserService
 
 
-    /* 用户登录
+    // ! 用户登录
+    /*
      * @param {*} userName
      * @param {*} passWord
      * @return
@@ -35,12 +36,13 @@ class UserService extends Service {
         if (userInfo.pass_word !== newPwd) throw new Error('用户密码不正确！');
         if (userInfo.is_use !== 0) throw new Error('用户被冻结不能登录，请联系管理员！');
 
-        // 清空以前的登录态
+        // 清空以前的登录态 - EmpFzQT1698839376254_user_login
         if (userInfo.usertoken) this.app.redis.set(`${userInfo.usertoken}_user_login`, '');
 
-        // 设置新的redis登录态
+        // 设置新的redis登录态 - FM8Q7Tc1698828460099_user_login
         const random_key = this.app.randomString();
         this.app.redis.set(`${random_key}_user_login`, JSON.stringify(userInfo), 'EX', this.app.config.user_login_timeout);
+
         // 设置登录cookie
         this.ctx.cookies.set('usertoken', random_key, {
             maxAge: this.app.config.user_login_timeout * 1000,
@@ -62,18 +64,21 @@ class UserService extends Service {
             throw new Error('LAPD登录失败！');
         }
     }
-    /* 登出
+
+    // ! 退出登录
+    /*
      * @param {*} usertoken
      * @returns
      * @memberof UserService
      */
     logout(usertoken) {
         this.ctx.cookies.set('usertoken', '');
-        this.app.redis.set(`${usertoken}_user_login`, '');
+        this.app.redis.set(`${usertoken}_user_login`, ''); // 将 iT8m28h1698842270373_user_login 置空
         return {};
     }
 
-    /* 用户注册
+    // ! 用户注册
+    /*
      * @param {*} userName
      * @param {*} passWord
      * @returns
@@ -98,10 +103,11 @@ class UserService extends Service {
         user.level = userName === 'admin' ? 0 : 1;
         user.usertoken = token;
         const result = await user.save() || {};
-        result.pass_word = '';
+        result.pass_word = ''; // 密码置空存储到redis中
 
         // 设置redis登录态
         this.app.redis.set(`${token}_user_login`, JSON.stringify(result), 'EX', this.app.config.user_login_timeout);
+
         // 设置登录cookie
         this.ctx.cookies.set('usertoken', token, {
             maxAge: this.app.config.user_login_timeout * 1000,
@@ -113,7 +119,7 @@ class UserService extends Service {
         return result;
     }
 
-    /* 根据用户名称查询用户信息
+    /* 根据用户名称查询用户信息 (复用)
      * @param {*} userName
      * @returns
      * @memberof UserService
@@ -122,7 +128,8 @@ class UserService extends Service {
         return await this.ctx.model.User.findOne({ user_name: userName }).exec() || {};
     }
 
-    /* 查询用户列表信息（分页）
+    // ! 获得用户列表
+    /*
      * @param {*} pageNo
      * @param {*} pageSize
      * @param {*} userName
@@ -143,6 +150,7 @@ class UserService extends Service {
                 .exec()
         );
         const all = await Promise.all([ count, datas ]);
+        // console.log('all', all); // 用户列表模块
         const [ totalNum, datalist ] = all;
 
         return {
@@ -152,16 +160,13 @@ class UserService extends Service {
         };
     }
 
-    /* 通过redis登录key获取用户信息
-     * @param {*} usertoken
-     * @returns
-     * @memberof UserService
-     */
+    // 通过redis登录key获取用户信息
     async getUserInfoForUsertoken(usertoken) {
         return this.app.redis.get(`${usertoken}_user_login`) || {};
     }
 
-    /* 冻结解冻用户
+    // ! 冻结解冻用户
+    /*
      * @param {*} id
      * @param {*} isUse
      * @param {*} usertoken
@@ -176,12 +181,14 @@ class UserService extends Service {
             { is_use: isUse },
             { multi: true }
         ).exec();
+
         // 清空登录态
         this.app.redis.set(`${usertoken}_user_login`, '');
         return result;
     }
 
-    /* 删除用户
+    // ! 删除用户
+    /*
      * @param {*} id
      * @param {*} usertoken
      * @returns
@@ -195,7 +202,7 @@ class UserService extends Service {
         return result;
     }
 
-    /* 更新用户登录态随机数
+    /* 更新用户登录态随机数 (复用) - 账号密码登陆 / github | 新浪微博 | 微信 登陆后 更新 Token
      * @param {*} opt
      * @returns
      * @memberof UserService
@@ -216,11 +223,7 @@ class UserService extends Service {
         return result;
     }
 
-    /* 根据token查询用户信息
-     * @param {*} usertoken
-     * @returns
-     * @memberof UserService
-     */
+    // 根据token查询用户信息
     async finUserForToken(usertoken) {
         let user_info = await this.app.redis.get(`${usertoken}_user_login`);
 
@@ -242,13 +245,14 @@ class UserService extends Service {
         return await this.ctx.model.User.findOne({ token: id }).exec() || {};
     }
 
-    /* github | 新浪微博 | 微信 register
+    // todo github | 新浪微博 | 微信 register
+    /*
      * @param {*} userinfo
      * @param {*} token
      * @returns
      * @memberof UserService
      */
-    async githubRegister(userinfo, token) {
+    async githubRegister(userinfo, token) { // 已授权，将用户信息传递来
         let userInfo = {};
         userInfo = await this.getUserInfoForGithubId(token);
         const random_key = this.app.randomString();
@@ -280,10 +284,11 @@ class UserService extends Service {
             user.level = 1;
             user.usertoken = random_key;
             userInfo = await user.save() || {};
-            userInfo.pass_word = '';
+            userInfo.pass_word = ''; // 将密码置空，存储到 redis
 
             // 设置redis登录态
             this.app.redis.set(`${random_key}_user_login`, JSON.stringify(userInfo), 'EX', this.app.config.user_login_timeout);
+
             // 设置登录cookie
             this.ctx.cookies.set('usertoken', random_key, {
                 maxAge: this.app.config.user_login_timeout * 1000,
