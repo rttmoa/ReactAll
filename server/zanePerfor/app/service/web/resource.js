@@ -2,7 +2,8 @@
 
 const Service = require('egg').Service;
 
-class ResourceService extends Service {
+
+class ResourceService extends Service { // ? 慢资源追踪
 
     // 单页页面性能数据列表（简单版本）
     async getResourceForType(appId, url, speedType, pageNo, pageSize) {
@@ -12,8 +13,10 @@ class ResourceService extends Service {
 
         const query = { $match: { url, speed_type: speedType } };
 
-        const count = Promise.resolve(this.app.models.WebResource(appId).count(query.$match).read('sp')
-            .exec());
+        const count = Promise.resolve(
+            this.app.models.WebResource(appId).count(query.$match).read('sp')
+                .exec()
+        );
         const datas = Promise.resolve(
             this.app.models.WebResource(appId).aggregate([
                 query,

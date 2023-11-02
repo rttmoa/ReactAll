@@ -2,7 +2,7 @@
 
 const Service = require('egg').Service;
 
-class AnalysisService extends Service { // ? 用户行为轨迹分析
+class AnalysisService extends Service { // ? 用户轨迹
 
     // 用户轨迹分析列表
     async getAnalysislist(appId, beginTime, endTime, ip, pageNo, pageSize) {

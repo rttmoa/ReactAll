@@ -8,7 +8,7 @@ class SendEmailService extends Service {
         this.daliy = {};
     }
 
-    // 收集每日日报数据
+    // ! 收集每日日报数据
     async getDaliyDatas(data, type) {
         const config = this.app.config.email.client;
         if (!((config.host && config.port && typeof (config.secure) === 'boolean') || config.service) || !config.auth) return;
@@ -51,7 +51,7 @@ class SendEmailService extends Service {
         this.app.email.sendMail(mailOptions);
     }
 
-    // 每日日邮件模板
+    // 每日日邮件模板 - WEB应用 系统设置 / 日报设置 / 设置接收邮箱 / 新增
     async daliyHtmlTem(datas) {
         const pvuvip = datas.pvuvip || {};
         const toplist = datas.toplist || {};

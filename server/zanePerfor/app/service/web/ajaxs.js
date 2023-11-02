@@ -2,7 +2,7 @@
 
 const Service = require('egg').Service;
 
-class AjaxsService extends Service {
+class AjaxsService extends Service { // ? AJAX性能
 
     // 获得页面性能数据平均值
     async getPageAjaxsAvg(appId, url, beginTime, endTime) {

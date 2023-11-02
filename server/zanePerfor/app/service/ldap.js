@@ -5,6 +5,7 @@ const ldap = require('ldapjs');
 const Service = require('egg').Service;
 
 class LdapService extends Service {
+
     constructor(ctx) {
         super(ctx);
         const { server, ou, dc } = ctx.app.config.ldap;
