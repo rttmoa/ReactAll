@@ -1,9 +1,9 @@
 'use strict';
 const Controller = require('egg').Controller;
 
-class AnalysisController extends Controller {
+class AnalysisController extends Controller { // ? 用户轨迹
 
-    // 用户漏斗分析列表
+    // 用户轨迹分析列表
     async getAnalysislist() {
         const { ctx } = this;
         const query = ctx.request.query;
@@ -15,7 +15,7 @@ class AnalysisController extends Controller {
         const pageSize = query.pageSize || this.app.config.pageSize;
 
         if (!appId) throw new Error('用户漏斗分析列表：appId不能为空');
-
+        console.log('用户轨迹分析列表');
         const result = await ctx.service.web.analysis.getAnalysislist(appId, beginTime, endTime, ip, pageNo, pageSize);
 
         ctx.body = this.app.result({

@@ -2,9 +2,9 @@
 
 const Service = require('egg').Service;
 
-class AnalysisService extends Service {
+class AnalysisService extends Service { // ? 用户行为轨迹分析
 
-    // 用户漏斗分析列表
+    // 用户轨迹分析列表
     async getAnalysislist(appId, beginTime, endTime, ip, pageNo, pageSize) {
         pageNo = pageNo * 1;
         pageSize = pageSize * 1;
@@ -12,14 +12,14 @@ class AnalysisService extends Service {
         const query = { $match: { } };
         if (ip) query.$match.ip = ip;
         if (beginTime && endTime) query.$match.create_time = { $gte: new Date(beginTime), $lte: new Date(endTime) };
-
-        return ip ? await this.oneThread(appId, query, pageNo, pageSize)
-            : await this.moreThread(appId, beginTime, endTime, query, pageNo, pageSize);
+        console.log('ip', ip);
+        return ip ? await this.oneThread(appId, query, pageNo, pageSize) : await this.moreThread(appId, beginTime, endTime, query, pageNo, pageSize);
     }
 
     // 平均求值数多线程
     async moreThread(appId, beginTime, endTime, queryjson, pageNo, pageSize) {
         const result = [];
+        // ! 操作 模型 WebEnvironment
         let distinct = await this.app.models.WebEnvironment(appId).distinct('mark_user', queryjson.$match).exec() || [];
         const copdistinct = distinct;
 

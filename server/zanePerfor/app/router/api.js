@@ -10,12 +10,6 @@ module.exports = app => {
     // 校验用户是否登录中间件
     const tokenRequired = middleware.tokenRequired();
 
-    // todo 系统 API
-        // router 接口功能
-        // controller 业务逻辑功能
-        // service 处理业务逻辑功能
-
-
     // -----------------用户相关------------------
     // 用户登录
     apiV1Router.post('user/login', user.login);

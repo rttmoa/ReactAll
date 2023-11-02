@@ -10,7 +10,7 @@ module.exports = app => {
         create_time: { type: Date, default: Date.now }, // 用户访问时间
         url: { type: String }, // 访问页面的url
         mark_page: { type: String }, // 所有资源页面统一标识 html img css js 用户系统信息等
-        mark_user: { type: String }, // 统一某一时间段用户标识
+        mark_user: { type: String }, // ! 统一某一时间段用户标识  this.app.models.WebEnvironment(appId).distinct('mark_user', queryjson.$match).exec()
         mark_uv: { type: String }, // 统一uv标识
         browser: { type: String }, // 浏览器名称
         borwser_version: { type: String }, // 浏览器版本

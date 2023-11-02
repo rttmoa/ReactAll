@@ -3,6 +3,7 @@ const parser = require('cron-parser');
 const Controller = require('egg').Controller;
 
 class PvUvIpController extends Controller {
+
     // 获得实时概况
     async getPvUvIpSurvey() {
         const { ctx } = this;

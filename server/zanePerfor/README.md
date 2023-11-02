@@ -25,6 +25,7 @@
 > * 用户行为漏斗分析 即用户行为分析（已完成）
 > * TOP性能统计（已完成）
 > * 省市流量统计热力图分析（已完成）
+> * 浏览器服务模块
 > * 
 > * **上报方式新增redis 消息队列（已完成） [kafka 消息队列](https://blog.csdn.net/xueyu188/article/details/131511746)**
 > * **索引优化（已完成 / Model）[索引 Index](https://blog.csdn.net/qappleh/article/details/95097931)**

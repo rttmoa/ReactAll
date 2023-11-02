@@ -25,7 +25,7 @@ module.exports = app => {
     // 获得历史pvuvip统计列表
     apiV1Router.get('pvuvip/getHistoryPvUvIplist', tokenRequired, pvuvip.getHistoryPvUvIplist);
 
-    // ----------------- 用户漏斗分析 ----------------
+    // ----------------- 用户轨迹分析 ----------------
     // 用户行为轨迹列表
     apiV1Router.get('analysis/getAnalysislist', tokenRequired, analysis.getAnalysislist);
     // 单个用户行为轨迹列表

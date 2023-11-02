@@ -2,7 +2,7 @@
 
 const Controller = require('egg').Controller;
 
-class AjaxsController extends Controller {
+class AjaxsController extends Controller { // ? AJAX性能
 
     // 平均页面性能列表
     async getPageAjaxsAvg() {
