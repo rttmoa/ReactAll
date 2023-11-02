@@ -4,7 +4,7 @@ const assert = require('assert');
 const kafka = require('kafka-node');
 
 module.exports = app => {
-    app.addSingleton('kafka', createClient);
+    app.addSingleton('kafka', createClient); // function crateClient { new Kafka() }
 };
 
 class Kafka {

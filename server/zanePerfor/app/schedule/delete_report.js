@@ -8,12 +8,13 @@ module.exports = app => {
             type: 'worker',
             disable: app.config.report_data_type !== 'mongodb',
         },
-        // 每天执行一次，定时删除上报的原始数据
+        // ! 每天执行一次，定时删除上报的原始数据
         async task(ctx) {
             if (app.config.is_web_task_run || app.config.is_wx_task_run) {
                 // 保证集群servers task不冲突
                 const preminute = await app.redis.get('delete_task_day_time') || '';
                 const value = app.config.cluster.listen.ip + ':' + app.config.cluster.listen.port;
+                // value;  address.ip():7001
                 if (preminute && preminute !== value) return;
                 if (!preminute) {
                     await app.redis.set('delete_task_day_time', value, 'EX', 20000);

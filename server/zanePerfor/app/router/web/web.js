@@ -2,7 +2,7 @@
 
 module.exports = app => {
     const { router, controller } = app;
-    const { web } = controller.web;
+    const { web } = controller.web; // ! render / html
 
     // ! ------------------------------ WEB浏览器页面访问接口 -------------------------------
 

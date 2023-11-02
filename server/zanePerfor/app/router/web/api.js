@@ -1,18 +1,11 @@
 'use strict';
 
+
 module.exports = app => {
     const apiV1Router = app.router.namespace('/api/v1/');
     const { controller, middleware } = app;
-    const {
-        report,
-        pvuvip,
-        pages,
-        environment,
-        ajax,
-        resource,
-        error,
-        analysis,
-    } = controller.api.web;
+    // ? request  /controller/api/web/*
+    const { report, pvuvip, pages, environment, ajax, resource, error, analysis } = controller.api.web; // ? 浏览器应用 / 接口API / 功能调用 控制层
 
     // 校验用户是否登录中间件
     const tokenRequired = middleware.tokenRequired();

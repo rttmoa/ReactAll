@@ -1,7 +1,9 @@
 'use strict';
 
+
+// kafka Client
 exports.kafka = {
-    client: { // kafkaClient
+    client: {
         kafkaHost: 'localhost:9092',
     },
     producer: {

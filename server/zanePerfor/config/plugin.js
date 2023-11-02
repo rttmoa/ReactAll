@@ -31,6 +31,7 @@ exports.email = {
     path: path.join(__dirname, '../lib/plugin/egg-email'),
 };
 
+// ! Kafka 插件 消息队列的引入和使用
 exports.kafka = {
     enable: false,
     path: path.join(__dirname, '../lib/plugin/egg-kafka'),

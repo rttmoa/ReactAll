@@ -4,7 +4,7 @@ module.exports = app => {
     const { router, controller } = app;
     const { home } = controller.web;
 
-    // ? 首页界面信息；http://127.0.0.1:7001/
+    // ? 首页模块； Logo、系统管理、重启信息、用户管理、邮件管理、我的应用、退出登陆
 
     // 应用列表
     router.get('/', home.systemlist);

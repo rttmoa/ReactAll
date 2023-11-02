@@ -2,7 +2,7 @@
 'use strict';
 const Service = require('egg').Service;
 
-class ErrorsService extends Service {
+class ErrorsService extends Service { // 系统重启信息; http://127.0.0.1:7001/errors
 
     // ErrorsService
         // Redis 获取错误列表

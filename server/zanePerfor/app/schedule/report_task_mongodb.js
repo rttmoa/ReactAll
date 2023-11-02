@@ -8,7 +8,7 @@ module.exports = app => {
             type: 'worker',
             disable: app.config.report_data_type !== 'mongodb',
         },
-        // 定时处理上报的数据 db1同步到db3数据
+        // ! 定时处理上报的数据 db1同步到db3数据
         async task(ctx) {
             if (app.config.is_web_task_run || app.config.is_wx_task_run) {
                 // 保证集群servers task不冲突

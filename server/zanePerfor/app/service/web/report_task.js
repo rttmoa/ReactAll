@@ -6,6 +6,8 @@ const UAParser = require('ua-parser-js');
 const Service = require('egg').Service;
 const fs = require('fs');
 const path = require('path');
+
+
 class ReportTaskService extends Service {
 
     constructor(params) {
@@ -46,7 +48,6 @@ class ReportTaskService extends Service {
             this.getWebItemDataForRedis();
         }
     }
-
     // 单个item储存数据
     async getWebItemDataForRedis() {
         let query = await this.app.redis.rpop('web_repore_datas');

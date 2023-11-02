@@ -14,8 +14,9 @@ module.exports = app => {
                 // 查询db3是否正常,不正常则重启
                 try {
                     const result = await ctx.model.System.count({}).exec();
-                    app.logger.info(`-----------db3--查询db3数据库是否可用----${result}------`);
+                    app.logger.info(`-----------查询db3数据库是否可用----findSystemCount;${result}------`);
 
+                    // ! web 正在运行， 调用 /service/web/report_task.js - class ReportTaskService extends Service { ... }
                     if (app.config.is_web_task_run) ctx.service.web.reportTask.saveWebReportDatasForRedis();
                     if (app.config.is_wx_task_run) ctx.service.wx.reportTask.saveWxReportDatasForRedis();
                 } catch (err) {

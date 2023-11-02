@@ -4,15 +4,13 @@
 module.exports = app => {
     const apiV1Router = app.router.namespace('/api/v1/');
     const { controller, middleware } = app;
-    const { user, remove, system, errors, emails } = controller.api; // ? 此 api 调用处 /controlle/api/user.js
+    const { user, remove, system, errors, emails } = controller.api; // ? 系统 / 接口API
 
 
     // 校验用户是否登录中间件
     const tokenRequired = middleware.tokenRequired();
-    // console.dir(tokenRequired);
 
-
-    // todo 主要业务逻辑
+    // todo 系统 API
         // router 接口功能
         // controller 业务逻辑功能
         // service 处理业务逻辑功能
@@ -32,12 +30,11 @@ module.exports = app => {
     // 删除用户
     apiV1Router.post('user/delete', tokenRequired, user.delete);
 
+    //  ----------------- 三方授权 ------------------
     // -----------------github 登录------------------
     apiV1Router.get('github/callback', user.githubLogin);
-
     // -----------------新浪微博 登录------------------
     apiV1Router.get('weibo/callback', user.weiboLogin);
-
     // -----------------微信微博 登录------------------
     apiV1Router.get('wechat/callback', user.wechatLogin);
 
@@ -62,12 +59,13 @@ module.exports = app => {
     apiV1Router.post('system/handleDaliyEmail', tokenRequired, system.handleDaliyEmail);
 
     // -------------------清空数据-----------------------------
+    // 性能优化；http://127.0.0.1:7001/web/setting
     // 清空db1 1日之前无用数据
     apiV1Router.post('remove/deleteDb1WebData', tokenRequired, remove.deleteDb1WebData);
     // 清空db2 number日之前所有性能数据
     apiV1Router.post('remove/deleteDb2WebData', tokenRequired, remove.deleteDb2WebData);
 
-    // -------------------系统错误信息-----------------------------
+    // -------------------系统重启信息-----------------------------
     apiV1Router.get('errors/getSysDbErrorList', tokenRequired, errors.getSysDbErrorList);
 
     // -------------------邮件信息-----------------------------
