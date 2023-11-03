@@ -20,7 +20,7 @@ router.post('/loginReginfo/head', koaBody({
         maxFieldsSize: 12000 * 1024 * 1024    // 设置上传文件大小最大限制，默认12M
     }
 }), User.uploadHead) // FIXME: 已完成...
- 
+    
 // 获取所有用户
 router.get('/info', User.userinfo) // FIXME: 已完成...
 

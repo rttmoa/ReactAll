@@ -1,3 +1,0 @@
-nodemon app.js
-
-pause

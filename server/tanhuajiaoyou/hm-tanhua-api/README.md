@@ -1,17 +1,6 @@
 ## 探花交友后台API启动
 
-`npm install` 安装依赖
-
-`node app.js` 启动，访问 http://localhost:3000/ 即可访问正式环境
-
-或者
-
-执行根目录下的  `start.bat` 启动服务器 ，注意要将 nodemon 安装为全局
-
-## 接口文档说明
-
-接口说明请看：[https://mock.boxuegu.com/project/557/interface/api](https://mock.boxuegu.com/project/557/interface/api)
-
-## 本地接口文档说明
-
-接口说明请看：[http://localhost:9089/swagger.html](http://localhost:9089/swagger.html)
+> * 本地接口文档；[http://localhost:9089/swagger.html](http://localhost:9089/swagger.html)
+> * 服务端使用；Koa + MySQL
+> * Koa 全局处理；app.js
+> * 数据库关系；tanhua.sql

@@ -42,7 +42,7 @@ exports.getDistance = (lng1, lat1, lng2, lat2) => {
 }
 
 
-// 获取百度ai 的access_token
+// 获取百度ai 的 access_token
 exports.getBaiDuAiAccessToken = async function () {
     // console.log(base64img);
     const param = qs.stringify({
@@ -114,7 +114,7 @@ exports.checkImage = async function (access_token, base64Image, imageType) {
                             "result": null
 
                             成功：
-                             "error_code": 0,
+                            "error_code": 0,
                             "error_msg": "SUCCESS",
                          */
                         if (resobj && resobj.error_code == 222202) {

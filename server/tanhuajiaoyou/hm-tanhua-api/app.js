@@ -7,7 +7,6 @@ const koa = require('koa'),
 	bodyparser = require('koa-bodyparser'),
 	koaBody = require('koa-body');
 
-
 const
 	errorHandle = require('./server/middlewares/errorHandle.js'), // 错误处理
 	sendHandle = require('./server/middlewares/sendHandle.js'), 	// 返回客户端状态：成功或失败
@@ -15,10 +14,10 @@ const
 	dbHandle = require('./server/middlewares/dbHandle.js');  			// 封装SQL，挂载全局
 
 const user = require('./server/routes/user.js'),		// 用户 routes
-	  friends = require('./server/routes/friends.js'),
-	  message = require('./server/routes/message.js'),
-	  qz = require('./server/routes/qz.js'),
-	  my =  require('./server/routes/my.js');
+			friends = require('./server/routes/friends.js'),
+			message = require('./server/routes/message.js'),
+			qz = require('./server/routes/qz.js'),
+			my =  require('./server/routes/my.js');
 
 var domains = {
 	local: 'http://localhost:3000',
@@ -30,7 +29,7 @@ var domains = {
 	dist99: "http://localhost:9089",
 };
 
-
+// TODO 接口文档 [http://localhost:9089/swagger.html] 
 
 // 截获所有请求处理跨域
 app.use(async (ctx, next) => {
@@ -85,7 +84,7 @@ app.use(serve('./public', {
 			case '.gif':
 			case '.bmp':
 				res.setHeader('Content-Type', 'image/png;charset=utf-8');
-				break;			
+				break;
 		}
 	}
 })); 

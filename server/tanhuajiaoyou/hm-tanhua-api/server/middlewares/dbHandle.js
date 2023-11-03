@@ -1,4 +1,5 @@
 const mysql = require('mysql')
+
 // 创建mysql线程池
 let pool = mysql.createPool({
     user: 'root',
@@ -45,7 +46,7 @@ const dbHandle = () => {
     }
 
     return async (ctx, next) => {
-        ctx.executeSql = execute()  // 注册全局ctx
+        ctx.executeSql = execute()  // 注册全局 ctx
         // console.log(ctx.executeSql) // [AsyncFunction (anonymous)]
         await next()
     }

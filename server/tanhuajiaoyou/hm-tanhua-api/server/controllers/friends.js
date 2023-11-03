@@ -44,7 +44,7 @@ class FriendsController {
                         fateValue: getfateValue(user, currentUser[0])
                     }
                 })
-                console.log(newList)
+                // console.log(newList)
                 return ctx.send(newList);
             } else {
                 return ctx.send([]);

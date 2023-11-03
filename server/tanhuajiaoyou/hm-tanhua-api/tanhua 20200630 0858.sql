@@ -71,7 +71,7 @@ COLLATE latin1_swedish_ci
 COMMENT = '朋友圈评论';
 
 --
--- Definition for table dt_like
+-- Definition for table dt_like  
 --
 DROP TABLE IF EXISTS dt_like;
 CREATE TABLE dt_like (
