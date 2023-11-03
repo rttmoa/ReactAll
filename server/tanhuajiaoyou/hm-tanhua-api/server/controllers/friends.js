@@ -431,10 +431,10 @@ class FriendsController {
         try { 
             // let uid = ctx.params.id;  // 目标用户
             let guids = ctx.params.id;  // 目标用户
- 
+            
             // 1.0 获取当前登录用户和目标用户信息
             let users = await ctx.executeSql(`select * from dt_users where  guid in (${guids})`);
-       
+            
             return ctx.send(users, undefined, {  });
 
         } catch (err) {
