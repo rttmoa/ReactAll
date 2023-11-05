@@ -15,6 +15,7 @@ class User extends AddressComponent {
 		this.chanegPassword = this.chanegPassword.bind(this);
 		this.updateAvatar = this.updateAvatar.bind(this);
 	}
+	// 用户登陆
 	async login(req, res, next){
 		const cap = req.cookies.cap;
 		if (!cap) {
@@ -57,7 +58,7 @@ class User extends AddressComponent {
 			const newpassword = this.encryption(password);
 			try{
 				const user = await UserModel.findOne({username});
-				//创建一个新的用户
+				// 创建一个新的用户
 				if (!user) {
 					const user_id = await this.getId('user_id');
 					const cityInfo = await this.guessPosition(req);
@@ -147,6 +148,7 @@ class User extends AddressComponent {
 			message: '退出成功'
 		})
 	}
+	// 修改密码
 	async chanegPassword(req, res, next){
 		const cap = req.cookies.cap;
 		if (!cap) {
@@ -194,7 +196,7 @@ class User extends AddressComponent {
 			}
 			const md5password = this.encryption(oldpassWord);
 			try{
-				const user = await UserModel.findOne({username});
+				const user = await UserModel.findOne({ username });
 				if (!user) {
 					res.send({
 						status: 0,

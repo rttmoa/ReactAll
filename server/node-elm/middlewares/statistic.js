@@ -9,6 +9,7 @@ class Statistic extends BaseComponent {
 		super()
 		this.apiRecord = this.apiRecord.bind(this)
 	}
+	// ! 创建 API记录
 	async apiRecord(req, res, next){
 		try{
 			const statis_id = await this.getId('statis_id') // BaseComponent > getId

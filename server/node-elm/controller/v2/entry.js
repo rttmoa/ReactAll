@@ -3,9 +3,9 @@
 import EntryModel from '../../models/v2/entry'
 
 class Entry {
-	constructor(){
-
-	}
+	constructor(){}
+	
+	// 获取初始数据
 	async getEntry(req, res, next){
 		try{
 			const entries = await EntryModel.find({}, '-_id');

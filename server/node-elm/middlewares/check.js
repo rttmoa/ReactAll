@@ -6,6 +6,7 @@ import AdminModel from '../models/admin/admin'
 
 class Check {
   constructor() {}
+  // ! 检查是否 管理员
   async checkAdmin(req, res, next) {
     const admin_id = req.session.admin_id
     if (!admin_id || !Number(admin_id)) {
@@ -28,6 +29,7 @@ class Check {
     }
     next()
   }
+  // ! 检查是否 超级管理员
   async checkSuperAdmin(req, res, next) {
     const admin_id = req.session.admin_id
     if (!admin_id || !Number(admin_id)) {

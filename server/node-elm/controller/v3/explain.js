@@ -3,9 +3,9 @@
 import ExplainModel from '../../models/v3/explain'
 
 class Explain {
-	constructor(){
+	constructor(){ }
 
-	}
+	// 获取服务中心数据
 	async getExpalin(req, res, next){
 		try{
 			const explain = await ExplainModel.findOne();

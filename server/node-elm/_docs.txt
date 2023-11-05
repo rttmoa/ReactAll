@@ -8,30 +8,34 @@
 - [ ] 弃用百度地图，改用腾讯地图
 
 
+! 项目技术；Nodejs + class{} + Mongodb
+! README.md; 目标功能 + 项目布局
 
-TODO 
+TODO;
 
     /config & 默认配置信息
 
-    ? /controller & 主要业务逻辑 
+    ? /controller & 主要业务逻辑  ||  Node + class{} + Mongodb
 
     /InitData & 初始数据
 
     /logs & 日志
 
-    /middlewares & 自定义中间件；check、history、Statistic
+    ? /middlewares & 自定义中间件；check、history、Statistic(检查是否管理员、是否超级管理员、创建API记录)  ||  class {}
 
-    ? /models & Schema 数据库模型
+    ? /models & Schema 数据库模型  || 数据库关系图 
 
-    /mongodb & mongoose 连接数据库
+    /mongodb & mongoose 连接数据库 db.js
 
-    ? /prototype & 原型实例； 腾讯地图和百度地图API统一调配组件 + 基本组件
+    ? /prototype & 原型实例； 腾讯地图和百度地图API统一调配组件 + 继承基本组件 BaseComponent(常用实例方法封装) ||  class AddressComponent extends BaseComponent {}  
+        !地址组件 & 基本组件； 获取定位地址 | 搜索地址 | 测量距离 | 通过ip地址获取精确位置 | 通过geohash获取精确位置
 
     /public & 公共文件
 
-    ? /routes/index.js & 传入app实例, app挂载路由  &&  /routes & 路由接口 + 导入 controller 控制层
+    ? /routes/index.js & 传入app实例, app挂载路由  &&  /routes & 路由接口 + 导入 controller 控制层 
+        !项目中所有访问地址
         import User from '../controller/v2/user'
         const router = express.Router(); 
         router.post('/v1/users/:user_id/avatar', User.updateAvatar)
 
-    app.js
+    ? app.js

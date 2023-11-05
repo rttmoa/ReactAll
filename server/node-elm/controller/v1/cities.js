@@ -67,8 +67,8 @@ class CityHandle extends AddressComponent{
 			/*
 			汉字转换成拼音
 			 */
-	    const pinyinArr = pinyin(cityInfo.city, {
-		  	style: pinyin.STYLE_NORMAL,
+			const pinyinArr = pinyin(cityInfo.city, {
+				style: pinyin.STYLE_NORMAL,
 			});
 			let cityName = '';
 			pinyinArr.forEach(item => {
@@ -91,6 +91,7 @@ class CityHandle extends AddressComponent{
 			});
 		}
 	}
+	// 通过 geohash 获取精确位置
 	async pois(req, res, next){
 		try{
 			const geohash = req.params.geohash || '';

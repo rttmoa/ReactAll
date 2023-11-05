@@ -48,6 +48,7 @@ class Hongbao extends BaseComponent{
 			})
 		}
 	}
+	// 红包 - 兑换
 	async exchange(req, res, next){
 		res.send({
 			status: 0,

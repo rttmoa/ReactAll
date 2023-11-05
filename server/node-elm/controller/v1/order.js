@@ -12,6 +12,7 @@ class Order extends BaseComponent{
 		super()
 		this.postOrder = this.postOrder.bind(this);
 	}
+	// 提交订单
 	async postOrder(req, res, next){
 		const form = new formidable.IncomingForm();
 		form.parse(req, async (err, fields, files) => {
