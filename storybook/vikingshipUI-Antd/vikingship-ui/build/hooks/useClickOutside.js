@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+// useClickOutside(componentRef, () => { setSuggestions([]) })
 function useClickOutside(ref, handler) {
     useEffect(function () {
         var listener = function (event) {

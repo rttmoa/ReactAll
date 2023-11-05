@@ -1,3 +1,3 @@
-/// <reference types="react" />
-declare function TransitionDemo(): JSX.Element;
+import React from 'react';
+declare function TransitionDemo(): React.JSX.Element;
 export default TransitionDemo;

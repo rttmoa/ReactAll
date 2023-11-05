@@ -1,3 +1,3 @@
-/// <reference types="react" />
-declare function AlertDemo(): JSX.Element;
+import React from 'react';
+declare function AlertDemo(): React.JSX.Element;
 export default AlertDemo;

@@ -15,6 +15,7 @@ export interface AlertProps {
     type: AlertType;
 }
 /**
+ * ## Main
  * ### 用于页面中展示重要的提示信息。 点击右侧的叉提示自动消失
  * #### title? | closable? | customClose? | onClose()? | children? | type
  */

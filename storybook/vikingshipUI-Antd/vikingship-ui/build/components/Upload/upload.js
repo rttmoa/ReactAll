@@ -22,10 +22,14 @@ import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import UploadList from './uploadList';
 import Dragger from './dragger';
+/**
+ * ### 通过点击或者拖拽上传文件
+ */
 export var Upload = function (props) {
     var action = props.action, defaultFileList = props.defaultFileList, beforeUpload = props.beforeUpload, onProgress = props.onProgress, onSuccess = props.onSuccess, onError = props.onError, onChange = props.onChange, onRemove = props.onRemove, headers = props.headers, name = props.name, data = props.data, withCredentials = props.withCredentials, accept = props.accept, multiple = props.multiple, children = props.children, drag = props.drag;
     var fileInput = useRef(null);
-    var _a = useState(defaultFileList || []), fileList = _a[0], setFileList = _a[1];
+    var _a = useState(defaultFileList || []), fileList = _a[0], setFileList = _a[1]; // 文件上传列表
+    // 更新文件上传状态：提交到后台更新状态
     var updateFileList = function (updateFile, updateObj) {
         setFileList(function (prevList) {
             return prevList.map(function (file) {
@@ -38,53 +42,51 @@ export var Upload = function (props) {
             });
         });
     };
-    /***--- Div盒子onClick ---**/
+    // <input type="file" /> 点击上传文件
     var handleClick = function () {
         if (fileInput.current) {
+            // <input class="viking-file-input" type="file" accept="." multiple="" style="display: none;"></input>
+            // 点击 <input /> 进行上传
             fileInput.current.click();
         }
     };
-    /***--- 输入框onChange ---**/
+    // input['onChange'] 输入框Change事件
     var handleFileChange = function (e) {
         var files = e.target.files;
-        if (!files) {
+        if (!files)
             return;
-        }
         uploadFiles(files);
-        if (fileInput.current) {
+        if (fileInput.current)
             fileInput.current.value = "";
-        }
     };
-    /***--- 文件上传列表 - 移除列表数据 ---**/
+    // 移除文件列表中文件: 子组件传递过来的 File - onRemove
     var handleRemove = function (file) {
         setFileList(function (prevList) {
             return prevList.filter(function (item) { return item.uid !== file.uid; });
         });
-        if (onRemove) {
-            onRemove(file);
-        }
+        onRemove && onRemove(file);
     };
-    /***--- 拖拽上传文件 ---**/
+    // todo 上传文件 (拖拽或上传，，提交到接口中)
     var uploadFiles = function (files) {
         var postFiles = Array.from(files);
         postFiles.forEach(function (file) {
-            if (!beforeUpload) {
+            if (!beforeUpload) { // 如果有 beforeUpload 校验，先校验 File
                 post(file);
             }
             else {
                 var result = beforeUpload(file);
-                if (result && result instanceof Promise) {
+                if (result && result instanceof Promise) { // 上传文件之前 转换
                     result.then(function (processedFile) {
                         post(processedFile);
                     });
                 }
-                else if (result !== false) {
+                else if (result !== false) { // 上传文件之前 验证
                     post(file);
                 }
             }
         });
     };
-    /***--- 发送数据 ---**/
+    // todo 发送数据 （上传文件到接口中）
     var post = function (file) {
         var _file = {
             uid: Date.now() + '_upload_file',
@@ -92,7 +94,7 @@ export var Upload = function (props) {
             name: file.name,
             size: file.size,
             percent: 0,
-            raw: file
+            raw: file,
         };
         // setFileList([_file, ...fileList]) // 这个方式返回是空的
         setFileList(function (prevList) {
@@ -106,7 +108,9 @@ export var Upload = function (props) {
             });
         }
         axios.post(action, formData, {
+            // 请求头信息 
             headers: __assign(__assign({}, headers), { 'Content-Type': 'multipart/form-data' }),
+            // 是否携带请求参数
             withCredentials: withCredentials,
             // 上传进度计算
             onUploadProgress: function (e) {
@@ -117,8 +121,9 @@ export var Upload = function (props) {
                         onProgress(percentage, file);
                     }
                 }
-            }
-        }).then(function (resp) {
+            },
+        })
+            .then(function (resp) {
             updateFileList(_file, { status: 'success', response: resp.data });
             if (onSuccess) {
                 onSuccess(resp.data, file);
@@ -126,7 +131,8 @@ export var Upload = function (props) {
             if (onChange) {
                 onChange(file);
             }
-        }).catch(function (err) {
+        })
+            .catch(function (err) {
             updateFileList(_file, { status: 'error', error: err });
             if (onError) {
                 onError(err, file);
@@ -136,9 +142,10 @@ export var Upload = function (props) {
             }
         });
     };
+    // todo <Dragger onFile={file => { ...子组件中传递过来一个File }} /> 
     return (React.createElement("div", { className: "viking-upload-component", style: { backgroundColor: '#fafafa' } },
         React.createElement("div", { className: "viking-upload-input", style: { display: 'inline-block' }, onClick: handleClick },
-            drag ? React.createElement(Dragger, { onFile: function (files) { uploadFiles(files); } }, children) : children,
+            drag ? (React.createElement(Dragger, { onFile: function (files) { uploadFiles(files); } }, children)) : (children),
             React.createElement("input", { className: "viking-file-input", style: { display: 'none' }, ref: fileInput, onChange: handleFileChange, type: "file", accept: accept, multiple: multiple })),
         React.createElement(UploadList, { fileList: fileList, onRemove: handleRemove })));
 };

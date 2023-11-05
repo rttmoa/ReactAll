@@ -1,9 +1,9 @@
 import React from 'react'
 import classNames from 'classnames'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
+// import { library } from '@fortawesome/fontawesome-svg-core'
+// import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
-library.add(fas)
+// library.add(fas)
 
 /**
  * 提供了一套常用的图标集合 基于 react-fontawesome。 

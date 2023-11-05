@@ -1,4 +1,14 @@
 import React, { FC, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'react';
+export declare enum ButtonEnumSize {
+    Large = "lg",
+    Small = "sm"
+}
+export declare enum ButtonEnumType {
+    Primary = "primary",
+    Default = "default",
+    Danger = "danger",
+    Link = "link"
+}
 export type ButtonSize = 'lg' | 'sm';
 export type ButtonType = 'primary' | 'default' | 'danger' | 'link';
 interface BaseButtonProps {

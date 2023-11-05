@@ -1,3 +1,3 @@
-/// <reference types="react" />
-declare function IconDemo(): JSX.Element;
+import React from 'react';
+declare function IconDemo(): React.JSX.Element;
 export default IconDemo;

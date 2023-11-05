@@ -10,13 +10,10 @@ export interface UploadFile {
     response?: any;
     error?: any;
 }
-/**
- * ### 通过点击或者拖拽上传文件
- */
 export interface UploadProps {
     /** 发送请求地址 */
     action: string;
-    /** 文件列表 */
+    /** 默认上传文件列表 */
     defaultFileList?: UploadFile[];
     /**
      * 上传文件之前验证或进行转换
@@ -52,5 +49,8 @@ export interface UploadProps {
     /** 是否拖动上传 */
     drag?: boolean;
 }
+/**
+ * ### 通过点击或者拖拽上传文件
+ */
 export declare const Upload: FC<UploadProps>;
 export default Upload;

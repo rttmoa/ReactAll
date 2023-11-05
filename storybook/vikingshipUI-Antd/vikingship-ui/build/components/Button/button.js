@@ -22,26 +22,38 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import React from 'react';
 import classNames from 'classnames';
+export var ButtonEnumSize;
+(function (ButtonEnumSize) {
+    ButtonEnumSize["Large"] = "lg";
+    ButtonEnumSize["Small"] = "sm";
+})(ButtonEnumSize || (ButtonEnumSize = {}));
+export var ButtonEnumType;
+(function (ButtonEnumType) {
+    ButtonEnumType["Primary"] = "primary";
+    ButtonEnumType["Default"] = "default";
+    ButtonEnumType["Danger"] = "danger";
+    ButtonEnumType["Link"] = "link";
+})(ButtonEnumType || (ButtonEnumType = {}));
 /**
  * ### 页面中最常用的的按钮元素，适合于完成特定的交互，支持 HTML button 和 a 链接 的所有属性
  * #### className? | disabled? | size? | btnType? | children? | href?
  */
 export var Button = function (props) {
     var _a;
-    var btnType = props.btnType, disabled = props.disabled, size = props.size, children = props.children, className = props.className, href = props.href, restProps = __rest(props
+    var btnType = props.btnType, disabled = props.disabled, size = props.size, children = props.children, className = props.className, href = props.href, restProps = __rest(props, ["btnType", "disabled", "size", "children", "className", "href"]);
     // btn, btn-lg, btn-primary
-    , ["btnType", "disabled", "size", "children", "className", "href"]);
-    // btn, btn-lg, btn-primary
-    var classes = classNames('btn', className, (_a = {},
+    var cs = classNames('btn', className, (_a = {},
         _a["btn-".concat(btnType)] = btnType,
         _a["btn-".concat(size)] = size,
         _a['disabled'] = (btnType === 'link') && disabled,
         _a));
-    if (btnType === 'link' && href) {
-        return (React.createElement("a", __assign({ className: classes, href: href }, restProps), children));
+    if (btnType === "link" && href) {
+        return React.createElement("a", __assign({ className: cs, href: href }, restProps),
+            children,
+            " ");
     }
     else {
-        return (React.createElement("button", __assign({ className: classes, disabled: disabled }, restProps), children));
+        return React.createElement("button", __assign({ className: cs, disabled: disabled }, restProps), children);
     }
 };
 Button.defaultProps = {

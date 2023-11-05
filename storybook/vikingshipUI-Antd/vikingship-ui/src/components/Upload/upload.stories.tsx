@@ -1,6 +1,6 @@
 import React  from 'react'
 import { storiesOf } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
+// import { action } from '@storybook/addon-actions'
 import { Upload, UploadFile } from './upload'
 // import Button from '../Button/button'
 import Icon from '../Icon/icon'
@@ -15,10 +15,10 @@ const checkFileSize = (file: File) => {
 }
 
 // 上传前 改变文件名 返回 promise
-const filePromise = (file: File) => {
-  const newFile = new File([file], 'new_name.docx', {type: file.type})
-  return Promise.resolve(newFile)
-}
+// const filePromise = (file: File) => {
+//   const newFile = new File([file], 'new_name.docx', {type: file.type})
+//   return Promise.resolve(newFile)
+// }
 
 const defaultFileList: UploadFile[] = [
   // { uid: '123', size: 1234, name: 'hello.md', status: 'uploading', percent: 30,  },

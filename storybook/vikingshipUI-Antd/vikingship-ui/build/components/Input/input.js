@@ -39,16 +39,12 @@ export var Input = function (props) {
         _a['input-group-append'] = !!append,
         _a['input-group-prepend'] = !!prepend,
         _a));
-    var fixControlledValue = function (value) {
-        if (typeof value === 'undefined' || value === null) {
-            return '';
-        }
-        return value;
-    };
+    // console.log('原', props);
     if ('value' in props) {
         delete restProps.defaultValue;
-        restProps.value = fixControlledValue(props.value);
+        restProps.value = (typeof props.value === 'undefined' || props.value === null) ? "" : props.value;
     }
+    // console.log('新', props);
     return (
     // 根据属性判断是否要添加不同的节点
     React.createElement("div", { className: classes, style: style },

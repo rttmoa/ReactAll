@@ -1,3 +1,3 @@
-/// <reference types="react" />
-declare function ButtonDemo(): JSX.Element;
+import React from 'react';
+declare function ButtonDemo(): React.JSX.Element;
 export default ButtonDemo;

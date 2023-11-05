@@ -1,3 +1,3 @@
-/// <reference types="react" />
-declare function MenuDemo(): JSX.Element;
+import React from 'react';
+declare function MenuDemo(): React.JSX.Element;
 export default MenuDemo;

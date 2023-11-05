@@ -15,7 +15,7 @@ import { UserWxService } from '../../service/wx';
 @CoolController()
 export class UserCommController extends BaseController {
   @Inject()
-  userWxService: UserWxService;
+  userWxService: UserWxService; // ? 微信 相关服务
 
   @CoolTag(TagTypes.IGNORE_TOKEN)
   @Get('/wxMpConfig', { summary: '获取微信公众号配置' })

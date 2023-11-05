@@ -1,10 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
+// React.Children 遍历 TabsItem
 export var TabsItem = function (props) {
-    var classes = classNames('tabs-content', props.className, {
-        'tabs-content-active': props.isActive,
+    var className = props.className, isActive = props.isActive, label = props.label, children = props.children;
+    var classes = classNames('tabs-content', className, {
+        'tabs-content-active': isActive,
     });
-    return (React.createElement("div", { key: props.label, className: classes }, props.children));
+    return (React.createElement("div", { key: label, className: classes }, children));
 };
 TabsItem.defaultProps = {
     disabled: false,

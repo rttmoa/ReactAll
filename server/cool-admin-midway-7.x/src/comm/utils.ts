@@ -25,6 +25,7 @@ export class Utils {
   /**
    * 根据IP获得请求地址
    * @param ip 为空时则为当前请求的IP地址
+   * @returns { String } 返回国家、地区、城市 || 错误信息
    */
   async getIpAddr(ctx: Context, ip?: string | string[]) {
     try {

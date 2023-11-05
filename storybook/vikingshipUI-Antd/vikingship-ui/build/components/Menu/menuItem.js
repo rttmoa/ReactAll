@@ -4,7 +4,7 @@ import { MenuContext } from './menu';
 export var MenuItem = function (props) {
     var className = props.className, index = props.index, style = props.style, children = props.children, disabled = props.disabled;
     var context = useContext(MenuContext);
-    var classes = classNames('menu-item', className, {
+    var cs = classNames('menu-item', className, {
         'is-disabled': disabled,
         'is-active': context.index === index
     });
@@ -13,7 +13,7 @@ export var MenuItem = function (props) {
             context.onSelect(index);
         }
     };
-    return (React.createElement("li", { className: classes, style: style, onClick: handleClick }, children));
+    return React.createElement("li", { className: cs, style: style, onClick: handleClick }, children);
 };
 MenuItem.displayName = 'MenuItem';
 export default MenuItem;

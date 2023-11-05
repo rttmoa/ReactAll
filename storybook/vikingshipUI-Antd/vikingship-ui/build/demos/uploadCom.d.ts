@@ -1,3 +1,3 @@
-/// <reference types="react" />
-declare function UploadCom(): JSX.Element;
+import React from 'react';
+declare function UploadCom(): React.JSX.Element;
 export default UploadCom;

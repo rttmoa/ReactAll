@@ -1,12 +1,20 @@
 {
-  "compilerOptions": {
-    "outDir": "build",
+  "compilerOptions": { //  ? tsconfig配置项； https://blog.csdn.net/m0_65937359/article/details/127309357
+    "outDir": "build", // 指定输出目录
     "module": "esnext",
     "target": "es5",
-    "declaration": true,
+    "declaration": true, // 生成相应的 '.d.ts' 文件
+    // "sourceMap": true, // 生成相应的 '.map' 文件
     "moduleResolution": "node",
-    "jsx": "react",
-    "allowSyntheticDefaultImports": true
+    "removeComments": false, // 删除编译后的所有的注释
+    // "noEmit": false, // 不生成输出文件
+    "jsx": "react",  // 指定 jsx 代码的生成: 'preserve', 'react-native', or 'react'
+    "allowSyntheticDefaultImports": true, // 允许从没有设置默认导出的模块中默认导入。
+    /* 严格的类型检查选项 */
+    /* 额外的检查 */
+    /* 其他选项 */
+    // "experimentalDecorators": true, // 启用装饰器
+    // "emitDecoratorMetadata": true // 为装饰器提供元数据的支持
   },
   "include": [
     "src/components",

@@ -1,3 +1,3 @@
-/// <reference types="react" />
-declare function InputDemo(): JSX.Element;
+import React from 'react';
+declare function InputDemo(): React.JSX.Element;
 export default InputDemo;

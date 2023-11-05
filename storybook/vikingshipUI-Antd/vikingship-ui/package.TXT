@@ -1,31 +1,31 @@
 
-
+? tsconfig配置项； https://blog.csdn.net/m0_65937359/article/details/127309357
 
 "scripts": {
 
-  // yarn start： 执行 /src/index.tsx 入口文件
-  "start": "react-scripts start",
+  
+  "start": "react-scripts start", // yarn start： 执行 /src/index.tsx 入口文件
 
-  // yarn lint：校验文件中是否有错误点
-  "lint": "eslint --ext js,ts,tsx src --max-warnings 10",
+ 
+  "lint": "eslint --ext js,ts,tsx src --max-warnings 10",  // ! yarn lint：校验文件中是否有错误点
 
 
-  // yarn test： 执行文件中 /src/components/Input/input.test.tsx   test后缀文件
-  "test": "react-scripts test",
+  
+  "test": "react-scripts test", // yarn test： 执行文件中 /src/components/Input/input.test.tsx   test后缀文件
   "eject": "react-scripts eject",
 
   "clean": "rimraf ./build",
   "build-ts": "tsc -p tsconfig.build.json",
-  "build-css": "node-sass ./src/styles/index.scss ./build/index.css",
-  // 生成 build 文件夹
-  "build": "npm run clean && npm run build-ts && npm run build-css",
+  "build-css": "node-sass ./src/styles/index.scss ./build/index.css", // index.scss -> index.css
+  
+  "build": "npm run clean && npm run build-ts && npm run build-css", // 生成 build 文件夹
 
-  // storybook
-  "storybook": "start-storybook -p 6006 -s public",
+  
+  "storybook": "start-storybook -p 6006 -s public", // storybook
 
-  // 生成 storybook-static 
-  "build-storybook": "build-storybook -s public",
+  
+  "build-storybook": "build-storybook -s public", // 生成 storybook-static || 可查看打包后的文件
 
-  // 发布 npm 包
-  "pub": "npm run build && npm publish"
+  
+  "pub": "npm run build && npm publish" // 发布 npm 包
 },

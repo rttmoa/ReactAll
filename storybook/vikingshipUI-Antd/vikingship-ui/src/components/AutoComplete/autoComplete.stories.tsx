@@ -6,10 +6,10 @@ import UseAutoComplete from './UseAutoComplete'
 
 
 
-interface LakerPlayerProps {
-  value: string;
-  number: number;
-}
+// interface LakerPlayerProps {
+//   value: string;
+//   number: number;
+// }
 interface GithubUserProps {
   login: string;
   url: string;

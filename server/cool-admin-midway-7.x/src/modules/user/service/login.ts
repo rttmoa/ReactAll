@@ -167,7 +167,7 @@ export class UserLoginService extends BaseService {
   }
 
   /**
-   * 刷新token
+   * 刷新 token
    * @param refreshToken
    */
   async refreshToken(refreshToken) {

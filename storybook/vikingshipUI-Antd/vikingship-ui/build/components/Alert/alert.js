@@ -3,12 +3,14 @@ import classnames from 'classnames';
 import Icon from '../Icon';
 import Transition from '../Transition';
 /**
+ * ## Main
  * ### 用于页面中展示重要的提示信息。 点击右侧的叉提示自动消失
  * #### title? | closable? | customClose? | onClose()? | children? | type
  */
 export var Alert = function (props) {
     var _a;
     var title = props.title, closable = props.closable, type = props.type, customClose = props.customClose, onClose = props.onClose, children = props.children;
+    // 关闭图标；默认 Icon
     var customCloseP = customClose || React.createElement(Icon, { icon: "times", className: "window-close", size: 'lg' });
     var classes = classnames('alert', (_a = {}, _a["alert-".concat(type)] = type, _a));
     var handleClick = function () {

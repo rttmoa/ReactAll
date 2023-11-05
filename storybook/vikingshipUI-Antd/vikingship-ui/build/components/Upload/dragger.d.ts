@@ -4,7 +4,7 @@ interface DraggerProps {
 }
 /**
  * ### 文件上传拖拽到组件中
- * #### onFile()?
+ * #### onFile()? & children
  */
 export declare const Dragger: FC<DraggerProps>;
 export default Dragger;

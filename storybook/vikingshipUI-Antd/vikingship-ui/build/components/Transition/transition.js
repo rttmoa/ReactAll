@@ -23,7 +23,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 /**
- * ### CSS过渡效果 包裹着内部的children
+ * ### CSS过渡效果 包裹着内部的 children
  * #### animation? | wrapper?
  */
 var Transition = function (props) {

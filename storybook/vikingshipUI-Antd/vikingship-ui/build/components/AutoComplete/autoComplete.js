@@ -37,11 +37,11 @@ import useClickOutside from '../../hooks/useClickOutside';
  */
 export var AutoComplete = function (props) {
     var fetchSuggestions = props.fetchSuggestions, onSelect = props.onSelect, value = props.value, renderOption = props.renderOption, restProps = __rest(props, ["fetchSuggestions", "onSelect", "value", "renderOption"]);
-    var _a = useState(value), inputValue = _a[0], setInputValue = _a[1];
-    var _b = useState([]), suggestions = _b[0], setSuggestions = _b[1];
+    var _a = useState(value), inputValue = _a[0], setInputValue = _a[1]; // Input['value']
+    var _b = useState([]), suggestions = _b[0], setSuggestions = _b[1]; // 下拉列表中 搜索建议词
     var _c = useState(false), loading = _c[0], setLoading = _c[1];
-    var _d = useState(false), showDropdown = _d[0], setShowDropdown = _d[1];
-    var _e = useState(-1), highlightIndex = _e[0], setHighlightIndex = _e[1];
+    var _d = useState(false), showDropdown = _d[0], setShowDropdown = _d[1]; // 显示下拉框
+    var _e = useState(-1), highlightIndex = _e[0], setHighlightIndex = _e[1]; // 高亮索引
     var triggerSearch = useRef(false);
     var componentRef = useRef(null);
     var debouncedValue = useDebounce(inputValue, 300);
@@ -73,15 +73,15 @@ export var AutoComplete = function (props) {
         }
         setHighlightIndex(-1);
     }, [debouncedValue, fetchSuggestions]);
-    var highlight = function (index) {
-        if (index < 0)
-            index = 0;
-        if (index >= suggestions.length) {
-            index = suggestions.length - 1;
-        }
-        setHighlightIndex(index);
-    };
+    // Input['onKeyDown']  键盘事件（上、下、回车、ESC）
     var handleKeyDown = function (e) {
+        var highlight = function (index) {
+            if (index < 0)
+                index = 0;
+            if (index >= suggestions.length)
+                index = suggestions.length - 1;
+            setHighlightIndex(index);
+        };
         switch (e.keyCode) {
             case 13:
                 if (suggestions[highlightIndex]) {
@@ -101,6 +101,7 @@ export var AutoComplete = function (props) {
                 break;
         }
     };
+    // Input['onChange']  输入框事件改变
     var handleChange = function (e) {
         var value = e.target.value.trim();
         setInputValue(value);
@@ -109,25 +110,23 @@ export var AutoComplete = function (props) {
     var handleSelect = function (item) {
         setInputValue(item.value);
         setShowDropdown(false);
-        if (onSelect) {
-            onSelect(item);
-        }
+        onSelect && onSelect(item);
         triggerSearch.current = false;
     };
-    var renderTemplate = function (item) {
-        return renderOption ? renderOption(item) : item.value;
-    };
+    // const renderTemplate = (item: DataSourceType) => {
+    //   return renderOption ? renderOption(item) : item.value
+    // }
+    // todo 下拉列表
     var generateDropdown = function () {
         return (React.createElement(Transition, { in: showDropdown || loading, animation: "zoom-in-top", timeout: 300, onExited: function () { setSuggestions([]); } },
             React.createElement("ul", { className: "viking-suggestion-list" },
-                loading &&
-                    React.createElement("div", { className: "suggestions-loading-icon" },
-                        React.createElement(Icon, { icon: "spinner", spin: true })),
+                loading && (React.createElement("div", { className: "suggestions-loading-icon" },
+                    React.createElement(Icon, { icon: "spinner", spin: true }))),
                 suggestions.map(function (item, index) {
                     var classnames = classNames('suggestion-item', {
                         'is-active': index === highlightIndex
                     });
-                    return (React.createElement("li", { key: index, className: classnames, onClick: function () { return handleSelect(item); } }, renderTemplate(item)));
+                    return (React.createElement("li", { key: index, className: classnames, onClick: function () { return handleSelect(item); } }, renderOption ? renderOption(item) : item.value));
                 }))));
     };
     return (React.createElement("div", { className: "viking-auto-complete", ref: componentRef },
