@@ -13,7 +13,7 @@ import { ILogger } from '@midwayjs/logger';
 // ? src/modules 模块内 隐藏功能
 // TODO 可以查看包下的接口属性；包含什么功能
 // TODO TS 声明文件类型
-import * as cool from '@cool-midway/core';
+import * as cool from '@cool-midway/core'; // todo 核心部分结构
 import * as cloud from '@cool-midway/cloud'; // ! CloudDb；数据库 | 云函数 | CURD
 import * as file from '@cool-midway/file'; // ! 文件上传; 本地上传 | 云端上传
 import * as sms from '@cool-midway/sms'; // ! 短信配置；阿里云 | 腾讯云 | 云片短信 | 发送验证码 | 发送短信 | 生成验证码
