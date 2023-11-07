@@ -1,0 +1,23 @@
+
+
+
+
+! url; http://localhost:9527/
+
+! mock; https://mock.mengxuegu.com/editor/64ce5fd3686aea63fd6b5a30/64ce649f686aea63fd6b5a34
+
+
+
+todo  项目中添加功能
+  todo 登陆 Login 手机获取验证码倒计时功能  /login  参考 
+  todo /api 二次封装Axios
+  todo /router
+  todo /redux
+
+
+将此设计为 Blogs
+  @copy其他项目 （功能，技术，方法，实现）
+    + 1.1 添加无限滚动表格 （添加mock地址，对应的路由，文件夹名，然后在views创建文件即可）
+    + 1.2 添加功能、路由跳转等等
+    + 尝试使用 `npm i --save-dev @types/react-cropper-pro` (如果存在)，或者添加一个包含 `declare module 'react-cropper-pro';` 的新声明(.d.ts)文件
+    + 修复bug：降低 react-transition-group 包导致项目启动失败
