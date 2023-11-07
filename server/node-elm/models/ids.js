@@ -2,19 +2,20 @@
 
 import mongoose from 'mongoose'
 
+// ? 所有 iD 主键
 const idsSchema = new mongoose.Schema({
-	restaurant_id: Number,
-	food_id: Number,
-	order_id: Number,
-	user_id: Number,
-	address_id: Number,
-	cart_id: Number,
-	img_id: Number,
-	category_id: Number,
-	item_id: Number,
-	sku_id: Number, 
-	admin_id: Number,
-	statis_id: Number,
+	restaurant_id: Number, // ! 餐馆 iD
+	food_id: Number, // ! 食物 iD
+	order_id: Number, // ! 订单 iD
+	user_id: Number, // ! 用户 iD
+	address_id: Number, // ! 地址 iD
+	cart_id: Number, // ! 购物车 iD
+	img_id: Number, // ! 图片 iD
+	category_id: Number, // ! 类别 iD
+	item_id: Number, // ! 物品 iD
+	sku_id: Number,  // ! 库存单位 iD
+	admin_id: Number, // ! 管理员 iD
+	statis_id: Number, // ! 统计数据 iD
 });
 
 const Ids = mongoose.model('Ids', idsSchema);

@@ -24,6 +24,9 @@ import * as pay from '@cool-midway/pay'; // ! 微信支付配置 | 支付宝支�
 import * as iot from '@cool-midway/iot'; // ! MQTT服务 | MQTT 配置
 import * as coolLibrary from '@cool-midway/cache-manager-fs-hash';
 
+// .
+// .
+// .
 @Configuration({
   imports: [
     // ? 来自于 @midwayjs

@@ -6,7 +6,7 @@ import explainData from '../../InitData/explain'
 const Schema = mongoose.Schema;
 
 const explainSchema = new Schema({
-	data: Schema.Types.Mixed,
+	data: Schema.Types.Mixed, // ! 活动问题
 })
 
 const Explain = mongoose.model('Explain', explainSchema);

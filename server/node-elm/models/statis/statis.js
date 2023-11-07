@@ -1,9 +1,9 @@
 'use strict';
 
 import mongoose from 'mongoose'
-
 const Schema  = mongoose.Schema;
 
+// ? 统计
 const statisSchema = new Schema({
 	date: String,
 	origin: String,

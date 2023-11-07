@@ -8,8 +8,12 @@
 - [ ] 弃用百度地图，改用腾讯地图
 
 
+TODO; 美团Web前端 点餐
+
 ! 项目技术；Nodejs + class{} + Mongodb
 ! README.md; 目标功能 + 项目布局
+! Model 数据库设计 
+
 
 TODO;
 
