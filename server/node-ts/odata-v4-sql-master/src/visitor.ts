@@ -4,8 +4,8 @@ import { SqlOptions } from "./index";
 
 export class SQLLiteral extends Literal{
 	static convert(type:string, value:string):any {
-        return (new SQLLiteral(type, value)).valueOf();
-    }
+			return (new SQLLiteral(type, value)).valueOf();
+	}
 	'Edm.String'(value:string){ return "'" + decodeURIComponent(value).slice(1, -1).replace(/''/g, "'") + "'"; }
 	'Edm.Guid'(value:string){ return "'" + decodeURIComponent(value) + "'"; }
 	'Edm.Date'(value:string){ return "'" + value + "'"; }

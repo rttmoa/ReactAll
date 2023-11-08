@@ -2,11 +2,13 @@
 
 OData v4 parser based on OASIS Standard OData v4 ABNF grammar
 
+基于 OASIS 标准 OData v4 ABNF 语法的 OData v4 解析器
+
 ## How to build
 
-Simply just use ```$ npm run build```
+Simply just use ``$ npm run build``
 
-Run TDD tests using ```$ npm run tdd```
+Run TDD tests using ``$ npm run tdd``
 
 ## How to use
 
@@ -27,5 +29,5 @@ require('odata-v4-parser/lib/expressions').commonExpr(new Uint8Array(new Buffer(
 
 ## TODO
 
-* more unit testing
-* use metadata for correct OData identifier type detection (complex types, navigation properties, etc.)
+* 更多单元测试
+* 使用元数据进行正确的 OData 标识符类型检测（复杂类型、导航属性等）

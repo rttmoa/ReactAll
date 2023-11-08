@@ -5,6 +5,7 @@ import Query from "./query";
 import ResourcePath from "./resourcePath";
 import ODataUri from "./odataUri";
 
+// ? 解析器工厂
 export const parserFactory = function(fn) {
     return function (source, options) {
         options = options || {};
