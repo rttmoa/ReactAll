@@ -1,7 +1,0 @@
-node_modules
-src/*.js
-coverage
-docs
-report
-lib
-*.log*

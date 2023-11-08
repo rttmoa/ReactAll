@@ -8,11 +8,13 @@
 [![David](https://img.shields.io/david/yhlben/qiniu-upload-plugin.svg)](https://david-dm.org/yhlben/qiniu-upload-plugin)
 
 > 将 webpack 打包出来的 assets 上传到七牛云。
+>
+> github; https://github.com/mengsixing/cdfang-spider
 
 ## 特点
 
 - 上传 webpack 打包后的所有静态资源到七牛云。
-- 自动忽略`.html`文件。
+- 自动忽略 `.html`文件。
 - 支持覆盖已上传文件。
 
 基于官方七牛云[Node.js SDK](https://developer.qiniu.com/kodo/sdk/1289/nodejs)。
