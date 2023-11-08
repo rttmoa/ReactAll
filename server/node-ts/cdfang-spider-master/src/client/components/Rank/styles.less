@@ -1,0 +1,57 @@
+@import '../../theme/const.less';
+
+.rank {
+  padding: 0 32px;
+  height: 410px;
+  overflow-y: scroll;
+  .rank-title {
+    margin-bottom: 0.5em;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    .rank-title-desc {
+      color: #1890ff;
+      cursor: pointer;
+    }
+  }
+  .rank-list {
+    margin: 25px 0 0;
+    padding: 0;
+    list-style: none;
+    li {
+      margin-top: 16px;
+      display: flex;
+      > span {
+        font-size: 14px;
+        line-height: 22px;
+        &:first-child {
+          background-color: @bg-color;
+          border-radius: 20px;
+          display: inline-block;
+          font-size: 12px;
+          font-weight: 600;
+          margin-right: 24px;
+          height: 20px;
+          line-height: 20px;
+          width: 20px;
+          text-align: center;
+        }
+        &:nth-child(2) {
+          flex: 1;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        &:last-child {
+          width: 60px;
+          text-align: right;
+        }
+        &.top3 {
+          background-color: @title-color;
+          color: @main-color;
+        }
+      }
+    }
+  }
+}

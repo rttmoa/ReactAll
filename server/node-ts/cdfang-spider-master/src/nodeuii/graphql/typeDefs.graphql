@@ -1,0 +1,22 @@
+type House {
+  _id: ID
+  area: String
+  name: String
+  number: Int
+  beginTime: String
+  endTime: String
+  status: String
+  price: Int
+}
+
+type PageOneArray {
+  successArray: [House]
+  allLength: Int
+}
+
+type Query {
+  allHouses(year: Int): [House]
+  housePrice(houseName:String): Float
+  spiderPageOne: PageOneArray
+  pvs(routerName: String): Int
+}

@@ -1,0 +1,11 @@
+*.log
+npm-debug.log*
+node_modules/
+.npm
+dist
+.DS_Store
+*.swp
+.cwfont.manifest
+.ejyyrc
+project.config.json
+project.private.config.json
