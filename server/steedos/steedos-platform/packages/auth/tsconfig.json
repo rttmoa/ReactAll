@@ -6,7 +6,7 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "skipLibCheck": true,
-        "sourceMap": true,
+        "sourceMap": false,
         "declaration": true,
         "removeComments": true
     },

@@ -5,7 +5,7 @@ import * as hbs from 'hbs';
 import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
-import { init } from "./src";
+import { init } from "./src"; // ? entry
 
 const app = express();
 app.engine('handlebars', hbs.__express);

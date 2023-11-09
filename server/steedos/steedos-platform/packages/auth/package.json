@@ -6,7 +6,8 @@
   "scripts": {
     "watch": "tsc --watch",
     "test": "mocha test/**/*.ts",
-    "build": "rm -rf lib && tsc"
+    "build": "npx rm -rf lib && tsc",
+    "b": "tsc"
   },
   "license": "MIT",
   "publishConfig": {

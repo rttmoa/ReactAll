@@ -49,7 +49,7 @@ export async function getSessionByUserId(
 }
 
 export function getSessionByUserIdSync(userId, spaceId?): any {
-  let getSessionFn = function() {
+  let getSessionFn = function () {
     return getSessionByUserId(userId, spaceId);
   };
   return wrapAsync(getSessionFn, {});
@@ -114,7 +114,7 @@ export async function auth(request: Request, response: Response): Promise<any> {
   let cookies = new Cookies(request, response);
   let authToken: string =
     request.headers["x-auth-token"] || (cookies.get("X-Auth-Token") || "").replace(/"/g, "");
-    let spaceToken = (cookies.get("X-Space-Token") || "").replace(/"/g, "");
+  let spaceToken = (cookies.get("X-Space-Token") || "").replace(/"/g, "");
   let authorization = request.headers.authorization;
   let spaceId =
     (request.params ? request.params.spaceId : null) ||
@@ -177,11 +177,11 @@ export function removeUserSessionsCacheByUserId(userId, is_phone) {
  * @param oldDoc 
  * @returns true/false
  */
-export function isPropValueChanged (newDoc: any, oldDoc: any, props: string[]): boolean {
+export function isPropValueChanged(newDoc: any, oldDoc: any, props: string[]): boolean {
   for (const key of props) {
-      if ((newDoc[key] + '') !== (oldDoc[key] + '')) {
-          return true
-      }
+    if ((newDoc[key] + '') !== (oldDoc[key] + '')) {
+      return true
+    }
   }
   return false
 }
