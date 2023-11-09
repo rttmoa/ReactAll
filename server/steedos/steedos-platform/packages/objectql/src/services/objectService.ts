@@ -28,6 +28,8 @@ declare var Creator: any;
 type externalPipelineItem = {
     [mongodPipeline: string]: any
 }
+
+// ? 获取对象服务方法架构
 function getObjectServiceMethodsSchema() {
     const methods = {
         aggregate: {

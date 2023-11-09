@@ -117,11 +117,11 @@ export abstract class SteedosTypeormDriver implements SteedosDriver {
             }
         });
         projection = projection.replace(/,$/g, "");
-        if (primaryKeys && primaryKeys.length){
-            if (projection){
+        if (primaryKeys && primaryKeys.length) {
+            if (projection) {
                 projection = `${primaryKeys.join(",")},${projection}`;
             }
-            else{
+            else {
                 projection = primaryKeys.join(",");
             }
         }
@@ -133,10 +133,10 @@ export abstract class SteedosTypeormDriver implements SteedosDriver {
     getTypeormSortOptions(sort: string, defaultSort?: string): JsonMap {
         let result: JsonMap = {};
         if (!(sort && typeof sort === "string" && sort.length)) {
-            if (defaultSort){
+            if (defaultSort) {
                 sort = defaultSort;
             }
-            else{
+            else {
                 return result;
             }
         }
@@ -183,13 +183,13 @@ export abstract class SteedosTypeormDriver implements SteedosDriver {
         let queryOptions = Object.assign(filterQuery, projection, sort, topAndSkip);
         let sqlOptions: SqlOptions = { alias: tableName, type: this.sqlLang, version: this.databaseVersion };
         let result = await executeQuery(queryBuilder, queryOptions, sqlOptions);
-        return result.map((item:any)=>{
-            if (primaryKeys){
-                if (primaryKeys.length === 1){
+        return result.map((item: any) => {
+            if (primaryKeys) {
+                if (primaryKeys.length === 1) {
                     let key = primaryKeys[0];
                     item['_id'] = item[key] ? item[key] : "";
                 }
-                else if (primaryKeys.length > 1){
+                else if (primaryKeys.length > 1) {
                     item['_ids'] = {};
                     primaryKeys.forEach((key) => {
                         item['_ids'][key] = item[key] ? item[key] : "";
@@ -227,13 +227,13 @@ export abstract class SteedosTypeormDriver implements SteedosDriver {
         // 这里不可以用repository.findOne，也不可以用repository.createQueryBuilder(tableName).select(...).where(...).getOne();
         // 因为sqlserver/sqlite3不兼容
         let result = await executeQuery(queryBuilder, Object.assign(filterQuery, projection), { alias: tableName, type: this.sqlLang });
-        if (result && result[0]){
-            if (primaryKeys){
-                if (primaryKeys.length === 1){
+        if (result && result[0]) {
+            if (primaryKeys) {
+                if (primaryKeys.length === 1) {
                     let key = primaryKeys[0];
                     result[0]['_id'] = result[0][key] ? result[0][key] : "";
                 }
-                else if (primaryKeys.length > 1){
+                else if (primaryKeys.length > 1) {
                     result[0]['_ids'] = {};
                     primaryKeys.forEach((key) => {
                         result[0]['_ids'][key] = result[0][key] ? result[0][key] : "";
@@ -242,7 +242,7 @@ export abstract class SteedosTypeormDriver implements SteedosDriver {
             }
             return result[0];
         }
-        else{
+        else {
             return null;
         }
     }
@@ -332,11 +332,11 @@ export abstract class SteedosTypeormDriver implements SteedosDriver {
     }
 
     async directUpdate(tableName: string, id: SteedosIDType, data: Dictionary<any>) {
-       return this.update(tableName, id, data)
+        return this.update(tableName, id, data)
     }
 
     async directDelete(tableName: string, id: SteedosIDType) {
-       return this.delete(tableName, id)
+        return this.delete(tableName, id)
     }
 
     async getDatabaseVersion() {

@@ -22,23 +22,23 @@ const inherits = function (Child, Parent) {
     return Child;
 };
 
-const getLocale = (userLocale: string)=>{
+const getLocale = (userLocale: string) => {
     let locale: string;
     if (userLocale === 'zh-cn') {
-      locale = "zh-CN";
+        locale = "zh-CN";
     } else if (userLocale == 'en-us') {
-      locale = "en";
+        locale = "en";
     } else {
-      locale = "zh-CN";
+        locale = "zh-CN";
     }
     return locale;
-  }
+}
 
 // declare type SteedosFunctionErrorType = (error: string, reason: string, details: string) => void;
-const i18nError = function (key?: string, userSession?: SteedosUserSession, i18nOptions?: any){
-    if(key){
+const i18nError = function (key?: string, userSession?: SteedosUserSession, i18nOptions?: any) {
+    if (key) {
         let lng = 'en';
-        if(userSession){
+        if (userSession) {
             lng = getLocale(userSession.locale);
             return TAPi18n.__(key, i18nOptions, lng);
         }
@@ -72,14 +72,14 @@ const SteedosFunctionError = function (error: string, reason?: string, details?:
     // format is "[404]" (if no reason is set) or "File not found [404]"
     if (self.reason)
         self.message = self.reason + ' [' + self.error + ']';
-    else{
+    else {
         // self.message = '[' + self.error + ']';
         self.message = self.error;
     }
-        
+
 }
 
-const makeErrorType = function (name, constructor) : (error: string, reason?: string, details?: string, userSession?: SteedosUserSession, i18nOptions?: any) => void {
+const makeErrorType = function (name, constructor): (error: string, reason?: string, details?: string, userSession?: SteedosUserSession, i18nOptions?: any) => void {
     var errorClass = function (/*arguments*/) {
         // Ensure we get a proper stack trace in most Javascript environments
         if (Error.captureStackTrace) {
@@ -106,6 +106,6 @@ export const SteedosError = makeErrorType(
     SteedosFunctionError
 );
 
-export const sendError = function(res: any, error: any, status = 500){
-    return res.status(status).send({state: 'FAILURE', error: error.message});
+export const sendError = function (res: any, error: any, status = 500) {
+    return res.status(status).send({ state: 'FAILURE', error: error.message });
 }

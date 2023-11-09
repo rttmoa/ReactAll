@@ -92,7 +92,7 @@ export class Mongo implements DatabaseInterface {
       .project({ _id: 1 })
       .toArray();
     if (sessions) {
-      sessions.forEach(function(session) {
+      sessions.forEach(function (session) {
         session.id = session._id.toString();
       });
     }
@@ -172,7 +172,7 @@ export class Mongo implements DatabaseInterface {
     const id = this.options.convertUserIdToMongoObjectId
       ? toMongoID(userId)
       : userId;
-    const user:any = await this.collection.findOne({ _id: id });
+    const user: any = await this.collection.findOne({ _id: id });
     if (user) {
       user.id = user._id.toString();
     }
@@ -180,7 +180,7 @@ export class Mongo implements DatabaseInterface {
   }
 
   public async findUserByEmail(email: string): Promise<User | null> {
-    const user:any = await this.collection.findOne({
+    const user: any = await this.collection.findOne({
       email: email.toLowerCase(),
     });
     if (user) {
@@ -197,7 +197,7 @@ export class Mongo implements DatabaseInterface {
     if (encryptedMobile) {
       selector.mobile = encryptedMobile;
     }
-    const user:any = await this.collection.findOne(selector);
+    const user: any = await this.collection.findOne(selector);
     if (user) {
       user.id = user._id.toString();
     }
@@ -208,9 +208,9 @@ export class Mongo implements DatabaseInterface {
     const filter = this.options.caseSensitiveUserName
       ? { username }
       : {
-          $where: `obj.username && (obj.username.toLowerCase() === "${username.toLowerCase()}")`,
-        };
-    const user:any = await this.collection.findOne(filter);
+        $where: `obj.username && (obj.username.toLowerCase() === "${username.toLowerCase()}")`,
+      };
+    const user: any = await this.collection.findOne(filter);
     if (user) {
       user.id = user._id.toString();
     }
@@ -228,7 +228,7 @@ export class Mongo implements DatabaseInterface {
   public async findUserByEmailVerificationToken(
     token: string
   ): Promise<User | null> {
-    const user:any = await this.collection.findOne({
+    const user: any = await this.collection.findOne({
       "services.email.verificationTokens.token": token,
     });
     if (user) {
@@ -240,7 +240,7 @@ export class Mongo implements DatabaseInterface {
   public async findUserByResetPasswordToken(
     token: string
   ): Promise<User | null> {
-    const user:any = await this.collection.findOne({
+    const user: any = await this.collection.findOne({
       "services.password.reset.token": token,
     });
     if (user) {
@@ -253,7 +253,7 @@ export class Mongo implements DatabaseInterface {
     serviceName: string,
     serviceId: string
   ): Promise<User | null> {
-    const user:any = await this.collection.findOne({
+    const user: any = await this.collection.findOne({
       [`services.${serviceName}.id`]: serviceId,
     });
     if (user) {
@@ -409,7 +409,7 @@ export class Mongo implements DatabaseInterface {
     if (existed > 0) {
       throw new Error("该手机号已被其他用户注册");
     }
-    let user:any = await this.collection.findOne(
+    let user: any = await this.collection.findOne(
       { _id: id },
       { projection: { mobile: 1 } }
     );
@@ -711,7 +711,7 @@ export class Mongo implements DatabaseInterface {
   }
 
   public async findSessionByToken(token: string): Promise<Session | null> {
-    const session:any = await this.sessionCollection.findOne({ token });
+    const session: any = await this.sessionCollection.findOne({ token });
     if (session) {
       session.id = session._id.toString();
     }
@@ -722,7 +722,7 @@ export class Mongo implements DatabaseInterface {
     const _id = this.options.convertSessionIdToMongoObjectId
       ? toMongoID(sessionId)
       : sessionId;
-    const session:any = await this.sessionCollection.findOne({ _id });
+    const session: any = await this.sessionCollection.findOne({ _id });
     if (session) {
       session.id = session._id.toString();
     }
@@ -799,7 +799,7 @@ export class Mongo implements DatabaseInterface {
     if (owner) {
       query.owner = owner;
     }
-    let record:any = await this.codeCollection.findOne(query);
+    let record: any = await this.codeCollection.findOne(query);
     if (record) {
       // if(record.failureCount >= MAX_FAILURE_COUNT){
       //   throw new Error('accounts.tooManyFailures');
@@ -970,9 +970,11 @@ export class Mongo implements DatabaseInterface {
     hashedToken.created = new Date();
     hashedToken.is_phone = is_phone;
     hashedToken.is_tablet = is_tablet;
-    await this.collection.updateOne({ _id: userId }, { $push: {
-      "services.resume.loginTokens": hashedToken
-    } });
+    await this.collection.updateOne({ _id: userId }, {
+      $push: {
+        "services.resume.loginTokens": hashedToken
+      }
+    });
     return true;
   }
 
