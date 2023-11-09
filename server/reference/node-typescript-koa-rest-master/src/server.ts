@@ -13,6 +13,8 @@ import { unprotectedRouter } from "./unprotectedRoutes";
 import { protectedRouter } from "./protectedRoutes";
 import { cron } from "./cron";
 
+
+// ? 连接 postgres 配置
 const connectionOptions: ConnectionOptions = {
     type: "postgres",
     url: config.databaseUrl,

@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "ts-node --esm server/app.ts",
+    "koaMysql": "nodemon koa-mysql.js",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
   },

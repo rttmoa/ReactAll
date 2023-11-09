@@ -20,26 +20,13 @@ const dbHandle = () => {
             // update dt_users set vcode = 888888,login_time=NOW() where mobile =15303663375
             // console.log(values)
             return new Promise((resolve, reject) => {
-                pool.getConnection(function (err: any, connection: any) {
-                    if (err) { reject(err) }
-                    else {
-                        connection.query(sql, values, (err: any, fields: any) => {
-                            // console.log(fields)
-                            // OkPacket {
-                            //     fieldCount: 0,
-                            //     affectedRows: 1,
-                            //     insertId: 0,
-                            //     serverStatus: 34,
-                            //     warningCount: 0,
-                            //     message: '(Rows matched: 1  Changed: 1  Warnings: 0',
-                            //     protocol41: true,
-                            //     changedRows: 1
-                            //   }
-                            if (err) reject(err)
-                            else resolve(fields)
-                            connection.release()
-                        })
-                    }
+                pool.getConnection(function (connError: any, connection: any) {
+                    const connQuery = connection.query(sql, values, (queryError: any, data: any, fields: any) => {
+                        queryError ? reject(queryError) : resolve(data) 
+                        connection.release()
+                        // pool.end() // 关闭连接
+                    })
+                    connError ? reject(connError) : connQuery;
                 })
             })
         }

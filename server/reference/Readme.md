@@ -2,31 +2,23 @@
 
 #### 1.node-typescript-koa-rest-master
 
-* [X] Koa + typeorm + Typescript
-* [X] [github 地址](https://github.com/javieraviles/node-typescript-koa-rest#readme)
-* [X] RESTful 风格
-  * [X] GET /
-  * [X] GET /users
-  * [X] GET /users/:id
-  * [X] POST /users
-  * [X] PUT /users/:id
-  * [X] DELETE /users/:id
+> * [X] Koa + typeorm + Typescript + ES6 + 装饰器 + postgres
+> * [X] [github 地址](https://github.com/javieraviles/node-typescript-koa-rest#readme)
+> * [X] RESTful 风格
+>   * protectedRouter.get("/users", user.getUsers);    GET /users
+>   * protectedRouter.get("/users/:id", user.getUser); GET /users/:id
+>   * protectedRouter.post("/users", user.createUser); POST /users
+>   * protectedRouter.put("/users/:id", user.updateUser); PUT /users/:id
+>   * protectedRouter.delete("/users/:id", user.deleteUser); DELETE /users/:id
+>   * protectedRouter.delete("/testusers", user.deleteTestUsers);
 
-* [X] protectedRouter.get("/users", user.getUsers);
-* [X] protectedRouter.get("/users/:id", user.getUser);
+#### ~~2.prisma-examples-latest~~
 
-* [X] protectedRouter.post("/users", user.createUser);
-* [X] protectedRouter.put("/users/:id", user.updateUser);
-
-* [X] protectedRouter.delete("/users/:id", user.deleteUser);
-* [X] protectedRouter.delete("/testusers", user.deleteTestUsers);
-
-#### 2.prisma-examples-latest
-
-* [X] 
-      参考 typescript/rest-koa 创建Koa 服务
-
+* [X] ~~参考 typescript/rest-koa 创建Koa 服务~~
 
 #### 3.prisma-main
 
-* [X] 参考 packages/adapter-libsql ts语法；interface、implement
+> * [X] 参考 packages/adapter-libsql ts语法；interface、implement
+> * [X] **参考 packages/client/src/runtime;   @prisma/client  npm包 核心功能**
+> * [X] 发布 packages 目录中的 包文件
+> * [X] index.d.ts 文件声明类型 type interface

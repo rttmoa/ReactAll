@@ -1,21 +1,19 @@
 import koa, { Response, Context } from 'koa'
-
-// import	router from 'koa-router'
 import Router from '@koa/router'
 import json from 'koa-json'
 import	koajwt from 'koa-jwt'
 import	serve from 'koa-static'
 import	bodyparser from 'koa-bodyparser'
 import	koaBody from 'koa-body'
-// console.log(router);
+
 import { errorHandle, sendHandle, dbHandle } from './middlewares' 
 import { config } from './config/config.ts'
 
 import user from './routes/user.ts'
-// import friends from './server/routes/friends.js'
-// import message from './server/routes/message.js'
-// import qz from './server/routes/qz.js'
-// import my from './server/routes/my.js' 
+import friends from './routes/friends.ts'
+import message from './routes/message.ts'
+import qz from './routes/qz.ts'
+import my from './routes/my.ts' 
 
 const router = new Router();
 const	app = new koa()
@@ -33,7 +31,6 @@ var domains: any = {
 
 // TODO 接口文档 [http://localhost:9089/swagger.html] 
 
-var global: any
 // 截获所有请求处理跨域
 app.use(async (ctx, next) => {
 
@@ -48,7 +45,8 @@ app.use(async (ctx, next) => {
 		}
 		if (domains[key].indexOf(req.header.host) > -1) {
 			currentdomain = domains[key];
-			// global.domain = domains[key]; // FIXME: Nodejs 环境中无法使用 ES6
+			// global.domain = domains[key]; 
+			config.global = domains[key]
 			// console.log(currentdomain);
 			break;
 		}
@@ -67,7 +65,7 @@ app.use(async (ctx, next) => {
 		res.set('Content-Type', 'application/json;charset=utf-8');
 		await next();
 	} else {
-		res.body = ""
+		// res.end = ""
 	}
 })
 
@@ -117,11 +115,13 @@ app.use(koajwt({
 
 // 接口地址为： /user/login
 router.use('/user', user.routes());
-// router.use('/friends', friends.routes());
-// router.use('/qz', qz.routes());
-// router.use('/message',message.routes());
-// router.use('/my',my.routes()); 
+router.use('/friends', friends.routes());
+router.use('/qz', qz.routes());
+router.use('/message',message.routes());
+router.use('/my',my.routes()); 
 app.use(router.routes()).use(router.allowedMethods());
+
+
 
 app.listen('9089', () => {
 	console.dir('---------------------------------- koa is listening in 9089 -------------------------------------');

@@ -16,7 +16,7 @@ async function main() {
   if (!projectDir) {
     throw new Error(`Project dir missing. Usage: ts-node examples/generate.ts examples/accounts`)
   }
-
+  
   if (!fs.existsSync(projectDir)) {
     throw new Error(`Path ${projectDir} does not exist`)
   }
