@@ -2,6 +2,8 @@ import * as _ from 'lodash'
 
 const globalTag = '__G_L_O_B_A_L__';
 
+const pathTs = '__P_A_T_H__'
+
 const getParentPath = function (path) {
     var pathArr;
     if (typeof path === 'string') {
