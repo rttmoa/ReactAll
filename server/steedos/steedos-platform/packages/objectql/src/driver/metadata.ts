@@ -12,12 +12,8 @@ import _ = require('underscore');
 export class MetadataDriver implements SteedosDriver {
     databaseVersion?: string;
     config?: SteedosDriverConfig;
-    connect() {
-        
-    }
-    close() {
-        
-    }
+    connect() {}
+    close() {}
 
     formatFiltersToMongoQuery(filters) {
         let emptyFilters = {};

@@ -89,8 +89,8 @@ app.use(serve('./public', {
 		}
 	}
 })); 
-app.use(json(null));  // json中间件
-app.use(bodyparser(null));  // body参数解析中间价
+app.use(json());  // json中间件
+app.use(bodyparser());  // body参数解析中间价
 app.use(sendHandle());  // 响应中间件
 app.use(dbHandle());// 数据库处理中间件
 app.use(errorHandle); // 异常中间件

@@ -77,7 +77,7 @@ export class SteedosDataSourceType implements Dictionary {
         return this._name;
     }
     private _adapter: SteedosDriver;
-    public get adapter(): SteedosDriver {
+    public get adapter(): SteedosDriver { // TODO　执行 Driver 方法
         return this._adapter;
     }
     private _getRoles: Function;

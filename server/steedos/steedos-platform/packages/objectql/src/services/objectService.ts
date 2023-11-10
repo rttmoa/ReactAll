@@ -683,7 +683,7 @@ export function getObjectServiceSchema(serviceName, objectConfig) {
 }
 
 export const objectBaseService = {
-    name: '#_objectBaseService', //TODO
+    name: '#_objectBaseService', // TODO
     settings: {
         // objectApiName:  //TODO
         // objectConfig

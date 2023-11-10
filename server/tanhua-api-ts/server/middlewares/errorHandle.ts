@@ -10,4 +10,4 @@ const errorHandle = (ctx: any, next: any) => {
         }
     })
 }
-export default errorHandle 
+export default errorHandle
