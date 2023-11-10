@@ -1,6 +1,10 @@
 import { JsonMap } from "@salesforce/ts-types"
 import * as _ from 'lodash';
 const clone = require('clone');
+
+
+
+// TODO 注册基地 （继承于此）
 export class RegisterBase{
     serviceName;
     constructor(serviceName){

@@ -13,6 +13,8 @@ export enum MetadataType {
     ObjectButton
 }
 
+
+// TODO 元数据寄存器 （注册于此）
 export class MetadataRegister{
     private broker: any;
     
