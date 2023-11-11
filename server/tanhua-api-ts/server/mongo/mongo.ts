@@ -5,10 +5,7 @@ import _ = require("underscore");
 
 
 
-export class MongoDriver implements Driver {
-  databaseVersion?: string;
-  config?: DriverConfig;
-
+export class MongoDriver implements Driver { 
   _url: string
   _client: any
   _config: DriverConfig

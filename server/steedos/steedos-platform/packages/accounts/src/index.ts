@@ -19,8 +19,10 @@ export { setAuthCookies, clearAuthCookies } from './rest-express/utils/steedos-a
 export { getMergedTenant } from './core';
 
 declare var WebApp;
-
+  
 const config = getSteedosConfig();
+console.log(config);
+
 
 function getAccountsServer() {
   let accountsConfig = config.tenant || {};
@@ -43,7 +45,7 @@ function getAccountsServer() {
         bypassAutoEncryption: true,
       }
     } as any);
-  } else {
+  } else { 
     mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
   }
   const connection = mongoose.connection;
@@ -145,7 +147,7 @@ export async function getAccountsRouter(context) {
   const router = accountsExpress(accountsServer, {
     path: '/accounts',
   });
-
+  // console.log(router);
   router.get('/accounts', (req, res) => {
     res.redirect("a/");
     res.end();

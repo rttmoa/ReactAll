@@ -3,6 +3,7 @@ const router = require('@steedos/router').staticRouter();
 
 router.post('/initServer', async (req, res, next) => {
   try {
+    console.log(213);
     const broker = getSteedosSchema().broker;
     const body: any = req.body;
     const result = await broker.call(`@steedos/service-cloud-init.initServer`, { spaceId: body.spaceId, apiKey: body.apiKey });

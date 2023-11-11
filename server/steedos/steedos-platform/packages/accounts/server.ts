@@ -6,7 +6,9 @@ import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import { init } from "./src";
+// console.log(123);
 
+// TODO 
 const app = express();
 app.engine('handlebars', hbs.__express);
 app.set('views', __dirname + '/src/saml-idp/views');
@@ -21,7 +23,7 @@ app.get('/', (req, res) => {
   res.end();
 });
 
-init({app});
+init({app}); 
 
 const port = process.env.PORT ? process.env.PORT : 4000;
 

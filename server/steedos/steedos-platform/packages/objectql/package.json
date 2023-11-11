@@ -5,23 +5,24 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "nodemon app.ts",
     "watch": "tsc --watch",
     "debug": "nodemon --inspect server.js",
     "test": "mocha test/unit/**/*.ts",
-    "build": "rm -rf ./lib && tsc"
+    "build": "rm -rf ./lib && tsc",
+    "b": "tsc"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@salesforce/kit": "1.0.4",
     "@salesforce/ts-types": "1.1.1",
-    "@steedos/cachers": "2.4.18-beta.3",
-    "@steedos/filters": "2.4.18-beta.3",
-    "@steedos/formula": "2.4.18-beta.3",
-    "@steedos/i18n": "2.4.18-beta.3",
-    "@steedos/metadata-core": "2.4.18-beta.3",
-    "@steedos/odata-v4-mongodb": "2.4.18-beta.3",
+    "@steedos/cachers": "^2.4.18-beta.3",
+    "@steedos/filters": "^2.4.18-beta.3",
+    "@steedos/formula": "^2.4.18-beta.3",
+    "@steedos/i18n": "^2.4.18-beta.3",
+    "@steedos/metadata-core": "2.5.18",
+    "@steedos/odata-v4-mongodb": "^2.4.18-beta.3",
     "@steedos/odata-v4-sql": "2.4.18-beta.3",
     "@steedos/odata-v4-typeorm": "2.4.18-beta.3",
     "@steedos/schemas": "2.4.18-beta.3",
@@ -54,7 +55,7 @@
   "devDependencies": {
     "@steedos/meteor-bundle-runner": "2.4.18-beta.3",
     "@types/express": "^4.16.1",
-    "@types/node": "^11.10.4",
+    "@types/node": "^11.15.54",
     "@types/underscore": "^1.8.13",
     "typescript": "4.6.3"
   },
