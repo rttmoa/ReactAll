@@ -2,7 +2,6 @@ import koa, { Response, Context } from 'koa'
 import Router from '@koa/router'
 import json from 'koa-json'
 import	koajwt from 'koa-jwt'
-import serve from 'koa-static'
 import	bodyparser from 'koa-bodyparser'
 import	koaBody from 'koa-body'
 
@@ -14,35 +13,18 @@ import user from './routes/user.ts'
 // import message from './routes/message.ts'
 // import qz from './routes/qz.ts'
 // import my from './routes/my.ts' 
-// import _crossDomain from './middlewares/crossDomain.ts'
-// import _public from './middlewares/public.ts'
-// import _routes from './routes/index.ts'
+import _crossDomain from './middlewares/crossDomain.ts'
+import _public from './middlewares/public.ts'
+import _routes from './routes/index.ts'
 
 const router = new Router();
 const	app = new koa()
 
 // 参考文章；https://codeleading.com/article/12133249301/
-
+// ! steedos-accounts/src/rest-express/endpoints/steedos/create-tenant.ts 文件 db 创建数据
 	
-// _crossDomain(app)
-// 静态服务器中间件
-app.use(serve('./public', {
-	setHeaders: (res, path, stats) => {
-		let extname = require('path').extname(path);
-		// 根据扩展名设置不同的响应头，如果这里不设置，会在sendHandle中统一设置成json格式，那么静态资源也会以json格式返回，浏览器不能正常展示
-		switch (extname) {
-			case '.html':
-				res.setHeader('Content-Type', 'text/html;charset=utf-8');
-				break;
-			case '.png':
-			case '.jpg':
-			case '.gif':
-			case '.bmp':
-				res.setHeader('Content-Type', 'image/png;charset=utf-8');
-				break;
-		}
-	}
-})); 
+_crossDomain(app)
+_public(app)
 
 
 app.use(json(null));  // json中间件
@@ -63,17 +45,18 @@ app.use(koajwt({
 
 
 // 接口地址为： /user/login
-router.use('/user', user.routes());
+// router.use('/user', user.routes());
 // router.use('/friends', friends.routes());
 // router.use('/qz', qz.routes());
 // router.use('/message',message.routes());
 // router.use('/my',my.routes()); 
-// _routes()
+_routes(app)
+
 // app.use(_routes())
-app.use(router.routes()).use(router.allowedMethods());
+// app.use(router.routes()).use(router.allowedMethods());
 
 
 
-app.listen('9089', () => {
+app.listen(config.port, () => {
 	console.dir('---------------------------------- koa is listening in 9089 -------------------------------------');
 }) 

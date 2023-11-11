@@ -39,6 +39,6 @@ server.Fiber(function () {
             server.runMain();
         })
     } catch (error) {
-    console.error(error.stack)
+        console.error(error.stack)
     }
 }).run()

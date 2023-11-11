@@ -25,7 +25,7 @@ const defaultOptions = {
 };
 
 // ? 构造 Mongo || 继承属性constructor() {}  ||  封装增删改查语句 比如createUser、findUserByMobile、updateSession、removeEmail
-export class Mongo implements DatabaseInterface {
+export class Mongo implements DatabaseInterface { // ! 实现 DatabaseInterface
   // Options of Mongo class
   private options: AccountsMongoOptions & typeof defaultOptions;
   // Db object

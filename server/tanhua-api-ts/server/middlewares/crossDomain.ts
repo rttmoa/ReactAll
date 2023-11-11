@@ -1,7 +1,7 @@
 
 import { Request, Response } from 'koa'
 
-export default function (app: any) {
+export default (app: any): any => {
 
   var domains: any = {
     local: 'http://localhost:3000',
@@ -33,7 +33,7 @@ export default function (app: any) {
         break;
       }
     }
-
+    // console.log('中间件 跨域');
     res.set("Access-Control-Allow-Origin", currentdomain);//设置管理后台服务器路径http://127.0.0.1:5008
     res.set("Access-Control-Allow-Headers", "X-Requested-With, accept,OPTIONS, content-type");
     // res.header("Access-Control-Allow-Headers", "X-Requested-With");

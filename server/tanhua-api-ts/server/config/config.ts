@@ -1,6 +1,7 @@
 
 
 export interface Config {
+    port: number
     jwtkey: string
     resCodes: any
     // resCodes: {
@@ -14,6 +15,7 @@ export interface Config {
 const isDevMode = process.env.NODE_ENV = 'development'
 
 const config: Config = {
+    port: 9089,
     jwtkey: 'tanhua',
     resCodes: {
         ok: 10000,  //正常
