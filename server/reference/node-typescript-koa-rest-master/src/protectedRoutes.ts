@@ -11,7 +11,7 @@ protectedRouter.put("/users/:id", user.updateUser);
 protectedRouter.delete("/users/:id", user.deleteUser);
 protectedRouter.delete("/testusers", user.deleteTestUsers);
 
-// RESTful 格式 API 
+// RESTful API 
 
 
 // Swagger endpoint

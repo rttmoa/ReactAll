@@ -9,6 +9,13 @@ let savePackageServicesTimeoutID: any = null;
 
 const useScan = true;
 
+
+// ? 路径
+// /packages/metadata-registrar/src/index.ts
+
+
+
+
 async function redisScanKeys(redisClient, match, count = 10000): Promise<Array<string>> {
     if (!useScan) {
         return await redisClient.keys(match);

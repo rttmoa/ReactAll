@@ -4,22 +4,22 @@ const fs = require("fs");
 const chalk = require("chalk");
 var _eval = require('eval')
 
-import {objectsFromDb} from '../collection/object'
-import {fieldsFromDb} from '../collection/field'
-import {actionsFromDb} from '../collection/action'
-import {listviewsFromDb} from '../collection/listview'
-import {validationsFromDb} from '../collection/objectValidation'
-import {objectPermissionsFromDb} from '../collection/objectPermission'
+import { objectsFromDb } from '../collection/object'
+import { fieldsFromDb } from '../collection/field'
+import { actionsFromDb } from '../collection/action'
+import { listviewsFromDb } from '../collection/listview'
+import { validationsFromDb } from '../collection/objectValidation'
+import { objectPermissionsFromDb } from '../collection/objectPermission'
 
-import {permissionsetsFromDb} from '../collection/permissionset'
-import {applicationsFromDb} from '../collection/application'
-import {reportsFromDb} from '../collection/report'
-import {workflowsFromDb} from '../collection/workflow'
-import {flowsFromDb} from '../collection/flow'
-import {approvalProcessesFromDb} from '../collection/approvalProcess'
-import {rolesFromDb} from '../collection/role'
-import {flowRolesFromDb} from '../collection/flowRole'
-import {layoutsFromDb} from '../collection/layout'
+import { permissionsetsFromDb } from '../collection/permissionset'
+import { applicationsFromDb } from '../collection/application'
+import { reportsFromDb } from '../collection/report'
+import { workflowsFromDb } from '../collection/workflow'
+import { flowsFromDb } from '../collection/flow'
+import { approvalProcessesFromDb } from '../collection/approvalProcess'
+import { rolesFromDb } from '../collection/role'
+import { flowRolesFromDb } from '../collection/flowRole'
+import { layoutsFromDb } from '../collection/layout'
 import { QueryCollection } from '../collection/query';
 import { ChartCollection } from '../collection/chart';
 import { PageCollection } from '../collection/page';
@@ -36,27 +36,29 @@ const shareRuleCollection = new ShareRuleCollection();
 const restrictionRuleCollection = new RestrictionRuleCollection();
 const processCollection = new ProcessCollection();
 
-import { hasParent, getParentMetadataName, hasChild, getMetadataTypeInfo, getFunctionFields,
-   SteedosMetadataTypeInfoKeys as TypeInfoKeys } from '@steedos/metadata-core';
+import {
+  hasParent, getParentMetadataName, hasChild, getMetadataTypeInfo, getFunctionFields,
+  SteedosMetadataTypeInfoKeys as TypeInfoKeys
+} from '@steedos/metadata-core';
 
 
 
-export async function dbToJson(reqYml, steedosPackage, dbManager){
+export async function dbToJson(reqYml, steedosPackage, dbManager) {
 
-  if(!_.has(steedosPackage, TypeInfoKeys.Object)){
+  if (!_.has(steedosPackage, TypeInfoKeys.Object)) {
     steedosPackage[TypeInfoKeys.Object] = {}
   }
 
-  for(const metadataName in reqYml){
+  for (const metadataName in reqYml) {
 
     var container; // 当前metadata的上层容器
-    if(hasParent(metadataName)){
+    if (hasParent(metadataName)) {
       var parentMetadataName = getParentMetadataName(metadataName);
       container = steedosPackage[parentMetadataName]
-    }else{
+    } else {
       container = steedosPackage
     }
-    
+
     switch (metadataName) {
       case TypeInfoKeys.Object:
         await objectsFromDb(dbManager, reqYml[metadataName], container);
@@ -90,8 +92,8 @@ export async function dbToJson(reqYml, steedosPackage, dbManager){
         await permissionsetsFromDb(dbManager, reqYml[metadataName], container, false);
         break;
 
-      case TypeInfoKeys.Process: 
-        await processCollection.retrieve(dbManager, reqYml[metadataName], container) ;
+      case TypeInfoKeys.Process:
+        await processCollection.retrieve(dbManager, reqYml[metadataName], container);
         break;
 
       case TypeInfoKeys.Profile:
@@ -109,7 +111,7 @@ export async function dbToJson(reqYml, steedosPackage, dbManager){
       case TypeInfoKeys.Flow:
         await flowsFromDb(dbManager, reqYml[metadataName], container);
         break;
-        
+
       case TypeInfoKeys.ApprovalProcess:
         await approvalProcessesFromDb(dbManager, reqYml[metadataName], container);
         break;
@@ -129,7 +131,6 @@ export async function dbToJson(reqYml, steedosPackage, dbManager){
       case TypeInfoKeys.Chart:
         await chartCollection.retrieve(dbManager, reqYml[metadataName], container);
         break;
-  
       case TypeInfoKeys.Query:
         await queryCollection.retrieve(dbManager, reqYml[metadataName], container);
         break;
@@ -149,70 +150,70 @@ export async function dbToJson(reqYml, steedosPackage, dbManager){
         break;
     }
   }
-  
+
   return steedosPackage;
 }
 
-export async function getSteedosPackage(yml, steedosPackage, dbManager){
+export async function getSteedosPackage(yml, steedosPackage, dbManager) {
 
-  const transactionOptions:any = {
+  const transactionOptions: any = {
     readPreference: 'primary',
     readConcern: { level: 'majority' },
     writeConcern: { w: 'majority' }
   };
   var session = await dbManager.startSession();
 
-  try{
+  try {
     await session.withTransaction(async () => {
       await dbToJson(yml, steedosPackage, dbManager);
     }, transactionOptions);
-  }catch(err){
+  } catch (err) {
     throw err;
-  }finally{
+  } finally {
     await dbManager.endSession();
   }
- 
+
   convertSteedosPackage(steedosPackage);
 
   return steedosPackage;
 }
 
-function convertFunctionFields(functionStr){
+function convertFunctionFields(functionStr) {
 
-    var func = _eval(`module.exports = ${functionStr}`, 'fieldFunction');
-    return func;
+  var func = _eval(`module.exports = ${functionStr}`, 'fieldFunction');
+  return func;
 }
 
-function convertSteedosPackage(steedosPackage){
-  
-  for(const metadataName in steedosPackage){
+function convertSteedosPackage(steedosPackage) {
+
+  for (const metadataName in steedosPackage) {
 
     var metadataTypeinfo = getMetadataTypeInfo(metadataName);
-    if(!metadataTypeinfo){ // parent中除child以外的属性
+    if (!metadataTypeinfo) { // parent中除child以外的属性
       continue;
     }
 
     var metadataRecords = steedosPackage[metadataName];
     var functionFields = getFunctionFields(metadataName);
 
-    for(const metadataRecordName in metadataRecords){
+    for (const metadataRecordName in metadataRecords) {
       var metadataRecord = metadataRecords[metadataRecordName]
-      if(hasChild(metadataName)){
+      if (hasChild(metadataName)) {
         convertSteedosPackage(metadataRecord);
       }
-      
-      if(functionFields){
-        for(const fieldName of functionFields){
-          if(metadataRecord[fieldName]){
-            try{
+
+      if (functionFields) {
+        for (const fieldName of functionFields) {
+          if (metadataRecord[fieldName]) {
+            try {
               metadataRecord[fieldName] = convertFunctionFields(metadataRecord[fieldName]);
-            }catch(err){
-              throw new Error('Error occurred in converting function field:'+fieldName+' of '+metadataRecordName+','+ err.message);
+            } catch (err) {
+              throw new Error('Error occurred in converting function field:' + fieldName + ' of ' + metadataRecordName + ',' + err.message);
             }
           }
         }
       }
-      
+
     }
 
   }

@@ -36,6 +36,7 @@ const downloadMetadata = async function (req, res) {
 
         const yml = yaml.safeLoad(Buffer.from(Buffer.from(yml_base64, 'base64').toString('utf8'), 'utf8'));
 
+
         // console.log(yml);
         var dbManager = new DbManager(userSession);
         await dbManager.connect();

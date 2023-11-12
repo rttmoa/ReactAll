@@ -12,7 +12,8 @@ yarn build;  webapp下 /build
 
 
 
-? Nodejs 版本使用 V14.20.0
+? Nodejs 版本使用 V14.20.0  
+? yarn 失败
 
 
 在github创建了一个 SSH； https://github.com/settings/keys

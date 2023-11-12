@@ -52,7 +52,7 @@ async function getChildProperty(steedosPackage, dbManager, objectName){
 
 export async function getAllObject(dbManager) {
 
-    var objects = await dbManager.find(collection_name, {is_deleted: {$ne: true}});
+    var objects = await dbManager.find(collection_name, {is_deleted: {$ne: true}}); // is_deleted 不等于 true 的值
 
     for(var i=0; i<objects.length; i++){
         let object = objects[i]

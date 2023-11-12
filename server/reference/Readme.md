@@ -2,9 +2,9 @@
 
 #### 1.node-typescript-koa-rest-master
 
-> * [X] Koa + typeorm + Typescript + ES6 + 装饰器 + postgres
-> * [X] [github 地址](https://github.com/javieraviles/node-typescript-koa-rest#readme)
-> * [X] RESTful 风格
+> * [X] **Koa + typeorm + Typescript +postgres + ES6 + 装饰器 + RESTful API**
+> * ** [github 地址](https://github.com/javieraviles/node-typescript-koa-rest#readme)**
+> * ** RESTful 风格**
 >   * protectedRouter.get("/users", user.getUsers);    GET /users
 >   * protectedRouter.get("/users/:id", user.getUser); GET /users/:id
 >   * protectedRouter.post("/users", user.createUser); POST /users

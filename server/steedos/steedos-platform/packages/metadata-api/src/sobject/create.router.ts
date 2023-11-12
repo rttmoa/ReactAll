@@ -23,7 +23,7 @@ router.post('/api/composite/sobjects', requireAuthentication, async function (re
 });
 exports.default = router;
 
-async function doPost(req, res){  
+async function doPost(req, res){
     const userSession = req.user;
     const spaceId = userSession.spaceId;
 

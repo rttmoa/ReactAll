@@ -3,6 +3,7 @@ const path = require('path');
 const address = require('address');
 
 module.exports = () => {
+
     const config = exports = {};
 
     config.name = '性能监控系统';

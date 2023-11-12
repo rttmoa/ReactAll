@@ -14,6 +14,7 @@ const metadataName = TypeInfoKeys.Page;
 const WIGETS_TABLE_NAME = "widgets";
 const ASSIGNMENTS_TABLE_NAME = "page_assignments";
 const PAGE_VERSION_TABLE_NAME = "page_versions";
+
 export class PageCollection extends MetadataBaseCollection {
     constructor() {
         super(metadataName, [WIGETS_TABLE_NAME]);

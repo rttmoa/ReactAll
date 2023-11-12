@@ -6,8 +6,7 @@ Fullstack authentication and accounts-management for steedos.
 
 ## Start Project
 
-后台： `yarn server || yarn start`
-前台： `cd /webapp && yarn start`
+**Nodejs V14.20.0**
 
 ## [华炎云](https://us.steedos.com/) 跳转
 

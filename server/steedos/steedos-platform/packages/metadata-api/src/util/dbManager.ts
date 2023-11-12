@@ -5,9 +5,22 @@ import { MongoClient, ObjectId } from "mongodb";
 import { getSteedosConfig } from '@steedos/objectql';
 import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 
-const yaml = require('js-yaml');
-const fs = require("fs");
-const path = require('path');
+// ? 路径
+// /packages/metadata-api/src/util/dbManager.ts
+
+// ? 版本
+// "mongodb": "^3.7.3",
+// "@steedos/objectql": "2.4.18-beta.3",
+// "typescript": "4.6.3"
+
+// ? 使用
+// import DbManager from 'src/util/dbManager' 
+// const userSession = req.user;
+// const dbManager = new DbManager(userSession)
+// await dbManager.connect()
+// const objects = await dbManager.find(collection_name, {is_deleted: {$ne: true}}); // is_deleted 不等于 true 的值
+// await dbManager.close()
+
 
 export class DbManager {
     static instance: DbManager | null
