@@ -3,15 +3,15 @@ import { config } from "./config";
 import { transports, format } from "winston";
 import * as path from "path";
 
-const logger = (winstonInstance: any): any  => {
+const logger = (winstonInstance: any): any => {
     winstonInstance.configure({
-        level: config.debugLogging ? "debug" : "info",
+        level: config.debugLogging ? "debug" : "info", // 是否开发模式
         transports: [
             //
-            // - Write all logs error (and below) to `error.log`.
+            // - 将所有日志错误（及以下）写入“error.log”。
             new transports.File({ filename: path.resolve(__dirname, "../error.log"), level: "error" }),
             //
-            // - Write to all logs with specified level to console.
+            // - 将指定级别的所有日志写入控制台。
             new transports.Console({
                 format: format.combine(
                     format.colorize(),
@@ -22,14 +22,14 @@ const logger = (winstonInstance: any): any  => {
     });
 
     return async (ctx: Context, next: () => Promise<any>): Promise<void> => {
-        
+
         const start = new Date().getTime();
         try {
             await next();
-            } catch (err) {
+        } catch (err) {
             ctx.status = err.status || 500;
             ctx.body = err.message;
-            }
+        }
         const ms = new Date().getTime() - start;
 
         let logLevel: string;
@@ -42,7 +42,7 @@ const logger = (winstonInstance: any): any  => {
         }
 
         const msg = `${ctx.method} ${ctx.originalUrl} ${ctx.status} ${ms}ms`;
-
+        // console.log(msg);
         winstonInstance.log(logLevel, msg);
     };
 };

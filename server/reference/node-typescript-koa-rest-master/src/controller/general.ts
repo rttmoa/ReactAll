@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { BaseContext } from "koa";
 import { description, request, summary, tagsAll } from "koa-swagger-decorator";
 

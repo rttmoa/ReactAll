@@ -12,7 +12,7 @@ import { config } from "./config";
 import { unprotectedRouter } from "./unprotectedRoutes";
 import { protectedRouter } from "./protectedRoutes";
 import { cron } from "./cron";
-
+import { sign } from "./jwt";
 
 // ? 连接 postgres 配置
 const connectionOptions: ConnectionOptions = {
@@ -30,14 +30,15 @@ if (connectionOptions.ssl) {
     };
 }
 
-// create connection with database
-// note that its not active database connection
-// TypeORM creates you connection pull to uses connections from pull on your requests
+// 创建与数据库的连接
+// 请注意，它不是活动的数据库连接
+// TypeORM 创建连接拉取，以使用拉取请求中的连接
 createConnection(connectionOptions).then(async () => {
 
+    // console.log(sign()); // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTk3NjU4ODcsImV4cCI6MTY5OTc2OTQ4N30.N1O6lOQJwNnfONaeLdeRm_-ryIJKfulKe0fBAO4Ccec
     const app = new Koa();
 
-    // Provides important security headers to make your app more secure
+    // ! 提供重要的安全标头，使您的应用程序更安全
     app.use(helmet.contentSecurityPolicy({
         directives:{
             defaultSrc:["'self'"],
@@ -48,30 +49,27 @@ createConnection(connectionOptions).then(async () => {
         }
     }));
 
-    // Enable cors with default options
     app.use(cors());
 
-    // Logger middleware -> use winston as logger (logging.ts with config)
+    // 记录器中间件 ->  status >= 500 || status >= 400 || status >= 200
     app.use(logger(winston));
 
-    // Enable bodyParser with default options
     app.use(bodyParser());
 
-    // these routes are NOT protected by the JWT middleware, also include middleware to respond with "Method Not Allowed - 405".
+    // ! 这些路由不受 JWT 中间件保护，还包括响应 "Method Not Allowed - 405".
     app.use(unprotectedRouter.routes()).use(unprotectedRouter.allowedMethods());
 
-    // JWT middleware -> below this line routes are only reached if JWT token is valid, secret as env variable
-    // do not protect swagger-json and swagger-html endpoints
+    // ! JWT 中间件 -> 仅当 JWT 令牌有效且秘密为环境变量时，才能到达此行下方的路由 - 不保护 swagger-json 和 swagger-html 端点
     app.use(jwt({ secret: config.jwtSecret }).unless({ path: [/^\/swagger-/] }));
 
-    // These routes are protected by the JWT middleware, also include middleware to respond with "Method Not Allowed - 405".
+    // ! 这些路由受 JWT 中间件保护，还包括响应“不允许的方法 -405”的中间件 "Method Not Allowed - 405".
     app.use(protectedRouter.routes()).use(protectedRouter.allowedMethods());
 
-    // Register cron job to do any action needed
+    // ! 注册 cron 作业来执行任何所需的操作 (定时任务)
     cron.start();
 
     app.listen(config.port, () => {
-        console.log(`Server running on port ${config.port}`);
+        console.dir(`===========================================> Server running on port ${config.port} <===========================================`);
     });
 
 }).catch((error: string) => console.log("TypeORM connection error: ", error));
