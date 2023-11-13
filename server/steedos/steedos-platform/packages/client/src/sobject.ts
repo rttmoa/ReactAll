@@ -1,8 +1,11 @@
 import { formatFiltersToODataQuery } from '@steedos/filters';
 import { buildQueryString } from './utils/helpers';
-import { Filters, Fields, Options, Record } from './types/sobject';
+
+import { Filters, Fields, Options, Record } from './types/sobject'; // ! Types
 
 const _ = require('underscore');
+
+
 
 export default class SObject {
     client: any;

@@ -1,4 +1,5 @@
 
+// ? 暴露出方法给组件使用
 exports.authorize_uri = "https://open.weixin.qq.com/connect/oauth2/authorize";
 exports.getLoginInfo = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info";
 exports.getProviderToken = "https://qyapi.weixin.qq.com/cgi-bin/service/get_provider_token";

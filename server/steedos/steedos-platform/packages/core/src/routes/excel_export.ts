@@ -21,14 +21,14 @@ const exportRecordData = async function (req, res) {
         if (!filename) {
             filename = "导出"
         }
-        
-        if(queryParams.filters){
+
+        if (queryParams.filters) {
             queryParams.$filter = formatFiltersToODataQuery(JSON.parse(queryParams.filters));
         }
 
-        
+
         const objectName = urlParams.objectName
-        
+
         const collection = await objectql.getObject(objectName);
         if (!collection) {
             res.status(404).send({ msg: `collection not exists: ${objectName}` })
@@ -73,35 +73,35 @@ const exportRecordData = async function (req, res) {
             }
             if (entities) {
 
-                const fieldConfigs = (await objectql.getSteedosSchema().broker.call(`objectql.getRecordView`, { objectName }, { meta: { user: userSession }})).fields
+                const fieldConfigs = (await objectql.getSteedosSchema().broker.call(`objectql.getRecordView`, { objectName }, { meta: { user: userSession } })).fields
 
-                for (let i=0; i<entities.length; i++) {
+                for (let i = 0; i < entities.length; i++) {
                     let record = entities[i]
                     delete record._id;
-                    let parsedRecord = { };
+                    let parsedRecord = {};
 
                     let keys;
-                    if(fields && fields.length >0){
+                    if (fields && fields.length > 0) {
                         keys = fields;
-                    }else{
+                    } else {
                         keys = _.keys(record);
                     }
                     for (let fieldName of keys) {
                         let fieldConfig = fieldConfigs[fieldName];
                         let fieldValue = record[fieldName]
 
-                        if(!fieldConfig){
-                           continue;
+                        if (!fieldConfig) {
+                            continue;
                         }
                         if (fieldValue || fieldValue == false) {
                             // record[fieldName] = await key2value(fieldValue, fieldConfig);
-                            parsedRecord = Object.assign(parsedRecord, {[fieldConfig.label]: await key2value(fieldValue, fieldConfig, userSession)});
+                            parsedRecord = Object.assign(parsedRecord, { [fieldConfig.label]: await key2value(fieldValue, fieldConfig, userSession) });
                         } else {
-                            parsedRecord = Object.assign(parsedRecord, {[fieldConfig.label]: null});
+                            parsedRecord = Object.assign(parsedRecord, { [fieldConfig.label]: null });
                         }
                     }
-                    
-                    
+
+
                     entities[i] = parsedRecord;
                 }
                 if (_.isEmpty(entities)) {
@@ -164,7 +164,7 @@ const removeInvalidMethod = function (queryParams: any) {
  * @param driverName 驱动名
  * @returns 
  */
- function isPlatformDriver(driverName: string): boolean {
+function isPlatformDriver(driverName: string): boolean {
     if (driverName == SteedosDatabaseDriverType.Mongo || driverName == SteedosDatabaseDriverType.MeteorMongo) {
         return true
     }
@@ -184,9 +184,9 @@ const getOptionLabel = function (optionValue, options) {
         return o.value == optionValue
     });
 
-    if(option && option.label){
+    if (option && option.label) {
         return option.label;
-    }else{
+    } else {
         return optionValue;
     }
 }
@@ -236,9 +236,9 @@ const key2value = async function (fieldValue, fieldConfig, userSession) {
                 filters[1] = "=";
                 filters[2] = id;
                 let ref_record = await ref_coll.find({ filters: filters, fields: [filters[0], nameFieldKey] });
-                if(ref_record && ref_record.length == 1){
+                if (ref_record && ref_record.length == 1) {
                     return ref_record[0][nameFieldKey];
-                }else{
+                } else {
                     return id;
                 }
             } else {
@@ -251,10 +251,10 @@ const key2value = async function (fieldValue, fieldConfig, userSession) {
                 let ref_record = await ref_coll.find({ filters: filters, fields: [filters[0], nameFieldKey] });
 
                 for (let i = 0; i < id.length; i++) {
-                    let _record = _.find(ref_record, function(r){
+                    let _record = _.find(ref_record, function (r) {
                         return r[filters[0]] == id[i]
                     });
-                    if(_record){
+                    if (_record) {
                         id[i] = _record[nameFieldKey]
                     }
                 }

@@ -1,29 +1,29 @@
-import { reduce, map, isEmpty, isString } from 'lodash';
-import { formatFiltersToODataQuery } from "./format";
+import { reduce, map, isEmpty, isString } from 'lodash'
+import { formatFiltersToODataQuery } from "./format"
 
 // 把"a.b.c"这种字符fieldName转换为{"a":{"b":{"c":{}}}}这种json
 let expandFieldName = (initial, fieldName) => {
-    reduce(fieldName.split("."),function(m, k){
-        if(!m[k]){
-            m[k] = {};
+    reduce(fieldName.split("."), function (m, k) {
+        if (!m[k]) {
+            m[k] = {}
         }
         return m[k]
-    }, initial);
-    return initial;
+    }, initial)
+    return initial
 }
 
 
 // 把["a.b.c","x.y","x.z","m"]这种字符fieldName转换为{"a":{"b":{"c":{}}},"x":{"y":{},"z":{}},"m":{}}这种json对象格式
 let expandFieldNames = (fieldNames) => {
-    let initial = {};
+    let initial = {}
     fieldNames.forEach((n) => {
         expandFieldName(initial, n)
-    });
-    return initial;
+    })
+    return initial
 }
 
-let generateIndents = (count) =>{
-    return Array(count).fill("    ").join("");
+let generateIndents = (count) => {
+    return Array(count).fill("    ").join("")
 }
 
 /** 
@@ -35,73 +35,72 @@ let generateIndents = (count) =>{
         }
     }
 }
-*/ 
+*/
 let reduceGraphqlFieldsQuery = (fields, indentsCount) => {
-    if(!indentsCount){
-        indentsCount = 0;
+    if (!indentsCount) {
+        indentsCount = 0
     }
-    let itemQuery;
+    let itemQuery
     return ` {
-${
-    map(fields, (fieldValue, fieldKey) => {
-        itemQuery = generateIndents(indentsCount) + generateIndents(1) + fieldKey;
-        if(isEmpty(fieldValue)){
+${map(fields, (fieldValue, fieldKey) => {
+        itemQuery = generateIndents(indentsCount) + generateIndents(1) + fieldKey
+        if (isEmpty(fieldValue)) {
             itemQuery += "\n"
         }
-        else{
-            indentsCount += 1;
-            itemQuery += reduceGraphqlFieldsQuery(fieldValue, indentsCount);
-            indentsCount -= 1;
+        else {
+            indentsCount += 1
+            itemQuery += reduceGraphqlFieldsQuery(fieldValue, indentsCount)
+            indentsCount -= 1
         }
-        return itemQuery;
+        return itemQuery
     }).join("")
-}${generateIndents(indentsCount)}}
-`;
+        }${generateIndents(indentsCount)}}
+`
 }
 
 let formatFieldsToGraphqlQuery = (fields) => {
-    if(isString(fields)){
-        fields = fields.split(",");
+    if (isString(fields)) {
+        fields = fields.split(",")
     }
-    let expandedFields = expandFieldNames(fields);
-    return reduceGraphqlFieldsQuery(expandedFields, 3);
+    let expandedFields = expandFieldNames(fields)
+    return reduceGraphqlFieldsQuery(expandedFields, 3)
 }
 
 /**
  * 
  * 
  * 把filters和fields转换为如下格式的graphql请求串
-  query {
-    contracts(filters:[
-      [
-        "create_date",
-        "between",
-        "this_year"
-      ]
-  ]) {
-      name
-      amount
-      contract_type {
+    query {
+        contracts(filters:[
+        [
+            "create_date",
+            "between",
+            "this_year"
+        ]
+    ]) {
         name
-      }
+        amount
+        contract_type {
+            name
+        }
+        }
     }
-  }
  * @param {*} filters ,请求的过滤条件
  * @param {*} fields ,请求的字段，支持["a.b.c","m","n"]或"a.b.c,m,n"这种语法
  */
 let formatFiltersToGraphqlQuery = (objectName, filters, fields, userContext, odataProtocolVersion, forceLowerCase) => {
-    if(!isString(filters)){
-        filters = formatFiltersToODataQuery(filters, userContext, odataProtocolVersion, forceLowerCase);
+    if (!isString(filters)) {
+        filters = formatFiltersToODataQuery(filters, userContext, odataProtocolVersion, forceLowerCase)
     }
-    let filtersWrap  = filters ? `(filters:"${filters}")` : "";
-    let graphqlFields = formatFieldsToGraphqlQuery(fields);
+    let filtersWrap = filters ? `(filters:"${filters}")` : ""
+    let graphqlFields = formatFieldsToGraphqlQuery(fields)
     let graphqlQuery = `
         query {
             ${objectName}${filtersWrap}${graphqlFields}
         }
-    `;
-    return graphqlQuery;
-};
+    `
+    return graphqlQuery
+}
 
-const _formatFiltersToGraphqlQuery = formatFiltersToGraphqlQuery;
-export { _formatFiltersToGraphqlQuery as formatFiltersToGraphqlQuery };
+const _formatFiltersToGraphqlQuery = formatFiltersToGraphqlQuery
+export { _formatFiltersToGraphqlQuery as formatFiltersToGraphqlQuery }

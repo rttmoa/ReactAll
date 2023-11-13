@@ -1,11 +1,5 @@
 // tslint:disable variable-name _id
-import {
-  ConnectionInformations,
-  CreateUser,
-  DatabaseInterface,
-  Session,
-  User,
-} from '../types';
+import {  ConnectionInformations,  CreateUser,  DatabaseInterface,  Session,  User, } from '../types';
 import { get, merge, trim, map } from 'lodash';
 import { Collection, Db, ObjectId } from 'mongodb';
 
@@ -39,6 +33,11 @@ const defaultOptions = {
   caseSensitiveUserName: true,
   dateProvider: (date?: Date) => (date ? date.getTime() : Date.now()),
 };
+
+
+// ? 路径
+// packages/accounts/src/database-mongo/mongo.ts
+
 
 export class Mongo implements DatabaseInterface {
   // Options of Mongo class

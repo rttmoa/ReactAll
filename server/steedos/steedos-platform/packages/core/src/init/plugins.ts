@@ -9,6 +9,8 @@ const app = SteedosRouter.staticRouter();
 import { getSteedosSchema, loadService } from '@steedos/objectql';
 import * as initConfig from './init-config.json'
 const PACKAGE_SERVICE_FILE_NAME = 'package.service.js';
+
+
 export class Plugins {
     static async init(coreInitConfig: any = {}) {
         let builtInPluginsName = coreInitConfig.built_in_plugins || [];

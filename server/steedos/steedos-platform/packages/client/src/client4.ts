@@ -2,14 +2,15 @@
 // See LICENSE.txt for license information.
 
 import fetch from './fetch_etag';
-import {cleanUrlForLogging} from './utils/sentry';
-import { Options, ClientResponse } from './types/client4';
-import {buildQueryString} from './utils/helpers';
-import { UserProfile } from './types/users';
-import { ServerError } from './types/errors';
-import { Space } from './types/spaces';
-import SObject from './sobject';
-import Graphql from './graphql';
+import { cleanUrlForLogging } from './utils/sentry';
+import { Options, ClientResponse } from './types/client4'; // ! Types
+import { buildQueryString } from './utils/helpers';
+import { UserProfile } from './types/users'; // ! Types
+import { ServerError } from './types/errors'; // ! Types
+import { Space } from './types/spaces'; // ! Types
+import SObject from './sobject'; // ! new SObject(this, objectName)
+import Graphql from './graphql'; // ! new Graphql(this)
+
 
 const HEADER_AUTH = 'Authorization';
 const HEADER_BEARER = 'Bearer';
@@ -26,24 +27,28 @@ export const DEFAULT_LIMIT_AFTER = 30;
 const DEFAULT_LOGIN_EXPIRATION_DAYS = 90;
 const LOGIN_UNEXPIRING_TOKEN_DAYS = 365 * 100;
 
+// ? 路径
+// /packages/clent/src/client4.ts
+
+
 export default class SteedosClient {
     LOGIN_TOKEN_KEY = "Meteor.loginToken";
     LOGIN_TOKEN_EXPIRES_KEY = "Meteor.loginTokenExpires";
     USER_ID_KEY = "Meteor.userId";
     logToConsole = false;
-    _lastLoginTokenWhenPolled= null;
+    _lastLoginTokenWhenPolled = null;
     loginExpirationInDays = null;
-    serverVersion = '';
+    serverVersion = ''; // 服务版本
     clusterId = '';
     token = '';
     spaceId = '';
     authToken = '';
     csrf = '';
-    url = (process.env.NODE_ENV == 'development' && process.env.REACT_APP_API_URL)? process.env.REACT_APP_API_URL as string : '';
+    url = (process.env.NODE_ENV == 'development' && process.env.REACT_APP_API_URL) ? process.env.REACT_APP_API_URL as string : '';
     urlVersion = '';
-    userAgent: string|null = null;
+    userAgent: string | null = null;
     enableLogging = false;
-    defaultHeaders: {[x: string]: string} = {
+    defaultHeaders: { [x: string]: string } = {
         'Content-Type': 'application/json'
     };
     userId = '';
@@ -58,13 +63,13 @@ export default class SteedosClient {
 
     sobjects = {};
     graphql = new Graphql(this);
-    
+
     getUrl() {
-        if(!this.url){
+        if (!this.url) {
             var href = new URL(window.location.href);
             var foo = href.pathname.split('/accounts');
             var ROOT_URL_PATH_PREFIX = '';
-            if(foo.length > 1){
+            if (foo.length > 1) {
                 ROOT_URL_PATH_PREFIX = foo[0];
             }
             return ROOT_URL_PATH_PREFIX;
@@ -96,16 +101,16 @@ export default class SteedosClient {
         this.authToken = this.getSpaceId() + ',' + token;
     }
 
-    getSpaceId(){
+    getSpaceId() {
         return this.spaceId;
     }
 
-    setSpaceId(spaceId){
+    setSpaceId(spaceId) {
         this.spaceId = spaceId;
         this.authToken = spaceId + ',' + this.getToken();
     }
 
-    getAuthToken(){
+    getAuthToken() {
         // return this.getSpaceId() + ',' + this.getToken();
         return this.authToken;
     }
@@ -172,9 +177,9 @@ export default class SteedosClient {
     }
 
     getOptions(options: Options) {
-        const newOptions: Options = {...options};
+        const newOptions: Options = { ...options };
 
-        const headers: {[x: string]: string} = {
+        const headers: { [x: string]: string } = {
             [HEADER_REQUESTED_WITH]: 'XMLHttpRequest',
             ...this.defaultHeaders,
         };
@@ -209,7 +214,7 @@ export default class SteedosClient {
     getTranslations = (url: string) => {
         return this.doFetch<Record<string, string>>(
             url,
-            {method: 'get'},
+            { method: 'get' },
         );
     }
 
@@ -245,7 +250,7 @@ export default class SteedosClient {
 
         return this.doFetch<UserProfile>(
             `${this.getAccountsRoute()}/password/login`,
-            {method: 'POST', body: JSON.stringify(body)},
+            { method: 'POST', body: JSON.stringify(body) },
         );
 
     };
@@ -268,9 +273,9 @@ export default class SteedosClient {
             queryParams.r = redirect;
         }
 
-        const auth:any = this.doFetch<UserProfile>(
+        const auth: any = this.doFetch<UserProfile>(
             `${this.getAccountsRoute()}/password/register${buildQueryString(queryParams)}`,
-            {method: 'POST', body: JSON.stringify(user)},
+            { method: 'POST', body: JSON.stringify(user) },
         );
 
         return auth
@@ -281,9 +286,9 @@ export default class SteedosClient {
 
         const queryParams: any = {};
 
-        const auth:any = this.doFetch<UserProfile>(
+        const auth: any = this.doFetch<UserProfile>(
             `${this.getBaseRoute()}/api/v4/spaces/register/tenant${buildQueryString(queryParams)}`,
-            {method: 'POST', body: JSON.stringify({name: name})},
+            { method: 'POST', body: JSON.stringify({ name: name }) },
         );
 
         return auth
@@ -298,37 +303,37 @@ export default class SteedosClient {
 
         return this.doFetch<UserProfile>(
             `${this.getAccountsRoute()}/password/sendVerificationCode`,
-            {method: 'POST', body: JSON.stringify(body)},
+            { method: 'POST', body: JSON.stringify(body) },
         );
     };
 
     getSettings = () => {
         return this.doFetch<UserProfile>(
             `${this.getAccountsRoute()}/settings`,
-            {method: 'get'},
+            { method: 'get' },
         );
     };
 
     getMe = () => {
         return this.doFetch<UserProfile>(
             `${this.getAccountsRoute()}/user`,
-            {method: 'get'},
+            { method: 'get' },
         );
     };
 
     getMySpaces = () => {
         return this.doFetch<Space[]>(
             `${this.getAccountsRoute()}/user/spaces`,
-            {method: 'get'},
+            { method: 'get' },
         );
     };
 
     logout = async () => {
         this.trackEvent('api', 'api_users_logout');
 
-        const {response} = await this.doFetchWithResponse(
+        const { response } = await this.doFetchWithResponse(
             `${this.getAccountsRoute()}/logout`,
-            {method: 'post'},
+            { method: 'post' },
         );
 
         if (response.ok) {
@@ -336,18 +341,19 @@ export default class SteedosClient {
         }
 
         this.serverVersion = '';
-        
+
         return response;
     };
 
     // Client Helpers
 
     doFetch = async <T>(url: string, options: Options): Promise<T> => {
-        const {data} = await this.doFetchWithResponse<T>(url, options);
+        const { data } = await this.doFetchWithResponse<T>(url, options);
 
         return data;
     };
 
+    // ! 获取响应
     doFetchWithResponse = async <T>(url: string, options: Options): Promise<ClientResponse<T>> => {
         const response = await fetch(url, this.getOptions(options));
         const headers = parseAndMergeNestedHeaders(response.headers);
@@ -367,14 +373,14 @@ export default class SteedosClient {
         }
 
         if (headers.has(HEADER_X_VERSION_ID) && !headers.get('Cache-Control')) {
-            const serverVersion = headers.get(HEADER_X_VERSION_ID);
+            const serverVersion = headers.get(HEADER_X_VERSION_ID); // const HEADER_X_VERSION_ID: "X-Version-Id"
             if (serverVersion && this.serverVersion !== serverVersion) {
                 this.serverVersion = serverVersion as string;
             }
         }
 
         if (headers.has(HEADER_X_CLUSTER_ID)) {
-            const clusterId = headers.get(HEADER_X_CLUSTER_ID);
+            const clusterId = headers.get(HEADER_X_CLUSTER_ID); // const HEADER_X_CLUSTER_ID: "X-Cluster-Id"
             if (clusterId && this.clusterId !== clusterId) {
                 this.clusterId = clusterId as string;
             }
@@ -388,14 +394,14 @@ export default class SteedosClient {
             };
         }
 
-    
+
         const error = data && data.error ? data.error : data
         const msg = error.message || '';
 
         if (this.logToConsole) {
-            console.error(msg); // eslint-disable-line no-console
+            console.error(msg); 
         }
-
+        
         throw new ClientError(this.getUrl(), {
             message: msg,
             server_error_id: data.id,
@@ -432,37 +438,43 @@ export default class SteedosClient {
         // rudderAnalytics.track('event', properties, options);
     }
 
-    changePassword = (oldPassword: string, newPassword: string)=>{
+    changePassword = (oldPassword: string, newPassword: string) => {
         return this.doFetch<UserProfile>(
             `${this.getAccountsRoute()}/password/changePassword`,
-            {method: 'POST', body: JSON.stringify({
-                oldPassword: oldPassword,
-                newPassword: newPassword,
-            })},
+            {
+                method: 'POST', body: JSON.stringify({
+                    oldPassword: oldPassword,
+                    newPassword: newPassword,
+                })
+            },
         );
     }
 
-    verifyEmail = (email: string, code: string)=>{
+    verifyEmail = (email: string, code: string) => {
         return this.doFetch<UserProfile>(
             `${this.getAccountsRoute()}/password/verify/email`,
-            {method: 'POST', body: JSON.stringify({
-                email: email,
-                code: code,
-            })},
+            {
+                method: 'POST', body: JSON.stringify({
+                    email: email,
+                    code: code,
+                })
+            },
         );
     }
 
-    verifyMobile = (mobile: string, code: string)=>{
+    verifyMobile = (mobile: string, code: string) => {
         return this.doFetch<UserProfile>(
             `${this.getAccountsRoute()}/password/verify/mobile`,
-            {method: 'POST', body: JSON.stringify({
-                mobile: mobile,
-                code: code,
-            })},
+            {
+                method: 'POST', body: JSON.stringify({
+                    mobile: mobile,
+                    code: code,
+                })
+            },
         );
     }
 
-    sobject = function(objectName) {
+    sobject = function (objectName) {
         this.sobjects = this.sobjects || {};
         var sobject = this.sobjects[objectName] = this.sobjects[objectName] || new SObject(this, objectName);
         return sobject;
@@ -492,17 +504,17 @@ export default class SteedosClient {
     // _tokenExpiration(when) {
     //     return new Date((new Date(when)).getTime() + this._getTokenLifetimeMs());
     // }
-    
+
     // _storeLoginToken(userId, token, tokenExpires) {
     //     localStorage.setItem(this.USER_ID_KEY, userId);
     //     localStorage.setItem(this.LOGIN_TOKEN_KEY, token);
     //     if (! tokenExpires)
     //       tokenExpires = this._tokenExpiration(new Date());
     //       localStorage.setItem(this.LOGIN_TOKEN_EXPIRES_KEY, tokenExpires);
-    
+
     //     this._lastLoginTokenWhenPolled = token;
     //   };
-    
+
     // _unstoreLoginToken() {
     //     localStorage.removeItem(this.USER_ID_KEY);
     //     localStorage.removeItem(this.LOGIN_TOKEN_KEY);
@@ -512,6 +524,7 @@ export default class SteedosClient {
     // };
 }
 
+// 解析和合并嵌套标头
 function parseAndMergeNestedHeaders(originalHeaders: any) {
     const headers = new Map();
     let nestedHeaders = new Map();
@@ -531,6 +544,8 @@ function parseAndMergeNestedHeaders(originalHeaders: any) {
     return new Map([...headers, ...nestedHeaders]);
 }
 
+
+// 调用；throw new ClientError(this.getUrl(), {message: error.message, server_error_id: error.id, status_code: error.code, url});
 export class ClientError extends Error implements ServerError {
     url?: string;
     intl?: {
@@ -552,6 +567,16 @@ export class ClientError extends Error implements ServerError {
 
         // Ensure message is treated as a property of this class when object spreading. Without this,
         // copying the object by using `{...error}` would not include the message.
-        Object.defineProperty(this, 'message', {enumerable: true});
+        Object.defineProperty(this, 'message', { enumerable: true });
     }
+}
+export class ClientErr extends Error implements ServerError{
+    url?: string;
+    intl?: {
+        id: string;
+        defaultMessage: string;
+        values?: any;
+    };
+    server_error_id?: string;
+    status_code?: number;
 }

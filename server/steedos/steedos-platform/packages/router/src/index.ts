@@ -10,6 +10,8 @@ const cors = require('cors');
 const compression = require('compression');
 const session = require('express-session')
 
+// ? 路径
+// packages/router/src/index.ts
 class ExpressAppStatic{
     app = null;
     beforeRouter = null;

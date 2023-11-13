@@ -2,8 +2,8 @@
 // See LICENSE.txt for license information.
 // @flow
 
-// Given a URL from an API request, return a URL that has any parts removed that are either sensitive or that would
-// prevent properly grouping the messages in Sentry.
+// 给定来自 API 请求的 URL，返回一个已删除任何敏感或可能会影响内容的部分的 URL
+// 阻止在 Sentry 中对消息进行正确分组
 export function cleanUrlForLogging(baseUrl, apiUrl) {
     let url = apiUrl;
 
@@ -40,7 +40,6 @@ export function cleanUrlForLogging(baseUrl, apiUrl) {
         if (part !== '' && whitelist.indexOf(part) === -1) {
             return '<filtered>';
         }
-
         return part;
     }).join('/');
 

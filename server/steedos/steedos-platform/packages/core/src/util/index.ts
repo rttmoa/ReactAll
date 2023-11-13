@@ -131,7 +131,7 @@ const util = {
   /**
    * Returns the object record Relative url
    */
-   getObjectRecordRelativeUrl: (objectName: string, recordId: string, spaceId: string = null, options: any = {})=>{
+  getObjectRecordRelativeUrl: (objectName: string, recordId: string, spaceId: string = null, options: any = {})=>{
     let appId = '-';
     if(options.appId){
       appId = options.appId;
