@@ -25,44 +25,44 @@ import { config } from '../config/config'
 // }
 
 class UserController {
-  // ctx.state.user
+    // ctx.state.user
 
-  // 手机号获取验证码，如果手机号码第一次输入则先注册
+    // 手机号获取验证码，如果手机号码第一次输入则先注册
     static async login(ctx: any) {
         const data = ctx.request.body // 接收客户端传递的参数  （应该校验参数手机号，不然会报错）
         const { phone } = data
         try {
-        let vcode = 888888 || createRandom(6)
+            let vcode = 888888 || createRandom(6)
 
-        let findSQL = `select status from dt_users where mobile = ${phone} `
-        let resultData = await ctx.executeSql(findSQL)
-        // console.log(resultData) // []  /  [ RowDataPacket { status: 2 } ]
+            let findSQL = `select status from dt_users where mobile = ${phone} `
+            let resultData = await ctx.executeSql(findSQL)
+            // console.log(resultData) // []  /  [ RowDataPacket { status: 2 } ]
 
-        // 有用户 ? 更新验证码 : 写入一条状态为2的新数据
-        if (resultData && resultData.length > 0) {
-            let updateSQL = ` update dt_users set vcode = ${vcode},login_time=NOW() where mobile =${phone} `
-            await ctx.executeSql(updateSQL)
-        } else {
-            let time = Date.now()
-            let insSQL = `insert into dt_users (mobile,vcode,status,login_time,guid) values (${data.phone},${vcode},2,NOW(),${`${phone} ${time}`})`
-            await ctx.executeSql(insSQL)
-        }
+            // 有用户 ? 更新验证码 : 写入一条状态为2的新数据
+            if (resultData && resultData.length > 0) {
+                let updateSQL = ` update dt_users set vcode = ${vcode},login_time=NOW() where mobile =${phone} `
+                await ctx.executeSql(updateSQL)
+            } else {
+                let time = Date.now()
+                let insSQL = `insert into dt_users (mobile,vcode,status,login_time,guid) values (${data.phone},${vcode},2,NOW(),${`${phone} ${time}`})`
+                await ctx.executeSql(insSQL)
+            }
 
-        return ctx.send('短信验证码默认为: 888888')
+            return ctx.send('短信验证码默认为: 888888')
 
-        // 发送验证码
-        // 短信验证码接口（乐信）：https://www.lx598.com/apitext.html
-        // let smsurl = `http://v.juhe.cn/sms/send?mobile=${data.phone}&tpl_id=208649&tpl_value=%23code%23%3D${vcode}&key=53cd364bc4ab2124bea90cba2bc04cbb`;
-        // console.log(smsurl)
-        // let res = await fetchData(smsurl);
-        // console.log('####调用短信验证码接口', res);
+            // 发送验证码
+            // 短信验证码接口（乐信）：https://www.lx598.com/apitext.html
+            // let smsurl = `http://v.juhe.cn/sms/send?mobile=${data.phone}&tpl_id=208649&tpl_value=%23code%23%3D${vcode}&key=53cd364bc4ab2124bea90cba2bc04cbb`;
+            // console.log(smsurl)
+            // let res = await fetchData(smsurl);
+            // console.log('####调用短信验证码接口', res);
         } catch (err) {
-        console.log(err.message)
-        return ctx.sendError(config.resCodes.serverError, err.message)
+            console.log(err.message)
+            return ctx.sendError(config.resCodes.serverError, err.message)
         }
     }
 
-  // 检验验证码正确性
+    // 检验验证码正确性
     static async loginVerification(ctx: any) {
         const data = ctx.request.body
         const { phone, vcode: getVcode } = data
@@ -73,39 +73,39 @@ class UserController {
             let resultData = await ctx.executeSql(`select id,guid,vcode,status from dt_users where mobile =${phone}`)
             const { id, vcode, status, guid } = resultData[0]
             // 比对验证码
-                if (getVcode === vcode) {
-                    // FIXME: 验证码正确，生成token
-                    const token = jwt.sign(
-                        {
-                            id: id,
-                            name: phone,
-                        },
-                        config.jwtkey,
+            if (getVcode === vcode) {
+                // FIXME: 验证码正确，生成token
+                const token = jwt.sign(
+                    {
+                        id: id,
+                        name: phone,
+                    },
+                    config.jwtkey,
                     { expiresIn: 60 * 60 * 24 * 300 } // 有效期300天
-                    )
+                )
 
-                    // 判断用户是新用户，则将isNew设为true
-                    if (status === 2) isNew = true
+                // 判断用户是新用户，则将isNew设为true
+                if (status === 2) isNew = true
 
-                    return ctx.send({ token, isNew, id: guid })
-                    // token：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0LCJuYW1lIjoiMTUzMDM2NjMzNzUiLCJpYXQiOjE2OTM0NTY1MjAsImV4cCI6MTcxOTM3NjUyMH0.2ZCeDeKPZOpL860WVeh7yHafZBim1f0jokhREWzADew
-                } else {
+                return ctx.send({ token, isNew, id: guid })
+                // token：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTA0LCJuYW1lIjoiMTUzMDM2NjMzNzUiLCJpYXQiOjE2OTM0NTY1MjAsImV4cCI6MTcxOTM3NjUyMH0.2ZCeDeKPZOpL860WVeh7yHafZBim1f0jokhREWzADew
+            } else {
                 return ctx.sendError(config.resCodes.customerError, '验证码错误')
             }
-            } catch (err) {
+        } catch (err) {
             return ctx.sendError(config.resCodes.serverError, err.message)
-            }
         }
+    }
 
-  // 新用户---填写资料
+    // 新用户---填写资料
     static async loginReginfo(ctx: any) {
         const data = ctx.request.body
         console.log(ctx.state) // FIXME: state数据从哪里来
         console.log(ctx.request.body)
         try {
-        let Distance = getDistance(data.lng, data.lat, 113.42782, 23.12933)
+            let Distance = getDistance(data.lng, data.lat, 113.42782, 23.12933)
 
-        let sql = `
+            let sql = `
                 update dt_users set
                     nick_name = '${data.nickname}',
                     gender='${data.gender}',
@@ -120,16 +120,16 @@ class UserController {
                 where
                     mobile = '${ctx.state.user.name}'  
                 `
-        let resultData = await ctx.executeSql(sql)
-        return ctx.send(resultData)
+            let resultData = await ctx.executeSql(sql)
+            return ctx.send(resultData)
         } catch (err) {
-        return ctx.sendError(config.resCodes.serverError, err.message)
+            return ctx.sendError(config.resCodes.serverError, err.message)
         }
     }
 
-  // 新用户---2选取头像(头像验证，如果不是头像则审核失败)
-  // 上传代码参考：https://www.jianshu.com/p/34d0e1a5ac70
-  // 人脸识别使用的是百度AI：https://ai.baidu.com/docs#/Face-Detect-V3/top
+    // 新用户---2选取头像(头像验证，如果不是头像则审核失败)
+    // 上传代码参考：https://www.jianshu.com/p/34d0e1a5ac70
+    // 人脸识别使用的是百度AI：https://ai.baidu.com/docs#/Face-Detect-V3/top
     static async uploadHead(ctx: any) {
         console.log('upload header image')
         // 提醒：
@@ -137,41 +137,41 @@ class UserController {
         // 旧版本的koa-body通过ctx.request.body.files获取上传的文件
         // 此项目中上面两个都不对，要使用ctx.request.files['']获取上传的文件
         try {
-        let mobile = ctx.state.user.name
-        const file = ctx.request.files['headPhoto'] // 获取上传文件
-        // console.log(file)
-        // 创建可读流
-        const reader = fs.createReadStream(file.path)
-        const extname = path.extname(file.name)
-        let filePath = path.join(__dirname, '../../public/upload/') + `/${Date.now() + '' + mobile + extname}`
-        // 创建可写流
-        const upStream = fs.createWriteStream(filePath)
-        // 可读流通过管道写入可写流
-        reader.pipe(upStream)
-        let isPass = true
-        // 响应
-        return ctx.send(
-            {
-            headImgShortPath: '/upload/' + `${Date.now() + '' + mobile + extname}`,
-            headImgPath: '/upload/' + `${Date.now() + '' + mobile + extname}`,
-            isPass,
-            },
-            '上传成功'
-        )
+            let mobile = ctx.state.user.name
+            const file = ctx.request.files['headPhoto'] // 获取上传文件
+            // console.log(file)
+            // 创建可读流
+            const reader = fs.createReadStream(file.path)
+            const extname = path.extname(file.name)
+            let filePath = path.join(__dirname, '../../public/upload/') + `/${Date.now() + '' + mobile + extname}`
+            // 创建可写流
+            const upStream = fs.createWriteStream(filePath)
+            // 可读流通过管道写入可写流
+            reader.pipe(upStream)
+            let isPass = true
+            // 响应
+            return ctx.send(
+                {
+                    headImgShortPath: '/upload/' + `${Date.now() + '' + mobile + extname}`,
+                    headImgPath: '/upload/' + `${Date.now() + '' + mobile + extname}`,
+                    isPass,
+                },
+                '上传成功'
+            )
         } catch (err) {
-        return ctx.sendError(config.resCodes.serverError, err.message)
+            return ctx.sendError(config.resCodes.serverError, err.message)
         }
     }
 
-  // 获取用户信息
+    // 获取用户信息
     static async userinfo(ctx: any) {
         // console.log(ctx.state.user) // { id: 104, name: '15303663375', iat: 1693456520, exp: 1719376520 }
         try {
-        let resultData = await ctx.executeSql('select * from dt_users')
-        // console.log(resultData.length) // 57
-        return ctx.send(resultData)
+            let resultData = await ctx.executeSql('select * from dt_users')
+            // console.log(resultData.length) // 57
+            return ctx.send(resultData)
         } catch (err) {
-        return ctx.sendError(config.resCodes.serverError, err.message)
+            return ctx.sendError(config.resCodes.serverError, err.message)
         }
     }
 }

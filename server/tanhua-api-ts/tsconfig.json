@@ -71,8 +71,10 @@
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */
   },
   "include": [
-      "server/**/*",
-      "server/app.ts"
+      // "server/**/*",
+      // "server/app.ts"
+      "mysql/**/*",
+      "mysql/app.ts"
   ],
   "exclude": [
     "tests"
