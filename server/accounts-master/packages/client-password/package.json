@@ -1,0 +1,40 @@
+{
+  "name": "@accounts/client-password",
+  "version": "0.32.2",
+  "description": "@accounts/client-password",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "clean": "yarn run -T rimraf lib",
+    "start": "yarn run -T tsc --watch",
+    "precompile": "yarn run clean",
+    "compile": "yarn run -T tsc",
+    "prepublishOnly": "yarn run compile",
+    "test": "yarn run testonly",
+    "test-ci": "yarn run lint && yarn run coverage",
+    "testonly": "yarn run -T jest",
+    "test:watch": "yarn run -T jest --watch",
+    "coverage": "yarn run testonly --coverage"
+  },
+  "files": [
+    "src",
+    "lib"
+  ],
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/accounts-js/accounts/tree/master/packages/client-password"
+  },
+  "author": "Leo Pradel",
+  "license": "MIT",
+  "dependencies": {
+    "@accounts/client": "^0.33.1",
+    "@accounts/types": "^0.33.1",
+    "tslib": "2.6.2"
+  }
+}

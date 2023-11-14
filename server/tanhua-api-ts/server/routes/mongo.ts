@@ -1,5 +1,5 @@
 import Router = require("@koa/router")
-import { db } from "../mongo/index.ts";
+import { db } from "../packages/objectql/index.ts";
 const router = new Router();
 
 

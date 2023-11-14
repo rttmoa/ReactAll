@@ -1,0 +1,56 @@
+{
+  "name": "@accounts/rest-client",
+  "version": "0.33.1",
+  "description": "REST client for accounts",
+  "main": "lib/index",
+  "typings": "lib/index",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "clean": "yarn run -T rimraf lib",
+    "start": "yarn run -T tsc --watch",
+    "precompile": "yarn run clean",
+    "compile": "yarn run -T tsc",
+    "prepublishOnly": "yarn run compile",
+    "test": "yarn run testonly",
+    "testonly": "yarn run -T jest",
+    "coverage": "yarn run testonly --coverage"
+  },
+  "files": [
+    "src",
+    "lib"
+  ],
+  "jest": {
+    "testEnvironment": "jsdom",
+    "preset": "ts-jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/accounts-js/rest/tree/master/packages/rest-client"
+  },
+  "keywords": [
+    "rest",
+    "graphql",
+    "grant",
+    "auth",
+    "authentication",
+    "accounts",
+    "users",
+    "oauth"
+  ],
+  "author": "Tim Mikeladze",
+  "license": "MIT",
+  "peerDependencies": {
+    "@accounts/client": "^0.32.0 || ^0.33.0"
+  },
+  "dependencies": {
+    "@accounts/types": "^0.33.1",
+    "@types/node-fetch": "2.6.9",
+    "tslib": "2.6.2"
+  },
+  "devDependencies": {
+    "@accounts/client": "^0.33.1",
+    "node-fetch": "2.7.0"
+  }
+}

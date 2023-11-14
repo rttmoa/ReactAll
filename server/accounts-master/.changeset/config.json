@@ -1,0 +1,36 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@2.3.1/schema.json",
+  "changelog": ["@changesets/changelog-github", { "repo": "accounts-js/accounts" }],
+  "commit": false,
+  "linked": [],
+  "access": "public",
+  "baseBranch": "master",
+  "updateInternalDependencies": "patch",
+  "ignore": [
+    "@accounts/e2e",
+    "@accounts/mikro-orm",
+    "@accounts/module-core",
+    "@accounts/module-magic-link",
+    "@accounts/module-mikro-orm",
+    "@accounts/module-mongo",
+    "@accounts/module-password",
+    "@accounts/module-typeorm",
+    "@examples/accounts-microservice",
+    "@examples/graphql-mikro-orm-typescript",
+    "@examples/graphql-typeorm-typescript",
+    "@examples/graphql-server-typescript",
+    "@examples/graphql-server-typescript-apollo",
+    "@examples/graphql-server-typescript-basic",
+    "@examples/magic-link-server-typescript",
+    "@examples/react-graphql-typescript",
+    "@examples/react-rest-typescript",
+    "@examples/rest-express-typescript"
+  ],
+  "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
+    "onlyUpdatePeerDependentsWhenOutOfRange": true
+  },
+  "snapshot": {
+    "useCalculatedVersion": true,
+    "prereleaseTemplate": "{tag}-{datetime}-{commit}"
+  }
+}

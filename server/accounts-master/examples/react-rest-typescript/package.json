@@ -1,0 +1,59 @@
+{
+  "name": "@examples/react-rest-typescript",
+  "version": "0.32.0",
+  "private": true,
+  "scripts": {
+    "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
+    "build": "SKIP_PREFLIGHT_CHECK=true react-scripts build",
+    "test": "yarn run build",
+    "testonly": "yarn run build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@accounts/client": "^0.33.1",
+    "@accounts/client-password": "^0.32.2",
+    "@accounts/rest-client": "^0.33.1",
+    "@emotion/react": "11.11.1",
+    "@emotion/styled": "11.11.0",
+    "@mui/icons-material": "5.14.16",
+    "@mui/lab": "5.0.0-alpha.152",
+    "@mui/material": "5.14.17",
+    "@mui/styles": "5.14.17",
+    "formik": "2.4.5",
+    "qrcode.react": "3.1.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router": "5.3.4",
+    "react-router-dom": "5.3.4",
+    "tslib": "2.6.2"
+  },
+  "devDependencies": {
+    "@accounts/types": "^0.33.2",
+    "@types/qrcode.react": "1.0.5",
+    "@types/react": "18.2.37",
+    "@types/react-dom": "18.2.15",
+    "@types/react-router": "5.1.20",
+    "@types/react-router-dom": "5.3.3",
+    "eslint": "8.53.0",
+    "eslint-config-react-app": "7.0.1",
+    "react-scripts": "5.0.1",
+    "web-vitals": "3.5.0"
+  }
+}

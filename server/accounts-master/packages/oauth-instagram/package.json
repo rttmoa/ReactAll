@@ -1,0 +1,33 @@
+{
+  "name": "@accounts/oauth-instagram",
+  "version": "0.32.1",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "clean": "yarn run -T rimraf lib",
+    "start": "yarn run -T tsc --watch",
+    "precompile": "yarn run clean",
+    "compile": "yarn run -T tsc",
+    "prepublishOnly": "yarn run compile",
+    "testonly": "yarn run -T jest",
+    "coverage": "yarn run -T jest --coverage"
+  },
+  "files": [
+    "src",
+    "lib"
+  ],
+  "jest": {
+    "testEnvironment": "node",
+    "preset": "ts-jest"
+  },
+  "dependencies": {
+    "@accounts/oauth": "^0.32.2",
+    "request": "2.88.2",
+    "request-promise": "4.2.6",
+    "tslib": "2.6.2"
+  },
+  "devDependencies": {
+    "@types/request-promise": "4.1.51"
+  }
+}
