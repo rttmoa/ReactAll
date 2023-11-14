@@ -14,8 +14,18 @@ const useScan = true;
 
 
 
+// TODO | redis 基本使用 (node-redis; https://github.com/redis/node-redis)
+// import { createClient } from 'redis';
+// const redisClient = createClient({ url: 'redis://127.0.0.1:6379' }).on('error', (err: any) => { }).connect();
 
-async function redisScanKeys(redisClient, match, count = 10000): Promise<Array<string>> {
+// await redisClient.set('key', 'value');
+// const value = await redisClient.get('key');
+// await redisClient.disconeect();
+
+
+// TODO | Moleculer; https://moleculer.services/docs/0.13/broker
+
+async function redisScanKeys(redisClient: any, match: any, count = 10000): Promise<Array<string>> {
     if (!useScan) {
         return await redisClient.keys(match);
     } else {
@@ -50,7 +60,7 @@ async function redisScanKeys(redisClient, match, count = 10000): Promise<Array<s
                             match: match,
                             // returns approximately 100 elements per call
                             count: count
-                        }).on('data', resultKeys => {
+                        }).on('data', (resultKeys: string | any[]) => {
                             for (var i = 0; i < resultKeys.length; i++) {
                                 keys.push(resultKeys[i]);
                             }
@@ -62,7 +72,7 @@ async function redisScanKeys(redisClient, match, count = 10000): Promise<Array<s
 
                 }
                 Promise.all(allPromises).then((values) => {
-                    let joinedKeys = [];
+                    let joinedKeys: any = []
                     for (const keys of values) {
                         joinedKeys = joinedKeys.concat(keys);
                     }
@@ -74,16 +84,16 @@ async function redisScanKeys(redisClient, match, count = 10000): Promise<Array<s
     }
 }
 
-function transformMetadata(params, meta) {
+function transformMetadata(params: { data: any; }, meta: { caller: any; }) {
     return {
         ...meta.caller,
         metadata: params.data,
     };
 }
 
-function transformMetadatas(params, meta) {
-    const data = {};
-    map(params.data, (value, key) => {
+function transformMetadatas(params: { data: any; }, meta: { caller: any; }) {
+    const data: any = {};
+    map(params.data, (value: any, key: string | number) => {
         data[key] = {
             ...meta.caller,
             metadata: value,
@@ -92,7 +102,7 @@ function transformMetadatas(params, meta) {
     return data;
 }
 
-function getKey(key, keyPrefix) {
+function getKey(key: string, keyPrefix: any) {
     return key.replace(keyPrefix, "");
 }
 
@@ -100,7 +110,7 @@ function getServiceMetadataCacherKey(nodeID: string, serviceName: string, metada
     return `$${nodeID}.${SERVICE_METADATA_PREFIX}.${serviceName}.${metadataType}.${metadataApiName}`;
 }
 
-async function addServiceMetadata(broker, params, meta) {
+async function addServiceMetadata(broker: any, params: { data: any}, meta: any) {
     const { nodeID } = meta.caller || { nodeID: undefined };
     if (!nodeID) {
         console.log(`addServiceMetadata meta`, meta);
@@ -121,7 +131,7 @@ async function addServiceMetadata(broker, params, meta) {
     });
 }
 
-async function maddServiceMetadata(broker, params, meta) {
+async function maddServiceMetadata(broker: { cacher: any; }, params: { data: any; }, meta: any) {
     const { nodeID } = meta.caller || { nodeID: undefined };
     if (!nodeID) {
         console.log(`addServiceMetadata meta`, meta);
@@ -136,9 +146,9 @@ async function maddServiceMetadata(broker, params, meta) {
         return;
     }
 
-    const mdata = {};
+    const mdata: any = {};
 
-    map(data, (value, metadataApiName) => {
+    map(data, (value: any, metadataApiName: string) => {
         mdata[getServiceMetadataCacherKey(nodeID, metadataServiceName, metadataType, metadataApiName)] = {
             nodeIds: [nodeID],
             metadataType,
@@ -151,14 +161,14 @@ async function maddServiceMetadata(broker, params, meta) {
     await mset(broker, mdata);
 }
 
-async function mget(broker, keys) {
+async function mget(broker: { cacher: any; }, keys: string | any[]) {
     if (!keys || keys.length == 0) {
         return [];
     }
 
     const keyPrefix = broker.cacher?.prefix || "";
 
-    const values = await broker.cacher.client.mget(...map(keys, (key) => {
+    const values = await broker.cacher.client.mget(...map(keys, (key: string) => {
         if (key && !key.startsWith(keyPrefix)) {
             return `${keyPrefix}${key}`
         } else {
@@ -180,12 +190,12 @@ async function mget(broker, keys) {
     return results;
 }
 
-async function mset(broker, data) {
+async function mset(broker: { cacher: any }, data: Object | {}) {
     if (_.isEmpty(data)) {
         return;
     }
     const keyPrefix = broker.cacher?.prefix || "";
-    const mdata = {};
+    const mdata: any = {};
     _.map(data, (v, k) => {
         mdata[`${keyPrefix}${k}`] = JSON.stringify(v)
     })
@@ -193,12 +203,12 @@ async function mset(broker, data) {
 }
 
 // 这里需要更改
-async function query(broker, queryKey) {
+async function query(broker: { cacher: any }, queryKey: string) {
     try {
         // const s = new Date().getTime();
         const keyPrefix = broker.cacher?.prefix || "";
         // const sk = new Date().getTime();
-        const keys = await redisScanKeys(broker.cacher.client, `${keyPrefix}${queryKey}`) //broker.cacher.client.keys(`${keyPrefix}${queryKey}`); //TODO 此功能仅支持redis cache
+        const keys = await redisScanKeys(broker.cacher.client, `${keyPrefix}${queryKey}`) //broker.cacher.client.keys(`${keyPrefix}${queryKey}`); 
         // const dk = new Date().getTime() - sk;
         // const sv = new Date().getTime();
         // REPLACE: const keys = await mockCacherKeys(ctx, `${keyPrefix}${queryKey}`) //TODO 此功能仅支持redis cache
@@ -209,23 +219,21 @@ async function query(broker, queryKey) {
         // console.log(`query`, d, dk, dv, `${keyPrefix}${queryKey}`);
         // }
         return values;
-    } catch (error) {
-        // console.error(`error`, error)
-    }
+    } catch (error) { }
     return []
 }
 
-function getPackageServiceCacherKey(nodeID, serviceName) {
+function getPackageServiceCacherKey(nodeID: string, serviceName: string) {
     return `$${nodeID}.${PACKAGE_SERVICES_KEY}.${serviceName}`;
 }
 
-async function setPackageServices(broker, packageServices) {
+async function setPackageServices(broker: { cacher: any }, packageServices: any) {
     for await (const packageService of packageServices) {
         broker.cacher.set(getPackageServiceCacherKey(packageService.nodeID, packageService.name), { service: packageService });
     }
 }
 
-async function clearPackageServices(broker, packageServices) {
+async function clearPackageServices(broker: { cacher: { del: (params: string) => any; }; }, packageServices: any) {
     for await (const packageService of packageServices) {
         let nodeID: any = null;
         let name: any = null;
@@ -242,7 +250,7 @@ async function clearPackageServices(broker, packageServices) {
     }
 }
 
-async function getLastPackageServices(broker) {
+async function getLastPackageServices(broker: { cacher: any; }) {
     const packageServices = await query(broker, getPackageServiceCacherKey("*", "*"));
     const services: any = [];
     packageServices.forEach((element) => {
@@ -253,7 +261,7 @@ async function getLastPackageServices(broker) {
     return services;
 }
 
-async function getPackageServices(broker) {
+async function getPackageServices(broker: { registry: any }) {
     const packageServices: any = [];
     const services = broker.registry.getServiceList({ withActions: true });
     _.each(services, (serviceItem) => {
@@ -266,15 +274,15 @@ async function getPackageServices(broker) {
     return packageServices;
 }
 
-async function clearPackageServiceMetadatas(broker, nodeID, packageServiceName) {
+async function clearPackageServiceMetadatas(broker: { cacher: any; }, nodeID: string, packageServiceName: string) {
     const key = getServiceMetadataCacherKey(nodeID, packageServiceName, "*", "*");
     const clearMetadatas = await query(broker, key);
     await broker.cacher.clean(key);
     return clearMetadatas;
 }
 
-async function clearPackageServicesMetadatas(broker, offlinePackageServices) {
-    let clearMetadatas = [];
+async function clearPackageServicesMetadatas(broker: any, offlinePackageServices: any) {
+    let clearMetadatas: any[] = [];
     for await (const packageService of offlinePackageServices) {
         let nodeID: any = null;
         let name: any = null;
@@ -294,7 +302,7 @@ async function clearPackageServicesMetadatas(broker, offlinePackageServices) {
     });
 }
 
-async function getMetadataServices(broker) {
+async function getMetadataServices(broker: any) {
     const queryKey = `${METADATA_SERVICES_PREFIX}.*`;
     const keyPrefix = broker.cacher?.prefix || "";
     const keys = await redisScanKeys(broker.cacher.client, `${keyPrefix}${queryKey}`)
@@ -305,15 +313,15 @@ async function getMetadataServices(broker) {
     return values;
 }
 
-async function lrange(broker, key, start = 0, end = -1) {
+async function lrange(broker: any, key: string, start = 0, end = -1) {
     return await broker.cacher.client.lrange(key, start, end);
 }
 
-export async function started(broker) {
+export async function started(broker: any) {
     return await broker.cacher.set(`${METADATA_SERVICES_PREFIX}.${broker.nodeID}`, {});
 }
 
-export async function stopped(broker) {
+export async function stopped(broker: any) {
     await broker.cacher.del(`${METADATA_SERVICES_PREFIX}.${broker.nodeID}`);
     const services = await getMetadataServices(broker);
     if (!services || services.length === 0) {
@@ -415,7 +423,7 @@ export const Register = {
         }
         const key = getServiceMetadataCacherKey(nodeID, serviceName, metadataType, metadataApiName);
         const result = await query(broker, key);
-        return result ? filter(result, (item)=>{ return item && item.metadataType === metadataType}) : result;
+        return result ? filter(result, (item: { metadataType: any; })=>{ return item && item.metadataType === metadataType}) : result;
     },
     async getServiceMetadata(broker: any, params: any, meta: any) {
         let { serviceName, metadataType, metadataApiName } = params;

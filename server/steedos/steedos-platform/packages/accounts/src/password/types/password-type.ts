@@ -1,8 +1,8 @@
-import { HashAlgorithm } from '@accounts/types';
+import { HashAlgorithm } from '@accounts/types'
 
 export type PasswordType =
   | string
   | {
-      digest: string;
-      algorithm: HashAlgorithm;
-    };
+      digest: string
+      algorithm: HashAlgorithm
+    }

@@ -1,185 +1,168 @@
-import { SteedosUserSession, isTemplateSpace, wrapAsync } from '@steedos/objectql';
-import { Response } from "express";
+import { SteedosUserSession, isTemplateSpace, wrapAsync } from '@steedos/objectql'
+import { Response } from 'express'
 import { getUserIdByToken, removeUserTokens } from './tokenMap'
 import { getUserSession } from './userSession'
 import { getSpaceUserSession } from './spaceUserSession'
 
-import * as core from "express-serve-static-core";
-import { isAPIKey, verifyAPIKey } from './apikey';
+import * as core from 'express-serve-static-core'
+import { isAPIKey, verifyAPIKey } from './apikey'
 
-import isMobile from "ismobilejs";
+import isMobile from 'ismobilejs'
 interface Request extends core.Request {
-  user?: any;
+  user?: any
 }
 
-const Cookies = require("cookies");
+const Cookies = require('cookies')
 
 function assignSession(spaceId, userSession, spaceSession) {
-  let result = Object.assign({ spaceId: spaceId }, userSession, spaceSession);
-  return reviseSession(result);
+  let result = Object.assign({ spaceId: spaceId }, userSession, spaceSession)
+  return reviseSession(result)
 }
 
 function reviseSession(session) {
   if (session) {
-    delete session.expiredAt;
-    delete session._id;
+    delete session.expiredAt
+    delete session._id
   }
-  return session;
+  return session
 }
 
-export async function getSessionByUserId(
-  userId,
-  spaceId?
-): Promise<SteedosUserSession> {
+export async function getSessionByUserId(userId, spaceId?): Promise<SteedosUserSession> {
   if (!userId) {
-    return;
+    return
   }
 
-  let userSession = await getUserSession(userId);
+  let userSession = await getUserSession(userId)
   if (!userSession) {
-    return;
+    return
   }
 
-  let spaceUserSession = {};
+  let spaceUserSession = {}
   if (spaceId) {
-    spaceUserSession = await getSpaceUserSession(spaceId, userId);
+    spaceUserSession = await getSpaceUserSession(spaceId, userId)
   }
 
-  return assignSession(spaceId, userSession, spaceUserSession);
+  return assignSession(spaceId, userSession, spaceUserSession)
 }
 
 export function getSessionByUserIdSync(userId, spaceId?): any {
   let getSessionFn = function () {
-    return getSessionByUserId(userId, spaceId);
-  };
-  return wrapAsync(getSessionFn, {});
+    return getSessionByUserId(userId, spaceId)
+  }
+  return wrapAsync(getSessionFn, {})
 }
 
-export async function getSession(
-  token: string,
-  spaceId?: string,
-  clientInfos?: any
-): Promise<SteedosUserSession> {
+export async function getSession(token: string, spaceId?: string, clientInfos?: any): Promise<SteedosUserSession> { // ! getSession: Promise<SteedosUserSession>
   if (!token) {
-    return;
+    return
   }
-  let userId = null;
+  let userId = null
   if (isAPIKey(token)) {
-    const apiKeyInfo = await verifyAPIKey(token);
+    const apiKeyInfo = await verifyAPIKey(token)
     if (apiKeyInfo) {
-      userId = apiKeyInfo.userId;
-      spaceId = apiKeyInfo.spaceId;
+      userId = apiKeyInfo.userId
+      spaceId = apiKeyInfo.spaceId
     }
   } else {
-    userId = await getUserIdByToken(token, clientInfos);
+    userId = await getUserIdByToken(token, clientInfos)
   }
   if (!userId) {
-    return;
+    return
   }
-  let userSession = await getUserSession(userId);
+  let userSession = await getUserSession(userId)
   if (!userSession) {
-    return;
+    return
   }
-  let spaceUserSession = await getSpaceUserSession(spaceId, userId);
+  let spaceUserSession = await getSpaceUserSession(spaceId, userId)
 
-  return assignSession(spaceId, userSession, spaceUserSession);
+  return assignSession(spaceId, userSession, spaceUserSession)
 }
 
-export function getUserAgent(req: any) {
-  let userAgent: string = (req.headers["user-agent"] as string) || "";
-  if (req.headers["x-ucbrowser-ua"]) {
+export function getUserAgent(req: any) {// ! 获取用户代理
+  let userAgent: string = (req.headers['user-agent'] as string) || ''
+  if (req.headers['x-ucbrowser-ua']) {
     // special case of UC Browser
-    userAgent = req.headers["x-ucbrowser-ua"] as string;
+    userAgent = req.headers['x-ucbrowser-ua'] as string
   }
-  return userAgent;
+  return userAgent
 }
 
-export function getLoginDevice(userAgent) {
-  let is_phone = false;
-  let is_tablet = false;
+export function getLoginDevice(userAgent) { // ! 获取登录设备
+  let is_phone = false
+  let is_tablet = false
   if (userAgent) {
     try {
-      const { phone, tablet } = isMobile(userAgent);
-      is_phone = phone;
-      is_tablet = tablet;
+      const { phone, tablet } = isMobile(userAgent)
+      is_phone = phone
+      is_tablet = tablet
     } catch (Exception) {
-      console.log(`Exception`, Exception);
+      console.log(`Exception`, Exception)
     }
   }
-  return { is_phone, is_tablet };
+  return { is_phone, is_tablet }
 }
 
-// 解析Request对象，返回SteedosUserSession类型
+// 解析Request对象，获取请求头信息， 返回值类型为 Promise<SteedosUserSession>  
 export async function auth(request: Request, response: Response): Promise<any> {
-  let cookies = new Cookies(request, response);
-  let authToken: string =
-    request.headers["x-auth-token"] || (cookies.get("X-Auth-Token") || "").replace(/"/g, "");
-  let spaceToken = (cookies.get("X-Space-Token") || "").replace(/"/g, "");
-  let authorization = request.headers.authorization;
-  let spaceId =
-    (request.params ? request.params.spaceId : null) ||
-    (request.query ? request.query.space_id : null) ||
-    request.headers["x-space-id"];
-  if (authorization && authorization.split(" ")[0] == "Bearer") {
-    let spaceAuthToken = authorization.split(" ")[1];
+  let cookies = new Cookies(request, response)
+  let authToken: string = request.headers['x-auth-token'] || (cookies.get('X-Auth-Token') || '').replace(/"/g, '')
+  let spaceToken = (cookies.get('X-Space-Token') || '').replace(/"/g, '')
+  let authorization = request.headers.authorization
+  let spaceId = (request.params ? request.params.spaceId : null) || (request.query ? request.query.space_id : null) || request.headers['x-space-id']
+  if (authorization && authorization.split(' ')[0] == 'Bearer') {
+    let spaceAuthToken = authorization.split(' ')[1]
     if (isAPIKey(spaceAuthToken)) {
-      authToken = spaceAuthToken;
+      authToken = spaceAuthToken
     } else {
       if (!spaceId) {
-        spaceId = spaceAuthToken.split(",")[0];
+        spaceId = spaceAuthToken.split(',')[0]
       }
-      authToken = spaceAuthToken.split(",")[1];
+      authToken = spaceAuthToken.split(',')[1]
     }
   }
 
   if (spaceToken) {
     if (!spaceId) {
-      spaceId = spaceToken.split(",")[0];
+      spaceId = spaceToken.split(',')[0]
     }
     if (!authToken) {
-      authToken = spaceToken.split(",")[1];
+      authToken = spaceToken.split(',')[1]
     }
   }
 
-  let userAgent = getUserAgent(request) || "";
-  const loginDevice = getLoginDevice(userAgent);
+  let userAgent = getUserAgent(request) || '' // ! 获取用户代理
+  const loginDevice = getLoginDevice(userAgent)// ! 获取登录设备
 
-  let user = await getSession(authToken, spaceId as string, loginDevice);
+  let user = await getSession(authToken, spaceId as string, loginDevice) // ! 获取 Session
   if (isTemplateSpace(spaceId)) {
-    return Object.assign({ authToken: authToken }, user, loginDevice, {
-      spaceId: spaceId,
-    });
+    return Object.assign({ authToken: authToken }, user, loginDevice, { spaceId: spaceId })
   } else {
-    return Object.assign({ authToken: authToken }, user, loginDevice);
+    return Object.assign({ authToken: authToken }, user, loginDevice)
   }
 }
 
-// 给Request对象添加user属性，值为SteedosUserSession类型
-export async function setRequestUser(
-  request: Request,
-  response: Response,
-  next: () => void
-) {
-  let user = await auth(request, response);
+// ? 给 Request 对象添加 user 属性，解析Request对象，获取请求头信息， 返回值类型为 Promise<SteedosUserSession>  
+export async function setRequestUser(request: Request, response: Response, next: () => void) {
+  let user = await auth(request, response)
   if (user.userId) {
-    request.user = user;
+    request.user = user
   }
-  next();
+  next()
 }
 
 export function removeUserSessionsCacheByUserId(userId, is_phone) {
-  return removeUserTokens(userId, is_phone);
+  return removeUserTokens(userId, is_phone)
 }
 
 /**
  * 判断属性值是否已变更，转字符串比对
- * @param newDoc 
- * @param oldDoc 
+ * @param newDoc
+ * @param oldDoc
  * @returns true/false
  */
 export function isPropValueChanged(newDoc: any, oldDoc: any, props: string[]): boolean {
   for (const key of props) {
-    if ((newDoc[key] + '') !== (oldDoc[key] + '')) {
+    if (newDoc[key] + '' !== oldDoc[key] + '') {
       return true
     }
   }

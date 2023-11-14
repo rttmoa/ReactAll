@@ -40,7 +40,7 @@ async function getUser(userId) {
     return user;
 }
 
-export async function getUserSession(userId) {
+export async function getUserSession(userId) {// ! 获取用户 Session 并处理 Session 对象
     let expiredAt = new Date().getTime() + sessionCacheInMinutes * 60 * 1000;
     let session = getSessionFromCache(userId);
     if (!session) {
@@ -66,9 +66,7 @@ export async function getUserSession(userId) {
             addSessionToCache(userId, session);
             return session;
         }
-        else {
-            return
-        }
+        return 
     }
     return session
 }

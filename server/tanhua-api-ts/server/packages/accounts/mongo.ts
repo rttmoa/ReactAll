@@ -1,13 +1,10 @@
-// tslint:disable variable-name _id
-import {  ConnectionInformations,  CreateUser,  DatabaseInterface,  Session,  User, } from '../types';
-import { get, merge, trim, map } from 'lodash';
+import { get, merge, trim, map,isNumber } from 'lodash';
 import { Collection, Db, ObjectId } from 'mongodb';
-
-import { AccountsMongoOptions, MongoUser } from './types';
 import { getSessionByUserId, hashStampedToken } from '@steedos/auth';
-import { isNumber } from "lodash";
-
 import { getDataSource } from '@steedos/objectql';
+
+import {  ConnectionInformations,  CreateUser,  DatabaseInterface,  Session,  User, } from './types';
+import { AccountsMongoOptions, MongoUser } from './types';
 
 const moment = require("moment");
 

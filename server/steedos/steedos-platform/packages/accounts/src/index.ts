@@ -21,7 +21,7 @@ export { getMergedTenant } from './core';
 declare var WebApp;
   
 const config = getSteedosConfig();
-console.log(config);
+// console.log(config);
 
 
 function getAccountsServer() {

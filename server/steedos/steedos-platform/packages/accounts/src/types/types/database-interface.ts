@@ -10,8 +10,8 @@ export interface DatabaseInterface extends DatabaseInterfaceSessions {
   findUserByUsername(username: string): Promise<User | null>;
 
   findUserById(userId: string): Promise<User | null>;
-  
-  findUserByMobile(mobile:string): Promise<User | null>;
+
+  findUserByMobile(mobile: string): Promise<User | null>;
 
   // Create and update users
   createUser(user: CreateUser): Promise<string>;
@@ -60,17 +60,17 @@ export interface DatabaseInterface extends DatabaseInterfaceSessions {
   addEmailVerificationToken(userId: string, email: string, token: string, code: string): Promise<void>;
 
   setUserDeactivated(userId: string, deactivated: boolean): Promise<void>;
-  
+
   addVerificationCode(user: any, code: string, options: any): Promise<void>;
 
   findUserByVerificationCode(user: any, code: string): Promise<User | null>;
-  
+
   checkVerificationCode(user: any, code: string): Promise<boolean>;
 
   getMySpaces(userId: string): Promise<any | null>;
 
   getInviteInfo(id: string): Promise<any | null>;
-  
+
   setEmail(userId: string, newEmail: string): Promise<void>;
   setMobile(userId: string, newMobile: string): Promise<void>;
   updateUser(userId, options): Promise<any>;

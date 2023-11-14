@@ -45,7 +45,7 @@ export const insertHashedLoginToken = async function (userId, hashedToken) {
 
 
 
-export const setAuthCookies = function (req, res, userId, authToken, spaceId?) {
+export const setAuthCookies = function (req, res, userId, authToken, spaceId?) { // ! 设置身份验证 Cookie
   let cookies = new Cookies(req, res);
   let options = {
     maxAge: 90 * 60 * 60 * 24 * 1000,
@@ -63,7 +63,7 @@ export const setAuthCookies = function (req, res, userId, authToken, spaceId?) {
 }
 
 
-export const clearAuthCookies = function (req, res) {
+export const clearAuthCookies = function (req, res) {// ! 清除身份验证 Cookie
   let cookies = new Cookies(req, res);
   let options = {
     maxAge: 0,

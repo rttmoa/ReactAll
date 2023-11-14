@@ -7,7 +7,7 @@ import { Request, Response } from 'express-serve-static-core';
 
 declare var Meteor;
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response) => { // ! 登陆；与数据库用户比较，成功后加 Cookie
     let username = req.body["username"];
     let password = req.body["password"];
     let spaceId = req.body["spaceId"]; // 需要登录的工作区Id，如果不传入，自动选中第一个工作区

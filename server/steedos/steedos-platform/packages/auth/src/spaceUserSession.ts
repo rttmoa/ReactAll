@@ -108,13 +108,13 @@ export async function getSpaceUserSession(spaceId, userId) {
         let expiredAt = new Date().getTime() + sessionCacheInMinutes * 60 * 1000;
         let su = null;
         // let suFields = ['_id', 'space', 'company_id', 'company_ids', 'organization', 'organizations', 'organizations_parents', 'user'];
-        
+
         // 如果spaceid和user不匹配，则取用户的第一个工作区
         let spaceUsers = await getSteedosSchema().getObject('space_users').directFind({ filters: `(user eq '${userId}') and (user_accepted eq true)` });
-        const findSpaceUser = _.find(spaceUsers, (spaceUser)=>{ return spaceUser.space === spaceId })
-        if(findSpaceUser){
+        const findSpaceUser = _.find(spaceUsers, (spaceUser) => { return spaceUser.space === spaceId })
+        if (findSpaceUser) {
             su = findSpaceUser;
-        }else{
+        } else {
             su = spaceUsers[0];
         }
 
@@ -122,7 +122,7 @@ export async function getSpaceUserSession(spaceId, userId) {
             let userSpaceId = su.space;
             let userSpaceIds = _.pluck(spaceUsers, 'space');
 
-            let [ roles, profile, spaces, companies, organizations, permission_shares ] = await Promise.all([
+            let [roles, profile, spaces, companies, organizations, permission_shares] = await Promise.all([
                 getUserRoles(userId, userSpaceId),
                 getSpaceUserProfile(userId, userSpaceId),
                 getSpaces(userSpaceIds),
@@ -131,16 +131,16 @@ export async function getSpaceUserSession(spaceId, userId) {
                 getUserPermissionShares(su)
             ])
 
-            spaceSession = { roles: roles, profile: profile,expiredAt: expiredAt, ...su };
+            spaceSession = { roles: roles, profile: profile, expiredAt: expiredAt, ...su };
             spaceSession.spaceId = userSpaceId;
-            spaceSession.spaces = spaces 
-            spaceSession.space = _.find(spaceSession.spaces, (record)=>{ return record._id === userSpaceId });
-            
+            spaceSession.spaces = spaces
+            spaceSession.space = _.find(spaceSession.spaces, (record) => { return record._id === userSpaceId });
+
             spaceSession.companies = companies;
-            spaceSession.company = _.find(spaceSession.companies, (record)=>{ return record._id === su.company_id });
-            
-            spaceSession.organizations = organizations ;
-            spaceSession.organization = _.find(spaceSession.organizations, (record)=>{ return record._id === su.organization });
+            spaceSession.company = _.find(spaceSession.companies, (record) => { return record._id === su.company_id });
+
+            spaceSession.organizations = organizations;
+            spaceSession.organization = _.find(spaceSession.organizations, (record) => { return record._id === su.organization });
 
             if (spaceSession.company) {
                 spaceSession.company_id = spaceSession.company._id;
@@ -181,11 +181,11 @@ export async function updateSpaceUserSessionRolesCache(spaceId, userId) {
 async function getSpaces(userSpaceIds: string[]) {
     const cacher = getCacher(SPACES_CACHER_NAME)
     const spaces = []
-    
+
     for (const sId of userSpaceIds) {
         let cacheDoc = cacher.get(sId)
         if (!cacheDoc) {
-            cacheDoc = (await getObject('spaces').directFind({ filters: [ ['_id', '=', sId] ], fields: ['_id', 'name', 'admins'] }))[0]
+            cacheDoc = (await getObject('spaces').directFind({ filters: [['_id', '=', sId]], fields: ['_id', 'name', 'admins'] }))[0]
             cacher.set(sId, cacheDoc)
         }
         spaces.push(cacheDoc)
@@ -200,7 +200,7 @@ async function getSpaces(userSpaceIds: string[]) {
  * userSession支持实时更新
  * 当space_users属性发生变更后清除userSession缓存
  */
-export function deleteSpaceUserSessionCacheByChangedProp (newDoc: any, oldDoc: any): void {
+export function deleteSpaceUserSessionCacheByChangedProp(newDoc: any, oldDoc: any): void {
     const { space: spaceId, user: userId } = oldDoc
     // 由于space_users和users是单独缓存，故这里分别判断清除
     // space_users session
@@ -233,7 +233,7 @@ export function deleteSpaceUserSessionCacheByChangedProp (newDoc: any, oldDoc: a
  * userSession支持实时更新
  * 当spaces属性发生变更后清除spaces缓存
  */
- export function deleteSpaceCacheByChangedProp (newDoc: any, oldDoc: any): void {
+export function deleteSpaceCacheByChangedProp(newDoc: any, oldDoc: any): void {
     const { _id: spaceId } = oldDoc
     const props = [
         'name',         // 工作区名称
@@ -245,7 +245,7 @@ export function deleteSpaceUserSessionCacheByChangedProp (newDoc: any, oldDoc: a
         const cacher = getCacher(SPACES_CACHER_NAME)
         cacher.delete(spaceId)
         // 如果admins发生了变化，则需要清除变化的人员的缓存
-        const changeAdmins = <string[]> _.difference(newDoc.admins, oldDoc.admins).concat(_.difference(oldDoc.admins, newDoc.admins))
+        const changeAdmins = <string[]>_.difference(newDoc.admins, oldDoc.admins).concat(_.difference(oldDoc.admins, newDoc.admins))
         for (const userId of changeAdmins) {
             removeSpaceUserSessionFromCache(spaceId, userId)
         }
