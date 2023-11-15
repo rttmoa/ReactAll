@@ -11,7 +11,7 @@ app.use(sendHandle());  // 响应中间件
 app.use(dbHandle());// 数据库处理中间件
 app.use(errorHandle); // 异常中间件 
 
-router.use('/test', routers.routes()); 
+router.use('/api', routers.routes()); 
 app.use(router.routes()).use(router.allowedMethods());
 
 

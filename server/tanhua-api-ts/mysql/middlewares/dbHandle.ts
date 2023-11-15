@@ -14,6 +14,7 @@ const dbHandle = () => {
         return async (sql: any, values: any) => { 
             return new Promise((resolve, reject) => {
                 pool.getConnection(function (connError: any, connection: any) {
+                    console.log(new Date());
                     const connQuery = connection.query(sql, values, (queryError: any, data: any, fields: any) => {
                         queryError ? reject(queryError) : resolve(data) 
                         connection.release()
