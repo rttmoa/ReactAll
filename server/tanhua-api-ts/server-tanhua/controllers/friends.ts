@@ -3,20 +3,15 @@ import { config } from '../config/config'
 
 class FriendsController {
 
-    // 最近来访
-    /**
-     * sql语句：
-     * SELECT v.target_uid,v.uid,du.mobile,du.nick_name,du.age,du.xueli,du.marry,du.gender,du.Distance, CONCAT('http://',du.header) AS header FROM dt_visits v
-        INNER JOIN dt_users du ON (v.uid = du.id)
-        WHERE v.target_uid = 8
-     */
+    // 最近来访 （访客） 
     static async visitors(ctx: any) {
         console.log("===================>  最近来访 接口SQL")
         try {
             let currentUserID = ctx.state.user.id;
             // 1.0 获取当前登录用户信息         
             let currentUser = await ctx.executeSql(`select  * from dt_users where mobile='${ctx.state.user.name}'`);
-
+            
+            // ? sql 语句：
             let sql = `
                 SELECT 
                     distinct v.target_uid,v.uid,du.nick_name,du.age,du.xueli,du.marry,du.gender,du.Distance, du.header 
@@ -28,7 +23,6 @@ class FriendsController {
                     v.target_uid = ${currentUserID} 
                 LIMIT 0, 4
             `;
-            // console.log(sql)
             let visitors = await ctx.executeSql(sql);
             // console.log(visitors)
             
@@ -59,14 +53,12 @@ class FriendsController {
             // 1.0 获取当前登录用户信息
             let currentUser = await ctx.executeSql(`select * from dt_users where mobile='${ctx.state.user.name}'`);
 
-            // 2.0 条件组合
+            // 2.0 条件组合 （where；状态、性别、年龄差）
             let innerwhere = ' WHERE status = 0 ';
             // innerwhere += ` and xueli = '${currentUser[0].xueli}'`;
             // innerwhere += ` and address like '%${currentUser[0].city}%'`;
             if (currentUser && currentUser.length > 0 && currentUser[0].age > 0) {
                 innerwhere += ` and gender = '${currentUser[0].gender == '女' ? '男' : '女'}'`;
-
-
                 let minAge = currentUser[0].age - 5; // 当前登录用户的年龄减去5岁
                 let maxAge = currentUser[0].age + 5;
                 innerwhere += ` and age >= ${minAge} and age <= ${maxAge} `;
@@ -82,12 +74,10 @@ class FriendsController {
             let disnum = 1000 * 100; //默认是100KM范围
             // if (query.distance)  disnum = query.distance;
 
+            // ? sql 语句：
             let querySql = `
-                SELECT 
-                    t.id,t.header,t.nick_name,t.gender,t.age,t.marry,t.xueli,t.dist 
-                FROM (
-                    SELECT 
-                        *, TIMESTAMPDIFF(MINUTE ,login_time,NOW()) AS timestampdif,ABS(Distance - ${currentUser[0].Distance}) AS dist 
+                SELECT t.id,t.header,t.nick_name,t.gender,t.age,t.marry,t.xueli,t.dist FROM (
+                    SELECT *, TIMESTAMPDIFF(MINUTE ,login_time,NOW()) AS timestampdif,ABS(Distance - ${currentUser[0].Distance}) AS dist 
                     FROM dt_users 
                     ${innerwhere} -- 条件 WHERE
                 ) AS t
@@ -133,13 +123,9 @@ class FriendsController {
     // 推荐朋友
     /** 最终的sql语句:
      * SELECT t.id,t.header,t.nick_name,t.gender,t.age,t.marry,t.xueli,t.dist  FROM (
-        SELECT *, TIMESTAMPDIFF(MINUTE ,login_time,NOW()) AS timestampdif,ABS(Distance - 当前用户的距离值) AS dist FROM dt_users 
-        WHERE gender = '女' 
-        AND age>=17 
-        AND age <=25 
-        AND address LIKE '%天河区%'
-        AND xueli = '大专'
-        AND status = 0
+            SELECT *, TIMESTAMPDIFF(MINUTE ,login_time,NOW()) AS timestampdif,ABS(Distance - 当前用户的距离值) AS dist FROM dt_users 
+            WHERE gender = '女' 
+            AND age>=17 AND age <=25 AND address LIKE '%天河区%' AND xueli = '大专' AND status = 0
         ) AS t
         WHERE t.timestampdif < 60000 AND t.dist <= 1000 * 100
     */
@@ -384,7 +370,9 @@ class FriendsController {
             }
             else {
                 let ids = messages.map((item: any) => item.tid);
-                let albums = await ctx.executeSql(` select aid,tid,thum_img_path,org_img_path from dt_album where uid = ${uid} and tid in (${ids.join(',')}) `);
+                let albums = await ctx.executeSql(`
+                    select aid,tid,thum_img_path,org_img_path from dt_album where uid = ${uid} and tid in (${ids.join(',')}) -- '2,1,3,3'
+                `);
                 targent_User.trends = messages.map((item: any) => {
                     return {
                         ...item,
@@ -393,7 +381,9 @@ class FriendsController {
                 });
 
                 // 5.0 朋友轮播图头像 ishead = 1 表示筛选出该用户的相册中的头像
-                let silder = await ctx.executeSql(` select aid,tid,uid, thum_img_path,org_img_path from dt_album where uid = ${uid} and ishead = 1 LIMIT 0,5 `);
+                let silder = await ctx.executeSql(`
+                    select aid,tid,uid, thum_img_path,org_img_path from dt_album where uid = ${uid} and ishead = 1 LIMIT 0,5
+                `);
                 targent_User.silder = silder;
             }
 
@@ -726,7 +716,7 @@ function randomNum(minNum: number, maxNum: number) {
 }
 
 
-// 计算缘分值
+// ? 计算缘分值
 /**
  * 算法如下：
  * 取两个用户的，如下维度进行计算：

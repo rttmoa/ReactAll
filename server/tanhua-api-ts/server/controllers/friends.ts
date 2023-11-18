@@ -3,7 +3,7 @@ import { config } from '../config/config'
 
 class FriendsController {
 
-    // 最近来访
+    // 最近来访 (访客)
     /**
      * sql语句：
      * SELECT v.target_uid,v.uid,du.mobile,du.nick_name,du.age,du.xueli,du.marry,du.gender,du.Distance, CONCAT('http://',du.header) AS header FROM dt_visits v
