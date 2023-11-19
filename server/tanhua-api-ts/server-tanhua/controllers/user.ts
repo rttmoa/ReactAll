@@ -163,7 +163,7 @@ class UserController {
         }
     }
 
-    // 获取用户信息
+    // ! 获取所有用户信息
     static async userinfo(ctx: any) {
         // console.log(ctx.state.user) // { id: 104, name: '15303663375', iat: 1693456520, exp: 1719376520 }
         try {
@@ -224,15 +224,10 @@ class UserController {
 //                     'Content-Length': Buffer.byteLength(postData)
 //                 }
 //             },
-//             function (res) {
-//                 // console.log(typeof chunk);
-//                 // 在标准输出中查看运行结果
-//                 // res.pipe(process.stdout);
+//             function (res) { 
 //                 res.on('data', (chunk) => {
 //                     try {
-//                         let resobj = JSON.parse(chunk.toString('utf-8'));
-//                         // console.log(resobj)
-//                         // 如果不是人脸，则返回：参考：https://ai.baidu.com/docs#/Face-Detect-V3/b7203cd6
+//                         let resobj = JSON.parse(chunk.toString('utf-8')); // 如果不是人脸，则返回：参考：https://ai.baidu.com/docs#/Face-Detect-V3/b7203cd6
 //                         /**
 //                          * 失败：
 //                          *  "error_code": 222202,

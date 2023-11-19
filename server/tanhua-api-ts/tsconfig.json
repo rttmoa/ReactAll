@@ -71,12 +71,12 @@
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */
   },
   "include": [
-      // "server/**/*",
-      // "server/app.ts"
+      "server-tanhua/**/*",
+      "server-tanhua/app.ts",
       "mysql/**/*",
       "mysql/app.ts"
   ],
-  "exclude": [
-    "tests"
-  ]
+  // "exclude": [
+  //   "tests"
+  // ]
 }
