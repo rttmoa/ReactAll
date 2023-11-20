@@ -1,9 +1,26 @@
 import { config } from '../config/config'
 
 
+
+
+
 class FriendsController {
 
-    // 最近来访 （访客） 
+
+
+    /**
+     * ? 最近来访（表dt_users、dt_visits；访客） 
+     * SQL1; 通过 dt_visits dt_users 表查询访客的信息
+        SELECT 
+            distinct v.target_uid,v.uid,du.nick_name,du.age,du.xueli,du.marry,du.gender,du.Distance, du.header 
+        FROM 
+            dt_visits v
+        INNER JOIN 
+            dt_users du ON (v.uid = du.id)
+        WHERE 
+            v.target_uid = 7
+        LIMIT 0, 4;
+     */
     static async visitors(ctx: any) {
         console.log("===================>  最近来访 接口SQL")
         try {
@@ -24,7 +41,6 @@ class FriendsController {
                 LIMIT 0, 4
             `;
             let visitors = await ctx.executeSql(sql);
-            // console.log(visitors)
             
             // 5.0 补上 缘分值 fateValue 和年龄差 agediff两个响应字段
             if (visitors && visitors.length > 0) {
@@ -36,7 +52,6 @@ class FriendsController {
                         fateValue: getfateValue(user, currentUser[0])
                     }
                 })
-                // console.log(newList)
                 return ctx.send(newList);
             } else {
                 return ctx.send([]);
@@ -46,10 +61,18 @@ class FriendsController {
         }
     }
 
-    // 今日佳人，总体逻辑与推荐朋友一样，只是区缘分值最高的那一条
+    /**
+     * ? 今日佳人，总体逻辑与推荐朋友一样，只是区缘分值最高的那一条
+     * 今日佳人SQL; 根据当前用户距离 查询条件； 1.其他用户的最后登陆时间（login_time 1年或3年） 2.与当前用户的距离查询（距离值 100千米）  
+        SELECT t.id,t.header,t.nick_name,t.gender,t.age,t.marry,t.xueli,t.dist,t.login_time FROM (
+            SELECT *, TIMESTAMPDIFF(MINUTE,login_time,NOW()) AS timestampdif, ABS(Distance - 6284) AS dist FROM dt_users 
+            where status = 0 and xueli = "大专" and address like "%天河区%" and gender = "女" and age >= 17 and age <= 25
+        ) AS t
+        WHERE t.timestampdif <= 15768000000 AND t.dist <= 10000000000;
+     */
     static async todayBest(ctx: any) {
-        // let query = ctx.request.query;
         try {
+            let query = ctx.request.query;
             // 1.0 获取当前登录用户信息
             let currentUser = await ctx.executeSql(`select * from dt_users where mobile='${ctx.state.user.name}'`);
 
@@ -67,26 +90,24 @@ class FriendsController {
 
             // 3.0 查询sql语句
             let diffMinute = 1440 * 365; // 默认是1年 
-            // if (query.lastLogin == '15分钟') { diffMinute = 15; }
-            // if (query.lastLogin == '1小时') { diffMinute = 60; }
-            // if (query.lastLogin == '1天') { diffMinute = 1440; }
+            if (query.lastLogin == '15分钟') { diffMinute = 15; }
+            if (query.lastLogin == '1小时') { diffMinute = 60; }
+            if (query.lastLogin == '1天') { diffMinute = 1440; }
 
-            let disnum = 1000 * 100; //默认是100KM范围
-            // if (query.distance)  disnum = query.distance;
+            let disnum = 1000 * 100; // 默认是100KM范围
+            if (query.distance) disnum = query.distance;
 
             // ? sql 语句：
             let querySql = `
                 SELECT t.id,t.header,t.nick_name,t.gender,t.age,t.marry,t.xueli,t.dist FROM (
                     SELECT *, TIMESTAMPDIFF(MINUTE ,login_time,NOW()) AS timestampdif,ABS(Distance - ${currentUser[0].Distance}) AS dist 
                     FROM dt_users 
-                    ${innerwhere} -- 条件 WHERE
+                    ${innerwhere}  
                 ) AS t
                 WHERE t.timestampdif <= ${diffMinute} AND t.dist <= ${disnum} 
             `;
 
-            // 4.0 执行查询操作
-            // console.log('------------todayBest---------------')
-            // console.log(querySql)
+            // 4.0 执行查询操作 
             let recomList = await ctx.executeSql(querySql);
 
             // 5.0 补上 缘分值 fateValue 和年龄差 agediff两个响应字段
@@ -123,18 +144,16 @@ class FriendsController {
     // 推荐朋友
     /** 最终的sql语句:
      * SELECT t.id,t.header,t.nick_name,t.gender,t.age,t.marry,t.xueli,t.dist  FROM (
-            SELECT *, TIMESTAMPDIFF(MINUTE ,login_time,NOW()) AS timestampdif,ABS(Distance - 当前用户的距离值) AS dist FROM dt_users 
+            SELECT *, TIMESTAMPDIFF(MINUTE ,login_time,NOW()) AS timestampdif,ABS(Distance - 13988957.3000) AS dist FROM dt_users 
             WHERE gender = '女' 
             AND age>=17 AND age <=25 AND address LIKE '%天河区%' AND xueli = '大专' AND status = 0
         ) AS t
         WHERE t.timestampdif < 60000 AND t.dist <= 1000 * 100
     */
-    static async recommendation(ctx: any) {
-        // console.log(ctx.request.query)
-        // console.log(ctx.state.user);
+    static async recommendation(ctx: any) { 
         let query = ctx.request.query;
         try {
-            // 1.0 获取当前登录用户信息
+            // 1.0 获取当前登录用户信息（根据ctx.request.query）
             let currentUser = await ctx.executeSql(`select * from dt_users where mobile='${ctx.state.user.name}'`);
 
             // 2.0 条件组合
@@ -145,8 +164,7 @@ class FriendsController {
             }
             if (query.education) {
                 // innerwhere += ` and xueli = '${query.education}'`;
-            }
-
+            } 
             if (query.city) {
                 // innerwhere += ` and address like '%${query.city}%'`;
             }
@@ -178,9 +196,7 @@ class FriendsController {
             // 分页数据
             let queryCount = `
                 SELECT count(1) as count FROM (
-                    SELECT 
-                        *, TIMESTAMPDIFF(MINUTE ,login_time,NOW()) AS timestampdif,ABS(Distance - ${currentUser[0].Distance}) AS dist 
-                    FROM dt_users 
+                    SELECT *, TIMESTAMPDIFF(MINUTE ,login_time,NOW()) AS timestampdif,ABS(Distance - ${currentUser[0].Distance}) AS dist FROM dt_users 
                     ${innerwhere} -- 查询条件 WHERE
                 ) AS t
                 WHERE t.timestampdif <= ${diffMinute} AND t.dist <= ${disnum} 
@@ -195,14 +211,12 @@ class FriendsController {
             let pages = Math.ceil(counts / pagesize);
             let startIndex = (page - 1) * pagesize;
             
-            let recomList;  // 查询的推荐数据
-            
-            if (counts <= 0) { 
+            // 查询的推荐数据
+            let recomList;  
+            if (counts <= 0) { // 没有推荐的数据
                 let queryCountAll = `
                     SELECT count(1) as count FROM (
-                        SELECT 
-                            *, TIMESTAMPDIFF(MINUTE ,login_time,NOW()) AS timestampdif,ABS(Distance - ${currentUser[0].Distance}) AS dist 
-                        FROM dt_users 
+                        SELECT *, TIMESTAMPDIFF(MINUTE ,login_time,NOW()) AS timestampdif,ABS(Distance - ${currentUser[0].Distance}) AS dist FROM dt_users 
                         WHERE status = 0
                     ) AS t
                 `;
@@ -239,9 +253,7 @@ class FriendsController {
                     LIMIT ${startIndex}, ${pagesize}
                 `;
                 //  WHERE t.timestampdif <= ${diffMinute}  AND t.dist <= ${disnum}
-                // 4.0 执行查询操作
-                // console.log('------------recommendation---------------')
-                // console.log(querySql);
+                // 4.0 执行查询操作 
                 recomList = await ctx.executeSql(querySql);
             }
 
@@ -267,15 +279,22 @@ class FriendsController {
         }
     }
 
-    /** 朋友信息
-     *   页面分为三块：
-     * 1、轮播图：取动态中的前5张照片
-     * 2、个人信息
-     * 3、个人动态     * 
+    /**
+     * ? 朋友信息（表dt_users、dt_trends、dt_album；页面分三块：轮播图、个人信息、个人动态）
+     * SQL1; 查询 当前用户或目标用户的信息
+        select * from dt_users where id = 7 or id = 75;
+     * SQL2; 获取 目标用户的动态数量
+        select count(1) as count from dt_trends where uid = 75;
+     * SQL3; 获取 分页获取个人动态
+        select * from dt_trends where uid = 75  ORDER BY tid DESC LIMIT 0,5;
+     * SQL4; 
+        select aid,tid,thum_img_path,org_img_path from dt_album where uid = ${uid} and tid in (2,1,3,3);
+        select aid,tid,uid, thum_img_path,org_img_path from dt_album where uid = ${uid} and ishead = 1 LIMIT 0,5
+     * SQL5;
+        INSERT INTO dt_visits(uid, target_uid,vistitCount, firstTime, lastTime) VALUES(${currentUserID},${uid},1,NOW(),NOW())
      */
     static async personalInfo(ctx: any) {
         try {
-            // console.log(ctx.params.id);
             let uid = ctx.params.id;  // 目标用户
             let query = ctx.request.query;
             let currentUserID = ctx.state.user.id; // 登录用户
@@ -388,12 +407,7 @@ class FriendsController {
             }
 
             // 6.0 增加用户到目标用户的最近访问列表中
-            let visitsql = `INSERT INTO dt_visits(
-                    uid, target_uid,vistitCount, firstTime, lastTime
-                ) VALUES(
-                    ${currentUserID},${uid},1,NOW(),NOW()
-                )
-            `;
+            let visitsql = `INSERT INTO dt_visits(uid, target_uid,vistitCount, firstTime, lastTime) VALUES(${currentUserID},${uid},1,NOW(),NOW())`;
             let visitsqlRes = await ctx.executeSql(visitsql);
             console.log('最近访问人表插入 ==========', visitsqlRes);
 
@@ -403,15 +417,15 @@ class FriendsController {
             return ctx.sendError(config.resCodes.serverError, err.message);
         }
     }
-    /** 朋友信息 by Guid
-     *   页面分为三块：
-     * 1、轮播图：取动态中的前5张照片
-     * 2、个人信息
-     * 3、个人动态     * 
+
+
+    /**
+     * ? 通过 guid 查找用户信息; 表dt_users
+     * SQL；
+        select * from dt_users where  guid in (186657111221592819120579,186657222221592820013434,186657444441592901674548);
      */
     static async personalInfoByGuid(ctx: any) {
         try { 
-            // let uid = ctx.params.id;  // 目标用户
             let guids = ctx.params.id;  // 目标用户
             
             // 1.0 获取当前登录用户和目标用户信息
@@ -422,18 +436,18 @@ class FriendsController {
         } catch (err) {
             return ctx.sendError(config.resCodes.serverError, err.message);
         }
-    }
-    // 搜附近：按照距离由近到远返回前10条数据
+    } 
+
+    
     /**
-     * SELECT t.id,t.header,t.nick_name,t.dist  FROM (
-        SELECT *,ABS(Distance - 0) AS dist FROM dt_users 
-        WHERE gender = '女'       
-        AND status = 0
+     * ? 搜附近的人：按照距离由近到远返回前10条数据
+     * SQL; 查询距离从近到远的10条数据
+        SELECT t.id,t.header,t.nick_name,t.dist  FROM (
+            SELECT *, ABS(Distance - 0) AS dist FROM dt_users WHERE gender = '女' AND status = 0
         ) AS t
         WHERE t.dist <= 10000
         ORDER BY t.dist ASC
-        LIMIT 0,10
-     * 
+        LIMIT 0,10;
      */
     static async search(ctx: any) {
         try {
@@ -444,10 +458,7 @@ class FriendsController {
             }
             let sql = `
                 SELECT t.id as uid, t.header,t.nick_name,t.dist  FROM (
-                    SELECT *,ABS(Distance - 0) AS dist 
-                    FROM dt_users 
-                    WHERE ${gender} 
-                    status = 0
+                    SELECT *, ABS(Distance - 0) AS dist FROM dt_users WHERE ${gender} status = 0
                 ) AS t
                 WHERE t.dist <= ${query.distance}
                 ORDER BY t.dist ASC
@@ -462,15 +473,17 @@ class FriendsController {
     }
 
 
-    /**探花
-     * SELECT t.id,t.header,t.nick_name,t.age,t.gender,t.marry,t.xueli,t.dist  FROM (
-        SELECT *,ABS(Distance - 0) AS dist FROM dt_users 
-        WHERE gender = '女'       
-        AND status = 0
-        ) AS t
-        ORDER BY t.dist ASC
-        LIMIT 0,5
-     * 
+    /**
+     * ? 探花左滑右滑卡片分页数据（喜欢或不喜欢对方） 
+     * SQL1; 根据性别查询所有用户数量
+        select count(1) as count from dt_users where status = 0 and gender = '男';
+        select count(1) as count from dt_users where status = 0 and gender = '女';
+     * SQL2; 分页查询性别女的所有用户列表
+        select t.id, t.header,t.nick_name,t.age,t.gender,t.marry,t.xueli,t.dist from (
+            select *,ABS(Distance - 0) AS dist from dt_users where status = 0 and gender = '女'
+        ) as t 
+        order by t.dist asc
+        limit 0, 5;
      */
     static async cards(ctx: any) {
         try {
@@ -494,61 +507,50 @@ class FriendsController {
             let startIndex = (page - 1) * pagesize;
 
             let sql = `
-                SELECT t.id, t.header ,t.nick_name,t.age,t.gender,t.marry,t.xueli,t.dist  
-                FROM (
+                SELECT t.id, t.header ,t.nick_name,t.age,t.gender,t.marry,t.xueli,t.dist FROM (
                     SELECT *,ABS(Distance - 0) AS dist FROM dt_users 
-                    WHERE gender = '女'       
-                    AND status = 0
+                    WHERE gender = '女' AND status = 0
                 ) AS t
                 ORDER BY t.dist ASC
                 LIMIT ${startIndex},${pagesize}
             `;
             let users = await ctx.executeSql(sql);
             return ctx.send(users, undefined, { counts, page, pagesize, pages });
-
         } catch (err) {
             return ctx.sendError(config.resCodes.serverError, err.message);
         }
     }
 
-    // 探花喜欢
+    
+    /**
+     * ? 探花喜欢（表dt_like；喜欢对方，不再喜欢对方）
+     * SQL1; 一叶知秋7 喜欢 草莓味冰淇淋75
+        SELECT count(1) as count FROM dt_like WHERE uid = 7 AND like_uid = 75 AND type = 'like';
+        SQL2 喜欢对方
+        `INSERT INTO dt_like (uid,like_uid,tid,type,create_time) VALUES (${currentUserID},${likeuid},NULL,'like',NOW());`
+        SQL3 不喜欢对方
+        `delete FROM dt_like WHERE uid = ${currentUserID} AND like_uid = ${likeuid} and type = 'like'`
+     */
     static async like(ctx: any) {
         try {
             let likeuid = ctx.params.id; // 目标用户id
             let type = ctx.params.type; //操作类型  like和dislike
             let currentUserID = ctx.state.user.id; // 登录用户
 
-            let checkSql = `SELECT count(1) as count FROM dt_like WHERE uid = ${currentUserID}  AND like_uid = ${likeuid} and type = '${type}'`
+            let checkSql = `SELECT count(1) as count FROM dt_like WHERE uid = ${currentUserID}  AND like_uid = ${likeuid} AND type = '${type}'`
             let counts = await ctx.executeSql(checkSql);
             let count = counts[0].count;
             if (count > 0) {
                 return ctx.send('已喜欢');
             }
             if (type == 'like') {
-                let sql = `
-                    INSERT INTO dt_like
-                        (
-                            uid
-                            ,like_uid
-                            ,tid
-                            ,type
-                            ,create_time
-                        )
-                    VALUES
-                        (
-                            ${currentUserID}
-                            ,${likeuid}
-                            ,NULL
-                            ,'like'
-                            ,NOW() 
-                        );
-                    `;
-                let res = await ctx.executeSql(sql);
+                let sql = `INSERT INTO dt_like (uid,like_uid,tid,type,create_time) VALUES (${currentUserID},${likeuid},NULL,'like',NOW());`;
+                await ctx.executeSql(sql);
                 return ctx.send('喜欢成功');
             } else {
                 // 不喜欢
                 let sql = `delete FROM dt_like WHERE uid = ${currentUserID} AND like_uid = ${likeuid} and type = 'like'`;
-                let res = await ctx.executeSql(sql);
+                await ctx.executeSql(sql);
                 return ctx.send('不再喜欢');
             }
 
@@ -558,12 +560,19 @@ class FriendsController {
     }
 
 
-    // 测灵魂卷列表
+    /**
+     * ? 测灵魂卷列表（表dt_questions、dt_question_user_ans；查询测试题数据，查询用户的测试题答案并处理）
+     * SQL1；查询测试题数据
+     * SELECT *, imgpath FROM dt_questions WHERE status = 0 ORDER by sort_no ASC;
+     * SQL1；查询用户7的测试题答案
+     * select * from dt_question_user_ans where uid = 7;
+     * select * from dt_question_user_ans where uid = 8;
+     */
     static async questions(ctx: any) {
         try {
             let currentUserID = ctx.state.user.id; // 登录用户
 
-            let data = await ctx.executeSql(`SELECT *, imgpath  FROM dt_questions WHERE status = 0 ORDER by sort_no ASC`);
+            let data = await ctx.executeSql(`SELECT *, imgpath FROM dt_questions WHERE status = 0 ORDER by sort_no ASC`);
             if (!data || data.length <= 0) {
                 return ctx.sendError(config.resCodes.customerError, '无数据');
             }
