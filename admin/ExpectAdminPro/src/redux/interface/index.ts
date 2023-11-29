@@ -47,14 +47,13 @@ export interface TabsState {
 
 /* UserState */
 export interface UserState {
-  token: string;
+  token: string; // redux 中登陆用户的 Token
   userInfo: { name: string };
 }
 
 /* AuthState */
 export interface AuthState {
-  // 从接口获取的 Array
-  authMenuList: RouteObjectType[]; // (14)[{…}, {…}, {…}, {…}, ..................]
+  authMenuList: RouteObjectType[]; // 接口中获取的菜单列表； (14)[{…}, {…}, {…}, {…}, ..................]
   showMenuList: RouteObjectType[];
   flatMenuList: RouteObjectType[]; // (60)Array: [{…}, {…}, {…}, {…}, {…}, ...............]
   authButtonList: {

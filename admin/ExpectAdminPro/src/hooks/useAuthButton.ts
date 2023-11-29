@@ -6,8 +6,25 @@ import { getMenuByPath } from "@/utils";
  */
 const useAuthButton = () => {
   const authButtonList = useSelector((state: RootState) => state.auth.authButtonList);
-  console.log(authButtonList);
+  // console.log(authButtonList);
+  // {
+  //   "authButton": [
+  //       "add",
+  //       "edit",
+  //       "delete",
+  //       "import",
+  //       "export"
+  //   ],
+  //   "useProTable": [
+  //       "add",
+  //       "batchAdd",
+  //       "export",
+  //       "batchDelete",
+  //       "status"
+  //     ]
+  // }
   const meta = getMenuByPath()?.meta ?? {};
+  // console.log(meta);
 
   let currentPageAuthButton: { [key: string]: boolean } = {};
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Tabs } from "antd";
 import { HOME_URL } from "@/config";
 import { getTimeState } from "@/utils";
 import { useDispatch } from "@/redux";
@@ -11,7 +11,7 @@ import { ReqLogin } from "@/api/interface";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { message } from "@/hooks/useMessage";
 import type { FormInstance, FormProps } from "antd/es/form";
-import { LockOutlined, UserOutlined, CloseCircleOutlined, CheckCircleFilled } from "@ant-design/icons";
+import { LockOutlined, UserOutlined, CloseCircleOutlined, CheckCircleFilled, PhoneOutlined } from "@ant-design/icons";
 import usePermissions from "@/hooks/usePermissions";
 import md5 from "md5";
 
@@ -50,37 +50,46 @@ const LoginForm: React.FC = () => {
   const [sendText, setSendText] = useState("发送验证码");
   const [type, setType] = useState("account");
 
+  // TODO:  登陆 提交到后台及前台的逻辑
+  // 1、获取表单内容
+  // 2、设置按钮加载状态
+  // 3、设置提示消息，正在加载中
+  // 4、将表单内容提交到后台，获取 token
+  // 5、将 token 存到 redux 中， 并重置 redux 中 数据
+  // ! 6、初始化权限；获取用户按钮权限 && 获取用户菜单权限  (请求 /menu/list  /auth/buttons 两个接口, 每个用户获得的数据不同)  接口的数据存储到redux
+  // 7、提示用户进入系统中了
+  // 8、跳转到首页
+  // 9、取消加载状态 & 取消提示的消息
   const onFinish = async (values: ReqLogin) => {
     try {
-      // await formRef.validateFields()
-      // let { phone, code } = formRef.getFieldsValue()
+      await formRef?.current?.validateFields();
+      let getValues = formRef?.current?.getFieldsValue(); // 得到表单内容
 
-      // loading
       setLoading(true);
       message.open({ type: "loading", content: "登录中..." });
 
       // user login
-      const { data } = await loginApi({ ...values, password: md5(values.password) });
-      console.log(data);
+      const { data } = await loginApi({ ...values, password: md5(values.password) }); // 得到 {access_token: 'bqddxxwqmfncffacvbpkuxvwvqrhln'}
+      // console.log(data);
+
       dispatch(setToken(data.access_token));
       // 存储Token + 派发任务存储redux
       // _.storage.set('tk', token)
       // await queryUserInfoAsync()
 
-      // clear last account tabs
+      // 清除最后一个帐户选项卡
       dispatch(setTabsList([]));
 
       // todo 初始化权限： 获取用户按钮权限 && 获取用户菜单权限
       await initPermissions(data.access_token);
+      // return
 
-      // prompt for successful login and redirect
       notification.success({
         message: getTimeState(),
-        description: "欢迎登录 Hooks-Admin",
+        description: "欢迎登录！",
         icon: <CheckCircleFilled style={{ color: "#73d13d" }} />
       });
 
-      // navigate to home
       navigate(HOME_URL);
 
       // let to = usp.get("to");
@@ -88,7 +97,6 @@ const LoginForm: React.FC = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      console.log(121);
       setLoading(false);
       message.destroy();
     }
@@ -101,6 +109,7 @@ const LoginForm: React.FC = () => {
     formRef.current?.resetFields();
   };
 
+  // ! 监听 回车 document.onKeydown
   useEffect(() => {
     document.onkeydown = event => {
       if (event.code === "Enter") {
@@ -114,10 +123,9 @@ const LoginForm: React.FC = () => {
   }, []);
 
   // .
-  // .
-  // todo =========》  发送验证码
+  // !  发送验证码
   let timer: string | number | NodeJS.Timeout | null | undefined = null,
-    num = 31;
+    num = 5;
   const CountDown = () => {
     num--;
     if (num === 0) {
@@ -154,7 +162,7 @@ const LoginForm: React.FC = () => {
   return (
     <div className="login-form-content">
       <Form name="login" size="large" autoComplete="off" ref={formRef} onFinish={onFinish} onFinishFailed={onFinishFailed}>
-        {/* <Tabs
+        <Tabs
           activeKey={type}
           onChange={setType}
           centered
@@ -162,7 +170,7 @@ const LoginForm: React.FC = () => {
             { key: "account", label: "账户密码登陆" },
             { key: "mobile", label: "手机号登陆" }
           ]}
-        /> */}
+        />
         {type === "account" && (
           <>
             <Form.Item
@@ -170,17 +178,31 @@ const LoginForm: React.FC = () => {
               initialValue="15303663375"
               rules={[{ required: true, message: "Please input your username!" }]}
             >
-              <Input prefix={<UserOutlined />} placeholder="User：admin / user" />
+              <Input prefix={<UserOutlined />} placeholder="User: admin / user" />
             </Form.Item>
             <Form.Item
               name="password"
               initialValue="Wenc1101"
               rules={[{ required: true, message: "Please input your password!" }]}
             >
-              {/* <Input.Password prefix={<LockOutlined />} placeholder="Password：123456" /> */}
+              <Input prefix={<LockOutlined />} placeholder="Password: Wenc1101" />
+            </Form.Item>
+          </>
+        )}
+        {type === "mobile" && (
+          <>
+            <Form.Item
+              name="phone"
+              initialValue="15303663375"
+              rules={[{ required: true, message: "Please input your username!" }]}
+            >
+              <Input prefix={<UserOutlined />} placeholder="User：admin / user" />
+            </Form.Item>
+            <Form.Item name="code" initialValue="123456" rules={[{ required: true, message: "Please input your Code!" }]}>
               <Input
+                prefix={<PhoneOutlined />}
                 suffix={
-                  <Button type="primary" size="small" onClick={sendCode}>
+                  <Button type="primary" size="small" onClick={sendCode} disabled={disabled}>
                     {sendText}
                   </Button>
                 }
@@ -188,7 +210,6 @@ const LoginForm: React.FC = () => {
             </Form.Item>
           </>
         )}
-
         <Form.Item className="login-form-button">
           <Button shape="round" icon={<CloseCircleOutlined />} onClick={onReset}>
             Reset

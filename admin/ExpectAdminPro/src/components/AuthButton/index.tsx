@@ -14,10 +14,11 @@ const AuthButton: React.FC<AuthButtonProps> = ({ authority, children }) => {
 
   let isAuth = false;
 
+  // authority="add" | authority="edit" | authority="delete" | authority="import" | authority="export"
   if (typeof authority === "string") {
     authButtonList[meta.key!]?.includes(authority) && (isAuth = true);
   }
-
+  // authority=["add", "edit", "delete", "import", "export"]
   if (authority instanceof Array && authority.length) {
     const hasPermission = authority.every(item => authButtonList[meta.key!]?.includes(item));
     hasPermission && (isAuth = true);

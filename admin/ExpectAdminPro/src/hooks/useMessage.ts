@@ -16,3 +16,5 @@ export default () => {
 };
 
 export { message, notification, modal };
+
+// notification.success({ message: "通知", description: "描述" });

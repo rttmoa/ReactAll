@@ -5,7 +5,7 @@ import { setAuthButtonList, setAuthMenuList } from "@/redux/modules/auth";
 import { getAuthMenuListApi, getAuthButtonListApi } from "@/api/modules/login";
 
 // todo
-// todo 判断登陆的用户/管理员 调用按钮和菜单列表的接口
+// todo 登陆/刷新页面时；将用户按钮权限和菜单权限存到 redux
 const usePermissions = () => {
   const dispatch = useDispatch();
 

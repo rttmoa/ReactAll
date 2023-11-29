@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+// ? 错误边界
 function ErrorBoundary(props: any) {
   const [error, setError] = useState(null);
 
@@ -15,7 +16,7 @@ function ErrorBoundary(props: any) {
   if (error) {
     return (
       <div>
-        <h1>SomeThing went wrong: {error}</h1>
+        <h1>ErrorBoundary, SomeThing went wrong: {error}</h1>
         <button
           onClick={() => {
             window.open("/");
@@ -29,6 +30,6 @@ function ErrorBoundary(props: any) {
       </div>
     );
   }
-  return props.children;
+  return props.children; // 如果没有错误 返回页面的 children
 }
 export default ErrorBoundary;

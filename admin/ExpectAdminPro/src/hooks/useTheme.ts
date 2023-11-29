@@ -11,7 +11,7 @@ import globalTheme from "@/styles/theme/global";
 type ThemeType = "light" | "inverted" | "dark";
 
 /**
- * @description  use Hooks 设置全局主题
+ * @description  use Hooks 设置全局主题 （routers/index.tsx 中 刷新页面调用此函数）
  */
 const useTheme = () => {
   const { token } = theme.useToken();
@@ -36,6 +36,7 @@ const useTheme = () => {
    * @description Toggle dark mode
    */
   useEffect(() => switchDark(), [isDark]);
+
   const switchDark = () => {
     const html = document.documentElement;
     html.setAttribute("class", isDark ? "dark" : "");

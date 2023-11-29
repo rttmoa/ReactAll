@@ -46,7 +46,8 @@ export function getBrowserLang() {
 /** #### 使用递归展平菜单，以便更轻松地添加动态路由。  */
 export function getFlatMenuList(menuList: RouteObjectType[]): RouteObjectType[] {
   let newMenuList: RouteObjectType[] = JSON.parse(JSON.stringify(menuList));
-  return newMenuList.flatMap(item => [item, ...(item.children ? getFlatMenuList(item.children) : [])]);
+  let flattenArray = newMenuList.flatMap(item => [item, ...(item.children ? getFlatMenuList(item.children) : [])]);
+  return flattenArray; // 返回处理后的扁平化菜单数组
 }
 
 /** #### 使用递归过滤掉左侧菜单中需要渲染的菜单项 > 去掉有isHide属性的（不包括 isHide == true 的菜单）。  */
@@ -109,6 +110,7 @@ export function getUrlWithParams() {
     hash: location.hash.substring(1),
     history: location.pathname + location.search
   };
+  // console.log("getUrlWithParams", url); // {hash: '/auth/button', history: '/'}
   return url[mode];
 }
 

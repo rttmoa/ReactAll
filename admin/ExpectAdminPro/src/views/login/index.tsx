@@ -1,4 +1,5 @@
 import LoginForm from "./components/LoginForm";
+import LoginLogo from "./components/LoginLogo";
 import SwitchDark from "@/components/SwitchDark";
 import loginIllustration from "@/assets/images/login_illustration.svg";
 import logo from "@/assets/images/logo.svg";
@@ -14,10 +15,11 @@ const Login: React.FC = () => {
         </div>
         <div className="login-form">
           <div className="login-form-title">
-            <img className="login-title-logo" src={logo} alt="logo" />
-            <span className="login-title-text">Hooks-Admin</span>
+            <img className="login-title-logo" src={"https://img.maiyadi.com/20/imgfile/20230927/27175603otci.png"} alt="logo" />
+            <span className="login-title-text">login</span>
           </div>
           <LoginForm />
+          <LoginLogo />
         </div>
       </div>
     </div>

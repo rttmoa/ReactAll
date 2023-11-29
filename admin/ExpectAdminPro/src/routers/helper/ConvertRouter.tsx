@@ -15,29 +15,23 @@ const modules = import.meta.glob("@/views/**/*.tsx") as Record<string, Parameter
  * @param {Array} authMenuList Permissions menu list
  * @returns {Array} The routing format required by the react-router
  */
-// todo authMenuList接口中获取的Menu
+// ? 转换为动态路由器格式
 export const convertToDynamicRouterFormat = (authMenuList: RouteObjectType[]) => {
-  // Flat Routing
   const flatMenuList = getFlatMenuList(authMenuList);
-  // console.log(authMenuList); // 接口中Menu：(14) Array [{…},....]
-  // console.log(flatMenuList); // 处理后Menu：(59) Array [{…},....]
-  // return
-  // .
-  // Convert Routing
+  console.log("扁平化数组：", authMenuList, flatMenuList); // 接口中菜单 转换 react-router格式：(12) Array [{…},....]  -->  (66) Array [{…},....]
+
+  // 重新处理 flatMenuList 数组
   const handleMenuList = flatMenuList.map(item => {
     item.children && delete item.children;
 
-    if (item.redirect) item.element = <Navigate to={item.redirect} />; // Set redirection component
+    if (item.redirect) item.element = <Navigate to={item.redirect} />;
 
-    // Convert element to antd component
-    // todo 提前处理懒加载，在Layout中正常加载就可以
+    // ! 将 element 转换为 antd 组件,  提前处理懒加载，在Layout中正常加载就可以
     if (item.element && typeof item.element == "string") {
       const Component = LazyComponent(lazy(modules["/src/views" + item.element + ".tsx"])); // item.element： /menu/menu2/menu21/index
-
       item.element = <RouterGuard>{Component}</RouterGuard>;
     }
 
-    // Set loader
     item.loader = () => {
       return { ...item.meta, redirect: !!item.redirect };
     };
@@ -52,7 +46,7 @@ export const convertToDynamicRouterFormat = (authMenuList: RouteObjectType[]) =>
     if (item.meta?.isFull) dynamicRouter.push(item);
     else dynamicRouter[0].children?.push(item);
   });
-  // console.log(dynamicRouter);
+  console.log(dynamicRouter);
   // return;
 
   return dynamicRouter;
