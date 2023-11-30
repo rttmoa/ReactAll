@@ -1,18 +1,33 @@
 
+! 项目 url; http://localhost:9527/
+
+! 项目 mock; https://mock.mengxuegu.com/editor/64ce5fd3686aea63fd6b5a30/64ce649f686aea63fd6b5a34
 
 
-
-! url; http://localhost:9527/
-
-! mock; https://mock.mengxuegu.com/editor/64ce5fd3686aea63fd6b5a30/64ce649f686aea63fd6b5a34
-
-
-
-todo  项目中添加功能
-  todo 登陆 Login 手机获取验证码倒计时功能  /login  参考 
-  todo /api 二次封装Axios
-  todo /router
-  todo /redux
+! 项目目录
+  - .husky
+  - .vscode
+  - build
+  - public
+  - src
+    - api | 二次封装 axios 请求
+    √ assets | 字体、图标、json、图片
+    - component
+    - components
+    - config
+    - context | 全局上下文
+    - enums | 枚举
+    - hooks | 封装项目 Hooks
+    √ languages | 中文、英文
+    - layouts | 项目布局
+    - redux 
+    √ routers | 路由处理
+    - styles
+    - typings
+    - utils
+    - views
+    - App.tsx
+    - main.tsx
 
 
 将此设计为 Blogs

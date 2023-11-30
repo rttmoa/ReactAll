@@ -1,6 +1,6 @@
 export default {
   user: {
-    username: "sad"
+    username: "SAD"
   },
   home: {
     welcome: "Welcome to"

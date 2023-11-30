@@ -1,6 +1,7 @@
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
+// 进度条
 NProgress.configure({
   easing: "ease",
   speed: 500,

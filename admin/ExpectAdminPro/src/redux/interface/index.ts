@@ -14,6 +14,7 @@ export interface GlobalState {
   language: LanguageType;
   maximize: boolean;
   primary: string;
+  /** #### TODO: 黑暗模式  */
   isDark: boolean;
   isGrey: boolean;
   isWeak: boolean;

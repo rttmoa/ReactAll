@@ -10,17 +10,16 @@ import usePermissions from "@/hooks/usePermissions";
 import NotFound from "@/components/Error/404";
 const mode = import.meta.env.VITE_ROUTER_MODE;
 
-// todo 路由
-// todo 处理主题
-// todo 处理全局 Message、Modal、notification
-// todo 处理用户权限
-// todo finially 处理 <Route />
+// TODO: 路由  <RouterProvider />
+// ! 1、处理全局主题颜色
+// ! 2、处理全局 Message
+// ! 3、处理用户权限 (用户按钮权限 | 用户菜单权限)
+// ! 4、合并 静态路由 和 动态路由
 const RouterProvider: React.FC = () => {
   // console.log("登陆成功/刷新页面 进入 routers");
 
-  // 自定义 Hooks
-  useTheme(); // ! 使用 主题
-  useMessage(); // ! 使用 消息
+  useTheme(); //    ! 设置全局主题颜色
+  useMessage(); //  ! 设置消息
 
   const { initPermissions } = usePermissions();
 
@@ -35,8 +34,7 @@ const RouterProvider: React.FC = () => {
       return;
     }
 
-    /** #### 处理动态路由  */
-    const dynamicRouter = convertToDynamicRouterFormat(authMenuList); // ! 接口菜单列表 转换为 react-router 所需的路由结构
+    const dynamicRouter = convertToDynamicRouterFormat(authMenuList); // ! 处理动态路由； 接口菜单列表 转换为 react-router 所需的路由结构
     let allRouter = [...wrappedStaticRouter, ...dynamicRouter];
 
     allRouter.forEach(item => item.path === "*" && (item.element = <NotFound />)); // 为了防止404刷新页面，在最后添加*路由
@@ -44,7 +42,7 @@ const RouterProvider: React.FC = () => {
     setRouterList(allRouter);
   }, [authMenuList]);
 
-  // console.log(routerList); // 6个static + 3个dynamic
+  // console.log(routerList); // 6个static + 3个dynamic； Array (9)[{…}, ...]
   const routerMode = {
     hash: () => createHashRouter(routerList as RouteObject[]),
     history: () => createBrowserRouter(routerList as RouteObject[])
@@ -52,5 +50,5 @@ const RouterProvider: React.FC = () => {
   return <Router router={routerMode[mode]()} />;
   // Props：<Route path={item.path} exact={item.exact} render={item.render} key={index} component {...props} />
 };
-// 处理路由，返回 <Route /> 组件
+
 export default RouterProvider;

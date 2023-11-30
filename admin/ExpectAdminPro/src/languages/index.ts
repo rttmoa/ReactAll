@@ -22,7 +22,17 @@ i18n.use(initReactI18next).init({
 
 export default i18n;
 
-// todo 使用
-//    todo：import { useTranslation } from 'react-i18next'
-//    todo：const { t } = useTranslation()
+// TODO: 使用
+//    todo：import { useTranslation, Trans } from 'react-i18next'
+//    todo：const { t, i18n } = useTranslation()
 //    todo：<span>{t("tabs.refresh")}</span>
+
+// ! 切换语言功能
+// renderI18n = item => {
+//   const { i18n } = this.props;
+//   return (
+//     <Button onclick={() => i18n.changeLanguage(i18n.language === "en" ? "zh" : "en")}>
+//       {i18n.language === "en" ? "切换成中文": "切换成英文"}
+//     </Button>
+//   )
+// }

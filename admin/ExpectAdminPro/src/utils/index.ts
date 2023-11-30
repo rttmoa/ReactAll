@@ -22,7 +22,7 @@ export function randomNum(min: number, max: number): number {
   return num;
 }
 
-/** #### 设置样式属性  */
+/** #### 设置样式属性 document.documentElement  */
 export function setStyleProperty(key: string, val: string) {
   document.documentElement.style.setProperty(key, val);
 }
