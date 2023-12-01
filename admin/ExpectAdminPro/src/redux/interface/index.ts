@@ -14,7 +14,6 @@ export interface GlobalState {
   language: LanguageType;
   maximize: boolean;
   primary: string;
-  /** #### TODO: 黑暗模式  */
   isDark: boolean;
   isGrey: boolean;
   isWeak: boolean;
@@ -54,7 +53,7 @@ export interface UserState {
 
 /* AuthState */
 export interface AuthState {
-  authMenuList: RouteObjectType[]; // 接口中获取的菜单列表； (14)[{…}, {…}, {…}, {…}, ..................]
+  authMenuList: RouteObjectType[]; // 接口中获取的菜单列表； (12)[{…}, {…}, {…}, {…}, ..................]
   showMenuList: RouteObjectType[];
   flatMenuList: RouteObjectType[]; // (60)Array: [{…}, {…}, {…}, {…}, {…}, ...............]
   authButtonList: {

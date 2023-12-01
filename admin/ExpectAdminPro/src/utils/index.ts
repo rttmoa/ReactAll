@@ -50,14 +50,14 @@ export function getFlatMenuList(menuList: RouteObjectType[]): RouteObjectType[] 
   return flattenArray; // 返回处理后的扁平化菜单数组
 }
 
-/** #### 使用递归过滤掉左侧菜单中需要渲染的菜单项 > 去掉有isHide属性的（不包括 isHide == true 的菜单）。  */
+/** #### 使用递归过滤掉 菜单中 meta.isHide: true 的数据  */
 export function getShowMenuList(menuList: RouteObjectType[]) {
   let newMenuList: RouteObjectType[] = JSON.parse(JSON.stringify(menuList));
-  let getRemoveIsHide = newMenuList.filter(item => {
+  return newMenuList.filter(item => {
     item.children?.length && (item.children = getShowMenuList(item.children));
+    // if (item.meta?.isHide) console.log(item.meta.title, item); // item.meta.isHide为ture的，被过滤掉  {"path": "/noLayout/index","meta": {"isHide": true,}}
     return !item.meta?.isHide;
   });
-  return getRemoveIsHide;
 }
 
 /** #### 获取一级菜单  */
@@ -110,7 +110,7 @@ export function getUrlWithParams() {
     hash: location.hash.substring(1),
     history: location.pathname + location.search
   };
-  // console.log("getUrlWithParams", url); // {hash: '/auth/button', history: '/'}
+  // console.log("getUrlWithParams", url); // {hash: '/auth/button', history: '/'} | {hash: '/feat/tabs', history: '/'}
   return url[mode];
 }
 

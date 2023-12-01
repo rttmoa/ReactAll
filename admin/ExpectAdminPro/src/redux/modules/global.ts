@@ -10,10 +10,10 @@ const globalState: GlobalState = {
 
   // current system language
   language: null,
-  // 当前页面是否全屏；TabsView下拉中 最大化 （Main布局中设置 root.classList.toggle("main-maximize", maximize)）
+  // 当前页面是否全屏；TabsView下拉中 最大化   (Main布局中设置 root.classList.toggle("main-maximize", maximize))
   maximize: false,
 
-  // 全局主题 -> 主题颜色 （颜色挑选器）
+  // 全局主题 -> 默认主题颜色 （颜色挑选器）
   primary: DEFAULT_PRIMARY,
   // 全局主题 -> 暗黑 模式
   isDark: false,
@@ -38,7 +38,7 @@ const globalState: GlobalState = {
   // 界面设置 -> 菜单手风琴
   accordion: true,
   // 界面设置 -> 水印
-  watermark: true,
+  watermark: false,
   // 界面设置 -> 面包屑
   breadcrumb: true,
   // 界面设置 -> 面包屑图标
@@ -60,11 +60,13 @@ const globalSlice = createSlice({
   name: "hooks-global",
   initialState: globalState,
   reducers: {
+    // TODO: 泛型类型
     setGlobalState<T extends keyof GlobalState>(state: GlobalState, { payload }: PayloadAction<ObjToKeyValUnion<GlobalState>>) {
       state[payload.key as T] = payload.value as GlobalState[T];
     }
   }
 });
+// console.log(globalSlice);
 
 export const { setGlobalState } = globalSlice.actions;
 export default globalSlice.reducer;

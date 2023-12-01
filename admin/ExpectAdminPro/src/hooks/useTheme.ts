@@ -19,7 +19,7 @@ const useTheme = () => {
 
   const { isDark, primary, isGrey, isWeak, borderRadius, compactAlgorithm, siderInverted, headerInverted } = useSelector(
     (state: RootState) => {
-      console.log("获取全局属性：", state.global);
+      // console.log("获取全局属性：", state.global);
       return {
         isDark: state.global.isDark,
         primary: state.global.primary,

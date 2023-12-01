@@ -3,11 +3,11 @@ import { AuthState } from "@/redux/interface";
 import { getFlatMenuList, getShowMenuList } from "@/utils";
 
 const authState: AuthState = {
-  // 菜单权限列表
+  // 菜单权限列表 ==> 接口菜单列表
   authMenuList: [],
-  // 菜单权限列表 ==> 左侧菜单栏渲染，需要移除 isHide == true
+  // 菜单权限列表 ==> 过滤菜单列表isHide: true
   showMenuList: [],
-  // 菜单权限列表 ==> 扁平化一维数组菜单，主要用于添加动态路由
+  // 菜单权限列表 ==> 扁平化数组
   flatMenuList: [],
   // 按钮权限列表
   authButtonList: {}
@@ -17,9 +17,11 @@ const authSlice = createSlice({
   name: "hooks-auth",
   initialState: authState,
   reducers: {
+    // ! 设置 按钮权限列表
     setAuthButtonList(state, { payload }: PayloadAction<AuthState["authButtonList"]>) {
       state.authButtonList = payload;
     },
+    // ! 设置 菜单列表
     setAuthMenuList(state, { payload }: PayloadAction<AuthState["authMenuList"]>) {
       state.authMenuList = payload;
       state.flatMenuList = getFlatMenuList(payload);

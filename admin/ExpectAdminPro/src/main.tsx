@@ -12,9 +12,8 @@ import "virtual:svg-icons-register"; // svg
 import "@/assets/iconfont-Fonts/iconfontFonts.less";
 
 // todo
-// todo redux && redux持久化
-// todo 导入字体 && 图标
-// todo antd css dist包
+// todo redux | redux持久化
+// todo 导入字体 | 图标 | CSS | LESS | svg | antdCSS
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>

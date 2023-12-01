@@ -14,13 +14,13 @@
     √ assets | 字体、图标、json、图片
     - component
     - components
-    - config
+    √ config | 配置：常量、进度条、表格配置
     - context | 全局上下文
-    - enums | 枚举
+    √ enums | 枚举：请求配置、请求方法
     - hooks | 封装项目 Hooks
     √ languages | 中文、英文
     - layouts | 项目布局
-    - redux 
+    × redux | redux配置：react-redux、@reduxjs/toolkit、redux-persist、redux-thunk
     √ routers | 路由处理
     - styles
     - typings
@@ -28,7 +28,8 @@
     - views
     - App.tsx
     - main.tsx
-
+    
+进行：api、context
 
 将此设计为 Blogs
   @copy其他项目 （功能，技术，方法，实现）

@@ -1,3 +1,4 @@
+// redux/modules/global.ts;  { payload }: PayloadAction<ObjToKeyValUnion<GlobalState>>
 type ObjToKeyValUnion<T> = {
   [K in keyof T]: { key: K; value: T[K] };
 }[keyof T];

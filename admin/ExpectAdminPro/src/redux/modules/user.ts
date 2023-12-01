@@ -3,14 +3,14 @@ import { UserState } from "@/redux/interface";
 
 const userState: UserState = {
   token: "",
-  userInfo: { name: "Hooks" }
+  userInfo: { name: "艾利斯" }
 };
 
-const globalSlice = createSlice({
+const userSlice = createSlice({
   name: "hooks-user",
   initialState: userState,
   reducers: {
-    setToken(state, { payload }: PayloadAction<string>) {
+    setToken(state, { payload }: PayloadAction<UserState["token"]>) {
       state.token = payload;
     },
     setUserInfo(state, { payload }: PayloadAction<UserState["userInfo"]>) {
@@ -19,5 +19,5 @@ const globalSlice = createSlice({
   }
 });
 
-export const { setToken, setUserInfo } = globalSlice.actions;
-export default globalSlice.reducer;
+export const { setToken, setUserInfo } = userSlice.actions;
+export default userSlice.reducer;

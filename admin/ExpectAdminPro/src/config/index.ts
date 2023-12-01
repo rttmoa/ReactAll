@@ -3,10 +3,7 @@
 
 
 
-
-
 export const HOME_URL: string = "/home/index";
-
 
 export const LOGIN_URL: string = "/login";
 

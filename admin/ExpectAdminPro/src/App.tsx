@@ -51,7 +51,6 @@ const App: React.FC = () => {
     i18n.changeLanguage(language as string);
     dayjs.locale(language === "zh" ? "zh-cn" : "en");
   };
-
   useEffect(() => {
     initLanguage();
   }, [language]);
