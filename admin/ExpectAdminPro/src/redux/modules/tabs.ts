@@ -18,7 +18,7 @@ const tabsSlice = createSlice({
     },
     // ? -----> 添加 tab 
     addTab(state, { payload }: PayloadAction<TabsListProp>) { 
-      console.log("STATE", JSON.parse(JSON.stringify(state)));
+      // console.log("STATE", JSON.parse(JSON.stringify(state)));
       if (state.tabsList.every(item => item.path !== payload.path)) {
         state.tabsList.push(payload);
       }

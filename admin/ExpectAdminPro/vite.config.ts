@@ -54,6 +54,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       open: viteEnv.VITE_OPEN,
       cors: true,
       // Load proxy configuration from .env.development
+      // ? 代理
       proxy: createProxy(viteEnv.VITE_PROXY)
     },
     plugins: [createVitePlugins(viteEnv) /* reactVirtualized() */],

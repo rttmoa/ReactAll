@@ -32,7 +32,6 @@ export function convertToSixDigitHexColor(str: string) {
   if (str.length > 4) return str.toLocaleUpperCase();
   else return (str[0] + str[1] + str[1] + str[2] + str[2] + str[3] + str[3]).toLocaleUpperCase();
 }
-
 /** #### 获取浏览器的默认语言。  */
 export function getBrowserLang() {
   let browserLang = navigator.language ? navigator.language : navigator.browserLanguage;

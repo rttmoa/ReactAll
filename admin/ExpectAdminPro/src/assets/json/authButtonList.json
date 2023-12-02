@@ -1,5 +1,6 @@
 {
   "code": 200,
+  // 数据
   "data": {
     "authButton": ["add", "edit", "delete", "import", "export"],
     "useProTable": ["add", "batchAdd", "export", "batchDelete", "status"]

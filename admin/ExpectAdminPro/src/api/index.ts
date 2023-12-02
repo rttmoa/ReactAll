@@ -13,9 +13,8 @@ export interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   loading?: boolean;
 }
 
-const config = {
-  // The default address request address, which can be modified in the .env.** file
-  baseURL: import.meta.env.VITE_API_URL as string,
+const config: AxiosRequestConfig = {
+  baseURL: import.meta.env.VITE_API_URL as string, // development: /api
   timeout: ResultEnum.TIMEOUT as number,
   // 允许跨域携带凭证
   withCredentials: false
@@ -39,9 +38,11 @@ class RequestHttp {
           const configToken = store.getState().user.token;
           config.headers.set("x-access-token", configToken);
         }
+        // console.log('请求配置', config); 
         // config.headers["authorization"] = `Bearer ${getToken()}` // qianfeng request
         return config;
       }, (error: AxiosError) => {
+        console.log('request--Error', error);
         return Promise.reject(error);
       }
     );
@@ -72,10 +73,13 @@ class RequestHttp {
         return data;
       },
       async (error: AxiosError) => {
+        // console.log('响应Error:', error);
         const { response } = error;
         tryHideFullScreenLoading();
         // 分别判断请求超时 && 网络错误，无响应
-        if (error.message.indexOf("timeout") !== -1) message.error("请求超时！请您稍后重试");
+        if (error.message.indexOf("timeout") !== -1) { // "timeout of 2000ms exceeded"
+          message.error("请求超时！请您稍后重试");
+        }
         if (error.message.indexOf("Network Error") !== -1) message.error("网络错误！请您稍后重试");
         // 根据服务器响应的错误状态代码进行不同处理
         if (response) checkStatus(response.status);

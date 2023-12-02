@@ -19,7 +19,7 @@ export const loginApi = (params: ReqLogin) => {
   // return loginJSON;
 };
 
-// todo 获取菜单列表
+// ! 获取菜单列表
 export const getAuthMenuListApi = () => {
   // console.log(http.get<AuthState["authMenuList"]>(PORT1 + `/menu/list`).then(res => console.log("菜单列表", res)));
   return http.get<AuthState["authMenuList"]>(PORT1 + `/menu/list`);
