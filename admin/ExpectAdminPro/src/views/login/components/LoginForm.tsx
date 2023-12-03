@@ -94,11 +94,11 @@ const LoginForm: React.FC = () => {
 
       // let to = usp.get("to");
       // to ? navigate(to, { replace: true }) : navigate(-1);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      console.log("登陆错误：", error);
     } finally {
       setLoading(false);
-      message.destroy();
+      // message.destroy(); // FIXME: 阻止了其他 message 的提示
     }
   };
   const onFinishFailed: FormProps["onFinishFailed"] = errorInfo => {
