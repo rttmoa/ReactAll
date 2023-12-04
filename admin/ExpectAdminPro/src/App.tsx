@@ -13,8 +13,8 @@ import RouterProvider from "@/routers"; // 路由 router
 import i18n from "@/languages/index"; // 国际化 i18n
 import enUS from "antd/locale/en_US";
 import zhCN from "antd/locale/zh_CN";
-import dayjs from "dayjs"; // dayjs
-import "dayjs/locale/zh-cn";
+import dayjs from "dayjs"; // declare namespace dayjs {}
+import "dayjs/locale/zh-cn"; // declare module 'dayjs/locale/*' {}
 
 // todo
 // todo 设置主题：是否暗黑模式 && 是否紧凑主题
@@ -25,17 +25,10 @@ const App: React.FC = () => {
 
   const { isDark, primary, componentSize, compactAlgorithm, borderRadius, language } = useSelector((state: RootState) => {
     const { isDark, primary, componentSize, compactAlgorithm, borderRadius, language } = state.global;
-    return {
-      isDark,
-      primary,
-      componentSize,
-      compactAlgorithm,
-      borderRadius,
-      language
-    };
+    return { isDark, primary, componentSize, compactAlgorithm, borderRadius, language };
   }, shallowEqual);
 
-  // init theme algorithm
+  // init theme algorithm     (添加黑暗模式 / 紧凑模式)
   const algorithm = () => {
     const algorithmArr = isDark ? [theme.darkAlgorithm] : [theme.defaultAlgorithm];
     if (compactAlgorithm) algorithmArr.push(theme.compactAlgorithm);
@@ -44,7 +37,7 @@ const App: React.FC = () => {
     return algorithmArr;
   };
 
-  // init language
+  // init language     (初始语言：redux，i18n，dayjs)
   const initLanguage = () => {
     const result = language ?? getBrowserLang();
     dispatch(setGlobalState({ key: "language", value: result as LanguageType }));

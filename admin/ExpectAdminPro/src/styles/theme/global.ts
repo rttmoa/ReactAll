@@ -1,6 +1,7 @@
 /**
  * @description Global theme config
  */
+// TODO: 全局主题配置： 亮 / 暗     登陆时的亮暗，首页时的亮暗
 const globalTheme = {
   light: {
     // Customize global CSS variables

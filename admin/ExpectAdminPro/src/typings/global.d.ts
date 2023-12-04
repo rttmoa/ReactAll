@@ -1,6 +1,8 @@
 /* Vite */
 declare type Recordable<T = any> = Record<string, T>;
 
+// 注释掉后：项目中 import.meta.env.VITE_ROUTER_MODE 报错  （Cannot find name 'ViteEnv'.）
+// d.ts 仅供 声明类型
 declare interface ViteEnv {
   VITE_USER_NODE_ENV: "development" | "production" | "test";
   VITE_GLOB_APP_TITLE: string;
@@ -21,6 +23,7 @@ interface ImportMetaEnv extends ViteEnv {
   __: unknown;
 }
 
+// 注释掉后：侧边栏关于项目模块： const{pkg,lastBuildTime} = __APP_INFO__; 报错  （Cannot find name '__APP_INFO__'.）
 /* __APP_INFO__ */
 declare const __APP_INFO__: {
   pkg: {
