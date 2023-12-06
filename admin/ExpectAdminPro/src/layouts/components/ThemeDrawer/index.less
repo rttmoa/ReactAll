@@ -1,7 +1,10 @@
+// ? 主题配置布局开始；body控制padiing、每一个开关盒子控制上下margin
 .theme-drawer {
+  font-family: aliFonts; // 直接加一个 font-family
   .ant-drawer-body {
     padding: 25px 24px 10px 26px;
   }
+  // 分割线
   .divider {
     margin: 10px 0 0 !important;
     font-size: 15px !important;
@@ -16,6 +19,9 @@
   .ant-divider-with-text::after {
     border-top: 1px solid var(--hooks-colorFill) !important;
   }
+
+
+  // ! 每一个开关设置（主题颜色、暗黑模式、圆角大小）========
   .theme-item {
     display: flex;
     align-items: center;
@@ -29,6 +35,7 @@
       margin-left: 4px;
       cursor: pointer;
     }
+    // 主题颜色 右侧控件
     .primary {
       width: 19px;
       height: 19px;
@@ -53,12 +60,16 @@
       }
     }
   }
+
+
+  // ! 四个布局CSS：纵向、经典、横向、流式===========
   .layout-box {
     position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 25px 2px 0;
+    // 共同部分
     .layout-item {
       position: relative;
       box-sizing: border-box;
@@ -82,6 +93,7 @@
         border: 1px dashed var(--hooks-colorPrimary);
         border-radius: calc(var(--hooks-borderRadiusSM) * 1px);
       }
+      // 选中 icon
       .anticon {
         position: absolute;
         right: 10px;
@@ -92,9 +104,11 @@
         box-shadow: 0 0 5px 1px var(--hooks-colorTextTertiary);
       }
     }
+    // 选中后阴影
     .layout-active {
       box-shadow: 0 0 0 2px var(--hooks-colorPrimary) !important;
     }
+    // 1、垂直布局
     .layout-vertical {
       display: flex;
       justify-content: space-between;
@@ -114,6 +128,7 @@
         }
       }
     }
+    // 2、经典布局
     .layout-classic {
       display: flex;
       flex-direction: column;
@@ -133,6 +148,7 @@
         }
       }
     }
+    // 3、横向布局
     .layout-transverse {
       display: flex;
       flex-direction: column;
@@ -144,6 +160,7 @@
         height: 67%;
       }
     }
+    // 4、分栏布局
     .layout-columns {
       display: flex;
       justify-content: space-between;

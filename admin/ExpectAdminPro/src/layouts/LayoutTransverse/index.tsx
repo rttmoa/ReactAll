@@ -5,13 +5,14 @@ import LayoutMenu from "@/layouts/components//Menu";
 import LayoutMain from "@/layouts/components/Main";
 import logo from "@/assets/images/logo.svg";
 import "./index.less";
+
 const { Header } = Layout;
 const APP_TITLE = import.meta.env.VITE_GLOB_APP_TITLE;
 
-// todo
-// todo 横向布局
+// TODO: 三、横向布局 - layout-transverse
 const LayoutTransverse: React.FC = () => {
   return (
+    // ? 上下布局； 上；Logo + Menu + HeaderRight   下：Content
     <section className="layout-transverse">
       <Header>
         <div className="logo">

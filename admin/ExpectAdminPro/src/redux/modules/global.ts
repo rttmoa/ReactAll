@@ -31,8 +31,8 @@ const globalState: GlobalState = {
   // 布局样式 -> 侧边 反转色
   siderInverted: false,
   // 布局样式 -> 头部 反转色
-
   headerInverted: false,
+
   // 界面设置 -> 菜单 折叠
   isCollapse: false,
   // 界面设置 -> 菜单手风琴
@@ -70,3 +70,9 @@ const globalSlice = createSlice({
 
 export const { setGlobalState } = globalSlice.actions;
 export default globalSlice.reducer;
+
+// 使用：
+// <div>
+//   <span>水印</span>
+//   <Swith checked={state.global.watermark} onChange={value => dispatch(setGlobalState({ key: "watermark", value })) }></Swith>
+// </div>

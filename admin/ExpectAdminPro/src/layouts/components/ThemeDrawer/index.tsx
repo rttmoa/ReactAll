@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Drawer, Divider, Switch, Popover, InputNumber, Tooltip } from "antd";
 import { setGlobalState } from "@/redux/modules/global";
 import { RootState, useDispatch, useSelector } from "@/redux";
@@ -7,6 +8,7 @@ import "./index.less";
 
 const NODE_ENV = import.meta.env.VITE_USER_NODE_ENV;
 
+// TODO: 1、主题设置 | 全局配置     2、主题设置组件 CSS 样式
 const ThemeDrawer: React.FC = () => {
   const dispatch = useDispatch();
   const {
@@ -32,23 +34,15 @@ const ThemeDrawer: React.FC = () => {
   } = useSelector((state: RootState) => state.global);
 
   return (
-    <Drawer
-      title="主题配置"
-      width={290}
-      closable={false}
-      maskClosable={true}
-      open={themeDrawerVisible}
-      // open
-      className="theme-drawer"
-      // 设置全局setGlobalStateProps
+    <Drawer className="theme-drawer" title="主题配置" width={290} closable={false} maskClosable={true} open={themeDrawerVisible}
       onClose={() => dispatch(setGlobalState({ key: "themeDrawerVisible", value: false }))}
     >
-      {/* TODO: layout switching */}
-      <Divider className="divider">
-        <LayoutOutlined />
-        布局样式
-      </Divider>
-      <div className="layout-box">
+      {/* TODO: ====布局样式==== */}
+      <Divider className="divider"><LayoutOutlined />布局样式</Divider>
+      <div
+        // ! 下面为 四个布局：纵向、经典、横向、流式
+        className="layout-box"
+      >
         <Tooltip placement="top" title="纵向" arrow={true} mouseEnterDelay={0.2}>
           <div
             className={`layout-item mb22 layout-vertical ${layout === "vertical" && "layout-active"}`}
@@ -129,12 +123,11 @@ const ThemeDrawer: React.FC = () => {
         <Switch checked={headerInverted} onChange={value => dispatch(setGlobalState({ key: "headerInverted", value }))} />
       </div>
 
-      {/* TODO: theme settings */}
+      {/* TODO: --全局主题-- */}
       <Divider className="divider">
         <FireOutlined />
         全局主题
       </Divider>
-      {/* FIXME: 修改主题颜色 */}
       <div className="theme-item">
         <span>主题颜色</span>
         <Popover placement="left" trigger="click" content={ColorPicker}>
@@ -174,7 +167,7 @@ const ThemeDrawer: React.FC = () => {
         <span>紧凑主题</span>
         <Switch checked={compactAlgorithm} onChange={value => dispatch(setGlobalState({ key: "compactAlgorithm", value }))} />
       </div>
-      <div className="theme-item mb35">
+      <div className="theme-item  mb35">
         <span>圆角大小</span>
         <InputNumber
           min={1}
@@ -190,7 +183,7 @@ const ThemeDrawer: React.FC = () => {
         />
       </div>
 
-      {/* TODO: interface settings */}
+      {/* TODO: --界面设置-- */}
       <Divider className="divider">
         <SettingOutlined />
         界面设置

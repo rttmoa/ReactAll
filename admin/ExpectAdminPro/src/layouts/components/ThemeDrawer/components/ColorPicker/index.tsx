@@ -25,7 +25,7 @@ const presetColors = [
 ];
 
 // todo
-// todo 颜色挑选（主题设置）
+// todo 颜色挑选（全局主题 / 主题颜色设置）
 const ColorPicker = () => {
   const dispatch = useDispatch();
   const primary = useSelector((state: RootState) => state.global.primary);

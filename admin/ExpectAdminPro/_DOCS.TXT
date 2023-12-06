@@ -29,6 +29,12 @@ todo -项目 github; https://github.com/HalseySpicy/Hooks-Admin-Pro
     
 进行：typescript
 
+? 要记录Markdown，比这个更清晰一些
+
+TODO: 问题记录
+  1、主题设置组件；比如主题颜色、圆角大小 ? 如何控制全局
+  2、主题设置组件；CSS样式
+  3、 LayoutVertical | LayoutClassic | LayoutTransverse | LayoutColumns & 四种 HTML 结构
 
 TODO: CHANGELOG
 CHANGE2: Axios二次封装，接口统一存放,满足RESTful风格：

@@ -7,9 +7,7 @@ import LayoutTransverse from "./LayoutTransverse";
 import LayoutColumns from "./LayoutColumns";
 import ThemeDrawer from "@/layouts/components/ThemeDrawer"; // todo 侧边 主题配置
 
-// todo
-// todo Layout
-// todo 懒加载在router中提前处理
+// TODO: Layouts 同步加载页面    (封装过程：水印、四种布局方式、主题配置遮罩)
 const LayoutIndex: React.FC = () => {
   const layout = useSelector((state: RootState) => state.global.layout); // vertical | classic | transverse | columns
   const watermark = useSelector((state: RootState) => state.global.watermark);
@@ -22,7 +20,7 @@ const LayoutIndex: React.FC = () => {
   };
 
   return (
-    <Watermark className="watermark-content" zIndex={1001} content={watermark ? ["Hooks Admin", "Happy Working"] : []}>
+    <Watermark className="watermark-content" zIndex={1001} content={watermark ? ["Watermark Content", "Happy Working"] : []}>
       {LayoutComponents[layout]}
       <ThemeDrawer />
     </Watermark>

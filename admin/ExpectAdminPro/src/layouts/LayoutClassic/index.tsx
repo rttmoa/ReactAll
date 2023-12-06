@@ -15,13 +15,12 @@ import "./index.less"; // todo 经典布局LESS
 const { Header, Sider } = Layout;
 const APP_TITLE = import.meta.env.VITE_GLOB_APP_TITLE;
 
-// todo
-// todo 经典布局
+// TODO: 二、经典布局 - layout-classic
 const LayoutClassic: React.FC = () => {
   const { pathname } = useLocation();
 
-  const isCollapse = useSelector((state: RootState) => state.global.isCollapse);
-  const menuSplit = useSelector((state: RootState) => state.global.menuSplit); // 菜单分割；经典布局模式
+  const isCollapse = useSelector((state: RootState) => state.global.isCollapse); // 菜单折叠
+  const menuSplit = useSelector((state: RootState) => state.global.menuSplit); // 菜单分割； 仅经典布局模式
   const showMenuList = useSelector((state: RootState) => state.auth.showMenuList); // 显示的菜单项；不包括Static Router
   const firstLevelMenuList = getFirstLevelMenuList(showMenuList); // 处理完；无children属性
 
@@ -31,32 +30,28 @@ const LayoutClassic: React.FC = () => {
   // console.log(showMenuList);
   // console.log(firstLevelMenuList);
   useEffect(() => {
-    if (menuSplit) changeSubMenu();
+    if (menuSplit) {
+      const menuItem = showMenuList.find(item => {
+        return pathname === item.path || `/${pathname.split("/")[1]}` === item.path;
+      });
+      // console.log(menuItem?.path, menuItem);
+      setSubMenuList(menuItem?.children || []);
+    }
   }, [pathname, menuSplit]);
 
-  const changeSubMenu = () => {
-    const menuItem = showMenuList.find(item => {
-      return pathname === item.path || `/${pathname.split("/")[1]}` === item.path;
-    });
-    setSubMenuList(menuItem?.children || []);
-  };
-
   function subMenuStructure() {
-    return (
-      <React.Fragment>
-        {subMenuList.length > 0 ? (
-          <>
-            <LayoutMenu mode="inline" menuList={subMenuList} />
-            <div className="collapse-box">{<CollapseIcon />}</div>
-          </>
-        ) : null}
-      </React.Fragment>
-    );
+    return subMenuList.length > 0 ? (
+      <>
+        <LayoutMenu mode="inline" menuList={subMenuList} />
+        <div className="collapse-box">{<CollapseIcon />}</div>
+      </>
+    ) : null;
   }
 
   // todo
   // todo 经典布局：Menu分割
   return (
+    // 两种结构；   上下：  上；Logo + 菜单 / HeaderLeft + HeaderRight   下；菜单 + 主体
     <section className="layout-classic">
       <Header>
         <div className={`header-lf ${menuSplit ? "hide-logo" : "mask-image"}`}>
