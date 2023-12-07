@@ -8,7 +8,7 @@ import "./index.less";
 
 const NODE_ENV = import.meta.env.VITE_USER_NODE_ENV;
 
-// TODO: 1、主题设置 | 全局配置     2、主题设置组件 CSS 样式
+// TODO: 1、主题设置&设置全局配置（主题颜色、圆角大小）     2、主题设置组件 HTML结构 + CSS样式
 const ThemeDrawer: React.FC = () => {
   const dispatch = useDispatch();
   const {
@@ -39,10 +39,8 @@ const ThemeDrawer: React.FC = () => {
     >
       {/* TODO: ====布局样式==== */}
       <Divider className="divider"><LayoutOutlined />布局样式</Divider>
-      <div
-        // ! 下面为 四个布局：纵向、经典、横向、流式
-        className="layout-box"
-      >
+      {/* 开始；四个布局：纵向、经典、横向、流式 */}
+      <div className="layout-box">
         <Tooltip placement="top" title="纵向" arrow={true} mouseEnterDelay={0.2}>
           <div
             className={`layout-item mb22 layout-vertical ${layout === "vertical" && "layout-active"}`}
@@ -91,6 +89,7 @@ const ThemeDrawer: React.FC = () => {
           </div>
         </Tooltip>
       </div>
+      {/* 结束；四个布局：纵向、经典、横向、流式 */}
       <div className="theme-item mt30">
         <span>
           菜单分割
@@ -124,10 +123,7 @@ const ThemeDrawer: React.FC = () => {
       </div>
 
       {/* TODO: --全局主题-- */}
-      <Divider className="divider">
-        <FireOutlined />
-        全局主题
-      </Divider>
+      <Divider className="divider"><FireOutlined />全局主题</Divider>
       <div className="theme-item">
         <span>主题颜色</span>
         <Popover placement="left" trigger="click" content={ColorPicker}>

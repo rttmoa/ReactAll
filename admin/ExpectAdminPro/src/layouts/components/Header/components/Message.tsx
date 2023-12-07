@@ -72,7 +72,7 @@ const Message: React.FC = () => {
 
   return (
     <Popover placement="bottom" content={content} trigger="click" overlayClassName="message-popover">
-      <Badge count={5} style={{ color: "#ffffff" }}>
+      <Badge size="small" count={3} style={{ color: "#ffffff" }}>
         <i className="iconfont icon-xiaoxi"></i>
       </Badge>
     </Popover>

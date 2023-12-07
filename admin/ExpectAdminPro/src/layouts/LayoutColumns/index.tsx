@@ -55,14 +55,16 @@ const LayoutColumns: React.FC = () => {
     handleNavigation(item.children?.length ? item.children[0] : item);
   };
   // 返回 主菜单 列表结构
-  function menuListStructure(item: RouteObjectType) {
-    let activeSelMenu = menuActive === item.path || `/${menuActive.split("/")[1]}` === item.path; // 高亮 选中项
-    return (
-      <div key={item.path} className={`menu-item ${activeSelMenu && "menu-active"}`} onClick={() => clickOtherMenu(item)}>
-        <Icon name={item.meta!.icon!} />
-        <span className="title sle">{item.meta?.title}</span>
-      </div>
-    );
+  function menuListStructure() {
+    return showMenuList.map(item => {
+      let activeSelMenu = menuActive === item.path || `/${menuActive.split("/")[1]}` === item.path; // 高亮 选中项
+      return (
+        <div key={item.path} className={`menu-item ${activeSelMenu && "menu-active"}`} onClick={() => clickOtherMenu(item)}>
+          <Icon name={item.meta!.icon!} />
+          <span className="title sle">{item.meta?.title}</span>
+        </div>
+      );
+    });
   }
 
   // todo
@@ -73,7 +75,7 @@ const LayoutColumns: React.FC = () => {
         <div className="logo">
           <img src={logo} alt="logo" className="logo-img" />
         </div>
-        <div className="menu-list">{showMenuList.map(item => menuListStructure(item))}</div>
+        <div className="menu-list">{menuListStructure()}</div>
       </div>
       <Sider width={210} collapsed={isCollapse} className={`${!subMenuList.length && "not-sider"}`}>
         {subMenuList.length && (

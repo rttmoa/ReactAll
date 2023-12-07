@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { store } from "@/redux";
 import { ResPage } from "@/api/interface";
 import { RouteObjectType } from "@/routers/interface";
@@ -91,11 +92,7 @@ export function getMenuByPath(
  * @param {Object} result - The processed result.
  * @returns {Object}
  */
-export function getAllBreadcrumbList(
-  menuList: RouteObjectType[],
-  parent: RouteObjectType[] = [],
-  result: { [key: string]: RouteObjectType[] } = {}
-) {
+export function getAllBreadcrumbList(menuList: RouteObjectType[], parent: RouteObjectType[] = [],  result: { [key: string]: RouteObjectType[] } = {}) {
   for (const item of menuList) {
     result[item.meta!.key!] = [...parent, item];
     if (item.children) getAllBreadcrumbList(item.children, result[item.meta!.key!], result);

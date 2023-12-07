@@ -16,7 +16,7 @@ const LayoutIndex: React.FC = () => {
     vertical: <LayoutVertical />, //------ 纵向
     classic: <LayoutClassic />, //-------- 经典
     transverse: <LayoutTransverse />, //-- 横向
-    columns: <LayoutColumns /> //--------- 分栏
+    columns: <LayoutColumns /> // ! --------- 分栏 (测试分栏)
   };
 
   return (

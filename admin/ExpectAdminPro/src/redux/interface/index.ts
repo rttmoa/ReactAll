@@ -23,7 +23,7 @@ export interface GlobalState {
   isCollapse: boolean;
   accordion: boolean;
   watermark: boolean;
-  breadcrumb: boolean;
+  breadcrumb: boolean; // 是否显示面包屑
   breadcrumbIcon: boolean;
   tabs: boolean;
   tabsIcon: boolean;
@@ -53,7 +53,7 @@ export interface UserState {
 
 /* AuthState */
 export interface AuthState {
-  authMenuList: RouteObjectType[]; // 接口中获取的菜单列表； (12)[{…}, {…}, {…}, {…}, ..................]
+  authMenuList: RouteObjectType[]; // 接口中获取的菜单列表； (14)[{…}, {…}, {…}, {…}, ..................]
   showMenuList: RouteObjectType[]; // 接口中使用递归过滤掉 菜单中 meta.isHide: true 的数据
   flatMenuList: RouteObjectType[]; // (60)Array: [{…}, {…}, {…}, {…}, {…}, ...............]
   authButtonList: {
