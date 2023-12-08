@@ -22,8 +22,8 @@ const { Content } = Layout;
 
 const LayoutMain: React.FC = () => {
   const outlet = useOutlet();
-  const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
   const { outletShow } = useContext(RefreshContext);
 
   const maximize = useSelector((state: RootState) => state.global.maximize); // 是否 最大化
@@ -59,7 +59,7 @@ const LayoutMain: React.FC = () => {
   const { nodeRef } = menuList.find(route => route.path === pathname) ?? {};
 
   return (
-    <React.Fragment>
+    <>
       <Maximize />
       <LayoutTabs />
       <SwitchTransition>
@@ -68,7 +68,7 @@ const LayoutMain: React.FC = () => {
         </CSSTransition>
       </SwitchTransition>
       <LayoutFooter />
-    </React.Fragment>
+    </>
   );
 };
 

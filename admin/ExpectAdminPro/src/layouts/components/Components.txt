@@ -1,11 +1,11 @@
 
 
 
-1、页脚
+1、页脚 Main > Footer
   控制页脚显示；主题设置控制页脚是否显示，控制Footer
 
 
-2、头部
+2、头部 > Header
   2.1、头部左侧：
     √ 折叠菜单；React.createElement
     ! 面包屑
@@ -21,17 +21,22 @@
     ! 头像：
 
 
-3、主体 Main 
-
-
-4、菜单 Menu 
-
-
-5、标签栏 Tabs
+3、主体 > Main 
+  3.1、Main 包含 TabViews、Footer
 
 
 
-6、主题配置 ThemeDrawer
+4、侧边栏菜单 > Menu 
+  4.1、四种布局方式的侧边栏封装方式
+
+
+
+
+5、标签栏TabViews Main > Tabs
+  5.1、标签管理业务逻辑
+
+
+6、主题配置 > ThemeDrawer
   6.1、怎样设置全局配置 (主题颜色、圆角大小)
   6.2、主题设置组件 HTML结构 + CSS样式
   6.3、颜色挑选  (全局主题 / 主题颜色设置)   <ColorPicker />

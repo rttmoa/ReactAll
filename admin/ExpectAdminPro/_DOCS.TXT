@@ -27,7 +27,7 @@ todo -项目 github; https://github.com/HalseySpicy/Hooks-Admin-Pro
     √ App.tsx | 全局配置、初始化配置
     √ main.tsx | 根组件Redux、Redux-persist | 引入css、less、font、iconfont、markdown.css
     
-进行：typescript、layouts、添加LESS语法、切换全局字体
+进行：typescript、layouts、添加LESS语法、切换全局字体、Components.txt
 
 ? 要记录Markdown，比这个更清晰一些
 
