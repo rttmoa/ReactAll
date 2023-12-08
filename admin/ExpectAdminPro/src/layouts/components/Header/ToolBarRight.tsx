@@ -8,7 +8,7 @@ import Message from "./components/Message";
 import Fullscreen from "./components/Fullscreen";
 import "./index.less";
 
-// todo
+//  todo
 //  todo <ThemeSetting />
 //  todo <SearchMenu />
 //  todo <Message />     ++import.meta.glob('/src/assets/images/notice*.png') as IconImports

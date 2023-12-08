@@ -57,6 +57,9 @@ const AvatarIcon: React.FC = () => {
       onClick: () => navigate(HOME_URL)
     },
     {
+      type: "divider"
+    },
+    {
       key: "2",
       label: <span className="dropdown-item">个人信息</span>,
       icon: <UserOutlined {...style} />,
@@ -89,7 +92,6 @@ const AvatarIcon: React.FC = () => {
       </Dropdown>
 
       <InfoModal ref={infoRef} />
-
       <PasswordModal ref={passRef} />
     </React.Fragment>
   );

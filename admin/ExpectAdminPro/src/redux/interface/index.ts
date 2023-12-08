@@ -22,14 +22,14 @@ export interface GlobalState {
   headerInverted: boolean;
   isCollapse: boolean;
   accordion: boolean;
-  watermark: boolean;
-  breadcrumb: boolean; // 是否显示面包屑
-  breadcrumbIcon: boolean;
+  watermark: boolean; // 主题配置；开启 ? 水印
+  breadcrumb: boolean; // 主题配置；开启 ? 面包屑
+  breadcrumbIcon: boolean; // 主题配置；开启 ? 面包屑图标
   tabs: boolean;
   tabsIcon: boolean;
   tabsDrag: boolean;
-  footer: boolean;
-  themeDrawerVisible: boolean;
+  footer: boolean; // 主题配置；开启 ? 页脚
+  themeDrawerVisible: boolean; // 开启 ? 主题抽屉可见
 }
 
 /* tabsMenuProps */

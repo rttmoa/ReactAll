@@ -7,15 +7,16 @@ const ComponentSize: React.FC = () => {
   const dispatch = useDispatch();
   const componentSize = useSelector((state: RootState) => state.global.componentSize);
 
+  // 点击设置组件大小
   const setComponentSize: MenuProps["onClick"] = val => {
     // console.log(val); // {key: 'middle', keyPath: Array(1), domEvent: SyntheticBaseEvent}
     dispatch(setGlobalState({ key: "componentSize", value: val.key as SizeType }));
   };
 
   const items: MenuProps["items"] = [
-    { key: "middle", label: "默认", disabled: componentSize === "middle" },
-    { key: "large", label: "大型", disabled: componentSize === "large" },
-    { key: "small", label: "小型", disabled: componentSize === "small" }
+    { key: "middle", label: <span style={{ fontFamily: "aliFonts" }}>默认</span>, disabled: componentSize === "middle" },
+    { key: "large", label: <span style={{ fontFamily: "aliFonts" }}>大型</span>, disabled: componentSize === "large" },
+    { key: "small", label: <span style={{ fontFamily: "aliFonts" }}>小型</span>, disabled: componentSize === "small" }
   ];
 
   const menuProps = {

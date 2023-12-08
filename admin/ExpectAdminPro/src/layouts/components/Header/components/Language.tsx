@@ -15,8 +15,8 @@ const Language: React.FC = () => {
   };
 
   const items: MenuProps["items"] = [
-    { key: "zh", label: "简体中文", disabled: language === "zh" },
-    { key: "en", label: "English", disabled: language === "en" }
+    { key: "zh", label: <span style={{ fontFamily: "aliFonts" }}>简体中文</span>, disabled: language === "zh" },
+    { key: "en", label: <span style={{ fontFamily: "aliFonts" }}>English</span>, disabled: language === "en" }
   ];
 
   const menuProps = {

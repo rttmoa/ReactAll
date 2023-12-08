@@ -20,5 +20,4 @@ const LayoutFooter: React.FC = () => {
     </React.Fragment>
   );
 };
-
 export default LayoutFooter;

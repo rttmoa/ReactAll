@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import { Empty, Input, InputRef, Modal } from "antd";
 import { EnterOutlined, SearchOutlined } from "@ant-design/icons";
@@ -19,21 +20,18 @@ const SearchMenu: React.FC = () => {
   const menuListRef = useRef<HTMLDivElement>(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false); // 弹窗的显示与隐藏
-  const [activePath, setActivePath] = useState("");
+  const [activePath, setActivePath] = useState(""); // 设置活动路径 (高亮项)
   const [searchValue, setSearchValue] = useState(""); // 搜索框 Value
 
   const debouncedSearchValue = useDebounce(searchValue, { wait: 300 });
 
-  // 显示与隐藏 Modal
+  // 搜索框 显示与隐藏
   const showModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // 搜索框 onChange
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
-  };
+  
 
-  // 搜索值匹配路由关键字
+  // ? 搜索值匹配路由关键字
   const searchList = useMemo(() => {
     // console.log(flatMenuList); // (60)[{…}, {…}, {…}, .........................]
     // console.log(debouncedSearchValue);
@@ -47,9 +45,9 @@ const SearchMenu: React.FC = () => {
       : [];
   }, [debouncedSearchValue]);
 
-  // 设置 activePath
+  // 设置初始 activePath
   useEffect(() => {
-    searchList.length ? setActivePath(searchList[0].path!) : setActivePath("");
+    searchList.length ?? setActivePath(searchList[0].path!);
   }, [searchList]);
 
   // 移动到 Div 身上， activePath为路径
@@ -74,7 +72,7 @@ const SearchMenu: React.FC = () => {
     }
   };
 
-  // 点击 Div
+  // 选择列表中的菜单 Div
   const selectMenuItem = () => {
     const menu = searchList.find(item => item.path === activePath);
     if (!menu) return;
@@ -96,25 +94,25 @@ const SearchMenu: React.FC = () => {
       selectMenuItem();
     }
   };
-
-  // 弹窗开启：设置window监听键盘事件
+  // 弹窗开启：设置 window监听键盘事件
   useEffect(() => {
     const handler = isModalOpen ? window.addEventListener : window.removeEventListener;
     handler("keydown", keyboardOperation);
     return () => window.removeEventListener("keydown", keyboardOperation);
   }, [isModalOpen, keyboardOperation]);
 
-  // 弹窗开启：设置聚焦
+  // 弹窗开启：输入框 Input 设置自动聚焦 focus
   useEffect(() => {
     if (isModalOpen) {
-      setTimeout(() => inputRef.current?.focus({ cursor: "start" }), 100);
+      setTimeout(() => inputRef.current?.focus({ cursor: "start" }), 1000);
     } else {
       setSearchValue("");
     }
   }, [isModalOpen]);
   // console.log(activePath);
 
-  function menuListStructure() {
+  // 渲染出匹配的菜单列表结构
+  function searchMenuListStructure() {
     return (
       <div className="menu-list" ref={menuListRef}>
         {searchList.map(item => (
@@ -141,12 +139,12 @@ const SearchMenu: React.FC = () => {
           ref={inputRef}
           placeholder="菜单搜索：支持菜单名称、路径"
           size="large"
-          prefix={<SearchOutlined style={{ fontSize: "18px" }} />}
+          prefix={<SearchOutlined />}
           allowClear={true}
           value={searchValue}
-          onChange={handleInputChange}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setSearchValue(event.target.value) }}
         />
-        {searchList.length ? menuListStructure() : <Empty className="mt40 mb30" description="暂无菜单" />}
+        {searchList.length ? searchMenuListStructure() : <Empty className="mt40 mb30" description="暂无菜单" />}
       </Modal>
     </React.Fragment>
   );

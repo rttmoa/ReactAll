@@ -49,6 +49,7 @@ const Notice: React.FC = () => {
   );
 };
 
+// ? HeaderRgiht > 消息设置
 const Message: React.FC = () => {
   const items: TabsProps["items"] = [
     {
@@ -68,9 +69,10 @@ const Message: React.FC = () => {
     }
   ];
 
-  const content = <Tabs defaultActiveKey="1" size="middle" tabBarGutter={50} className="pr12 pl12" items={items} />;
+  const content = <Tabs defaultActiveKey="0" size="middle" tabBarGutter={50} className="pr12 pl12" items={items} />;
 
   return (
+    // 气泡卡片：https://ant.design/components/popover-cn
     <Popover placement="bottom" content={content} trigger="click" overlayClassName="message-popover">
       <Badge size="small" count={3} style={{ color: "#ffffff" }}>
         <i className="iconfont icon-xiaoxi"></i>

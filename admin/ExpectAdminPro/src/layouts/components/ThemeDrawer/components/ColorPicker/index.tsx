@@ -25,11 +25,11 @@ const presetColors = [
 ];
 
 // todo
-// todo 颜色挑选（全局主题 / 主题颜色设置）
+// todo 颜色挑选  (全局主题 / 主题颜色设置)
 const ColorPicker = () => {
   const dispatch = useDispatch();
   const primary = useSelector((state: RootState) => state.global.primary);
-  const [inputPrimary, setInputPrimary] = useState(primary);
+  const [inputPrimary, setInputPrimary] = useState(primary); // 输入框内的 HEX：#1677FF
 
   const changePrimary = (value: string) => {
     dispatch(setGlobalState({ key: "primary", value }));
@@ -39,11 +39,9 @@ const ColorPicker = () => {
     setInputPrimary(params);
   };
   return (
+    // ! 随机选择颜色 || 按钮选择颜色
     <div className="color-picker">
-      <HexColorPicker
-        color={primary}
-        onChange={e => { onChageEvent(e.toLocaleUpperCase()) }}
-      />
+      <HexColorPicker color={primary} onChange={e => { onChageEvent(e.toLocaleUpperCase()) }}/>
       <Input
         value={inputPrimary}
         className="picker-input"
@@ -60,12 +58,7 @@ const ColorPicker = () => {
       />
       <div className="picker-swatches">
         {presetColors.map(presetColor => (
-          <button
-            className="picker-swatch"
-            key={presetColor}
-            style={{ background: presetColor }}
-            onClick={() => { onChageEvent(presetColor) }}
-          />
+          <button className="picker-swatch" key={presetColor} style={{ background: presetColor }} onClick={() => { onChageEvent(presetColor) }}/>
         ))}
       </div>
     </div>
