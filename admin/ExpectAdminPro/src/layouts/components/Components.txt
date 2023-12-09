@@ -1,5 +1,5 @@
 
-
+? Components
 
 1、页脚 Main > Footer
   控制页脚显示；主题设置控制页脚是否显示，控制Footer
@@ -23,7 +23,8 @@
 
 3、主体 > Main 
   3.1、Main 包含 TabViews、Footer
-
+  3.2、开启 最大化 | root.classList.toggle("main-maximize", maximize)
+  3.3、监视窗口变化，折叠菜单
 
 
 4、侧边栏菜单 > Menu 

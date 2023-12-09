@@ -12,7 +12,7 @@ export interface GlobalState {
   compactAlgorithm: boolean;
   borderRadius: number;
   language: LanguageType;
-  maximize: boolean;
+  maximize: boolean; // 开启 ? 最大化
   primary: string;
   isDark: boolean;
   isGrey: boolean;

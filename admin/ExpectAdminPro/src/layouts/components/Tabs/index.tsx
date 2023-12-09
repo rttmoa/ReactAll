@@ -38,8 +38,7 @@ const DraggableTabNode = ({ ...props }: DraggableTabPaneProps) => {
   });
 };
 
-// todo
-//  todo Tabs 的增删查
+// todo Tabs
 const LayoutTabs: React.FC = () => {
   const matches = useMatches();
   const dispatch = useDispatch();
@@ -52,16 +51,17 @@ const LayoutTabs: React.FC = () => {
   const path = location.pathname + location.search; // Tabs['activeKey']
   // console.log(path);
 
-  const tabs = useSelector((state: RootState) => state.global.tabs); // 是否显示 Tabs
-  const tabsIcon = useSelector((state: RootState) => state.global.tabsIcon); // 是否显示 Tabs图标
-  const tabsDrag = useSelector((state: RootState) => state.global.tabsDrag); // 是否 可拖拽
-  const tabsList = useSelector((state: RootState) => state.tabs.tabsList);
+  const tabs = useSelector((state: RootState) => state.global.tabs); // ! 是否显示 Tabs
+  const tabsIcon = useSelector((state: RootState) => state.global.tabsIcon); // ! 是否显示 Tabs图标
+  const tabsDrag = useSelector((state: RootState) => state.global.tabsDrag); // ! 是否 可拖拽
+  const tabsList = useSelector((state: RootState) => state.tabs.tabsList); // ! redux 中获取 TabViews
   const flatMenuList = useSelector((state: RootState) => state.auth.flatMenuList);
 
   const sensor = useSensor(PointerSensor, { activationConstraint: { distance: 10 } });
 
   useEffect(() => initTabs(), []);
   const initTabs = () => {
+    // console.log("initTabs");
     flatMenuList.forEach(item => {
       if (item.meta?.isAffix && !item.meta.isHide && !item.meta.isFull) {
         const tabValue = {
@@ -70,12 +70,13 @@ const LayoutTabs: React.FC = () => {
           path: item.path!,
           closable: !item.meta.isAffix
         };
+        // console.log("initadd", item);
         dispatch(addTab(tabValue));
       }
     });
   };
 
-  // todo 监听路由变化 > addTab()
+  // ! 监听路由变化
   useEffect(() => {
     const meta = matches[matches.length - 1].data as MetaProps & { redirect: boolean };
     if (!meta?.redirect) {
@@ -98,44 +99,43 @@ const LayoutTabs: React.FC = () => {
     }
   };
 
-  // Tabs['items']：渲染 tabs
+  // ! Tab_Config 配置选项卡内容  (转换为Antd-Tabs所需要的格式)
   const items = tabsList.map(item => {
-    let tabsItem = {
+    return {
       key: item.path,
       label: (
-        <React.Fragment>
+        <>
           {tabsIcon && <Icon name={item.icon} />}
           {item.title}
-        </React.Fragment>
+        </>
       ),
       closable: item.closable
     };
-    return tabsItem;
   });
 
-  // Tabs['onEdit']： removeTab()
+  // ! 添加或删除的回调
   const onEdit = (targetKey: TargetKey, action: "add" | "remove") => {
-    // console.log(action); // add 被隐藏
+    // console.log(action, targetKey); // remove /result/success  ||  remove /form/basicForm
     if (action === "remove" && typeof targetKey === "string") {
-      // path：/assembly/svgIcon   isCurrent：是否当前访问页
       dispatch(removeTab({ path: targetKey, isCurrent: targetKey == path }));
     }
   };
 
+  // console.log(items);
   return (
-    <React.Fragment>
+    <>
       {tabs && (
+        // Tabs-Api：https://ant.design/components/tabs-cn#api
         <Tabs
-          // Tabs-Api：https://ant.design/components/tabs-cn#api
-          hideAdd
+          hideAdd // 是否隐藏加号图标，在 type="editable-card" 时有效
           type="editable-card"
           className="tabs-box"
           size="middle"
-          items={items}
-          activeKey={path}
-          onEdit={onEdit}
-          onChange={(path: string) => navigate(path)}
-          tabBarExtraContent={<MoreButton path={path} />}
+          items={items} // 配置选项卡内容
+          activeKey={path} // 激活items中的key
+          onEdit={onEdit} // 新增和删除页签的回调，在 type="editable-card" 时有效
+          onChange={(path: string) => navigate(path)} // 点击其他Tabs、跳转到其他页面
+          tabBarExtraContent={<MoreButton path={path} />} // 下拉：刷新、最大化、关闭其他
           {...(tabsDrag && {
             // 拖拽部分
             renderTabBar: (tabBarProps, DefaultTabBar) => (
@@ -154,7 +154,7 @@ const LayoutTabs: React.FC = () => {
           })}
         />
       )}
-    </React.Fragment>
+    </>
   );
 };
 
