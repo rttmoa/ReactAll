@@ -1,0 +1,58 @@
+.h100 {
+    .title {
+        display: flex;
+        justify-content: space-between;
+        color: #999999;
+        font-size: 0.875rem;
+    }
+
+    hr {
+        border: none;
+        height: 1px;
+        flex-shrink: 0;
+        background-color: #323232;
+    }
+
+    .tokenlist {
+        .item {
+            display: flex;
+            justify-content: space-between;
+            border-radius: 2px;
+            padding: 10px 20px;
+            line-height: 36px;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.08);
+            }
+
+            &>div {
+                display: flex;
+                align-items: center;
+
+                img {
+                    width: 30px;
+                    margin-right: 5px;
+                }
+
+                p {
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    :global {
+        .ant-drawer-content-wrapper {
+            height: 100% !important;
+        }
+
+        .ant-drawer-close,
+        .ant-drawer-title {
+            color: #ffffff;
+        }
+        .ant-drawer-header{
+            border: 0;
+        }
+    }
+
+}

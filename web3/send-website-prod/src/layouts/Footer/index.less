@@ -1,0 +1,36 @@
+.footer {
+    text-align: center;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 30px;
+    position: relative;
+
+    // margin-bottom: 10%;
+    .footerTop {
+        color: rgb(143, 155, 179);
+        font-size: 12px;
+        font-weight: 400;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 20px;
+    }
+
+    .footerBot {
+        color: rgb(143, 155, 179);
+        font-size: 12px;
+        margin-top: 5px;
+        align-items: center;
+        text-decoration: underline;
+        margin-bottom: 20px;
+        z-index: 1;
+
+        a {
+            color: rgb(143, 155, 179);
+
+            &:hover {
+                color: white;
+            }
+        }
+    }
+}

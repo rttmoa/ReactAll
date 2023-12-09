@@ -1,0 +1,40 @@
+hr {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 0;
+  height: 1px;
+}
+
+.boxItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+
+  p {
+    margin: 0;
+  }
+
+  & > div {
+    width: 25%;
+
+    &:first-child {
+      width: 30%;
+    }
+  }
+}
+
+.light {
+  &:hover {
+    background: #1b1d23;
+  }
+}
+
+.small {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.title {
+  font-size: 14px;
+  color: #ffffff;
+}
