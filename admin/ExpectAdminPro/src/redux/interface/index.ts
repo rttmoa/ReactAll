@@ -42,7 +42,7 @@ export interface TabsListProp {
 
 /* TabsState */
 export interface TabsState {
-  tabsList: TabsListProp[];
+  tabsList: TabsListProp[]; // TabsView
 }
 
 /* UserState */
