@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { useEffect } from "react";
 import { Tabs } from "antd";
 import { Icon } from "@/components/Icon";
@@ -18,7 +19,7 @@ interface DraggableTabPaneProps extends React.HTMLAttributes<HTMLDivElement> {
   "data-node-key": string;
 }
 
-// todo 拖拽
+// ? 拖拽
 const DraggableTabNode = ({ ...props }: DraggableTabPaneProps) => {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
     id: props["data-node-key"]
@@ -39,6 +40,7 @@ const DraggableTabNode = ({ ...props }: DraggableTabPaneProps) => {
 };
 
 // todo Tabs
+// todo Tabs 配置项 / 当前高亮激活项 / 删除 / 添加 / 切换 / 拖拽 / 更多操作 
 const LayoutTabs: React.FC = () => {
   const matches = useMatches();
   const dispatch = useDispatch();
@@ -59,6 +61,7 @@ const LayoutTabs: React.FC = () => {
 
   const sensor = useSensor(PointerSensor, { activationConstraint: { distance: 10 } });
 
+  // ! 初始化Tabs、添加首页到redux
   useEffect(() => initTabs(), []);
   const initTabs = () => {
     // console.log("initTabs");
@@ -76,7 +79,7 @@ const LayoutTabs: React.FC = () => {
     });
   };
 
-  // ! 监听路由变化
+  // ! 监听路由变化 > 添加Tabs
   useEffect(() => {
     const meta = matches[matches.length - 1].data as MetaProps & { redirect: boolean };
     if (!meta?.redirect) {
@@ -86,7 +89,7 @@ const LayoutTabs: React.FC = () => {
         path: path,
         closable: !meta.isAffix
       };
-      // console.log(tabValue);
+      // console.log("监听路由变化添加Tab", tabValue);
       dispatch(addTab(tabValue));
     }
   }, [matches]);
@@ -137,15 +140,13 @@ const LayoutTabs: React.FC = () => {
           onChange={(path: string) => navigate(path)} // 点击其他Tabs、跳转到其他页面
           tabBarExtraContent={<MoreButton path={path} />} // 下拉：刷新、最大化、关闭其他
           {...(tabsDrag && {
-            // 拖拽部分
+            // ! 拖拽部分
             renderTabBar: (tabBarProps, DefaultTabBar) => (
               <DndContext sensors={[sensor]} onDragEnd={onDragEnd}>
                 <SortableContext items={items.map(i => i.key)} strategy={horizontalListSortingStrategy}>
                   <DefaultTabBar {...tabBarProps}>
                     {node => (
-                      <DraggableTabNode {...node.props} key={node.key}>
-                        {node}
-                      </DraggableTabNode>
+                      <DraggableTabNode {...node.props} key={node.key}>{node}</DraggableTabNode>
                     )}
                   </DefaultTabBar>
                 </SortableContext>
