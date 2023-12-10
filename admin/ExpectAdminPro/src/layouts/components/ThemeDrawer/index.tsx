@@ -126,7 +126,7 @@ const ThemeDrawer: React.FC = () => {
       <Divider className="divider"><FireOutlined />全局主题</Divider>
       <div className="theme-item">
         <span>主题颜色</span>
-        <Popover placement="left" trigger="click" content={ColorPicker}>
+        <Popover placement="left" trigger="click" content={<ColorPicker />}>
           <label className="primary"></label>
         </Popover>
       </div>

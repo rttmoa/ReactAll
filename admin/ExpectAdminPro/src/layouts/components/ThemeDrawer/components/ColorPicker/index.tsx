@@ -29,7 +29,7 @@ const presetColors = [
 const ColorPicker = () => {
   const dispatch = useDispatch();
   const primary = useSelector((state: RootState) => state.global.primary);
-  const [inputPrimary, setInputPrimary] = useState(primary); // 输入框内的 HEX：#1677FF
+  const [inputPrimary, setInputPrimary] = useState(primary); // 设置输入框内的 HEX：#1677FF
 
   const changePrimary = (value: string) => {
     dispatch(setGlobalState({ key: "primary", value }));

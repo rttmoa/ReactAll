@@ -86,14 +86,14 @@ const AvatarIcon: React.FC = () => {
   ];
 
   return (
-    <React.Fragment>
+    <>
       <Dropdown menu={{ items }} trigger={["click"]} placement="bottom" arrow>
         <Avatar className="avatar" size={42} src={avatar} />
       </Dropdown>
 
       <InfoModal ref={infoRef} />
       <PasswordModal ref={passRef} />
-    </React.Fragment>
+    </>
   );
 };
 

@@ -13,7 +13,7 @@ const globalState: GlobalState = {
   // 当前页面是否全屏；TabsView下拉中 最大化   (Main布局中设置 root.classList.toggle("main-maximize", maximize))
   maximize: false,
 
-  // 全局主题 -> 默认主题颜色 （颜色挑选器）
+  // ! 全局主题 -> 默认主题颜色 （颜色挑选器）
   primary: DEFAULT_PRIMARY,
   // 全局主题 -> 暗黑 模式
   isDark: false,

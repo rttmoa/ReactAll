@@ -49,16 +49,16 @@ const App: React.FC = () => {
   }, [language]);
 
   let configProviderProps = {
-    locale: language === "zh" ? zhCN : enUS,
+    locale: language === "zh" ? zhCN : enUS, // 配置国际化：https://ant.design/docs/react/i18n-cn#configprovider
     componentSize: componentSize,
     autoInsertSpaceInButton: true,
     theme: {
-      token: { colorPrimary: primary, borderRadius },
+      token: { colorPrimary: primary, borderRadius }, // 全局配置字体：fontFamily: "aliFonts"
       algorithm: algorithm()
     }
   };
   return (
-    // a
+    // antd Global Config：  https://ant.design/docs/react/customize-theme-cn#seedtoken
     <ConfigProvider {...configProviderProps}>
       <AppProvider>
         <I18nextProvider i18n={i18n}>
