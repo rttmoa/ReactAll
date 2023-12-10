@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { useContext, CSSProperties } from "react";
 import { Dropdown, MenuProps } from "antd";
 import { HOME_URL } from "@/config";
@@ -8,24 +9,16 @@ import { useNavigate } from "react-router-dom";
 import { RefreshContext } from "@/context/Refresh";
 import { setGlobalState } from "@/redux/modules/global";
 import { removeTab, closeMultipleTab, closeTabsOnSide } from "@/redux/modules/tabs";
-import {
-  ReloadOutlined,
-  ExpandOutlined,
-  CloseCircleOutlined,
-  ColumnWidthOutlined,
-  SwitcherOutlined,
-  VerticalLeftOutlined,
-  VerticalRightOutlined
+import {  
+  ReloadOutlined,  ExpandOutlined,  CloseCircleOutlined,  ColumnWidthOutlined,  SwitcherOutlined,  VerticalLeftOutlined,  VerticalRightOutlined
 } from "@ant-design/icons";
 
 interface MoreButtonProps {
   path: string;
 }
 
-const style: CSSProperties = { fontSize: "14px" };
 
-// todo
-// TabsView下拉列表：刷新、
+// todo TabsView；更多操作
 const MoreButton: React.FC<MoreButtonProps> = ({ path }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,6 +33,8 @@ const MoreButton: React.FC<MoreButtonProps> = ({ path }) => {
     setTimeout(() => updateOutletShow(true));
   };
 
+  const style: CSSProperties = { fontSize: "14px" };
+  
   const items: MenuProps["items"] = [
     {
       key: "1",
@@ -56,12 +51,14 @@ const MoreButton: React.FC<MoreButtonProps> = ({ path }) => {
     {
       type: "divider"
     },
-
     {
       key: "3",
       label: <span>{t("tabs.closeCurrent")}</span>,
       icon: <CloseCircleOutlined style={style} />,
       onClick: () => dispatch(removeTab({ path, isCurrent: true }))
+    },
+    {
+      type: "divider"
     },
     {
       key: "4",
@@ -97,7 +94,7 @@ const MoreButton: React.FC<MoreButtonProps> = ({ path }) => {
 
   return (
     <div className="more-button">
-      <Dropdown menu={{ items }} placement="bottomRight" arrow={{ pointAtCenter: true }} trigger={["click"]}>
+      <Dropdown  menu={{ items }} placement="bottomRight" arrow={{ pointAtCenter: true }} trigger={["click"]}>
         <div className="more-button-item">
           <IconFont style={{ fontSize: 22 }} type="icon-xiala" />
         </div>
