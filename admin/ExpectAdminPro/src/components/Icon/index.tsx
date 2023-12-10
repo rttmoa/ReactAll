@@ -12,8 +12,9 @@ export const Icon: React.FC<IconProps> = React.memo(({ name, className }) => {
   const customIcons: { [key: string]: any } = Icons;
   return React.createElement(customIcons[name], { className });
 });
-// <Icon name={"AppstoreOutlined"} />
+// 使用；<Icon name={"AppstoreOutlined"} />
 
 export const IconFont = createFromIconfontCN({
   scriptUrl: ["//at.alicdn.com/t/c/font_3878708_l04g6iwc6y.js" as string] || []
 });
+// 使用；<IconFont style={{ fontSize: 22 }} type="icon-xiala" />

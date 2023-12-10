@@ -25,16 +25,17 @@
   3.1、Main 包含 TabViews、Footer
   3.2、开启 最大化 | root.classList.toggle("main-maximize", maximize)
   3.3、监视窗口变化，折叠菜单
+  3.4、<LayoutMain />  <Maximize />  <LayoutTabs />  <CSSTranstion />  <LayoutFooter />
 
 
 4、侧边栏菜单 > Menu 
   4.1、四种布局方式的侧边栏封装方式
-
-
+  4.2、Menu属性的处理：主题颜色、菜单类型、当前选中项、菜单配置项
 
 
 5、标签栏TabViews Main > Tabs
   5.1、标签管理业务逻辑
+  5.2、Tabs 配置项 / 当前高亮激活项 / 删除 / 添加 / 切换 / 拖拽 / 更多操作   <LayoutTabs />  <DraggableTabNode />  <MoreButton />
 
 
 6、主题配置 > ThemeDrawer
