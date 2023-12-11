@@ -1,3 +1,4 @@
+/* eslint-disable no-self-assign */
 import React from "react";
 import "./index.less";
 

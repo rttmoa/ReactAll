@@ -8,6 +8,7 @@ type IsCopiedState = boolean;
 
 type TextareaRef = React.RefObject<HTMLTextAreaElement>;
 
+// ! 联合类型
 type ClipboardHook = ClipboardFunctions & {
   isCopied: IsCopiedState;
   textareaRef: TextareaRef;

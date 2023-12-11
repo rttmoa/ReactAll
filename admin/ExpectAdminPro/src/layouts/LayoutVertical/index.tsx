@@ -16,7 +16,7 @@ const LayoutVertical: React.FC = () => {
   const isCollapse = useSelector((state: RootState) => state.global.isCollapse); // 设置 》 折叠菜单
 
   return (
-    // 左右布局
+    // ! 左右布局
     <section className="layout-vertical">
       <Sider width={210} collapsed={isCollapse}>
         <div className="logo">
