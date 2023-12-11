@@ -33,14 +33,12 @@ const LayoutMain: React.FC = () => {
 
   // ! 监视窗口变化，折叠菜单
   const { run } = useDebounceFn(() => {
-      const screenWidth = document.body.clientWidth; // 客户端可视区域内，内容区的宽度
-      if (screenWidth) {
-        const shouldCollapse = screenWidth < 1200;
-        if (isCollapse !== shouldCollapse) dispatch(setGlobalState({ key: "isCollapse", value: shouldCollapse }));
-      }
-    },
-    { wait: 100 }
-  );
+    const screenWidth = document.body.clientWidth; // 客户端可视区域内，内容区的宽度
+    if (screenWidth) {
+      const shouldCollapse = screenWidth < 1200;
+      if (isCollapse !== shouldCollapse) dispatch(setGlobalState({ key: "isCollapse", value: shouldCollapse }));
+    }
+  }, { wait: 100 });
   useEffect(() => {
     window.addEventListener("resize", run, false);
     return () => window.removeEventListener("resize", run);

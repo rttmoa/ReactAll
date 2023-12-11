@@ -13,10 +13,10 @@ const LayoutIndex: React.FC = () => {
   const watermark = useSelector((state: RootState) => state.global.watermark);
 
   const LayoutComponents = {
-    vertical: <LayoutVertical />, //------ 纵向
-    classic: <LayoutClassic />, //-------- 经典
-    transverse: <LayoutTransverse />, //-- 横向
-    columns: <LayoutColumns /> // ! --------- 分栏 (测试分栏)
+    vertical: <LayoutVertical />, // ! ------ 一、纵向
+    classic: <LayoutClassic />, // ! -------- 二、经典
+    transverse: <LayoutTransverse />, // ! -- 三、横向
+    columns: <LayoutColumns /> // ! --------- 四、分栏 (测试分栏)
   };
 
   return (

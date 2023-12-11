@@ -102,8 +102,9 @@ const LayoutTabs: React.FC = () => {
     }
   };
 
-  // ! Tab_Config 配置选项卡内容  (转换为Antd-Tabs所需要的格式)
+  // ! Tabs['items']  配置选项卡内容  (转换为Antd-Tabs所需要的格式)
   const items = tabsList.map(item => {
+    // console.log(item);
     return {
       key: item.path,
       label: (
@@ -116,7 +117,7 @@ const LayoutTabs: React.FC = () => {
     };
   });
 
-  // ! 添加或删除的回调
+  // ! Tabs['onEdit']  添加或删除的回调
   const onEdit = (targetKey: TargetKey, action: "add" | "remove") => {
     // console.log(action, targetKey); // remove /result/success  ||  remove /form/basicForm
     if (action === "remove" && typeof targetKey === "string") {
@@ -138,7 +139,7 @@ const LayoutTabs: React.FC = () => {
           activeKey={path} // 激活items中的key
           onEdit={onEdit} // 新增和删除页签的回调，在 type="editable-card" 时有效
           onChange={(path: string) => navigate(path)} // 点击其他Tabs、跳转到其他页面
-          tabBarExtraContent={<MoreButton path={path} />} // 下拉：刷新、最大化、关闭其他
+          tabBarExtraContent={<MoreButton path={path} />} // ? 更多操作：刷新、最大化、关闭其他
           {...(tabsDrag && {
             // ! 拖拽部分
             renderTabBar: (tabBarProps, DefaultTabBar) => (
