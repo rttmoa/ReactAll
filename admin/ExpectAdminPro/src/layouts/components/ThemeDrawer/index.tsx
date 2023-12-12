@@ -10,7 +10,7 @@ const NODE_ENV = import.meta.env.VITE_USER_NODE_ENV;
 
 // TODO: 1、主题设置&设置全局配置（主题颜色、圆角大小）     2、主题设置组件 HTML结构 + CSS样式
 const ThemeDrawer: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
   const {
     layout,
     compactAlgorithm,

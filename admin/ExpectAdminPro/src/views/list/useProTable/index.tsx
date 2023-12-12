@@ -92,10 +92,10 @@ const useProTable = () => {
       bordered
       cardBordered
       scroll={{ x: 1000, y: "100%" }}
-      request={async params => {
-        const { data } = await getUserList(params);
-        return formatDataForProTable<UserList>(data);
-      }}
+      // request={async params => {
+      //   const { data } = await getUserList(params);
+      //   return formatDataForProTable<UserList>(data);
+      // }}
       columnsState={{
         persistenceKey: "use-pro-table-key",
         persistenceType: "localStorage"

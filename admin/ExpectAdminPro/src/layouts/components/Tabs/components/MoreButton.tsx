@@ -40,7 +40,9 @@ const MoreButton: React.FC<MoreButtonProps> = ({ path }) => {
       key: "1",
       label: <span>{t("tabs.refresh")}</span>,
       icon: <ReloadOutlined style={style} />,
-      onClick: refreshCurrentPage
+      onClick: refreshCurrentPage,
+      danger: true,
+      disabled: path === HOME_URL,
     },
     {
       key: "2",
@@ -93,13 +95,16 @@ const MoreButton: React.FC<MoreButtonProps> = ({ path }) => {
   ];
 
   return (
-    <div className="more-button">
-      <Dropdown  menu={{ items }} placement="bottomRight" arrow={{ pointAtCenter: true }} trigger={["click"]}>
-        <div className="more-button-item">
-          <IconFont style={{ fontSize: 22 }} type="icon-xiala" />
-        </div>
-      </Dropdown>
-    </div>
+    // 下拉菜单：https://ant.design/components/dropdown-cn
+    <>
+      <div className="more-button">
+        <Dropdown  menu={{ items }} placement="bottomRight" arrow={{ pointAtCenter: true }} trigger={["click"]}>
+          <div className="more-button-item">
+            <IconFont style={{ fontSize: 22 }} type="icon-xiala" />
+          </div>
+        </Dropdown>
+      </div>
+    </>
   );
 };
 

@@ -16,7 +16,9 @@ function ErrorBoundary(props: any) {
   if (error) {
     return (
       <div>
-        <h1>ErrorBoundary, SomeThing went wrong: {error}</h1>
+        <h1>
+          {"<ErrorBoundary />"}, SomeThing went wrong: {error}
+        </h1>
         <button
           onClick={() => {
             window.open("/");

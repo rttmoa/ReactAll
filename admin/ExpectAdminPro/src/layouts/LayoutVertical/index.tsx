@@ -14,7 +14,6 @@ const APP_TITLE = import.meta.env.VITE_GLOB_APP_TITLE;
 // TODO: 一、垂直布局 - loyout-vertical
 const LayoutVertical: React.FC = () => {
   const isCollapse = useSelector((state: RootState) => state.global.isCollapse); // 设置 》 折叠菜单
-
   return (
     // ! 左右布局
     <section className="layout-vertical">

@@ -123,7 +123,7 @@ const LayoutMenu: React.FC<LayoutMenuProps> = ({ mode, menuList, menuSplit }) =>
   }, [layout, isDark, headerInverted, siderInverted, menuSplit]);
 
 
-  // console.log("是否分割+模式", !!menuSplit, mode);
+  // console.log("是否分割+模式", !!menuSplit, mode); // inline / horizontal
   return (
     // ! Menu-Api：https://ant.design/components/menu-cn#api
     <Menu
