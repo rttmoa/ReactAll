@@ -31,6 +31,7 @@ const LayoutClassic: React.FC = () => {
   // console.log(firstLevelMenuList);
   useEffect(() => {
     if (menuSplit) {
+      //* 根据当前路由，找到对应的一级菜单下的二级菜单
       const menuItem = showMenuList.find(item => {
         return pathname === item.path || `/${pathname.split("/")[1]}` === item.path;
       });
@@ -40,12 +41,14 @@ const LayoutClassic: React.FC = () => {
   }, [pathname, menuSplit]);
 
   function subMenuStructure() {
-    return subMenuList.length > 0 ? (
-      <>
-        <LayoutMenu mode="inline" menuList={subMenuList} />
-        <div className="collapse-box">{<CollapseIcon />}</div>
-      </>
-    ) : null;
+    return (
+      subMenuList.length > 0 && (
+        <>
+          <LayoutMenu mode="inline" menuList={subMenuList} />
+          <div className="collapse-box">{<CollapseIcon />}</div>
+        </>
+      )
+    );
   }
 
   // todo

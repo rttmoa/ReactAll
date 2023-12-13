@@ -60,7 +60,7 @@ const LayoutMenu: React.FC<LayoutMenuProps> = ({ mode, menuList, menuSplit }) =>
   };
   // ! Menu['items']：Menu列表结构  (处理Menu为Antd所需要的格式)
   // 菜单列表是 ? 父组件传递的 ? 后台传递的
-  // console.log(menuList); // 经典和分栏传递菜单
+  // console.log(menuList, showMenuList); // 经典和分栏传递菜单
   const antdMenuList = useMemo(() => AsAntdMenu(menuList ?? showMenuList), [menuList, showMenuList]);
 
   

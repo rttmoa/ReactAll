@@ -165,11 +165,7 @@ const ThemeDrawer: React.FC = () => {
       </div>
       <div className="theme-item  mb35">
         <span>圆角大小</span>
-        <InputNumber
-          min={1}
-          max={20}
-          style={{ width: 80 }}
-          defaultValue={borderRadius}
+        <InputNumber min={1} max={20} style={{ width: 80 }} defaultValue={borderRadius}
           formatter={value => `${value}px`}
           parser={value => (value ? value!.replace("px", "") : 6) as number}
           onChange={value => {

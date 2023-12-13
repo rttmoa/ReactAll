@@ -41,7 +41,7 @@ const ColorPicker = () => {
   return (
     // ! 随机选择颜色 || 按钮选择颜色
     <div className="color-picker">
-      <HexColorPicker color={primary} onChange={e => { onChageEvent(e.toLocaleUpperCase()) }}/>
+      <HexColorPicker color={primary} onChange={e => { onChageEvent(e.toLocaleUpperCase()) }} />
       <Input
         value={inputPrimary}
         className="picker-input"

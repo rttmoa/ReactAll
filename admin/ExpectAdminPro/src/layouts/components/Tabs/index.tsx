@@ -73,7 +73,7 @@ const LayoutTabs: React.FC = () => {
           path: item.path!,
           closable: !item.meta.isAffix
         };
-        // console.log("initadd", item);
+        // console.log("initadd", item); // {path: '/home/index', element: '/home/index', meta: {…}}
         dispatch(addTab(tabValue));
       }
     });
@@ -81,7 +81,7 @@ const LayoutTabs: React.FC = () => {
 
   // ! 监听路由变化 > 添加Tabs
   useEffect(() => {
-    const meta = matches[matches.length - 1].data as MetaProps & { redirect: boolean };
+    const meta = matches[matches.length - 1].data as MetaProps & { redirect: boolean }; // &  既满足 MetaProps 又满足 redircet 属性
     if (!meta?.redirect) {
       const tabValue = {
         icon: meta.icon!,

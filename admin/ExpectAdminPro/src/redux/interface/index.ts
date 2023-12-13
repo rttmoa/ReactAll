@@ -20,7 +20,7 @@ export interface GlobalState {
   menuSplit: boolean;
   siderInverted: boolean;
   headerInverted: boolean;
-  isCollapse: boolean;
+  isCollapse: boolean; // 主题配置；开启 ? 折叠菜单
   accordion: boolean;
   watermark: boolean; // 主题配置；开启 ? 水印
   breadcrumb: boolean; // 主题配置；开启 ? 面包屑
@@ -54,7 +54,7 @@ export interface UserState {
 /* AuthState */
 export interface AuthState {
   authMenuList: RouteObjectType[]; // 接口中获取的菜单列表； (14)[{…}, {…}, {…}, {…}, ..................]
-  showMenuList: RouteObjectType[]; // 接口中使用递归过滤掉 菜单中 meta.isHide: true 的数据
+  showMenuList: RouteObjectType[]; // 接口中使用递归过滤掉 菜单中 meta.isHide: true 的数据  (13)[{…}, {…}, {…}, {…}, ..................]
   flatMenuList: RouteObjectType[]; // (60)Array: [{…}, {…}, {…}, {…}, {…}, ...............]
   authButtonList: {
     [key: string]: string[];
