@@ -38,6 +38,7 @@ TODO: 问题记录
   3、 LayoutVertical | LayoutClassic | LayoutTransverse | LayoutColumns & 四种 HTML 结构
 
 TODO: CHANGELOG
+CHANGE3: 尝试删除 package.json 中 "type": "module",
 CHANGE2: Axios二次封装，接口统一存放,满足RESTful风格：
           （请求拦截、响应拦截、封装通用请求方法、存放api接口地址、挂载全局、请求示例）  https://wocwin.github.io/t-ui/projectProblem/axios.html
 CHANGE1: 梦学谷接口 -> apifox接口  https://app.apifox.com/project/3219319

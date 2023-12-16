@@ -87,7 +87,7 @@
     "@types/node": "^20.5.4",
     "@types/nprogress": "^0.2.0",
     "@types/qs": "^6.9.7",
-    "@types/react": "^18.2.21",
+    "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.7",
     "@types/react-draft-wysiwyg": "^1.13.4",
     "@types/react-transition-group": "^4.4.6",

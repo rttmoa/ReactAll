@@ -17,7 +17,8 @@
         "dev": "moleculer-runner services services/dx.develop.js",
         "postinstall": "cd .steedos && yarn",
         "pm2-start": "pm2 start --interpreter bash --name steedos yarn -- start",
-        "restart": "pm2 delete steedos && yarn pm2-start"
+        "restart": "pm2 delete steedos && yarn pm2-start",
+        "pm2": "pm2 start npm -- start --name steedos"
     },
     "keywords": [
         "steedos",
@@ -28,7 +29,8 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@steedos/service-community": "2.1.85"
+        "@steedos/service-community": "2.1.85",
+        "node-cmd": "^5.0.0"
     },
     "devDependencies": {
         "eslint": "^7.7.0",

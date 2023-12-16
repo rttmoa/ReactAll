@@ -26,7 +26,7 @@ const DraggableTabNode = ({ ...props }: DraggableTabPaneProps) => {
   });
 
   const style: React.CSSProperties = {
-    ...props.style,
+    ...props?.style,
     transform: CSS.Transform.toString(transform && { ...transform, scaleX: 1 }),
     transition
   };

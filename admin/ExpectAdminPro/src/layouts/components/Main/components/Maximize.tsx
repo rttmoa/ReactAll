@@ -11,7 +11,7 @@ const Maximize: React.FC = () => {
     <>
       {maximize && (
         <div className="maximize-icon" onClick={() => dispatch(setGlobalState({ key: "maximize", value: false }))}>
-          <i className="iconfont icon-tuichu"></i>;
+          <i className="iconfont icon-tuichu"></i>
         </div>
       )}
     </>

@@ -1,19 +1,23 @@
+
+// ! 内容区域： <LayoutMain /> = TabViews + Main + Footer 
+
+// content 
 .ant-layout-content {
   box-sizing: border-box;
   flex: 1;
-  padding: 10px 12px;
-  overflow: auto;
+  padding: 10px 12px; // Content内挤压内容               
+  overflow: auto; // 可滚动
   background-color: var(--hooks-colorBgContent);
 }
 
-/* maximize */
+/* maximize  (最大化图标) */
 .maximize-icon {
   position: fixed;
   top: -25px;
   right: -25px;
   z-index: 999;
   width: 55px;
-  height: 55px;
+  height: 55px;  
   cursor: pointer;
   background-color: var(--hooks-colorIcon);
   border-radius: 50%;
@@ -28,4 +32,4 @@
     font-size: 14px;
     color: #ffffff;
   }
-}
+} 

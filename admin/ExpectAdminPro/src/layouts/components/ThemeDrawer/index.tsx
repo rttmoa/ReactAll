@@ -100,7 +100,7 @@ const ThemeDrawer: React.FC = () => {
         <Switch
           disabled={layout !== "classic"}
           checked={menuSplit}
-          onChange={value => dispatch(setGlobalState({ key: "menuSplit", value }))}
+          onChange={(value: any) => dispatch(setGlobalState({ key: "menuSplit", value }))}
         />
       </div>
       <div className="theme-item">
@@ -110,7 +110,7 @@ const ThemeDrawer: React.FC = () => {
             <QuestionCircleOutlined />
           </Tooltip>
         </span>
-        <Switch checked={siderInverted} onChange={value => dispatch(setGlobalState({ key: "siderInverted", value }))} />
+        <Switch checked={siderInverted} onChange={(value: any) => dispatch(setGlobalState({ key: "siderInverted", value }))} />
       </div>
       <div className="theme-item mb35">
         <span>
@@ -119,7 +119,7 @@ const ThemeDrawer: React.FC = () => {
             <QuestionCircleOutlined />
           </Tooltip>
         </span>
-        <Switch checked={headerInverted} onChange={value => dispatch(setGlobalState({ key: "headerInverted", value }))} />
+        <Switch checked={headerInverted} onChange={(value: any) => dispatch(setGlobalState({ key: "headerInverted", value }))} />
       </div>
 
       {/* TODO: --全局主题-- */}
@@ -136,14 +136,14 @@ const ThemeDrawer: React.FC = () => {
           checked={isDark}
           checkedChildren={<span className="dark-icon dark-icon-sun">🌞</span>}
           unCheckedChildren={<span className="dark-icon dark-icon-moon">🌛</span>}
-          onChange={value => dispatch(setGlobalState({ key: "isDark", value }))}
+          onChange={(value: any) => dispatch(setGlobalState({ key: "isDark", value }))}
         />
       </div>
       <div className="theme-item">
         <span>灰色模式</span>
         <Switch
           checked={isGrey}
-          onChange={value => {
+          onChange={(value: any) => {
             if (isWeak) dispatch(setGlobalState({ key: "isWeak", value: false }));
             dispatch(setGlobalState({ key: "isGrey", value }));
           }}
@@ -153,7 +153,7 @@ const ThemeDrawer: React.FC = () => {
         <span>色弱模式</span>
         <Switch
           checked={isWeak}
-          onChange={value => {
+          onChange={(value: any) => {
             if (isGrey) dispatch(setGlobalState({ key: "isGrey", value: false }));
             dispatch(setGlobalState({ key: "isWeak", value }));
           }}
@@ -161,14 +161,14 @@ const ThemeDrawer: React.FC = () => {
       </div>
       <div className="theme-item">
         <span>紧凑主题</span>
-        <Switch checked={compactAlgorithm} onChange={value => dispatch(setGlobalState({ key: "compactAlgorithm", value }))} />
+        <Switch checked={compactAlgorithm} onChange={(value: any) => dispatch(setGlobalState({ key: "compactAlgorithm", value }))} />
       </div>
       <div className="theme-item  mb35">
         <span>圆角大小</span>
         <InputNumber min={1} max={20} style={{ width: 80 }} defaultValue={borderRadius}
-          formatter={value => `${value}px`}
-          parser={value => (value ? value!.replace("px", "") : 6) as number}
-          onChange={value => {
+          formatter={(value: any) => `${value}px`}
+          parser={(value: any) => (value ? value!.replace("px", "") : 6) as number}
+          onChange={(value: number) => {
             const newValue = value || 6;
             dispatch(setGlobalState({ key: "borderRadius", value: newValue }));
           }}
@@ -182,43 +182,43 @@ const ThemeDrawer: React.FC = () => {
       </Divider>
       <div className="theme-item">
         <span>菜单折叠</span>
-        <Switch checked={isCollapse} onChange={value => dispatch(setGlobalState({ key: "isCollapse", value }))} />
+        <Switch checked={isCollapse} onChange={(value: any) => dispatch(setGlobalState({ key: "isCollapse", value }))} />
       </div>
       <div className="theme-item">
         <span>菜单手风琴</span>
-        <Switch checked={accordion} onChange={value => dispatch(setGlobalState({ key: "accordion", value }))} />
+        <Switch checked={accordion} onChange={(value: any) => dispatch(setGlobalState({ key: "accordion", value }))} />
       </div>
       <div className="theme-item">
         <span>水印</span>
         <Switch
           checked={watermark}
           disabled={NODE_ENV !== "development"}
-          onChange={value => dispatch(setGlobalState({ key: "watermark", value }))}
+          onChange={(value: any) => dispatch(setGlobalState({ key: "watermark", value }))}
         />
       </div>
       <div className="theme-item">
         <span>面包屑</span>
-        <Switch checked={breadcrumb} onChange={value => dispatch(setGlobalState({ key: "breadcrumb", value }))} />
+        <Switch checked={breadcrumb} onChange={(value: any) => dispatch(setGlobalState({ key: "breadcrumb", value }))} />
       </div>
       <div className="theme-item">
         <span>面包屑图标</span>
-        <Switch checked={breadcrumbIcon} onChange={value => dispatch(setGlobalState({ key: "breadcrumbIcon", value }))} />
+        <Switch checked={breadcrumbIcon} onChange={(value: any) => dispatch(setGlobalState({ key: "breadcrumbIcon", value }))} />
       </div>
       <div className="theme-item">
         <span>标签栏</span>
-        <Switch checked={tabs} onChange={value => dispatch(setGlobalState({ key: "tabs", value }))} />
+        <Switch checked={tabs} onChange={(value: any) => dispatch(setGlobalState({ key: "tabs", value }))} />
       </div>
       <div className="theme-item">
         <span>标签栏图标</span>
-        <Switch checked={tabsIcon} onChange={value => dispatch(setGlobalState({ key: "tabsIcon", value }))} />
+        <Switch checked={tabsIcon} onChange={(value: any) => dispatch(setGlobalState({ key: "tabsIcon", value }))} />
       </div>
       <div className="theme-item">
         <span>标签栏拖拽</span>
-        <Switch checked={tabsDrag} onChange={value => dispatch(setGlobalState({ key: "tabsDrag", value }))} />
+        <Switch checked={tabsDrag} onChange={(value: any) => dispatch(setGlobalState({ key: "tabsDrag", value }))} />
       </div>
       <div className="theme-item">
         <span>页脚</span>
-        <Switch checked={footer} onChange={value => dispatch(setGlobalState({ key: "footer", value }))} />
+        <Switch checked={footer} onChange={(value: any) => dispatch(setGlobalState({ key: "footer", value }))} />
       </div>
     </Drawer>
   );
