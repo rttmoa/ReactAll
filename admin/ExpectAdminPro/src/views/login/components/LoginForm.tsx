@@ -125,7 +125,7 @@ const LoginForm: React.FC = () => {
   // .
   // !  发送验证码
   let timer: string | number | NodeJS.Timeout | null | undefined = null,
-    num = 5;
+    num = 60;
   const CountDown = () => {
     num--;
     if (num === 0) {

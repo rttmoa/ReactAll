@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from "react";
 import { message } from "@/hooks/useMessage";
 import { Card, Typography, Button, Form, Input, Space, DatePicker, InputNumber, Radio } from "antd";
@@ -30,9 +31,7 @@ const BasicForm: React.FC = () => {
   return (
     <React.Fragment>
       <Card className="mb10">
-        <Title level={4} className="mb15">
-          基础表单
-        </Title>
+        <Title level={4} className="mb15">基础表单</Title>
         <Text>表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。</Text>
       </Card>
 
@@ -105,10 +104,8 @@ const BasicForm: React.FC = () => {
           </Form.Item>
           <Form.Item>
             <Space>
-              <Button type="primary" htmlType="submit">
-                {"提交"}
-              </Button>
-              <Button htmlType="button">{"重置"}</Button>
+              <Button type="primary" htmlType="submit">提交</Button>
+              <Button htmlType="button">重置</Button>
             </Space>
           </Form.Item>
         </Form>

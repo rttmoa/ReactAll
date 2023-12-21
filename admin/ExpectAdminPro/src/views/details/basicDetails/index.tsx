@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from "react";
 import { Descriptions, Divider, Steps, Typography, Badge, Card } from "antd";
 import { LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined } from "@ant-design/icons";
@@ -39,16 +40,16 @@ const basicProgress: BasicProgress[] = [
   { key: "5", time: "2019-11-07 07:10", rate: "发起退货申请", status: "processing", operator: "用户", cost: "5mins" }
 ];
 
-// todo
-// todo <Descriptions /> https://ant.design/components/descriptions-cn
-// todo <Step /> https://ant.design/components/steps-cn
-// todo <Badge /> https://ant.design/components/badge-cn
+// ! antd 组件如下：
+// <Descriptions /> https://ant.design/components/descriptions-cn
+// <Step /> https://ant.design/components/steps-cn
+// <Badge /> https://ant.design/components/badge-cn
 const BasicDetails: React.FC = () => {
   return (
     <React.Fragment>
       <Card className="mb10">
         <Title level={4} className="mb15">
-          基础详情页
+          基础详情页  {"<Descriptions />"} | {"<Step />"} | {"<Badge />"} | Antd ts
         </Title>
         <Text>基础详情页常用于展示特定实体或项目的详细信息。</Text>
       </Card>
@@ -81,9 +82,7 @@ const BasicDetails: React.FC = () => {
           ]}
         />
         <Divider />
-        <Title level={5} className="mb20">
-          退货商品
-        </Title>
+        <Title level={5} className="mb20">退货商品</Title>
         <ProTable
           bordered
           pagination={false}

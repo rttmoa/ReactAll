@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from "react";
 import { Card, Descriptions, Tag, Typography } from "antd";
 import "./index.less";
@@ -12,14 +13,12 @@ const About: React.FC = () => {
   return (
     <div className="about-content">
       <Card className="mb10">
-        <Title level={4} className="mb15">
-          关于
-        </Title>
+        <Title level={4} className="mb15">关于； Descriptions | pkg</Title>
         <span className="text">
           <Link href="https://github.com/HalseySpicy/Hooks-Admin" target="_blank">
             Hooks-Admin{" "}
           </Link>
-          一款基于 React18、React-Router v6、React-Hooks、Redux-Toolkit、TypeScript、Vite4、Ant-Design5 开源的后台管理框架。
+          是一款基于 React18、React-Router v6、React-Hooks、Redux-Toolkit、TypeScript、Vite4、Ant-Design5 开源的后台管理框架。
         </span>
       </Card>
 
