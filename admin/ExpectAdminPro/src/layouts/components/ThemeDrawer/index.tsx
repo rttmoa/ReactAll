@@ -176,10 +176,7 @@ const ThemeDrawer: React.FC = () => {
       </div>
 
       {/* TODO: --界面设置-- */}
-      <Divider className="divider">
-        <SettingOutlined />
-        界面设置
-      </Divider>
+      <Divider className="divider"><SettingOutlined />界面设置</Divider>
       <div className="theme-item">
         <span>菜单折叠</span>
         <Switch checked={isCollapse} onChange={(value: any) => dispatch(setGlobalState({ key: "isCollapse", value }))} />

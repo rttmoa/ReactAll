@@ -2,7 +2,7 @@
 // ! 头部 CSS：头部左侧布局 + 头部右侧布局 + 菜单搜索弹窗组件 + 通知组件
 
 
-/* toolBar left (左侧盒子布局)  */
+/* toolBar left (头部：左侧盒子布局)  */
 .tool-bar-lf {
   display: flex;
   align-items: center;
@@ -49,7 +49,7 @@
   }
 }
 
-/* toolBar right  (右侧盒子布局) */
+/* toolBar right  (头部：右侧盒子布局) */
 .tool-bar-ri {
   display: flex;
   flex-shrink: 0;
@@ -73,7 +73,7 @@
   }
 }
 
-/* Message  (通知下CSS样式) */
+/* Message  (通知图标组件：通知、消息、代办) */
 .message-popover {
   .ant-popover-content {
     width: 305px;
@@ -111,13 +111,14 @@
   }
 }
 
-/* Search Menu  (菜单搜索框下搜索项 CSS样式) */
+/* Search Menu  (搜索图标组件：搜索项目所有菜单) */
 .search-modal {
   .menu-list {
     max-height: 510px;
     margin-top: 15px;
     // overflow：auto的用法和实现弹性盒横向滚动     https://blog.csdn.net/a1598452168YY/article/details/127111884
     overflow: auto;
+    padding: 0 15px;
     .menu-item {
       position: relative;
       display: flex;

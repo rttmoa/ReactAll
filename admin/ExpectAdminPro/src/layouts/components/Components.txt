@@ -22,6 +22,7 @@
 
 
 3、主体 > Main 
+  3.0、Main：HTML + CSS 结构处理
   3.1、Main 包含 TabViews、Footer
   3.2、开启 最大化 | root.classList.toggle("main-maximize", maximize)
   3.3、监视窗口变化，折叠菜单
@@ -34,11 +35,13 @@
 
 
 5、标签栏TabViews Main > Tabs
-  5.1、标签管理业务逻辑
+  5.0、路由的处理 & 接口菜单的处理
+  5.1、标签管理业务逻辑 (增删查 代码的实现及状态管理的处理)
   5.2、Tabs 配置项 / 当前高亮激活项 / 删除 / 添加 / 切换 / 拖拽 / 更多操作   <LayoutTabs />  <DraggableTabNode />  <MoreButton />
 
 
 6、主题配置 > ThemeDrawer
-  6.1、怎样设置全局配置 (主题颜色、圆角大小)
-  6.2、主题设置组件 HTML结构 + CSS样式
+  6.0、配置相关：布局样式 & 全局主题 & 界面设置
+  6.1、怎样通过 redux 设置全局 (全局主题颜色、圆角大小)
+  6.2、主题设置组件： HTML结构 + CSS样式
   6.3、颜色挑选  (全局主题 / 主题颜色设置)   <ColorPicker />

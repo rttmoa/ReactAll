@@ -1,10 +1,13 @@
+
 // ? 主题配置布局开始；body控制padiing、每一个开关盒子控制上下margin
+
+
 .theme-drawer {
   font-family: aliFonts; // 直接加一个 font-family
   .ant-drawer-body {
     padding: 25px 24px 10px 26px;
   }
-  // 分割线
+  // 分割线: 布局样式、主题颜色、界面设置
   .divider {
     margin: 10px 0 0 !important;
     font-size: 15px !important;
@@ -12,13 +15,14 @@
       margin-top: 0 !important;
     }
     .anticon {
-      margin-right: 10px;
+      margin-right: 8px;
     }
   }
+  // 内容左侧分割线和右侧分割线
   .ant-divider-with-text::before,
   .ant-divider-with-text::after {
     border-top: 1px solid var(--hooks-colorFill) !important;
-  }
+  } 
 
 
   // ! 每一个开关设置（主题颜色、暗黑模式、圆角大小）========
@@ -29,23 +33,25 @@
     margin: 23.5px 0;
     span {
       font-size: 14px;
-      color: var(--hooks-colorText);
+      color: var(--hooks-colorText); 
+      .anticon {
+        margin-left: 4px;
+        cursor: pointer;
+      }
     }
-    .anticon {
-      margin-left: 4px;
-      cursor: pointer;
-    }
-    // 主题颜色 右侧控件
+    // ! 主题颜色 颜色选择器组件
     .primary {
       width: 19px;
       height: 19px;
       cursor: pointer;
+      // 颜色主题右侧渐变按钮
       background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
       border-radius: 50px;
       box-shadow:
         var(--hooks-colorBgContainer) 0 0 0 1px,
         var(--hooks-colorPrimary) 0 0 0 5px;
     }
+    // 暗黑模式：sun / moon
     .ant-switch {
       .dark-icon {
         display: block;
