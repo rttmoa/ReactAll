@@ -3,6 +3,7 @@ import React from "react";
 import { message } from "@/hooks/useMessage";
 import { Card, Typography, Button, Form, Input, Space, DatePicker, InputNumber, Radio } from "antd";
 import "./index.less";
+import Test from './components/other'
 
 const { RangePicker } = DatePicker;
 const { Text, Title } = Typography;
@@ -20,6 +21,8 @@ interface BasicFormProps {
 }
 
 const BasicForm: React.FC = () => {
+  const [Com1, setCom1] = React.useState<boolean>(false);
+
   // get Form Value
   const onFinish = async (values: BasicFormProps) => {
     message.success("提交的数据为 : " + JSON.stringify(values));
@@ -27,14 +30,18 @@ const BasicForm: React.FC = () => {
   };
 
   const initialValues: Partial<BasicFormProps> = { weight: 0, publicType: "1" };
-
+  console.log(Com1);
   return (
-    <React.Fragment>
+    // Form表单： 
+    <>
       <Card className="mb10">
         <Title level={4} className="mb15">基础表单</Title>
         <Text>表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。</Text>
       </Card>
-
+      <Card className="mb10">
+        <button onClick={() => setCom1(!Com1)}>开启子组件</button>
+        {Com1 ? <Test /> : null}
+      </Card>
       <Card className="basic-form">
         <Form name="basic" layout="vertical" onFinish={onFinish} initialValues={initialValues}>
           <Form.Item label="标题" name="title" rules={[{ required: true, message: "请输入标题" }]} wrapperCol={{ span: 16 }}>
@@ -77,23 +84,11 @@ const BasicForm: React.FC = () => {
           >
             <Input placeholder="请直接 @姓名／工号，最多可邀请 5 人" />
           </Form.Item>
-          <Form.Item
-            label={
-              <span>
-                权重<span className="optional">（选填）</span>
-              </span>
-            }
-            name="weight"
-            wrapperCol={{ span: 5 }}
-          >
+          <Form.Item label={<span>权重<span className="optional">（选填）</span></span>} name="weight" wrapperCol={{ span: 5 }}>
             <InputNumber min={0} max={100} precision={0} placeholder="请输入" addonAfter={"%"} />
           </Form.Item>
           <Form.Item
-            label={
-              <span>
-                目标公开<span className="optional">（客户、邀评人默认被分享）</span>
-              </span>
-            }
+            label={<span> 目标公开<span className="optional">（客户、邀评人默认被分享）</span> </span>}
             name="publicType"
             wrapperCol={{ span: 16 }}
           >
@@ -110,7 +105,7 @@ const BasicForm: React.FC = () => {
           </Form.Item>
         </Form>
       </Card>
-    </React.Fragment>
+    </>
   );
 };
 
