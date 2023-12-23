@@ -39,6 +39,7 @@ class RequestHttp {
         // 当前请求需要显示加载，这由 API 服务中指定的第三个参数控制： {loading: true}
         config.loading && showFullScreenLoading();
 
+        // ! 请求时加载进度条： NProgress.start() - NProgress.done();
         // 每个接口新增时间戳
         // let timeStamp = new Date().getTime()
         // if(config.url && config.url.includes("?")) config.url = `${config.url}&t=${timeStamp}`

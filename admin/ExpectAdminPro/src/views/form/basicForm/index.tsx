@@ -1,110 +1,73 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
-import { message } from "@/hooks/useMessage";
-import { Card, Typography, Button, Form, Input, Space, DatePicker, InputNumber, Radio } from "antd";
+import { Card, Typography, Button,  Space, Select,Divider } from "antd";
+import FormCollectUser from './components/fomCollectUser'
+import FormBaisc from './components/formBasic'
+import FromLayout from './components/formLayout'
+import FormDisabled from './components/formDisabled'
+import FormSize from "./components/formSize";
+import FormValidateOther from "./components/formValidateOther";
+import FormValidateStatic from "./components/formValidateStatic";
+import FormLogin from "./components/formLogin";
+import FormRegister from "./components/formRegister";
+import FormModal from "./components/formModal";
+import FormTime from "./components/formTime";
+import FormWithout from "./components/formWithout";
 import "./index.less";
-import Test from './components/other'
-
-const { RangePicker } = DatePicker;
 const { Text, Title } = Typography;
 
-interface BasicFormProps {
-  title: string;
-  date: string[];
-  goal: string;
-  standard: string;
-  client: string;
-  invites: string;
-  weight: number;
-  publicType: string;
-  publicUsers: string[];
-}
 
+
+// ? 选择表单类型
+// Header由redux去控制  
+// 此处为父组件控制子组件传值
 const BasicForm: React.FC = () => {
-  const [Com1, setCom1] = React.useState<boolean>(false);
+  const [value, setValue] = React.useState<string>("FromCollectUser");
+  
+  // ! Form Hooks: https://ant.design/components/form-cn#hooks
+  let selectOption = [
+    { label: '收集用户信息 User', value: 'FromCollectUser' },
+    { label: '表单基本使用 Basic', value: 'FormBaisc' },
+    { label: '表单三种布局 Layout', value: 'FormLayout' }, 
+    { label: '表单禁用 Disabled', value: 'FormDisabled' },
+    { label: '表单尺寸 Size', value: 'FormSize' },
+    { label: '普通登陆框 Login', value: 'FormLogin' },
+    { label: '新用户注册 Register', value: 'FormRegister' },
+    { label: '表单弹出层 Modal', value: 'FormModal' },
+    { label: '时间类控件 Time', value: 'FormTime' },
+    { label: '自行处理表单 Without', value: 'FormWithout' }, 
+    { label: '自定义校验 ValidateStatic', value: 'ValidateStatic' },
+    { label: '校验其他组件 ValidateOther', value: 'FormValidateOther' },
+  ]
+  // 要新添加 ? 自定义表单控件、多表单联动、内联登陆栏、普通登陆框、注册新用户、弹出层中的新建表单、时间类控件、自行处理表单数据
+  const handleChange = (value: string) => { setValue(value) };
 
-  // get Form Value
-  const onFinish = async (values: BasicFormProps) => {
-    message.success("提交的数据为 : " + JSON.stringify(values));
-    console.log(values);
-  };
-
-  const initialValues: Partial<BasicFormProps> = { weight: 0, publicType: "1" };
-  console.log(Com1);
   return (
-    // Form表单： 
     <>
       <Card className="mb10">
         <Title level={4} className="mb15">基础表单</Title>
         <Text>表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。</Text>
+        <Divider orientation="left">SELECT</Divider>
+        <Space>
+          <Text className="mb15">常用表单操作：</Text>
+          <Select defaultValue="FromCollectUser" style={{ width: 250 }} listHeight={450} onChange={handleChange} options={selectOption}/>
+          <Button onClick={() => setValue(value)}>查看</Button>
+        </Space>  
       </Card>
       <Card className="mb10">
-        <button onClick={() => setCom1(!Com1)}>开启子组件</button>
-        {Com1 ? <Test /> : null}
-      </Card>
-      <Card className="basic-form">
-        <Form name="basic" layout="vertical" onFinish={onFinish} initialValues={initialValues}>
-          <Form.Item label="标题" name="title" rules={[{ required: true, message: "请输入标题" }]} wrapperCol={{ span: 16 }}>
-            <Input placeholder="给目标起个名字" />
-          </Form.Item>
-          <Form.Item
-            label="起止日期"
-            name="date"
-            rules={[{ required: true, message: "请选择起止日期" }]}
-            wrapperCol={{ span: 16 }}
-          >
-            <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" />
-          </Form.Item>
-          <Form.Item label="目标描述" name="goal" rules={[{ required: true, message: "请输入目标描述" }]}>
-            <Input.TextArea rows={3} showCount maxLength={100} placeholder="请输入你的阶段性工作目标" />
-          </Form.Item>
-          <Form.Item label="衡量标准" name="standard" rules={[{ required: true, message: "请输入衡量标准" }]}>
-            <Input.TextArea rows={3} showCount maxLength={100} placeholder="请输入衡量标准" />
-          </Form.Item>
-          <Form.Item
-            label={
-              <span>
-                客户<span className="optional">（选填）</span>
-              </span>
-            }
-            name="client"
-            tooltip="目标的服务对象"
-            wrapperCol={{ span: 16 }}
-          >
-            <Input placeholder="请描述你服务的客户，内部客户直接 @姓名／工号" />
-          </Form.Item>
-          <Form.Item
-            label={
-              <span>
-                邀评人<span className="optional">（选填）</span>
-              </span>
-            }
-            name="invites"
-            wrapperCol={{ span: 16 }}
-          >
-            <Input placeholder="请直接 @姓名／工号，最多可邀请 5 人" />
-          </Form.Item>
-          <Form.Item label={<span>权重<span className="optional">（选填）</span></span>} name="weight" wrapperCol={{ span: 5 }}>
-            <InputNumber min={0} max={100} precision={0} placeholder="请输入" addonAfter={"%"} />
-          </Form.Item>
-          <Form.Item
-            label={<span> 目标公开<span className="optional">（客户、邀评人默认被分享）</span> </span>}
-            name="publicType"
-            wrapperCol={{ span: 16 }}
-          >
-            <Radio.Group className="mb10">
-              <Radio value="1">公开</Radio>
-              <Radio value="2">不公开</Radio>
-            </Radio.Group>
-          </Form.Item>
-          <Form.Item>
-            <Space>
-              <Button type="primary" htmlType="submit">提交</Button>
-              <Button htmlType="button">重置</Button>
-            </Space>
-          </Form.Item>
-        </Form>
-      </Card>
+        <FormCollectUser value={value} />
+        <FormBaisc value={value} />
+        <FromLayout value={value} />
+        <FormDisabled value={value} />
+        <FormSize value={value} />
+        <FormLogin value={value} />
+        <FormRegister value={value} />
+        <FormModal value={value} /> 
+        <FormTime value={value} />
+        <FormWithout value={value} />
+        <FormValidateStatic value={value} />
+        <FormValidateOther value={value} />
+      </Card>  
     </>
   );
 };

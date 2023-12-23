@@ -22,8 +22,15 @@ export enum ContentTypeEnum {
   JSON = "application/json;charset=UTF-8",
   // text
   TEXT = "text/plain;charset=UTF-8",
-  // form-urlencoded generally cooperates with qs
+  // form-data 一般配合 qs
   FORM_URLENCODED = "application/x-www-form-urlencoded;charset=UTF-8",
-  // form-data upload
+  // form-data 上传
   FORM_DATA = "multipart/form-data;charset=UTF-8"
+}
+
+export enum Direction {
+  UP,
+  DOWN,
+  LEFT,
+  RIGHT
 }
