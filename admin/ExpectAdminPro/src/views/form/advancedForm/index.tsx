@@ -17,6 +17,7 @@ const AdvancedForm: React.FC = () => {
   };
 
   return (
+    // Row Col 响应式布局：https://ant.design/components/grid-cn#components-grid-demo-responsive
     <div className="advanced-form">
       <Card className="mb10">
         <Title level={4} className="mb15">
@@ -26,6 +27,20 @@ const AdvancedForm: React.FC = () => {
       </Card>
 
       <Form layout="vertical" name="advanced" form={form} onFinish={onFinish}>
+        <Card className="mb10">
+          {/* 预设六个响应尺寸：xs sm md lg xl xxl */}
+          <Row>
+            <Col xs={2} sm={4} md={6} lg={8} xl={10}>
+              Col
+            </Col>
+            <Col xs={22} sm={16} md={12} lg={8} xl={4}>
+              Col
+            </Col>
+            <Col xs={2} sm={4} md={6} lg={8} xl={10}>
+              Col
+            </Col>
+          </Row>
+        </Card>
         <Card title="仓库管理" className="mb10">
           <Row gutter={50} justify="space-between">
             <Col xxl={7} md={11} xs={24}>

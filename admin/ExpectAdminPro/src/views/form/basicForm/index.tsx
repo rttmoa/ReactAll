@@ -47,11 +47,11 @@ const BasicForm: React.FC = () => {
       <Card className="mb10">
         <Title level={4} className="mb15">基础表单</Title>
         <Text>表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。</Text>
-        <Divider orientation="left">SELECT</Divider>
+        <br /><br />
         <Space>
-          <Text className="mb15">常用表单操作：</Text>
+          <Text className="mb15"><b>常用表单操作：</b></Text>
           <Select defaultValue="FromCollectUser" style={{ width: 250 }} listHeight={450} onChange={handleChange} options={selectOption}/>
-          <Button onClick={() => setValue(value)}>查看</Button>
+          {/* <Button onClick={() => setValue(value)}>查看</Button> */}
         </Space>  
       </Card>
       <Card className="mb10">

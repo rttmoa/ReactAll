@@ -9,7 +9,7 @@ ProComponents：https://procomponents.ant.design/components/login-form
 
   表单禁用：https://ant.design/components/form-cn#components-form-demo-disabled
 
-  表单尺寸：Small、Default、Large
+  表单三种尺寸：Small、Default、Large
 
   字段监听Hook： const [form] = Form.useForm<{ name: string; age: number }>();  Form.useWatch("name", form)
 
