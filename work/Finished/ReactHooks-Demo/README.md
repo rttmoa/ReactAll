@@ -5,12 +5,12 @@
 - useState √
 - useEffect √
 - useContext √
-- useReducer
-- useMemo
+- useReducer √
+- useMemo √
 - useRef
-- useCallback
+- useCallback √
 - useImperativeHandle
-- useLayoutEffect
+- useLayoutEffect √
 - useDebugValue
 
 ## 项目运行

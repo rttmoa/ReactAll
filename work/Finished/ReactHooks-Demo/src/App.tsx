@@ -12,7 +12,7 @@ import {
 } from "./components";
 
 const App = () => {
-  WaterMark({ content: "baby张" });
+  // WaterMark({ content: "baby张" });
 
   return (
     <BrowserRouter>
@@ -32,7 +32,7 @@ const App = () => {
           <Link to="/useEffect">useEffect-useLayoutEffect </Link>
         </li>
         <li>
-          <Link to="/useMemo">useMemo-useCallback </Link>
+          <Link to="/useMemo">useMemo-useCallback</Link>
         </li>
         <li>
           <Link to="/useRef">useRef-useImperativeHandle </Link>
@@ -41,7 +41,7 @@ const App = () => {
           <Link to="/useContext">useContext</Link>
         </li>
         <li>
-          <Link to="/useReducer">useReducer </Link>
+          <Link to="/useReducer">useReducer</Link>
         </li>
       </ul>
       <div className="content">

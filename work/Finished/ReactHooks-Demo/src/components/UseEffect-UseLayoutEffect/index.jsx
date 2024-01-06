@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react'
 
-// ? 箭头函数的写法，改变状态
+// ? useEffect, useLayoutEffect
 const UseEffect = props => {
   const [hook, sethook] = useState('react hook 是真的好用啊')
   const [name] = useState('baby张')
