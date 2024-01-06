@@ -16,25 +16,17 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      {/**此处无关紧要 */}
       <div className="title">
         baby张的React Hook, 10种hook Demo实例
-        <p>
-          Github地址：
-          <a href="https://github.com/babybrotherzb" target="_blank">
-            https://github.com/babybrotherzb
-          </a>
-        </p>
-        <p>
-          博客地址：
-          <a href="https://blog.csdn.net/weixin_43648947" target="_blank">
-            https://blog.csdn.net/weixin_43648947
-          </a>
-        </p>
+        <p>Github地址：<a href="https://github.com/babybrotherzb" target="_blank">https://github.com/babybrotherzb</a></p>
+        <p>博客地址：<a href="https://blog.csdn.net/weixin_43648947" target="_blank">https://blog.csdn.net/weixin_43648947</a></p>
       </div>
       <ul className="router">
         <li>
-          <Link to="/useState">useState </Link>
+          <Link to="/useState">useState</Link>
+        </li>
+        <li>
+          <Link to="/useEffect">useEffect</Link>
         </li>
         <li>
           <Link to="/useEffect">useEffect-useLayoutEffect </Link>
@@ -46,7 +38,7 @@ const App = () => {
           <Link to="/useRef">useRef-useImperativeHandle </Link>
         </li>
         <li>
-          <Link to="/useContext">useContext </Link>
+          <Link to="/useContext">useContext</Link>
         </li>
         <li>
           <Link to="/useReducer">useReducer </Link>

@@ -21,7 +21,7 @@ export default {
     },
 
     plugins: [
-        // Minify the output
+        // 缩小输出
         new MinifyPlugin(),
     ],
 

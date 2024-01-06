@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
-//通常的class写法,改变状态
-
+// ? 通常的class写法,改变状态
 // class UseState extends React.Component {
 //   constructor(props){
 //     super(props)
@@ -30,18 +29,21 @@ import React, { useState } from "react";
 
 // 箭头函数的函数写法,改变状态
 const UseState = props => {
-  const [hook, sethook] = useState("react hook 是真的好用啊");
+  function initState() {
+    return '我是 initState'
+  }
+  const [hook, sethook] = useState(() => {
+    return initState()
+  })
   return (
     <header className="UseState-header">
       <h3>UseState</h3>
       {hook}
-      <button onClick={() => sethook("我改变了react hook 的值")}>
-        改变hook
-      </button>
+      <button onClick={() => sethook('我改变了react hook 的值')}>改变hook</button>
     </header>
-  );
-};
-export default UseState;
+  )
+}
+export default UseState
 
 // 函数式写法,改变状态
 // function UseState() {

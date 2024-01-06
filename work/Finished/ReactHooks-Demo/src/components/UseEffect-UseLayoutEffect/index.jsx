@@ -1,57 +1,54 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from 'react'
 
-//箭头函数的写法，改变状态
+// ? 箭头函数的写法，改变状态
 const UseEffect = props => {
-  //创建了一个叫hook的变量，sethook方法可以改变这个变量,初始值为‘react hook 是真的好用啊’
-  const [hook, sethook] = useState("react hook 是真的好用啊");
-  const [name] = useState("baby张");
+  const [hook, sethook] = useState('react hook 是真的好用啊')
+  const [name] = useState('baby张')
   return (
     <header className="UseEffect-header">
       <h3>UseEffect</h3>
       <Child hook={hook} name={name} />
-      {/**上面的变量和下面方法也是可以直接使用的 */}
-      <button
-        onClick={() =>
-          sethook("我改变了react hook 的值" + new Date().getTime())
-        }
-      >
-        改变hook
-      </button>
+      <button onClick={() => sethook('我改变了react hook 的值' + new Date().getTime())}>改变hook</button>
     </header>
-  );
-};
+  )
+}
 
 const Child = props => {
-  const [newhook, setnewhook] = useState(props.hook);
-  //这样写可以代替以前的componentDidMount，第二个参数为空数组，表示该useEffect只执行一次
+  const [newhook, setnewhook] = useState(props.hook)
+
   useEffect(() => {
-    console.log("first componentDidMount  首次渲染");
-  }, []);
+    console.log('first useEffect')
+  }, [])
+
+  useEffect(() => {
+    console.log('second useEffect')
+  }, [props.name])
 
   //第二个参数，数组里是hook,当hook变化时，useEffect会触发，当hook变化时，先销毁再执行第一个函数。
   useEffect(() => {
-    setnewhook(props.hook + "222222222");
-    console.log("useEffect 中");
+    setnewhook(props.hook + '-----setnewhook')
+    console.log('third useEffect')
     return () => {
-      console.log("componentWillUnmount 卸载1");
-    };
-  }, [props.hook]);
+      console.log('useEffect componentWillUnmount 卸载1')
+    }
+  }, [props.hook])
 
-  // TODO: useLayoutEffect 强制useeffect的执行为同步，并且先执行useLayoutEffect内部的函数
+  // ! useLayoutEffect 强制useeffect的执行为同步，并且先执行useLayoutEffect内部的函数
   useLayoutEffect(() => {
-    console.log("useLayoutEffect");
+    console.log('useLayoutEffect')
     return () => {
-      console.log("useLayoutEffect componentWillUnmount 卸载2");
-    };
-  }, [props.hook]);
+      console.log('useLayoutEffect componentWillUnmount 卸载2')
+    }
+  }, [props.hook])
 
-  console.log("---------分割------");
+  
+  console.log('---------分割------')
   return (
     <div>
-      <p>{props.name}</p>
-      {newhook}
+      <p><b>props.name：</b>{props.name}</p>
+      <p><b>props.hook：</b>{newhook}</p>
     </div>
-  );
-};
+  )
+}
 
-export default UseEffect;
+export default UseEffect

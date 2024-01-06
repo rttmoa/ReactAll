@@ -2,9 +2,9 @@
 
 ## hook 的常用种类
 
-- useState
-- useEffect
-- useContext
+- useState √
+- useEffect √
+- useContext √
 - useReducer
 - useMemo
 - useRef
