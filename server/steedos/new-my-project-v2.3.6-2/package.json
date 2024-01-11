@@ -1,0 +1,14 @@
+{
+  "name": "new-my-project-v2.3.6-2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "steedos start"
+  },
+  "dependencies": {
+    "@steedos/service-community": "2.6.3"
+  },
+  "devDependencies": {
+    "eslint": "8.56.0"
+  }
+}
