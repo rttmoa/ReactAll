@@ -1,7 +1,0 @@
-{
-    "component": true,
-    "usingComponents": {
-        "cw-popup": "../popup/index",
-        "cw-button": "../button/index"
-    }
-}

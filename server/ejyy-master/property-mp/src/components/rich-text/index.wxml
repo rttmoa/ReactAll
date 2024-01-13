@@ -1,3 +1,0 @@
-<view class="cw-rich-text">
-    <rich-text nodes="{{nodes}}" />
-</view>

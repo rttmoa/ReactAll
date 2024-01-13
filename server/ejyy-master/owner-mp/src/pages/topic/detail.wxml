@@ -1,5 +1,0 @@
-<view class="container">
-    <cw-rich-text detail="{{detail.content}}" />
-    <cw-skeleton wx:if="{{fetching}}" title row="{{10}}" />
-    <cw-copyright />
-</view>

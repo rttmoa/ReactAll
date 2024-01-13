@@ -1,5 +1,0 @@
-query getUser {
-  getUser {
-    ...userFields
-  }
-}

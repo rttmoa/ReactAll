@@ -1,6 +1,0 @@
-
-
-
-
-Nodejs V14.20.0
-npx create-steedos-app@2.3.6 new-my-project-v2-3-6

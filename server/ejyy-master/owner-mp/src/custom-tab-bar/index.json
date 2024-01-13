@@ -1,7 +1,0 @@
-{
-    "component": true,
-    "usingComponents": {
-        "cw-tabbar": "../components/tabbar",
-        "cw-tabbar-item": "../components/tabbar-item"
-    }
-}

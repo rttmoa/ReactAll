@@ -1,7 +1,0 @@
-__mocks__
-__tests__
-coverage
-.editorconfig
-.DS_Store
-appveyor.yml
-.travis.yml

@@ -1,5 +1,0 @@
---require test/init.js
---require test/utils/test-setup
---recursive
---reporter spec
---timeout 5000

@@ -1,3 +1,0 @@
-<view class="custom-class cw-collapse {{ border ? 'cw-hairline--top-bottom' : '' }}">
-    <slot />
-</view>

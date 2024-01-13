@@ -1,6 +1,0 @@
---require test/init.js
---require ts-node/register
---watch-extensions ts
---recursive
---reporter spec
---timeout 5000

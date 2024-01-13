@@ -1,7 +1,0 @@
-name: workflow_outbound_messages
-label: 出站消息
-icon: app
-version: 2
-hidden: true
-enable_inline_edit: false
-enable_enhanced_lookup: true

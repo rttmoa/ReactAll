@@ -1,9 +1,0 @@
-
-
-
-
-Nodejs V14.20.0
-yarn
-yarn server
-
-databaseUrl:  postgres://user:pass@localhost:5432/apidb

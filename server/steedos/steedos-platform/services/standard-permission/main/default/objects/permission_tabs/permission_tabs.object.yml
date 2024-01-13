@@ -1,7 +1,0 @@
-name: permission_tabs
-label: 选项卡权限
-icon: apps
-version: 2
-hidden: false
-paging:
-  enabled: false

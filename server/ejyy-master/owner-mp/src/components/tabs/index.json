@@ -1,7 +1,0 @@
-{
-    "component": true,
-    "usingComponents": {
-        "cw-info": "../info/index",
-        "cw-sticky": "../sticky/index"
-    }
-}

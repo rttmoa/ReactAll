@@ -1,3 +1,0 @@
-mutation sendVerificationEmail($email: String!) {
-  sendVerificationEmail(email: $email)
-}

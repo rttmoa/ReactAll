@@ -1,1 +1,0 @@
-export { getUserTwoFactorService } from './user';

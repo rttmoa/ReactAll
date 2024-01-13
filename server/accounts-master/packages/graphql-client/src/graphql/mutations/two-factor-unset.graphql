@@ -1,3 +1,0 @@
-mutation twoFactorUnset($code: String!) {
-  twoFactorUnset(code: $code)
-}

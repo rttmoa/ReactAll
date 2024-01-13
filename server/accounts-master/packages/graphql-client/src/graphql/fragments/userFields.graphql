@@ -1,8 +1,0 @@
-fragment userFields on User {
-  id
-  emails {
-    address
-    verified
-  }
-  username
-}

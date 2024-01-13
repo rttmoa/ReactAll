@@ -1,7 +1,0 @@
-.DS_Store
-/node_modules
-/lib/*
-!/lib/.keep
-/tmp
-yarn-error.log
-src/*.grammar.js

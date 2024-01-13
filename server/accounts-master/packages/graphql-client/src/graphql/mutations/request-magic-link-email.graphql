@@ -1,3 +1,0 @@
-mutation requestMagicLinkEmail($email: String!) {
-  requestMagicLinkEmail(email: $email)
-}

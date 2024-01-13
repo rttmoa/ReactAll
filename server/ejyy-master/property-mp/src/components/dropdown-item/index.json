@@ -1,8 +1,0 @@
-{
-    "component": true,
-    "usingComponents": {
-        "cw-popup": "../popup/index",
-        "cw-cell": "../cell/index",
-        "cw-icon": "../icon/index"
-    }
-}
