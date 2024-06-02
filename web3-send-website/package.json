@@ -7,7 +7,8 @@
     "build": "umi build",
     "postinstall": "umi setup",
     "setup": "umi setup",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "clean:modules": "rimraf node_modules"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",

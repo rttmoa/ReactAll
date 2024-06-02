@@ -10,16 +10,16 @@ import ERC20 from '@/abis/ERC20.json';
 const MAX_UINT256 = ethers.BigNumber.from(
   '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
 );
-const getBigNumber = (amount: any, digit: ethers.BigNumberish | undefined) =>
+const getBigNumber = (amount, digit) =>
   ethers.utils.parseUnits(`${amount}`, digit);
 
 // erc20
 export const approve = async (
-  chainId: number | undefined,
-  library: any,
-  account: string | undefined,
-  tokenName: any,
-  spenderAddr: any,
+  chainId,
+  library,
+  account,
+  tokenName,
+  spenderAddr,
 ) => {
   const token = getToken(chainId, tokenName);
   console.log(
@@ -39,11 +39,11 @@ export const approve = async (
 };
 
 export const performSupply = async (
-  chainId: any,
-  library: any,
-  account: any,
-  tokenName: any,
-  spenderAddr: any,
+  chainId,
+  library,
+  account,
+  tokenName,
+  spenderAddr,
 ) => {
   const token = getToken(chainId, tokenName);
   console.log('api debug: ', chainId, account, token.address, spenderAddr);
@@ -54,11 +54,11 @@ export const performSupply = async (
 };
 
 export const checkAllowance = async (
-  chainId: any,
-  library: any,
-  account: any,
-  tokenName: any,
-  spenderAddr: any,
+  chainId,
+  library,
+  account,
+  tokenName,
+  spenderAddr,
 ) => {
   const token = getToken(chainId, tokenName);
 
@@ -88,20 +88,20 @@ export const checkAllowance = async (
 // }
 
 export const readState = async (
-  library: any,
-  abi: any[],
-  contractAddr: any,
-  functionName: string,
-  args: any[],
+  library,
+  abi,
+  contractAddr,
+  functionName,
+  args,
 ) => {
   console.log('DEBUGGING', library, contractAddr, functionName, args);
   let value = undefined;
-  let contract = getContract(contractAddr, abi, library, );
+  let contract = getContract(contractAddr, abi, library);
 
   let method = contract[functionName];
   console.log('testing here');
 
-  let result = await method(...args).catch((e: any) =>
+  let result = await method(...args).catch((e) =>
     console.log('CustomError in transaction: ', e),
   );
 
@@ -110,16 +110,16 @@ export const readState = async (
 };
 
 export const performTx = async (
-  library: any,
-  abi: any[],
-  account: string,
-  contractAddr: any,
-  functionName: string,
-  args: any[],
+  library,
+  abi,
+  account,
+  contractAddr,
+  functionName,
+  args,
 ) => {
   console.log(library, account, contractAddr, functionName, args);
   // let value;
-  let value: undefined = undefined;
+  let value = undefined;
   let contract = getContract(contractAddr, abi, library, account);
 
   let estimate = contract.estimateGas[functionName];
@@ -131,7 +131,7 @@ export const performTx = async (
       method(...args, {
         ...(value ? { value } : {}),
         gasLimit: calculateGasMargin(estimatedGasLimit),
-      }).catch((e: any) => {
+      }).catch((e) => {
         console.log('CustomError: ', e);
         new CustomError('CustomError in transaction');
       }),
@@ -140,7 +140,7 @@ export const performTx = async (
   return result;
 };
 
-export const withConfirmation = async (txpromise: Promise<any>) => {
+export const withConfirmation = async (txpromise) => {
   const result = await txpromise;
   // await ethers.providers.waitForTransaction(
   //   result.receipt ? result.receipt.transactionHash : result.hash,
@@ -151,7 +151,7 @@ export const withConfirmation = async (txpromise: Promise<any>) => {
   return result;
 };
 
-export function getContract(address: string, ABI: ethers.ContractInterface, library: any, account: any) {
+export function getContract(address, ABI, library, account) {
   if (!isAddress(address) || address === AddressZero) {
     console.log('not working');
   }
@@ -159,7 +159,7 @@ export function getContract(address: string, ABI: ethers.ContractInterface, libr
   return new Contract(address, ABI, getProviderOrSigner(library, account));
 }
 
-export function isAddress(value: string) {
+export function isAddress(value) {
   try {
     return getAddress(value);
   } catch {
@@ -167,28 +167,26 @@ export function isAddress(value: string) {
   }
 }
 
-export function calculateGasMargin(value: ethers.BigNumber) {
+export function calculateGasMargin(value) {
   return value
     .mul(ethers.BigNumber.from(10000).add(ethers.BigNumber.from(1000)))
     .div(ethers.BigNumber.from(10000));
 }
 
 export class CustomError {
-  errorText: any;
-
   getErrorText() {
     return this.errorText;
   }
 
-  constructor(errorText: string) { 
+  constructor(errorText) {
     this.errorText = errorText;
   }
 }
 
-export function getProviderOrSigner(library: any, account: any) {
+export function getProviderOrSigner(library, account) {
   return account ? getSigner(library, account) : library;
 }
 
-export function getSigner(library: { getSigner: (arg0: any) => { (): any; new(): any; connectUnchecked: { (): any; new(): any; }; }; }, account: any) {
+export function getSigner(library, account) {
   return library.getSigner(account).connectUnchecked();
 }

@@ -15,31 +15,31 @@ let USDCPrice = axios.get(urlUSDC);
 let MATICPrice = axios.get(urlMATIC);
 
 const usePriceFeed = () => {
-    const [latestPrices, setLatestPrices] = useState({});
+  const [latestPrices, setLatestPrices] = useState({});
 
-    const fetchPrice = async () => {
-        let priceDict = {};
+  const fetchPrice = async () => {
+    let priceDict = {};
 
-        await axios
-            .all([ETHPrice, USDCPrice, MATICPrice])
-            .then(
-                axios.spread((...responses) => {
-                    priceDict['ETH'] = responses[0].data.lastPrice;
-                    priceDict['USDC'] = responses[1].data.lastPrice;
-                    priceDict['MATIC'] = responses[2].data.lastPrice;
-                })
-            )
-            .catch(e => console.log('covalent error: ', e));
+    await axios
+      .all([ETHPrice, USDCPrice, MATICPrice])
+      .then(
+        axios.spread((...responses) => {
+          priceDict['ETH'] = responses[0].data.lastPrice;
+          priceDict['USDC'] = responses[1].data.lastPrice;
+          priceDict['MATIC'] = responses[2].data.lastPrice;
+        }),
+      )
+      .catch((e) => console.log('covalent error: ', e));
 
-        setLatestPrices(priceDict);
-        setTimeout(fetchPrice, 1000 * 60);
-    };
+    setLatestPrices(priceDict);
+    setTimeout(fetchPrice, 1000 * 60);
+  };
 
-    useEffect(() => {
-        fetchPrice();
-    }, []);
+  useEffect(() => {
+    fetchPrice();
+  }, []);
 
-    return latestPrices;
+  return latestPrices;
 };
 
 export default usePriceFeed;
