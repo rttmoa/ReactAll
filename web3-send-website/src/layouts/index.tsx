@@ -20,9 +20,10 @@ const BasicLayout = () => {
     setCurrentChain(chainId);
   }
   useEffect(() => {
-    const chainId=localStorage.getItem('chainId')
-    chainId&& switchChain(chainId*1)
+    const chainId: any = localStorage.getItem('chainId')
+    chainId && switchChain(chainId * 1)
   }, []);
+  
   return <Web3ReactProvider connectors={connectors}>
     <WalletProvider.Provider value={{ currentChain, switchChain }}>
       <div className={styles.main}>

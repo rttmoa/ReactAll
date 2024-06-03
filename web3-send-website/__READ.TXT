@@ -5,3 +5,18 @@
 
 ! github: https://github.com/Send-Labs
 ! website: https://send.finance/
+
+
+web3-react; 连接Metamask、 https://cloud.tencent.com/developer/article/2152840
+
+import { useWeb3React } from "@web3-react/core"
+const { active, account, library, connector, activate, deactivate } = useWeb3React()
+  active：一个钱包现在是否正在连接状态？
+  account：已连接的区块链账户地址。
+  library：它是 web3 或 ethers，取决于你传入的内容。
+  connector：当前的连接器。因此，当我们连接时，本例中是injected连接器。
+  activate：连接到一个钱包的方法。
+  deactivate: 从一个钱包断开连接的方法
+
+
+使用React创建一个web3的前端； https://cloud.tencent.com/developer/article/2152873

@@ -175,13 +175,14 @@ export const tokenListOp = [
   },
 ];
 
-export const getTokenList = (chainId: Number | undefined) =>
-  ({
+export const getTokenList = (chainId: number): any => {
+  return {
     69: tokenListOp,
     80001: tokenListPolygon,
     31337: tokenListPolygon,
     1337: tokenListGanache,
-  }[chainId || defaultChainId]);
+  }[chainId || defaultChainId]
+} 
 
 export const getToken = (chainId, symbol) => {
   const tokenList = getTokenList(chainId);

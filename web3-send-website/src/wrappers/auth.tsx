@@ -1,5 +1,7 @@
 import { Navigate, Outlet } from 'umi'
 import { hooks } from '@/connectors/metaMask'
+
+
 export default (props: any) => {
     const { useAccounts } = hooks;
     const accounts: any = useAccounts();

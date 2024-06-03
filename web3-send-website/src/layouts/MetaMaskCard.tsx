@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Button } from 'antd';
 
 import { hooks, metaMask } from '../connectors/metaMask'
-import {hooks as hooks2, network } from '../connectors/network'
+import { hooks as hooks2, network } from '../connectors/network'
 import { Card } from './Card'
 
 const { useChainId, useAccounts, useIsActivating, useIsActive, useProvider, useENSNames } = hooks
@@ -10,7 +10,7 @@ const { useChainId, useAccounts, useIsActivating, useIsActive, useProvider, useE
 export default function MetaMaskCard() {
   const chainId = useChainId()
   const chainId2 = hooks2.useChainId()
-  
+
   const accounts = useAccounts()
   const isActivating = useIsActivating()
 
@@ -19,22 +19,21 @@ export default function MetaMaskCard() {
   const provider = useProvider()
   const ENSNames = useENSNames(provider)
 
-  const [error, setError] = useState(undefined)
+  const [error, setError] = useState<any>(undefined)
 
-  // attempt to connect eagerly on mount
-  // useEffect(() => {
-  //   // void metaMask.connectEagerly().catch(() => {
-  //   //   console.debug('Failed to connect eagerly to metamask')
-  //   // })
-  //   // void network.activate().catch(() => {
-  //   //   console.debug('Failed to connect to network')
-     
-  //   // })
-  //   debugger;
-  // const a=  provider?.getSigner('0xebaD00B2BaD5a981658706d0373B893ed1DA89e1').connectUnchecked();
-    
-  //   console.log(chainId2,'chainId2')
-  // }, [])
+  // 尝试在挂载时急切地连接
+  useEffect(() => {
+    void metaMask.connectEagerly().catch(() => {
+      console.debug('Failed to connect eagerly to metamask')
+    })
+    void network.activate().catch(() => {
+      console.debug('Failed to connect to network') 
+    })
+    // debugger;
+    const a = provider?.getSigner('0xebaD00B2BaD5a981658706d0373B893ed1DA89e1').connectUnchecked();
+
+    console.log(chainId2, 'chainId2')
+  }, [])
 
   return (
     <Card
