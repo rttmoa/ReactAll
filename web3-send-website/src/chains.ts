@@ -16,6 +16,7 @@ interface BasicChainInformation {
     name: string;
     id: number;
     icon: string;
+    // blockExplorerUrls: string[]
 }
 
 interface ExtendedChainInformation extends BasicChainInformation {

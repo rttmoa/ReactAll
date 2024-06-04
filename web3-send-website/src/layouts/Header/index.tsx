@@ -62,9 +62,9 @@ function Header(props: any) {
             dataIndex: 'chainFrom',
             key: 'chainFrom',
             render: (text: string, data: any) => (
-                <a target="_blank" href={MAINNET_CHAINS[text]?.blockExplorerUrls[0] + 'tx/' + data.hashFrom} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <img width={16} src={MAINNET_CHAINS[text]?.icon} />
-                    {MAINNET_CHAINS[text]?.name}
+                <a target="_blank" href={MAINNET_CHAINS[Number(text)]?.blockExplorerUrls[0] + 'tx/' + data.hashFrom} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <img width={16} src={MAINNET_CHAINS[Number(text)]?.icon} />
+                    {MAINNET_CHAINS[Number(text)]?.name}
                     <ViewIcon width={16} height={16} fill="#fff" />
                 </a>
             ),
@@ -74,9 +74,9 @@ function Header(props: any) {
             dataIndex: 'chainTo',
             key: 'chainTo',
             render: (text: string, data: any) => (
-                <a target="_blank" href={`${MAINNET_CHAINS[text]?.blockExplorerUrls[0]}tx/${data.hashTo}`} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <img width={16} src={MAINNET_CHAINS[text]?.icon} />
-                    {MAINNET_CHAINS[text]?.name}
+                <a target="_blank" href={`${MAINNET_CHAINS[Number(text)]?.blockExplorerUrls[0]}tx/${data.hashTo}`} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <img width={16} src={MAINNET_CHAINS[Number(text)]?.icon} />
+                    {MAINNET_CHAINS[Number(text)]?.name}
                     <ViewIcon width={16} height={16} fill="#fff" />
                 </a>
             ),
@@ -111,14 +111,14 @@ function Header(props: any) {
     return (
         <header style={{ padding: '0 30px' }}>
             <div className="left" style={{ display: 'flex', alignItems: 'center', width: '200px' }}>
-                <img src={sendFinance} className="topImage"></img>
+                <img src={sendFinance} className="topImage"></img> 
             </div>
-
+         
             <div className="mid" style={{ display: 'flex', alignItems: 'center' }}>
                 <Tabs></Tabs>
             </div>
 
-            <div className="right" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div className="right" style={{ display: 'flex',   alignItems: 'center', gap: '10px' }}>
                 {chainId && (
                     <Button onClick={() => setHistoryOpen(true)} style={{ overflow: 'hidden', textOverflow: 'ellipsis' }} type="primary" className="topConnect">
                         <HistoryOutlined /> History

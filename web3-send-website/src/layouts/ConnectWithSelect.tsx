@@ -7,7 +7,7 @@ import './index.less';
 function ChainSelect({ activeChainId, switchChain, chainIds }: { activeChainId: number; switchChain: (chainId: number) => void; chainIds: number[] }) {
     return (
         <>
-            {chainIds.map(chainId => (
+            {chainIds && chainIds.map(chainId => (
                 <div
                     className="network"
                     key={chainId}
@@ -33,7 +33,7 @@ export function ConnectWithSelect({
 }: {
     connector: MetaMask;
     activeChainId: ReturnType<Web3ReactHooks['useChainId']>;
-    chainIds?: ReturnType<Web3ReactHooks['useChainId']>[];
+    chainIds: ReturnType<Web3ReactHooks['useChainId']>[];
     isActivating: ReturnType<Web3ReactHooks['useIsActivating']>;
     isActive: ReturnType<Web3ReactHooks['useIsActive']>;
     error: Error | undefined;
@@ -48,7 +48,7 @@ export function ConnectWithSelect({
                 border: ' 1px solid rgb(47, 52, 62)',
                 borderRadius: '5px',
             }}>
-            <ChainSelect activeChainId={activeChainId as number} switchChain={switchChain} chainIds={chainIds} />
+            <ChainSelect activeChainId={activeChainId as number} switchChain={switchChain} chainIds={chainIds as any || 1} />
         </div>
     );
 }

@@ -59,7 +59,7 @@ export function Card({ connector, activeChainId, chainIds, isActivating, isActiv
         }
     }, [currentChain]);
     return (
-        <div style={{ zIndex: 1 }}>
+        <div style={{ zIndex: 1, flex: 1, display: 'flex', flexDirection: 'column', position: 'relative' }}>
             <Dropdown
                 trigger={['click']}
                 placement="bottomRight"
@@ -72,18 +72,23 @@ export function Card({ connector, activeChainId, chainIds, isActivating, isActiv
                             <img src={CHAINS[activeChainId as number]?.icon} style={{ marginRight: '10px', width: '25px' }}></img>
                             {hideMiddleChars(accounts[0])}
                         </>
-                    )) || 'Connect Wallet'}
+                    )) ||
+                        'Connect Wallet'}
                 </Button>
             </Dropdown>
 
-            {/* <b>{getName(connector)}</b>
-      <div style={{ marginBottom: '1rem' }}>
-        <Status isActivating={isActivating} isActive={isActive} error={error} />
-      </div>
-      <Chain chainId={activeChainId} />
-      <div style={{ marginBottom: '1rem' }}>
-        <Accounts accounts={accounts} provider={provider} ENSNames={ENSNames} />
-      </div> */}
+            <div style={{ position: 'absolute', top: 50, right: 0 , width: 200}}>
+                <div style={{ display: 'flex', justifyContent:'space-between' }}>
+                    <b style={{ marginRight: 10 }}>{getName(connector)}</b>
+                    <span style={{ marginBottom: '1rem' }}>
+                        <Status isActivating={isActivating} isActive={isActive} error={error} />
+                    </span>
+                </div>
+                <Chain chainId={activeChainId} />
+                <div style={{ marginBottom: '1rem' }}>
+                    <Accounts accounts={accounts} provider={provider} ENSNames={ENSNames} />
+                </div>
+            </div>
         </div>
     );
 }

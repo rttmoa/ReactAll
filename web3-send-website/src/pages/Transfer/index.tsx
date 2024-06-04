@@ -366,78 +366,78 @@ const HomePage = (props: any) => {
         />
         <TokenInput key="ti3" simple defaultValue={valueAddress} onChange={(v: any) => setValueAddress(v)} currentChain={currentToChain} currentToken={currentToToken} title="Recipient Address" choose />
         <Button
-          disabled={(value == '' && allowance != 0) || !chainId || value > 10 || !isAuth}
-          // onClick={debounce(async () => {
-          //   // <Button disabled onClick={async () => {
-          //   if (!chainId) {
-          //     return;
-          //   }
-          //   if (allowance == 0) {
-          //     approveToken();
-          //     return;
-          //   }
-          //   const chainList = [
-          //     {
-          //       id: currentFromChain.id,
-          //       fee: 0,
-          //     },
-          //     {
-          //       id: currentToChain.id,
-          //       fee: 0,
-          //     },
-          //   ];
-          //   // getfees
+          // disabled={(value == '' && allowance != 0) || !chainId || value > 10 || !isAuth}
+          onClick={debounce(async () => {
+            // <Button disabled onClick={async () => {
+            if (!chainId) {
+              return;
+            }
+            if (allowance == 0) {
+              approveToken();
+              return;
+            }
+            const chainList = [
+              {
+                id: currentFromChain.id,
+                fee: 0,
+              },
+              {
+                id: currentToChain.id,
+                fee: 0,
+              },
+            ];
+            // getfees
 
-          //   let allFees = new Decimal("0");
-          //   let targetFees;
-          //   await Promise.all(
-          //     chainList.map(async (item, index) => {
-          //       const chainIds: number = item.id;
-          //       const tx = await sendContract.chainFee(chainIds);
-          //       const oldNum = new Decimal(
-          //         ethers.utils.formatUnits(
-          //           ethers.BigNumber.from(tx).toString(),
-          //           18
-          //         )
-          //       );
-          //       const num = oldNum.div(10);
-          //       // allFees.plus(num)
+            let allFees = new Decimal("0");
+            let targetFees;
+            await Promise.all(
+              chainList.map(async (item, index) => {
+                const chainIds: number = item.id;
+                const tx = await sendContract.chainFee(chainIds);
+                const oldNum = new Decimal(
+                  ethers.utils.formatUnits(
+                    ethers.BigNumber.from(tx).toString(),
+                    18
+                  )
+                );
+                const num = oldNum.div(10);
+                // allFees.plus(num)
 
-          //       // const num2 = new Decimal('0.2');
+                // const num2 = new Decimal('0.2');
 
-          //       // 进行高精度加法计算
-          //       allFees = allFees.plus(num);
-          //       if (index == 1) {
-          //         allFees = allFees.plus(oldNum);
-          //       }
-          //       // console.log('aaaa',result.toString());
-          //     })
-          //   );
-          //   // console.log('ethers.BigNumber.from(value).toBigInt()',ethers.BigNumber.from(""+value).toBigInt());
-          //   console.log(allFees.toString());
-          //   sendContract
-          //     .sendToken(
-          //       currentToChain.id,
-          //       SEND_CONSTANTS?.[chainId]?.token?.[currentFromToken.name]
-          //         .address,
-          //       valueAddress, //'0x08bf2999C67a807FD1708670E4C48Ada46aABAc5',
-          //       ethers.utils.parseUnits(value, chainId == 56 ? 18 : 6),
-          //       {
-          //         value: ethers.utils.parseUnits(allFees.toString(), 18),
-          //       }
-          //     )
-          //     .then(async (tx: ethers.providers.TransactionResponse) => {
-          //       // messageApi.success('Send SuccessFul!')
-          //       const result = await tx.wait();
-          //       console.log("sendResult", result);
-          //       if (result.status == 1) {
-          //         saveTD(result.transactionHash);
-          //       }
-          //     })
-          //     .catch((err) => {});
-          //   //  const result=await
-          //   //   console.log(result);
-          // }, 500)}
+                // 进行高精度加法计算
+                allFees = allFees.plus(num);
+                if (index == 1) {
+                  allFees = allFees.plus(oldNum);
+                }
+                // console.log('aaaa',result.toString());
+              })
+            );
+            // console.log('ethers.BigNumber.from(value).toBigInt()',ethers.BigNumber.from(""+value).toBigInt());
+            console.log(allFees.toString());
+            sendContract
+              .sendToken(
+                currentToChain.id,
+                SEND_CONSTANTS?.[chainId]?.token?.[currentFromToken.name]
+                  .address,
+                valueAddress, //'0x08bf2999C67a807FD1708670E4C48Ada46aABAc5',
+                ethers.utils.parseUnits(value, chainId == 56 ? 18 : 6),
+                {
+                  value: ethers.utils.parseUnits(allFees.toString(), 18),
+                }
+              )
+              .then(async (tx: ethers.providers.TransactionResponse) => {
+                // messageApi.success('Send SuccessFul!')
+                const result = await tx.wait();
+                console.log("sendResult", result);
+                if (result.status == 1) {
+                  saveTD(result.transactionHash);
+                }
+              })
+              .catch((err) => {});
+            //  const result=await
+            //   console.log(result);
+          }, 500)}
           style={{
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -446,14 +446,11 @@ const HomePage = (props: any) => {
             height: 'auto',
           }}
           type="primary">
-          {/* {(chainId && ((allowance == 0 && "Approve") || "Confirm")) ||
-            "Connect Wallet"} */}
-          Coming Soon
+          {(chainId && ((allowance == 0 && "Approve") || "Confirm")) || "Connect Wallet"} 
+          {/* Coming Soon  */}
         </Button>
 
-        {/* <Button onClick={async () => {
-          sendContract.withdrawAllTokens();
-        }}>取钱</Button> */}
+        {/* <Button onClick={async () => { sendContract.withdrawAllTokens();  }}>取钱</Button> */}
         <Drawer
           title="Select Token"
           className={styles.h100}
