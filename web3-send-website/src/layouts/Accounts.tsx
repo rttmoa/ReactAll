@@ -21,7 +21,6 @@ function useBalances(provider?: ReturnType<Web3ReactHooks['useProvider']>, accou
             };
         }
     }, [provider, accounts]);
-
     return balances;
 }
 

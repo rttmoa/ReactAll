@@ -136,7 +136,7 @@ const HomePage = (props: any) => {
   const [isAll, setIsAll] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
 
-  const accounts = useAccounts();
+  const accounts: string[] = useAccounts();
   const provider = useProvider();
 
   useEffect(() => {
@@ -156,13 +156,13 @@ const HomePage = (props: any) => {
     if (currentToChain.id != 8453 && currentFromToken.name == 'USDT') {
       setCurrentToToken(getTokenList(null)[0]);
     }
-    console.log('changetoken', currentToToken);
+    // console.log('changetoken', currentToToken);
   });
   useEffect(() => {
-    if (!SEND_CONSTANTS?.[chainId]?.send_contract) {
+    if (!SEND_CONSTANTS?.[chainId as any]?.send_contract) {
       return;
     }
-    if (!SEND_CONSTANTS?.[chainId]?.token?.[currentFromToken.name]?.address) {
+    if (!SEND_CONSTANTS?.[chainId as any]?.token?.[currentFromToken.name]?.address) {
       return;
     }
     if (provider && accounts?.length) {
@@ -170,8 +170,8 @@ const HomePage = (props: any) => {
       // approveToken();
       checkApproval();
 
-      setSendContract(new ethers.Contract(SEND_CONSTANTS?.[chainId]?.send_contract, SEND_CONTRACT_ABI, provider?.getSigner()));
-      const usdtContract = new ethers.Contract(SEND_CONSTANTS?.[chainId]?.token?.[currentFromToken.name]?.address, USDTABI, provider);
+      setSendContract(new ethers.Contract(SEND_CONSTANTS?.[chainId as any]?.send_contract, SEND_CONTRACT_ABI, provider?.getSigner()));
+      const usdtContract = new ethers.Contract(SEND_CONSTANTS?.[chainId as any]?.token?.[currentFromToken.name]?.address, USDTABI, provider);
       usdtContract
         .balanceOf(accounts[0])
         .then(balance => {
@@ -194,8 +194,8 @@ const HomePage = (props: any) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
 
     // 代币合约地址和目标地址
-    const tokenContractAddress = SEND_CONSTANTS?.[chainId]?.token?.[currentFromToken.name].address;
-    const targetAddress = SEND_CONSTANTS?.[chainId]?.send_contract;
+    const tokenContractAddress = SEND_CONSTANTS?.[chainId as any]?.token?.[currentFromToken.name].address;
+    const targetAddress = SEND_CONSTANTS?.[chainId as any]?.send_contract;
 
     // 获取当前 MetaMask 账户
     const signer = provider.getSigner();
@@ -223,8 +223,7 @@ const HomePage = (props: any) => {
     const tokenContract = new ethers.Contract(tokenContractAddress, USDTABI, provider);
 
     // 调用 allowance 函数查询已授权的代币数量
-    const allowance = await tokenContract.allowance(ownerAddress, spenderAddress);
-
+    const allowance = await tokenContract.allowance(ownerAddress, spenderAddress); // 100000000000000000
     setAllowance(allowance.toString());
   }
   // 轮询
@@ -271,10 +270,12 @@ const HomePage = (props: any) => {
   };
   const getAuth = async () => {
     const result = await get('/api/whiteList?walletAddress=' + accounts[0]);
+    console.log('result', result);
     if (result && result.code == 200 && result.data && result.data.length > 0) {
       setIsAuth(true);
     }
   };
+  console.log('message', isAuth);
   return (
     <div style={{ padding: '50px 0' }} className="flex flex-center">
       {contextHolder}
@@ -365,13 +366,15 @@ const HomePage = (props: any) => {
           chooseToken={currentFromChain.name == 'Base'}
         />
         <TokenInput key="ti3" simple defaultValue={valueAddress} onChange={(v: any) => setValueAddress(v)} currentChain={currentToChain} currentToken={currentToToken} title="Recipient Address" choose />
+
+
         <Button
-          // disabled={(value == '' && allowance != 0) || !chainId || value > 10 || !isAuth}
+          // disabled
+          disabled={(value == '' && allowance != 0) || !chainId || (+(value) > 10) || !isAuth}
           onClick={debounce(async () => {
-            // <Button disabled onClick={async () => {
             if (!chainId) {
               return;
-            }
+            } 
             if (allowance == 0) {
               approveToken();
               return;
@@ -388,18 +391,13 @@ const HomePage = (props: any) => {
             ];
             // getfees
 
-            let allFees = new Decimal("0");
+            let allFees = new Decimal('0');
             let targetFees;
             await Promise.all(
               chainList.map(async (item, index) => {
                 const chainIds: number = item.id;
                 const tx = await sendContract.chainFee(chainIds);
-                const oldNum = new Decimal(
-                  ethers.utils.formatUnits(
-                    ethers.BigNumber.from(tx).toString(),
-                    18
-                  )
-                );
+                const oldNum = new Decimal(ethers.utils.formatUnits(ethers.BigNumber.from(tx).toString(), 18));
                 const num = oldNum.div(10);
                 // allFees.plus(num)
 
@@ -418,8 +416,7 @@ const HomePage = (props: any) => {
             sendContract
               .sendToken(
                 currentToChain.id,
-                SEND_CONSTANTS?.[chainId]?.token?.[currentFromToken.name]
-                  .address,
+                SEND_CONSTANTS?.[chainId]?.token?.[currentFromToken.name].address,
                 valueAddress, //'0x08bf2999C67a807FD1708670E4C48Ada46aABAc5',
                 ethers.utils.parseUnits(value, chainId == 56 ? 18 : 6),
                 {
@@ -429,12 +426,12 @@ const HomePage = (props: any) => {
               .then(async (tx: ethers.providers.TransactionResponse) => {
                 // messageApi.success('Send SuccessFul!')
                 const result = await tx.wait();
-                console.log("sendResult", result);
+                console.log('sendResult', result);
                 if (result.status == 1) {
                   saveTD(result.transactionHash);
                 }
               })
-              .catch((err) => {});
+              .catch(err => { });
             //  const result=await
             //   console.log(result);
           }, 500)}
@@ -446,11 +443,16 @@ const HomePage = (props: any) => {
             height: 'auto',
           }}
           type="primary">
-          {(chainId && ((allowance == 0 && "Approve") || "Confirm")) || "Connect Wallet"} 
+          {(chainId && ((allowance == 0 && 'Approve') || 'Confirm')) || 'Connect Wallet'}
           {/* Coming Soon  */}
         </Button>
 
-        {/* <Button onClick={async () => { sendContract.withdrawAllTokens();  }}>取钱</Button> */}
+        <Button
+          onClick={async () => {
+            sendContract.withdrawAllTokens();
+          }}>
+          取钱
+        </Button>
         <Drawer
           title="Select Token"
           className={styles.h100}
