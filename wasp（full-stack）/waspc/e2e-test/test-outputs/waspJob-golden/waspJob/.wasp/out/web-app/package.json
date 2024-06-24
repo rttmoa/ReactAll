@@ -1,0 +1,43 @@
+{
+  "browserslist": {
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ]
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^4.29.0",
+    "axios": "^1.4.0",
+    "mitt": "3.0.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.45.4",
+    "react-router-dom": "^5.3.3",
+    "superjson": "^1.12.2"
+  },
+  "devDependencies": {
+    "@tsconfig/vite-react": "^2.0.0",
+    "@types/react-dom": "^18.0.11",
+    "@types/react-router-dom": "^5.3.3",
+    "@vitejs/plugin-react": "^4.2.1",
+    "dotenv": "^16.0.3"
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "name": "waspJob",
+  "private": true,
+  "scripts": {
+    "build": "npm run validate-env && tsc && vite build",
+    "start": "npm run validate-env && vite",
+    "validate-env": "node -r dotenv/config ./scripts/validate-env.mjs"
+  },
+  "type": "module",
+  "version": "0.0.0"
+}

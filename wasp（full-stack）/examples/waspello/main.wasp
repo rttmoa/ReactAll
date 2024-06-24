@@ -1,0 +1,113 @@
+app waspello {
+  wasp: {
+    version: "^0.13.0"
+  },
+
+  title: "Waspello",
+
+  db: {
+    system: PostgreSQL
+  },
+
+  auth: {
+    userEntity: User,
+    methods: {
+      usernameAndPassword: {},
+      google: {}
+    },
+    onAuthFailedRedirectTo: "/login"
+  }
+}
+
+route MainRoute { path: "/", to: Main }
+page Main {
+    authRequired: true,
+    component: import Main from "@src/cards/MainPage.jsx"
+}
+
+route SignupRoute { path: "/signup", to: Signup }
+page Signup {
+    component: import Signup from "@src/auth/SignupPage.jsx"
+}
+
+route LoginRoute { path: "/login", to: Login }
+page Login {
+    component: import Login from "@src/auth/LoginPage.jsx"
+}
+
+// Entities
+
+entity User {=psl
+    id          Int     @id @default(autoincrement())
+
+    lists       List[]
+    cards       Card[]
+psl=}
+
+entity List {=psl
+    id          Int     @id @default(autoincrement())
+    name        String
+    pos         Float
+
+    // List has a single author.
+    user        User    @relation(fields: [userId], references: [id])
+    userId      Int
+
+    cards       Card[]
+psl=}
+
+entity Card {=psl
+    id          Int     @id @default(autoincrement())
+    title       String
+    pos         Float
+
+    // Card belongs to a single list.
+    list        List    @relation(fields: [listId], references: [id])
+    listId      Int
+
+    // Card has a single author.
+    author      User    @relation(fields: [authorId], references: [id])
+    authorId    Int
+psl=}
+
+// ------------------- Queries and actions
+
+query getListsAndCards {
+    fn: import { getListsAndCards } from "@src/cards/lists.js",
+    entities: [List, Card]
+}
+
+// Lists
+
+action createList {
+    fn: import { createList } from "@src/cards/lists.js",
+    entities: [List]
+}
+
+action updateList {
+    fn: import { updateList } from "@src/cards/lists.js",
+    entities: [List]
+}
+
+action deleteList {
+    fn: import { deleteList } from "@src/cards/lists.js",
+    entities: [List, Card]
+}
+
+action createListCopy {
+    fn: import { createListCopy } from "@src/cards/lists.js",
+    entities: [List, Card]
+}
+
+// Cards
+
+action createCard {
+    fn: import { createCard } from "@src/cards/cards.js",
+    entities: [Card]
+}
+
+action updateCard {
+    fn: import { updateCard } from "@src/cards/cards.js",
+    entities: [Card]
+}
+

@@ -1,0 +1,56 @@
+app waspleau {
+  wasp: {
+    version: "^0.13.0"
+  },
+
+  title: "Waspleau",
+
+  server: {
+    setupFn: import serverSetup from "@src/serverSetup"
+  },
+
+  db: { system: PostgreSQL }
+}
+
+job github {
+  executor: PgBoss,
+  perform: {
+    fn: import { workerFunction } from "@src/workers/github"
+  },
+  schedule: {
+    cron: "*/10 * * * *"
+  },
+  entities: [Datum]
+}
+
+job loadTime {
+  executor: PgBoss,
+  perform: {
+    fn: import { workerFunction } from "@src/workers/loadTime"
+  },
+  schedule: {
+    cron: "*/5 * * * *",
+    args: {=json {
+      "url": "https://wasp-lang.dev",
+      "name": "wasp-lang.dev Load Time"
+    } json=}
+  },
+  entities: [Datum]
+}
+
+entity Datum {=psl
+    id          Int       @id @default(autoincrement())
+    name        String    @unique
+    value       String
+    updatedAt   DateTime  @updatedAt
+psl=}
+
+route RootsRoute { path: "/", to: MainPage }
+page MainPage {
+  component: import Main from "@src/MainPage"
+}
+
+query dashboard {
+  fn: import { refreshDashboardData } from "@src/dashboard",
+  entities: [Datum]
+}

@@ -1,0 +1,37 @@
+app hackathonBetaSubmissions {
+  wasp: {
+    version: "^0.13.0"
+  },
+  db: {
+    system: PostgreSQL
+  },
+  title: "Hackathon Submissions"
+}
+
+entity Submission {=psl
+  name        String  @id @unique
+  email       String  @unique
+  github      String
+  description String
+  twitter     String?
+  country     String?
+  website     String?
+  image       String?
+  approved    Boolean @default(false)
+  createdAt   DateTime @default(now())
+psl=}
+
+route RootRoute { path: "/", to: MainPage }
+page MainPage {
+  component: import Main from "@src/MainPage.tsx"
+}
+
+action submitProject {
+  fn: import { submitProject } from "@src/projects.js",
+  entities: [Submission]
+}
+
+query getProjects {
+  fn: import { getProjects } from "@src/projects.js",
+  entities: [Submission]
+}

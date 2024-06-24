@@ -1,0 +1,12 @@
+.dir-locals.el
+# Local Netlify folder
+.netlify
+
+# editor related
+.idea/
+*.swo
+*.swp
+
+# macOS related
+.DS_Store
+.vscode/

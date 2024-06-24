@@ -1,0 +1,67 @@
+.sectionSkewed {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transform-origin: 100% 0;
+  transform: skewY(-2deg);
+  overflow: hidden;
+}
+
+.sectionSkewedContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.leftLights::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  width: 1223px;
+  height: 912px;
+
+  width: 1200px;
+  height: 912px;
+
+  left: calc(50% - 1100px);
+  top: -10%;
+
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(255, 214, 0, 0.2) 0%,
+    rgba(255, 168, 0, 0) 100%
+  );
+  will-change: filter;
+  mix-blend-mode: normal;
+}
+
+.lightsTwo::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  width: 1223px;
+  height: 912px;
+
+  width: 1200px;
+  height: 912px;
+
+  left: calc(50%);
+  top: 0px;
+
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(255, 214, 0, 0.2) 0%,
+    rgba(255, 168, 0, 0) 100%
+  );
+  will-change: filter;
+  mix-blend-mode: normal;
+}
+
+/* NOTE(matija): for some reason I couldn't get tailwind gradient to work when docusaurus build,
+ * so I resorted to doing it manually.
+ */
+.gradientBackground {
+  background-image: linear-gradient(to right, #d946ef, #ffcc00);
+}

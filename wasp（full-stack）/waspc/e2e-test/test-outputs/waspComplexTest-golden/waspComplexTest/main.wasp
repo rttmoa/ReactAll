@@ -1,0 +1,111 @@
+app waspComplexTest {
+  db: { system: PostgreSQL },
+  wasp: {
+    version: "^0.14.0"
+  },
+  auth: {
+    userEntity: User,
+    externalAuthEntity: SocialLogin,
+    methods: {
+      google: {}
+    },
+    onAuthFailedRedirectTo: "/login"
+  },
+
+  server: {
+    setupFn: import mySetupFunction from "@src/server/myServerSetupCode.js",
+  },
+
+  client: {
+    setupFn: import myClientSetupFunction from "@src/client/myClientSetupCode.js",
+    rootComponent: import App from "@src/client/App.jsx"
+  },
+
+  emailSender: {
+    provider: SendGrid,
+    defaultFrom: {
+      name: "Hello",
+      email: "hello@itsme.com"
+    },
+  },
+
+  title: "waspComplexTest"
+}
+
+route RootRoute { path: "/", to: MainPage }
+page MainPage {
+  component: import { MainPage } from "@src/MainPage"
+}
+entity User {=psl
+  id                        Int           @id @default(autoincrement())
+  username                  String        @unique
+  password                  String
+  externalAuthAssociations  SocialLogin[]
+psl=}
+
+entity SocialLogin {=psl
+  id          Int       @id @default(autoincrement())
+  provider    String
+  providerId  String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int
+  createdAt   DateTime  @default(now())
+  @@unique([provider, providerId, userId])
+psl=}
+
+job mySpecialJob {
+  executor: PgBoss,
+  perform: {
+    fn: import { foo } from "@src/server/jobs/bar.js"
+  }
+}
+
+job returnHelloJob {
+  executor: PgBoss,
+  perform: {
+    fn: import { returnHello } from "@src/server/jobs/returnHello.js",
+  },
+  entities: [User],
+}
+
+action mySpecialAction {
+  fn: import { foo } from "@src/server/actions/bar.js",
+  entities: [User],
+}
+
+query mySpecialQuery {
+  fn: import { foo } from "@src/server/queries/bar.js",
+  entities: [User],
+}
+
+api fooBar {
+  fn: import { fooBar } from "@src/server/apis.js",
+  httpRoute: (GET, "/foo/bar"),
+  middlewareConfigFn: import { fooBarMiddlewareFn } from "@src/server/apis.js"
+}
+api fooBaz {
+  fn: import { fooBaz } from "@src/server/apis.js",
+  httpRoute: (GET, "/foo/baz"),
+  auth: false
+}
+
+apiNamespace fooBarNamespace {
+  middlewareConfigFn: import { fooBarNamespaceMiddlewareFn } from "@src/server/apiNamespaces.js",
+  path: "/bar"
+}
+
+entity Task {=psl
+  id          Int     @id @default(autoincrement())
+  description String
+  isDone      Boolean @default(false)
+psl=}
+
+crud tasks {
+  entity: Task,
+  operations: {
+    get: {},
+    getAll: {},
+    create: {},
+  }
+}
+

@@ -1,0 +1,39 @@
+app whereDoWeEat {
+  wasp: {
+    version: "^0.13.0"
+  },
+  title: "where-do-we-eat",
+  client: {
+    rootComponent: import { Layout } from "@src/client/Layout.jsx",
+  },
+  auth: {
+    userEntity: User,
+    onAuthFailedRedirectTo: "/login",
+    methods: {
+      usernameAndPassword: {}
+    }
+  },
+  webSocket: {
+    fn: import { webSocketFn } from "@src/server/ws-server.js",
+  }
+}
+
+entity User {=psl
+  id       Int     @id @default(autoincrement())
+psl=}
+
+route RootRoute { path: "/", to: MainPage }
+page MainPage {
+  component: import Main from "@src/client/MainPage.tsx",
+  authRequired: true
+}
+
+route LoginRoute { path: "/login", to: LoginPage }
+page LoginPage {
+  component: import { LoginPage } from "@src/client/pages/LoginPage.jsx"
+}
+
+route RegisterRoute { path: "/signup", to: RegisterPage }
+page RegisterPage {
+  component: import { SignupPage } from "@src/client/pages/SignupPage.jsx"
+}

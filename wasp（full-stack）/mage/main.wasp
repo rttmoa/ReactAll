@@ -1,0 +1,222 @@
+app waspAi {
+  wasp: {
+    version: "^0.13.0"
+  },
+  title: "MAGE - GPT Web App Generator ✨",
+  head: [
+    "<meta property=\"og:title\" content=\"MAGE GPT Web App Generator ✨ MageGPT\">",
+    "<meta property=\"og:description\" content=\"Generate your full-stack React, Node.js and Prisma web app using the magic of GPT and the Wasp full-stack framework.\">",
+    "<meta property=\"og:type\" content=\"website\">",
+    "<meta property=\"og:image\" content=\"https://usemage.ai/twitter.png\">",
+    "<meta name=\"twitter:image\" content=\"https://usemage.ai/twitter.png\" />",
+    "<meta name=\"twitter:image:width\" content=\"800\" />",
+    "<meta name=\"twitter:image:height\" content=\"400\" />",
+    "<meta name=\"twitter:card\" content=\"summary_large_image\" />",
+    "<script defer data-domain=\"usemage.ai\" src=\"https://plausible.apps.twoducks.dev/js/script.js\"></script>",
+  ],
+  client: {
+    rootComponent: import { RootComponent } from "@src/client/RootComponent.jsx",
+  },
+  db: {
+    system: PostgreSQL,
+  },
+  auth: {
+    userEntity: User,
+    methods: {
+      gitHub: {
+        configFn: import { getGitHubAuthConfig } from "@src/server/auth.js",
+        userSignupFields: import { gitHubUserSignupFields } from "@src/server/auth.ts",
+      },
+      google: {
+        configFn: import { getGoogleAuthConfig } from "@src/server/auth.js",
+        userSignupFields: import { googleUserSignupFields } from "@src/server/auth.ts",
+      },
+    },
+    onAuthFailedRedirectTo: "/",
+    onAuthSucceededRedirectTo: "/"
+  }
+}
+
+route RootRoute { path: "/", to: MainPage }
+page MainPage {
+  component: import Main from "@src/client/pages/MainPage.jsx"
+}
+
+route ResultRoute { path: "/result/:appId", to: ResultPage }
+page ResultPage {
+  component: import { ResultPage } from "@src/client/pages/ResultPage.jsx"
+}
+
+route UserRoute { path: "/user", to: UserPage }
+page UserPage {
+  component: import { UserPage } from "@src/client/pages/UserPage.jsx",
+  authRequired: true
+}
+
+route StatsRoute { path: "/stats", to: StatsPage }
+page StatsPage {
+  component: import { Stats } from "@src/client/pages/StatsPage.jsx",
+  authRequired: true
+}
+
+route FeedbackRoute { path: "/feedback", to: FeedbackPage }
+page FeedbackPage {
+  component: import { Feedback } from "@src/client/pages/FeedbackPage.jsx",
+  authRequired: true
+}
+
+route LoginRoute { path: "/login", to: LoginPage }
+page LoginPage {
+  component: import { LoginPage } from "@src/client/pages/LoginPage.jsx",
+}
+
+action startGeneratingNewApp {
+  fn: import { startGeneratingNewApp } from "@src/server/operations.js",
+  entities: [
+    Project,
+  ]
+}
+
+action registerZipDownload {
+  fn: import { registerZipDownload } from "@src/server/operations.js",
+  entities: [Project]
+}
+
+action createFeedback {
+  fn: import { createFeedback } from "@src/server/operations.js",
+  entities: [Feedback]
+}
+
+action deleteMyself {
+  fn: import { deleteMyself } from "@src/server/operations.js",
+  entities: [User, Project, File, Log]
+}
+
+query getFeedback {
+  fn: import { getFeedback } from "@src/server/operations.js",
+  entities: [Feedback]
+}
+
+query getProjectsByUser {
+  fn: import { getProjectsByUser } from "@src/server/operations.js",
+  entities: [Project]
+}
+
+
+query getAppGenerationResult {
+  fn: import { getAppGenerationResult } from "@src/server/operations.js",
+  entities: [
+    Project
+  ]
+}
+
+query getProjects {
+  fn: import { getProjects } from "@src/server/operations.js",
+  entities: [
+    Project
+  ]
+}
+
+query getStats {
+  fn: import { getStats } from "@src/server/operations.js",
+  entities: [
+    Project
+  ]
+}
+
+query getNumProjects {
+  fn: import { getNumProjects } from "@src/server/operations.js",
+  entities: [
+    Project
+  ]
+}
+
+entity User {=psl
+  id Int @id @default(autoincrement())
+
+  email String?
+  username String?
+
+  projects Project[]
+psl=}
+
+entity Project {=psl
+  id String @id @default(uuid())
+  name String
+  description String
+  primaryColor String @default("sky")
+  authMethod String @default("usernameAndPassword")
+  creativityLevel String @default("balanced")
+  createdAt DateTime @default(now())
+  status String @default("pending")
+  referrer String @default("unknown")
+  zipDownloadedAt DateTime?
+  userId Int?
+  user User? @relation(fields: [userId], references: [id])
+  files File[]
+  logs Log[]
+  feedbacks Feedback[]
+psl=}
+
+entity Feedback {=psl
+  id String @id @default(uuid())
+  score Int
+  message String
+  createdAt DateTime @default(now())
+
+  projectId String
+  project Project @relation(fields: [projectId], references: [id])
+psl=}
+
+entity File {=psl
+  id String @id @default(uuid())
+  name String
+  content String
+  createdAt DateTime @default(now())
+  projectId String
+  project Project @relation(fields: [projectId], references: [id])
+
+  @@index([name, projectId])
+psl=}
+
+entity Log {=psl
+  id String @id @default(uuid())
+  content String
+  createdAt DateTime @default(now())
+  projectId String
+  project Project @relation(fields: [projectId], references: [id])
+psl=}
+
+job checkPendingAppsJob {
+  executor: PgBoss,
+  schedule: {
+    cron: "* * * * *",
+  },
+  perform: {
+    fn: import { checkForPendingApps } from "@src/server/jobs/checkForPendingApps.js"
+  },
+  entities: [Project]
+}
+
+job failStaleAppsJobs {
+  executor: PgBoss,
+  schedule: {
+    cron: "* * * * *",
+  },
+  perform: {
+    fn: import { failStaleGenerations } from "@src/server/jobs/failStaleGenerations.js",
+  },
+  entities: [Project, Log]
+}
+
+job generateAppJob {
+  executor: PgBoss,
+  perform: {
+    fn: import { generateApp } from "@src/server/jobs/generateApp.js",
+  },
+  entities: [
+    Project,
+    File,
+    Log
+  ]
+}
